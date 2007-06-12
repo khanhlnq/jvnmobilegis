@@ -179,7 +179,7 @@ public class MapViewUI extends Canvas implements CommandListener, WMSRequestPara
     }
 
     /**
-     * @param boundingBox  the boundingBox to set
+     * @param latLonBoundingBox  the boundingBox to set
      * @uml.property  name="boundingBox"
      */
     public void setBoundingBox(Float[] latLonBoundingBox) {
