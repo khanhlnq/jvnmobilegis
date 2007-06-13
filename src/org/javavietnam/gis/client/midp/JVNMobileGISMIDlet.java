@@ -52,7 +52,7 @@ import org.javavietnam.gis.shared.midp.ApplicationException;
 
 /**
  */
-public class MobileGISMIDlet extends MIDlet {
+public class JVNMobileGISMIDlet extends MIDlet {
 
     public static final String PROPERTY_SERVICE_URL = "WMS-Server-URL";
     public static final String PROPERTY_LOCALE = "MobileGIS-Locale";
