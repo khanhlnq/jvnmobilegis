@@ -559,12 +559,12 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         URL = replace(URL, '\u00ec', "%EC");
         URL = replace(URL, '\u00f2', "%F2");
         URL = replace(URL, '\u00f9', "%F9");
-        URL = replace(URL, '$', "%24");
-        URL = replace(URL, '#', "%23");
-        URL = replace(URL, '£', "%A3");
-        URL = replace(URL, '@', "%40");
+        URL = replace(URL, '\u0024', "%24");
+        URL = replace(URL, '\u0023', "%23");
+        URL = replace(URL, '\u00a3', "%A3");
+        URL = replace(URL, '\u0040', "%40");
         URL = replace(URL, '\'', "%27");
-        URL = replace(URL, ' ', "%20");
+        URL = replace(URL, '\u0020', "%20");
 
         return URL;
     }
