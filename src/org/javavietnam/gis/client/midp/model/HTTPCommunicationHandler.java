@@ -553,12 +553,12 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
     }
 
     private String encodeURL(String URL) {
-        URL = replace(URL, 'à', "%E0");
-        URL = replace(URL, 'è', "%E8");
-        URL = replace(URL, 'é', "%E9");
-        URL = replace(URL, 'ì', "%EC");
-        URL = replace(URL, 'ò', "%F2");
-        URL = replace(URL, 'ù', "%F9");
+        URL = replace(URL, '\u00e0', "%E0");
+        URL = replace(URL, '\u00e8', "%E8");
+        URL = replace(URL, '\u00e9', "%E9");
+        URL = replace(URL, '\u00ec', "%EC");
+        URL = replace(URL, '\u00f2', "%F2");
+        URL = replace(URL, '\u00f9', "%F9");
         URL = replace(URL, '$', "%24");
         URL = replace(URL, '#', "%23");
         URL = replace(URL, '£', "%A3");

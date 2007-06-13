@@ -1,5 +1,5 @@
-MIDlet-1: JVNMobileGIS, , org.javavietnam.gis.client.midp.MobileGISMIDl
- et
+MIDlet-1: JVNMobileGIS, /icons/JVNMobileGIS_icon.png, org.javavietnam.g
+ is.client.midp.JVNMobileGISMIDlet
 MIDlet-Description: A mobile GIS viewer
 MIDlet-Name: JVNMobileGIS
 MIDlet-Vendor: JavaVietnam & CIREN
