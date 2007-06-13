@@ -52,7 +52,7 @@ import javax.microedition.lcdui.Display;
 import javax.microedition.lcdui.Displayable;
 import javax.microedition.lcdui.Image;
 import javax.microedition.midlet.MIDlet;
-import org.javavietnam.gis.client.midp.MobileGISMIDlet;
+import org.javavietnam.gis.client.midp.JVNMobileGISMIDlet;
 import org.javavietnam.gis.client.midp.model.ErrorMessageCodes;
 import org.javavietnam.gis.client.midp.model.ModelFacade;
 import org.javavietnam.gis.client.midp.model.Preferences;
@@ -186,7 +186,7 @@ public class UIController {
 
         Alert alert = new Alert(null, getString(UIConstants.MOBILEGIS_CLIENT)
                                       + " version "
-                                      + midlet.getAppProperty(MobileGISMIDlet.PROPERTY_MIDLET_VERSION)
+                                      + midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION)
                                       + "\n"
                                       + getString(UIConstants.COPYRIGHT), icons[UIConstants.ICON_IDX_SPLASH], null);
         alert.setTimeout(UIConstants.SPLASH_TIMEOUT);
@@ -526,8 +526,8 @@ public class UIController {
                 }
 
                 case EventIds.EVENT_ID_CHECKUPDATE: {
-                    String currentVersion = checkUpdate(midlet.getAppProperty(MobileGISMIDlet.PROPERTY_UPDATE_URL));
-                    String oldVersion = midlet.getAppProperty(MobileGISMIDlet.PROPERTY_MIDLET_VERSION);
+                    String currentVersion = checkUpdate(midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_UPDATE_URL));
+                    String oldVersion = midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION);
                     // System.out.println("****** Current Version = " + currentVersion + ". oldVersion = " +
                     // oldVersion);
                     if (null != currentVersion && currentVersion.compareTo(oldVersion) > 0) {

@@ -30,9 +30,9 @@
     <orderEntryProperties />
   </component>
   <component name="com.intellij.j2meplugin.module.settings.midp.MIDPSettings">
-    <setting name="MIDlet-1" module.settings.user.defined.value="JVNMobileGIS,,org.javavietnam.gis.client.midp.MobileGISMIDlet" />
+    <setting name="MIDlet-1" module.settings.user.defined.value="JVNMobileGIS,/icons/JVNMobileGIS_icon.png,org.javavietnam.gis.client.midp.JVNMobileGISMIDlet" />
     <setting name="MIDlet-Description" module.settings.user.defined.value="A mobile GIS viewer" />
-    <setting name="MIDlet-Jar-Size" module.settings.user.defined.value="114226" />
+    <setting name="MIDlet-Jar-Size" module.settings.user.defined.value="114253" />
     <setting name="MIDlet-Jar-URL" module.settings.user.defined.value="JVNMobileGIS.jar" />
     <setting name="MIDlet-Name" module.settings.user.defined.value="JVNMobileGIS" />
     <setting name="MIDlet-Vendor" module.settings.user.defined.value="JavaVietnam &amp; CIREN" />
