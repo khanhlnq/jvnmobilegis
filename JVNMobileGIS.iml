@@ -14,8 +14,8 @@
     <setting name="MIDlet-Name" module.settings.user.defined.value="JVNMobileGIS" />
     <setting name="MIDlet-Vendor" module.settings.user.defined.value="JavaVietnam &amp; CIREN" />
     <setting name="MIDlet-Version" module.settings.user.defined.value="1.0" />
-    <jarUrl jarUrlName="$MODULE_DIR$/dist/JVNMobileGIS.jar" />
-    <descriptionPath path="$MODULE_DIR$/dist/JVNMobileGIS.jad" useUserDescriptor="true" />
+    <jarUrl jarUrlName="$MODULE_DIR$/bin/JVNMobileGIS.jar" />
+    <descriptionPath path="$MODULE_DIR$/bin/JVNMobileGIS.jad" useUserDescriptor="true" />
     <manifest useUserManifest="false" />
   </component>
   <component name="ModuleRootManager" />
@@ -39,8 +39,8 @@
     <setting name="MIDlet-Version" module.settings.user.defined.value="1.0" />
     <setting name="MicroEdition-Configuration" module.settings.user.defined.value="CLDC-1.0" />
     <setting name="MicroEdition-Profile" module.settings.user.defined.value="MIDP-2.0" />
-    <jarUrl jarUrlName="$MODULE_DIR$/dist/JVNMobileGIS.jar" />
-    <descriptionPath path="$MODULE_DIR$/dist/JVNMobileGIS.jad" useUserDescriptor="false" />
+    <jarUrl jarUrlName="$MODULE_DIR$/bin/JVNMobileGIS.jar" />
+    <descriptionPath path="$MODULE_DIR$/bin/JVNMobileGIS.jad" useUserDescriptor="false" />
     <manifest useUserManifest="false" />
   </component>
 </module>
