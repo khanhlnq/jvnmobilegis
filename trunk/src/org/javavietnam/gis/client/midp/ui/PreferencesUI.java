@@ -62,7 +62,7 @@ public class PreferencesUI extends Form implements CommandListener {
     }
 
     public void init(Preferences preferences) {
-        if ("en_US".equals(preferences.getDefaultLocale())) {
+        if ("en-US".equals(preferences.getDefaultLocale())) {
             languageChoice.setSelectedIndex(0, true);
         }
         else if ("vi".equals(preferences.getDefaultLocale())) {

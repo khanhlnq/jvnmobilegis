@@ -147,7 +147,7 @@ public class ModelFacade {
     }
 
     private String makeResourceBundleName(String baseName, String locale) {
-        return new StringBuffer(L10N_ROOT_DIR).append(baseName).append("_").append(locale).append(".properties").toString();
+        return new StringBuffer(L10N_ROOT_DIR).append(baseName).append("-").append(locale).append(".properties").toString();
     }
 
     public Image getMapWMS(WMSRequestParameter requestParam, Vector layerList) throws ApplicationException {
