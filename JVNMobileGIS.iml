@@ -32,11 +32,11 @@
   <component name="com.intellij.j2meplugin.module.settings.midp.MIDPSettings">
     <setting name="MIDlet-1" module.settings.user.defined.value="JVNMobileGIS,/icons/JVNMobileGIS_icon.png,org.javavietnam.gis.client.midp.JVNMobileGISMIDlet" />
     <setting name="MIDlet-Description" module.settings.user.defined.value="A mobile GIS viewer" />
-    <setting name="MIDlet-Jar-Size" module.settings.user.defined.value="114253" />
+    <setting name="MIDlet-Jar-Size" module.settings.user.defined.value="114254" />
     <setting name="MIDlet-Jar-URL" module.settings.user.defined.value="JVNMobileGIS.jar" />
     <setting name="MIDlet-Name" module.settings.user.defined.value="JVNMobileGIS" />
     <setting name="MIDlet-Vendor" module.settings.user.defined.value="JavaVietnam &amp; CIREN" />
-    <setting name="MIDlet-Version" module.settings.user.defined.value="1.0" />
+    <setting name="MIDlet-Version" module.settings.user.defined.value="1.0.0" />
     <setting name="MicroEdition-Configuration" module.settings.user.defined.value="CLDC-1.0" />
     <setting name="MicroEdition-Profile" module.settings.user.defined.value="MIDP-2.0" />
     <jarUrl jarUrlName="$MODULE_DIR$/bin/JVNMobileGIS.jar" />
