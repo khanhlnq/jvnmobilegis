@@ -29,10 +29,7 @@
     <list default="true" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JVNMobileGIS.iml" afterPath="$PROJECT_DIR$/JVNMobileGIS.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JVNMobileGIS.iws" afterPath="$PROJECT_DIR$/JVNMobileGIS.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/UIController.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/UIController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/JVNMobileGIS.jad" afterPath="$PROJECT_DIR$/bin/JVNMobileGIS.jad" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/MobileGISMIDlet.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/JVNMobileGISMIDlet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nbproject/project.properties" afterPath="$PROJECT_DIR$/nbproject/project.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/JVNMobileGIS.jar" afterPath="$PROJECT_DIR$/bin/JVNMobileGIS.jar" />
     </list>
     <list name="Failed commit: Default" comment="Update JVNMobileGIS 1.0" />
@@ -170,7 +167,7 @@
       <file leaf-file-name="MapViewUI.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/MapViewUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="249" column="38" selection-start="9308" selection-end="9308" vertical-scroll-proportion="0.7244318">
+            <state line="285" column="25" selection-start="10124" selection-end="10124" vertical-scroll-proportion="0.46875">
               <folding />
             </state>
           </provider>
@@ -179,7 +176,7 @@
       <file leaf-file-name="JVNMobileGISMIDlet.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/JVNMobileGISMIDlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="57" column="40" selection-start="3469" selection-end="3469" vertical-scroll-proportion="0.42613637">
+            <state line="57" column="40" selection-start="3469" selection-end="3469" vertical-scroll-proportion="0.042613637">
               <folding />
             </state>
           </provider>
@@ -362,7 +359,7 @@
     </subPane>
   </component>
   <component name="ProjectReloadState">
-    <option name="STATE" value="0" />
+    <option name="STATE" value="2" />
   </component>
   <component name="ProjectRootConfigurable.UI">
     <option name="proportions">
@@ -407,6 +404,26 @@
   <component name="RecentsManager" />
   <component name="RestoreUpdateTree" />
   <component name="RunManager" selected="J2ME.Run JVNMobileGIS">
+    <configuration default="true" type="#com.intellij.j2meplugin.run.J2MEConfigurationType" factoryName="J2ME">
+      <module name="JVNMobileGIS" />
+      <USER_OPTIONS />
+      <option name="TARGET_DEVICE_NAME" />
+      <option name="COMMAND_LINE_PARAMETERS" />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="JAD_NAME" value="$PROJECT_DIR$/bin/JVNMobileGIS.jad" />
+      <option name="IS_CLASSES" value="false" />
+      <option name="IS_OTA" value="false" />
+      <option name="INSTALL" />
+      <option name="REMOVE" />
+      <option name="RUN" />
+      <option name="TRANSIENT" />
+      <option name="FORCE" />
+      <option name="TO_START" />
+      <option name="SELECTION" value="0" />
+      <method>
+        <option name="Make" value="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -433,33 +450,6 @@
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
       <module name="" />
     </configuration>
-    <configuration default="true" type="#com.intellij.j2meplugin.run.J2MEConfigurationType" factoryName="J2ME">
-      <module name="JVNMobileGIS" />
-      <USER_OPTIONS />
-      <option name="TARGET_DEVICE_NAME" />
-      <option name="COMMAND_LINE_PARAMETERS" />
-      <option name="MAIN_CLASS_NAME" value="" />
-      <option name="JAD_NAME" value="$PROJECT_DIR$/bin/JVNMobileGIS.jad" />
-      <option name="IS_CLASSES" value="false" />
-      <option name="IS_OTA" value="false" />
-      <option name="INSTALL" />
-      <option name="REMOVE" />
-      <option name="RUN" />
-      <option name="TRANSIENT" />
-      <option name="FORCE" />
-      <option name="TO_START" />
-      <option name="SELECTION" value="0" />
-      <method>
-        <option name="Make" value="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-    </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
       <module name="" />
       <option name="MAIN_CLASS_NAME" />
@@ -471,6 +461,13 @@
       <option name="VM_PARAMETERS" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
     </configuration>
     <configuration default="false" name="Run JVNMobileGIS" type="#com.intellij.j2meplugin.run.J2MEConfigurationType" factoryName="J2ME">
       <module name="JVNMobileGIS" />
@@ -594,15 +591,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-3" y="24" width="1030" height="723" extended-state="0" />
+    <frame x="-5" y="24" width="1034" height="724" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="1" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5787728" order="1" />
-      <window_info id="DBHelper" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5787728" order="1" />
+      <window_info id="DBHelper" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295688" order="3" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.39966273" order="3" x="35" y="265" width="959" height="237" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
@@ -613,11 +610,11 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="0" />
       <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3295688" order="0" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26283368" order="0" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="2" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39966273" order="6" />
       <window_info id="Duplicates" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3283582" order="2" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32724252" order="2" />
       <window_info id="DBOutput" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="ConsoleMavenPlugin" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="File View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
@@ -736,13 +733,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/JVNMobileGISMIDlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="57" column="40" selection-start="3469" selection-end="3469" vertical-scroll-proportion="0.42613637">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bin/JVNMobileGIS.jad">
       <provider selected="true" editor-type-id="text-editor">
         <state line="5" column="35" selection-start="262" selection-end="262" vertical-scroll-proportion="0.21306819">
@@ -750,9 +740,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/JVNMobileGISMIDlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="57" column="40" selection-start="3469" selection-end="3469" vertical-scroll-proportion="0.042613637">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/MapViewUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="249" column="38" selection-start="9308" selection-end="9308" vertical-scroll-proportion="0.7244318">
+        <state line="285" column="25" selection-start="10124" selection-end="10124" vertical-scroll-proportion="0.46875">
           <folding />
         </state>
       </provider>
