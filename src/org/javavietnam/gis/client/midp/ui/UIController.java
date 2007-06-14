@@ -266,7 +266,7 @@ public class UIController {
             Preferences preferences = model.getPreferences();
             switch (preferencesUI.getSelectedLanguage()) {
             case 0:
-                preferences.setDefaultLocale("en_US");
+                preferences.setDefaultLocale("en-US");
                 break;
             case 1:
                 preferences.setDefaultLocale("vi");
