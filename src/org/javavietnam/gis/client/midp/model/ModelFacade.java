@@ -39,20 +39,59 @@
  * You acknowledge that this software is not designed, licensed or
  * intended for use in the design, construction, operation or maintenance
  * of any nuclear facility.
- * $Id$
  */
-/* * $URL$ * $Author$ * $Revision$ *$Date$ * * *===================================================== * */package org.javavietnam.gis.client.midp.model;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Vector;
-import javax.microedition.lcdui.Image;
+
+/*
+ * $Id$
+ * $URL$
+ * $Author$
+ * $Revision$
+ * $Date$
+ *
+ * ====================================================================
+ *
+ * Copyright (C) 2006-2007 by JVNGIS
+ *
+ * All copyright notices regarding JVNMobileGIS MUST remain
+ * intact in the Java codes and resource files.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ * Support can be obtained from project homepage at:
+ * http://code.google.com/p/jvnmobilegis/
+ *
+ * Correspondence and Marketing Questions can be sent to:
+ * khanh.lnq at javavietnam.org
+ *
+ * @author: Khanh Le
+ */
+
+package org.javavietnam.gis.client.midp.model;
+
 import org.javavietnam.gis.client.midp.util.ProgressObserver;
 import org.javavietnam.gis.shared.midp.ApplicationException;
 import org.javavietnam.gis.shared.midp.IndexedResourceBundle;
 import org.javavietnam.gis.shared.midp.model.ModelException;
 import org.javavietnam.gis.shared.midp.model.SearchFeatureParameter;
 import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
+
+import javax.microedition.lcdui.Image;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Vector;
 
 
 /**
@@ -62,11 +101,11 @@ public class ModelFacade {
     private static final String BASE_NAME_ERROR_RESOURCES = "ErrorResources";
     private static final String L10N_ROOT_DIR = "/l10n/";
     private String locale;
-    private static final int[] errorMessageCodeMap = new int[] {
+    private static final int[] errorMessageCodeMap = new int[]{
             ErrorMessageCodes.ERROR_GENERAL,
             ErrorMessageCodes.ERROR_CANNOT_CONNECT,
             ErrorMessageCodes.NO_SELECTED_LAYER,
-            ErrorMessageCodes.NO_SELECTED_POINT };
+            ErrorMessageCodes.NO_SELECTED_POINT};
 
     private RemoteModelProxy remoteModel;
 
@@ -108,8 +147,8 @@ public class ModelFacade {
     }
 
     /**
-     * @param locale  The locale to set.
-     * @uml.property  name="locale"
+     * @param locale The locale to set.
+     * @uml.property name="locale"
      */
     public void setLocale(String locale) throws ApplicationException {
         IndexedResourceBundle errorBundle;
@@ -124,8 +163,8 @@ public class ModelFacade {
     }
 
     /**
-     * @return  the locale
-     * @uml.property  name="locale"
+     * @return the locale
+     * @uml.property name="locale"
      */
     public String getLocale() {
         return locale;

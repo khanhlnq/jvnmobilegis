@@ -1,10 +1,43 @@
-/* * $URL$ * $Author$ * $Revision$ *$Date$ * * *===================================================== * */package org.javavietnam.gis.shared.midp;
+/*
+ * $Id$
+ * $URL$
+ * $Author$
+ * $Revision$
+ * $Date$
+ *
+ * ====================================================================
+ *
+ * Copyright (C) 2006-2007 by JVNGIS
+ *
+ * All copyright notices regarding JVNMobileGIS MUST remain
+ * intact in the Java codes and resource files.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ * Support can be obtained from project homepage at:
+ * http://code.google.com/p/jvnmobilegis/
+ *
+ * Correspondence and Marketing Questions can be sent to:
+ * khanh.lnq at javavietnam.org
+ *
+ * @author: Khanh Le
+ */
+
+package org.javavietnam.gis.shared.midp;
 
 import henson.midp.Float;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.util.Vector;
 import org.javavietnam.gis.shared.midp.model.InnerTreeNode;
 import org.javavietnam.gis.shared.midp.model.LayerInformation;
 import org.javavietnam.gis.shared.midp.model.ServerInformation;
@@ -14,6 +47,11 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import uk.co.wilson.xml.MinML;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.util.Vector;
 
 
 /**
@@ -90,41 +128,38 @@ public class CapabilitiesParser extends MinML {
             if (attributes.getValue("queryable") == null) layerInfo.setField("queryable", "0");
             else layerInfo.setField("queryable", attributes.getValue("queryable"));
 
-            if (currPath.size() > 1) layerInfo.setParentLayer(((InnerTreeNode) currPath.lastElement()).getLayerInformation());
+            if (currPath.size() > 1)
+                layerInfo.setParentLayer(((InnerTreeNode) currPath.lastElement()).getLayerInformation());
             currPath.addElement(new InnerTreeNode(layerInfo));
             layerIsParent = true;
-        }
-        else if (name.toLowerCase().equals("srs")
-                 || name.toLowerCase().equals("title")
-                 || name.toLowerCase().equals("name")
-                 || name.toLowerCase().equals("abstract")) {
+        } else if (name.toLowerCase().equals("srs")
+                || name.toLowerCase().equals("title")
+                || name.toLowerCase().equals("name")
+                || name.toLowerCase().equals("abstract")) {
             // nothing
-        }
-        else if (layerIsParent && name.toLowerCase().equals("latlonboundingbox")) {
+        } else if (layerIsParent && name.toLowerCase().equals("latlonboundingbox")) {
 
             ((InnerTreeNode) currPath.lastElement()).getLayerInformation()
-                                                    .setLatLonBoundingBox(Float.parse(attributes.getValue("minx"), 10),
-                                                                          Float.parse(attributes.getValue("miny"), 10),
-                                                                          Float.parse(attributes.getValue("maxx"), 10),
-                                                                          Float.parse(attributes.getValue("maxy"), 10));
-        }
-        else {
+                    .setLatLonBoundingBox(Float.parse(attributes.getValue("minx"), 10),
+                            Float.parse(attributes.getValue("miny"), 10),
+                            Float.parse(attributes.getValue("maxx"), 10),
+                            Float.parse(attributes.getValue("maxy"), 10));
+        } else {
 
             if (name.toLowerCase().equals("style")) layerIsParent = false;
 
             if (name.toLowerCase().equals("getmap")) {
                 getMapIsParent = true;
-            }
-            else if (name.toLowerCase().equals("service")) {
+            } else if (name.toLowerCase().equals("service")) {
                 serviceIsParent = true;
-            }
-            else if (name.toLowerCase().equals("map")) {
+            } else if (name.toLowerCase().equals("map")) {
                 mapIsParent = true;
             }
 
         }
 
-        if (getMapIsParent && name.toLowerCase().equals("onlineresource")) server.setGetMapURL(attributes.getValue("xlink:href"));
+        if (getMapIsParent && name.toLowerCase().equals("onlineresource"))
+            server.setGetMapURL(attributes.getValue("xlink:href"));
 
         if (mapIsParent && name.toLowerCase().equals("get")) server.setGetMapURL(attributes.getValue("onlineResource"));
 
@@ -141,22 +176,18 @@ public class CapabilitiesParser extends MinML {
             currPath.removeElementAt(currPath.size() - 1);
             ((Vector) currPath.lastElement()).addElement(child);
             // End edit by Khanh
-        }
-        else if (layerIsParent
-                 && currPath.size() > 1
-                 && (name.toLowerCase().equals("srs") || name.toLowerCase().equals("title") || name.toLowerCase().equals("name") || name.toLowerCase()
-                                                                                                                                        .equals("abstract"))) {
+        } else if (layerIsParent
+                && currPath.size() > 1
+                && (name.toLowerCase().equals("srs") || name.toLowerCase().equals("title") || name.toLowerCase().equals("name") || name.toLowerCase()
+                .equals("abstract"))) {
             if (thisText.length() > 0) {
                 ((InnerTreeNode) currPath.lastElement()).getLayerInformation().setField(name.toLowerCase(), thisText.toString().trim());
             }
-        }
-        else if (name.toLowerCase().equals("getmap")) {
+        } else if (name.toLowerCase().equals("getmap")) {
             getMapIsParent = false;
-        }
-        else if (name.toLowerCase().equals("service")) {
+        } else if (name.toLowerCase().equals("service")) {
             serviceIsParent = false;
-        }
-        else if (name.toLowerCase().equals("map")) {
+        } else if (name.toLowerCase().equals("map")) {
             mapIsParent = false;
         }
 

@@ -1,27 +1,50 @@
 /*
+ * $Id$
  * $URL$
  * $Author$
  * $Revision$
  * $Date$
  *
+ * ====================================================================
  *
- * =====================================================
+ * Copyright (C) 2006-2007 by JVNGIS
  *
+ * All copyright notices regarding JVNMobileGIS MUST remain
+ * intact in the Java codes and resource files.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ * Support can be obtained from project homepage at:
+ * http://code.google.com/p/jvnmobilegis/
+ *
+ * Correspondence and Marketing Questions can be sent to:
+ * khanh.lnq at javavietnam.org
+ *
+ * @author: Khanh Le
  */
 
 package org.javavietnam.gis.client.midp.ui;
 
 import henson.midp.Float;
-import javax.microedition.lcdui.Command;
-import javax.microedition.lcdui.CommandListener;
-import javax.microedition.lcdui.Displayable;
-import javax.microedition.lcdui.Form;
-import javax.microedition.lcdui.TextField;
 import org.javavietnam.gis.shared.midp.model.SearchFeatureParameter;
+
+import javax.microedition.lcdui.*;
 
 
 /**
- * @author  khanhlnq
+ * @author khanhlnq
  */
 public class SearchFeatureUI extends Form implements CommandListener, SearchFeatureParameter {
 
@@ -33,12 +56,14 @@ public class SearchFeatureUI extends Form implements CommandListener, SearchFeat
     private int start = 0;
 
     /**
-     * @uml.property  name="boundingBox"
-     * @uml.associationEnd  multiplicity="(0 -1)"
+     * @uml.property name="boundingBox"
+     * @uml.associationEnd multiplicity="(0 -1)"
      */
     Float[] boundingBox = new Float[4];
 
-    /** Creates a new instance of SearchUI */
+    /**
+     * Creates a new instance of SearchUI
+     */
     public SearchFeatureUI(UIController uiController) {
         super(uiController.getString(UIConstants.SEARCH_FEATURE_UI_TITLE));
         this.uiController = uiController;
@@ -70,43 +95,41 @@ public class SearchFeatureUI extends Form implements CommandListener, SearchFeat
     public void commandAction(Command command, Displayable displayable) {
         if (command == backCommand) {
             uiController.viewMapRequested();
-        }
-        else if (command == searchCommand) {
+        } else if (command == searchCommand) {
             start = 0;
             uiController.searchFeatureRequested();
-        }
-        else {
+        } else {
             uiController.commandAction(command, displayable);
         }
     }
 
     /**
-     * @return  the boundingBox
-     * @uml.property  name="boundingBox"
+     * @return the boundingBox
+     * @uml.property name="boundingBox"
      */
     public Float[] getBoundingBox() {
         return boundingBox;
     }
 
     /**
-     * @return  the webGISURL
-     * @uml.property  name="webGISURL"
+     * @return the webGISURL
+     * @uml.property name="webGISURL"
      */
     public String getWebGISURL() {
         return webGISURL;
     }
 
     /**
-     * @return  the start
-     * @uml.property  name="start"
+     * @return the start
+     * @uml.property name="start"
      */
     public int getStart() {
         return start;
     }
 
     /**
-     * @param start  the start to set
-     * @uml.property  name="start"
+     * @param start the start to set
+     * @uml.property name="start"
      */
     public void setStart(int start) {
         this.start = start;

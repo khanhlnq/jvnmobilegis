@@ -41,7 +41,8 @@
  * of any nuclear facility.
  * $Id$
  */
-/* * $URL$ * $Author$ * $Revision$ *$Date$ * * *===================================================== * */package org.javavietnam.gis.client.midp.model;
+/* * $URL$ * $Author$ * $Revision$ *$Date$ * * *===================================================== * */
+package org.javavietnam.gis.client.midp.model;
 
 import org.javavietnam.gis.shared.midp.ApplicationException;
 

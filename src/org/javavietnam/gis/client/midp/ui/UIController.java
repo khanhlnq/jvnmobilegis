@@ -41,17 +41,46 @@
  * of any nuclear facility.
  * $Id$
  */
-/* * $URL$ * $Author$ * $Revision$ *$Date$ * * *===================================================== * */package org.javavietnam.gis.client.midp.ui;
 
-import java.io.IOException;
-import java.util.Vector;
-import javax.microedition.lcdui.Alert;
-import javax.microedition.lcdui.AlertType;
-import javax.microedition.lcdui.Command;
-import javax.microedition.lcdui.Display;
-import javax.microedition.lcdui.Displayable;
-import javax.microedition.lcdui.Image;
-import javax.microedition.midlet.MIDlet;
+/*
+ * $Id$
+ * $URL$
+ * $Author$
+ * $Revision$
+ * $Date$
+ *
+ * ====================================================================
+ *
+ * Copyright (C) 2006-2007 by JVNGIS
+ *
+ * All copyright notices regarding JVNMobileGIS MUST remain
+ * intact in the Java codes and resource files.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ * Support can be obtained from project homepage at:
+ * http://code.google.com/p/jvnmobilegis/
+ *
+ * Correspondence and Marketing Questions can be sent to:
+ * khanh.lnq at javavietnam.org
+ *
+ * @author: Khanh Le
+ */
+
+package org.javavietnam.gis.client.midp.ui;
+
 import org.javavietnam.gis.client.midp.JVNMobileGISMIDlet;
 import org.javavietnam.gis.client.midp.model.ErrorMessageCodes;
 import org.javavietnam.gis.client.midp.model.ModelFacade;
@@ -63,6 +92,11 @@ import org.javavietnam.gis.shared.midp.model.LayerInformation;
 import org.javavietnam.gis.shared.midp.model.MapFeature;
 import org.javavietnam.gis.shared.midp.model.SearchFeatureParameter;
 import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
+
+import javax.microedition.lcdui.*;
+import javax.microedition.midlet.MIDlet;
+import java.io.IOException;
+import java.util.Vector;
 
 
 /**
@@ -88,7 +122,7 @@ public class UIController {
 
     }
 
-    private static final String[] iconPaths = { "/icons/JVNMobileGIS.png", };
+    private static final String[] iconPaths = {"/icons/JVNMobileGIS.png",};
     private MIDlet midlet;
     public Display display;
     private IndexedResourceBundle resourceBundle;
@@ -121,8 +155,8 @@ public class UIController {
     }
 
     /**
-     * @return  Returns the display.
-     * @uml.property  name="display"
+     * @return Returns the display.
+     * @uml.property name="display"
      */
     public Display getDisplay() {
         return display;
@@ -137,8 +171,8 @@ public class UIController {
     }
 
     /**
-     * @return  the model
-     * @uml.property  name="model"
+     * @return the model
+     * @uml.property name="model"
      */
     public ModelFacade getModel() {
         return model;
@@ -165,8 +199,7 @@ public class UIController {
         featureInfoUI = new FeatureInfoUI(this);
         if (mapViewUI.hasPointerEvents() && mapViewUI.hasPointerMotionEvents()) {
             helpUI = new HelpUI(this, true);
-        }
-        else {
+        } else {
             helpUI = new HelpUI(this, false);
         }
 
@@ -185,10 +218,10 @@ public class UIController {
         }
 
         Alert alert = new Alert(null, getString(UIConstants.MOBILEGIS_CLIENT)
-                                      + " version "
-                                      + midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION)
-                                      + "\n"
-                                      + getString(UIConstants.COPYRIGHT), icons[UIConstants.ICON_IDX_SPLASH], null);
+                + " version "
+                + midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION)
+                + "\n"
+                + getString(UIConstants.COPYRIGHT), icons[UIConstants.ICON_IDX_SPLASH], null);
         alert.setTimeout(UIConstants.SPLASH_TIMEOUT);
         display.setCurrent(alert, mainMenuUI);
 
@@ -200,8 +233,7 @@ public class UIController {
     public void commandAction(Command command, Displayable displayable) {
         if (command == mainMenuCommand) {
             mainMenuRequested();
-        }
-        else if (command == exitCommand) {
+        } else if (command == exitCommand) {
             exitRequested();
         }
     }
@@ -265,14 +297,14 @@ public class UIController {
         try {
             Preferences preferences = model.getPreferences();
             switch (preferencesUI.getSelectedLanguage()) {
-            case 0:
-                preferences.setDefaultLocale("en-US");
-                break;
-            case 1:
-                preferences.setDefaultLocale("vi");
-                break;
-            default:
-                break;
+                case 0:
+                    preferences.setDefaultLocale("en-US");
+                    break;
+                case 1:
+                    preferences.setDefaultLocale("vi");
+                    break;
+                default:
+                    break;
             }
             preferences.setWmsServerURL(preferencesUI.getServerURL());
             preferences.setWebGISURL(preferencesUI.getWebGISURL());
@@ -284,8 +316,7 @@ public class UIController {
                 // reload when the locale changed
                 model.setLocale(preferences.getDefaultLocale());
                 init();
-            }
-            else {
+            } else {
                 // just return to main menu
                 mainMenuRequested();
             }
@@ -339,8 +370,7 @@ public class UIController {
     public void selectInfoLayerRequested() {
         if (layerSelectUI.isAskNextTime()) {
             display.setCurrent(layerSelectUI);
-        }
-        else {
+        } else {
             getFeatureInfoRequested();
         }
     }
@@ -425,120 +455,114 @@ public class UIController {
         public void run() {
             try {
                 switch (taskId) {
-                case EventIds.EVENT_ID_GETMAPWMS: {
-                    Image img = getMapWMS(mapViewUI, layerListUI.getSelectedLayerList());
+                    case EventIds.EVENT_ID_GETMAPWMS: {
+                        Image img = getMapWMS(mapViewUI, layerListUI.getSelectedLayerList());
 
-                    if (img == null) {
-                        showErrorAlert(getString(UIConstants.GET_MAP_WMS_ERROR), mainMenuUI);
-                    }
-                    else {
-                        mapViewUI.init(img);
-                        display.setCurrent(mapViewUI);
-                    }
+                        if (img == null) {
+                            showErrorAlert(getString(UIConstants.GET_MAP_WMS_ERROR), mainMenuUI);
+                        } else {
+                            mapViewUI.init(img);
+                            display.setCurrent(mapViewUI);
+                        }
 
-                    break;
-                }
-
-                case EventIds.EVENT_ID_VIEWPATHWMS: {
-                    Image img = viewPathWMS(mapViewUI);
-
-                    if (img == null) {
-                        showErrorAlert(getString(UIConstants.VIEWPATH_ERROR), findPathUI);
-                    }
-                    else {
-                        mapViewUI.init(img);
-                        display.setCurrent(mapViewUI);
+                        break;
                     }
 
-                    break;
-                }
+                    case EventIds.EVENT_ID_VIEWPATHWMS: {
+                        Image img = viewPathWMS(mapViewUI);
 
-                case EventIds.EVENT_ID_VIEWFEATURE: {
-                    MapFeature feature = searchFeatureResultUI.getSelectedFeature();
-                    // Recenter map view to this feature
-                    mapViewUI.reCenterAtFeature(feature);
+                        if (img == null) {
+                            showErrorAlert(getString(UIConstants.VIEWPATH_ERROR), findPathUI);
+                        } else {
+                            mapViewUI.init(img);
+                            display.setCurrent(mapViewUI);
+                        }
 
-                    // Update new map
-                    Image img = updateMapWMS(mapViewUI, layerListUI.getSelectedLayerList());
-
-                    if (img == null) {
-                        showErrorAlert(getString(UIConstants.GET_MAP_WMS_ERROR), mainMenuUI);
-                    }
-                    else {
-                        mapViewUI.init(img);
-                        display.setCurrent(mapViewUI);
+                        break;
                     }
 
-                    break;
-                }
+                    case EventIds.EVENT_ID_VIEWFEATURE: {
+                        MapFeature feature = searchFeatureResultUI.getSelectedFeature();
+                        // Recenter map view to this feature
+                        mapViewUI.reCenterAtFeature(feature);
 
-                case EventIds.EVENT_ID_FINDPATHWMS: {
-                    String result = findPathWMS(mapViewUI);
-                    findPathUI.init(result);
-                    display.setCurrent(findPathUI);
+                        // Update new map
+                        Image img = updateMapWMS(mapViewUI, layerListUI.getSelectedLayerList());
 
-                    break;
-                }
+                        if (img == null) {
+                            showErrorAlert(getString(UIConstants.GET_MAP_WMS_ERROR), mainMenuUI);
+                        } else {
+                            mapViewUI.init(img);
+                            display.setCurrent(mapViewUI);
+                        }
 
-                case EventIds.EVENT_ID_SEARCHFEATURE: {
-                    String result = searchFeature(searchFeatureUI);
-                    searchFeatureResultUI.init(result);
-                    searchResultUIRequested();
-
-                    break;
-                }
-
-                case EventIds.EVENT_ID_GETFEATUREINFO: {
-                    String result = getFeatureInfo(mapViewUI, layerListUI.getSelectedLayerList(), layerSelectUI.getInfoLayerName());
-                    featureInfoUI.init(result);
-                    display.setCurrent(featureInfoUI);
-
-                    break;
-                }
-
-                case EventIds.EVENT_ID_UPDATEMAPWMS: {
-                    Image img = updateMapWMS(mapViewUI, layerListUI.getSelectedLayerList());
-
-                    if (img == null) {
-                        showErrorAlert(getString(UIConstants.GET_MAP_WMS_ERROR), mainMenuUI);
-                    }
-                    else {
-                        mapViewUI.init(img);
-                        display.setCurrent(mapViewUI);
+                        break;
                     }
 
-                    break;
-                }
+                    case EventIds.EVENT_ID_FINDPATHWMS: {
+                        String result = findPathWMS(mapViewUI);
+                        findPathUI.init(result);
+                        display.setCurrent(findPathUI);
 
-                case EventIds.EVENT_ID_GETCAPABILITIESWMS: {
-                    Vector constructedDataTree = getCapabilitiesWMS(mapServerUI.getServerURL());
-
-                    if (constructedDataTree == null) {
-                        showErrorAlert(getString(UIConstants.GET_CAPABILITIES_WMS_ERROR), mainMenuUI);
-                    }
-                    else {
-                        layerListUI.init((Vector) constructedDataTree.elementAt(0));
-
-                        display.setCurrent(layerListUI);
+                        break;
                     }
 
-                    break;
-                }
+                    case EventIds.EVENT_ID_SEARCHFEATURE: {
+                        String result = searchFeature(searchFeatureUI);
+                        searchFeatureResultUI.init(result);
+                        searchResultUIRequested();
 
-                case EventIds.EVENT_ID_CHECKUPDATE: {
-                    String currentVersion = checkUpdate(midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_UPDATE_URL));
-                    String oldVersion = midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION);
-                    // System.out.println("****** Current Version = " + currentVersion + ". oldVersion = " +
-                    // oldVersion);
-                    if (null != currentVersion && currentVersion.compareTo(oldVersion) > 0) {
-                        showInfoAlert(getString(UIConstants.UPDATE_AVAILABE), mainMenuUI);
-                    }
-                    else {
-                        showInfoAlert(getString(UIConstants.NO_UPDATE_AVAILABE), mainMenuUI);
+                        break;
                     }
 
-                    break;
-                }
+                    case EventIds.EVENT_ID_GETFEATUREINFO: {
+                        String result = getFeatureInfo(mapViewUI, layerListUI.getSelectedLayerList(), layerSelectUI.getInfoLayerName());
+                        featureInfoUI.init(result);
+                        display.setCurrent(featureInfoUI);
+
+                        break;
+                    }
+
+                    case EventIds.EVENT_ID_UPDATEMAPWMS: {
+                        Image img = updateMapWMS(mapViewUI, layerListUI.getSelectedLayerList());
+
+                        if (img == null) {
+                            showErrorAlert(getString(UIConstants.GET_MAP_WMS_ERROR), mainMenuUI);
+                        } else {
+                            mapViewUI.init(img);
+                            display.setCurrent(mapViewUI);
+                        }
+
+                        break;
+                    }
+
+                    case EventIds.EVENT_ID_GETCAPABILITIESWMS: {
+                        Vector constructedDataTree = getCapabilitiesWMS(mapServerUI.getServerURL());
+
+                        if (constructedDataTree == null) {
+                            showErrorAlert(getString(UIConstants.GET_CAPABILITIES_WMS_ERROR), mainMenuUI);
+                        } else {
+                            layerListUI.init((Vector) constructedDataTree.elementAt(0));
+
+                            display.setCurrent(layerListUI);
+                        }
+
+                        break;
+                    }
+
+                    case EventIds.EVENT_ID_CHECKUPDATE: {
+                        String currentVersion = checkUpdate(midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_UPDATE_URL));
+                        String oldVersion = midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION);
+                        // System.out.println("****** Current Version = " + currentVersion + ". oldVersion = " +
+                        // oldVersion);
+                        if (null != currentVersion && currentVersion.compareTo(oldVersion) > 0) {
+                            showInfoAlert(getString(UIConstants.UPDATE_AVAILABE), mainMenuUI);
+                        } else {
+                            showInfoAlert(getString(UIConstants.NO_UPDATE_AVAILABE), mainMenuUI);
+                        }
+
+                        break;
+                    }
 
                 } // for switch - case
             }
@@ -546,17 +570,13 @@ public class UIController {
                 ae.printStackTrace();
                 if (ae.getCode() == ErrorMessageCodes.ERROR_OPERATION_INTERRUPTED) {
                     display.setCurrent(fallbackUI);
-                }
-                else if (ae.getCode() == ErrorMessageCodes.ERROR_CANNOT_CONNECT) {
+                } else if (ae.getCode() == ErrorMessageCodes.ERROR_CANNOT_CONNECT) {
                     showErrorAlert(ae, fallbackUI);
-                }
-                else if (ae.getCode() == ErrorMessageCodes.NO_SELECTED_LAYER) {
+                } else if (ae.getCode() == ErrorMessageCodes.NO_SELECTED_LAYER) {
                     showErrorAlert(ae, fallbackUI);
-                }
-                else if (ae.getCode() == ErrorMessageCodes.NO_SELECTED_POINT) {
+                } else if (ae.getCode() == ErrorMessageCodes.NO_SELECTED_POINT) {
                     showErrorAlert(ae, fallbackUI);
-                }
-                else {
+                } else {
                     showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n" + ae.getMessage(), fallbackUI);
                 }
             }
@@ -588,8 +608,8 @@ public class UIController {
         if (0 < layerList.size()) {
             LayerInformation layerInfo = (LayerInformation) layerList.elementAt(0);
             mapViewUI.initParam(layerInfo.getLatLonBoundingBox(),
-                                layerInfo.getServerInformation().getGetMapURL(),
-                                layerInfo.getField("srs"));
+                    layerInfo.getServerInformation().getGetMapURL(),
+                    layerInfo.getField("srs"));
         }
         // Init layers for select layer UI
         layerSelectUI.init(layerListUI.getSelectedLayerList());

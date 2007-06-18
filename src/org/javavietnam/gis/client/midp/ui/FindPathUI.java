@@ -1,26 +1,51 @@
 /*
- * FindPathUI.java
+ * $Id$
+ * $URL$
+ * $Author$
+ * $Revision$
+ * $Date$
  *
- * Created on April 20, 2006, 11:27 AM
+ * ====================================================================
  *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
+ * Copyright (C) 2006-2007 by JVNGIS
+ *
+ * All copyright notices regarding JVNMobileGIS MUST remain
+ * intact in the Java codes and resource files.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ * Support can be obtained from project homepage at:
+ * http://code.google.com/p/jvnmobilegis/
+ *
+ * Correspondence and Marketing Questions can be sent to:
+ * khanh.lnq at javavietnam.org
+ *
+ * @author: Khanh Le
  */
 
-/* * $URL$ * $Author$ * $Revision$ *$Date$ * * *===================================================== * */package org.javavietnam.gis.client.midp.ui;
+package org.javavietnam.gis.client.midp.ui;
 
-import java.util.Vector;
-import javax.microedition.lcdui.Command;
-import javax.microedition.lcdui.CommandListener;
-import javax.microedition.lcdui.Displayable;
-import javax.microedition.lcdui.Form;
-import javax.microedition.lcdui.StringItem;
 import org.javavietnam.gis.shared.midp.FindPathResultParser;
 import org.javavietnam.gis.shared.midp.model.PathStreet;
 
+import javax.microedition.lcdui.*;
+import java.util.Vector;
+
 
 /**
- * @author  Khanh
+ * @author Khanh
  */
 public class FindPathUI extends Form implements CommandListener {
 
@@ -60,11 +85,11 @@ public class FindPathUI extends Form implements CommandListener {
         if (null != path && 0 < path.size()) {
             StringBuffer pathStr = new StringBuffer();
             resultStr.setLabel(uiController.getString(UIConstants.PATH_THROUGH)
-                               + " "
-                               + path.size()
-                               + " "
-                               + uiController.getString(UIConstants.STREETS)
-                               + ":");
+                    + " "
+                    + path.size()
+                    + " "
+                    + uiController.getString(UIConstants.STREETS)
+                    + ":");
             for (int i = 0; i < path.size(); i++) {
                 if (i > 0) {
                     pathStr.append(" -> ");
@@ -75,8 +100,7 @@ public class FindPathUI extends Form implements CommandListener {
 
             isPathFound = true;
             addCommand(viewPathCommand);
-        }
-        else {
+        } else {
             resultStr.setLabel(uiController.getString(UIConstants.NOTICE));
             String note = parser.getNotice();
             if (null != note) {
@@ -93,11 +117,9 @@ public class FindPathUI extends Form implements CommandListener {
     public void commandAction(Command command, Displayable displayable) {
         if (command == backCommand) {
             uiController.viewMapRequested();
-        }
-        else if (command == viewPathCommand && isPathFound) {
+        } else if (command == viewPathCommand && isPathFound) {
             uiController.viewPathRequested();
-        }
-        else {
+        } else {
             uiController.commandAction(command, displayable);
         }
     }
