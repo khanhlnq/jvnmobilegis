@@ -1,9 +1,10 @@
-/* * $URL$ * $Author$ * $Revision$ *$Date$ * * *===================================================== * */package uk.org.xml.sax;
-
-import java.io.Writer;
+/* * $URL$ * $Author$ * $Revision$ *$Date$ * * *===================================================== * */
+package uk.org.xml.sax;
 
 import org.xml.sax.AttributeList;
 import org.xml.sax.SAXException;
+
+import java.io.Writer;
 
 
 public interface DocumentHandler extends org.xml.sax.DocumentHandler {

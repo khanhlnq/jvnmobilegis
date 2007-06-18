@@ -1,19 +1,43 @@
 /*
- * FindPathResultParser.java
+ * $Id$
+ * $URL$
+ * $Author$
+ * $Revision$
+ * $Date$
  *
- * Created on April 24, 2006, 4:51 PM
+ * ====================================================================
  *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
+ * Copyright (C) 2006-2007 by JVNGIS
+ *
+ * All copyright notices regarding JVNMobileGIS MUST remain
+ * intact in the Java codes and resource files.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ * Support can be obtained from project homepage at:
+ * http://code.google.com/p/jvnmobilegis/
+ *
+ * Correspondence and Marketing Questions can be sent to:
+ * khanh.lnq at javavietnam.org
+ *
+ * @author: Khanh Le
  */
 
-/* * $URL$ * $Author$ * $Revision$ *$Date$ * * *===================================================== * */package org.javavietnam.gis.shared.midp;
+package org.javavietnam.gis.shared.midp;
 
 import henson.midp.Float;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.util.Vector;
 import org.javavietnam.gis.shared.midp.model.MapFeature;
 import org.xml.sax.AttributeList;
 import org.xml.sax.InputSource;
@@ -21,10 +45,10 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import uk.co.wilson.xml.MinML;
 
-
-/**
- * @author  Khanh Parsing SearchFeature result: <searchfeatures> <features> <feature> <id></id> <name></name> <x></x>  <y></y> </feature> ...... </features> <bookmark></bookmark> </searchfeatures>
- */
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.util.Vector;
 
 public class SearchFeatureResultParser extends MinML {
 
@@ -40,7 +64,9 @@ public class SearchFeatureResultParser extends MinML {
 
     StringBuffer thisText = new StringBuffer();
 
-    /** Creates a new instance of FindPathResultParser */
+    /**
+     * Creates a new instance of FindPathResultParser
+     */
     public SearchFeatureResultParser(String result) {
         try {
             this.inputStream = new ByteArrayInputStream(result.getBytes("UTF-8"));
@@ -83,8 +109,7 @@ public class SearchFeatureResultParser extends MinML {
             MapFeature feature = new MapFeature();
             features.addElement(feature);
             featureIsParent = true;
-        }
-        else if (name.toLowerCase().equals("bookmark")) {
+        } else if (name.toLowerCase().equals("bookmark")) {
             bookmarkIsParent = true;
         }
 
@@ -93,31 +118,24 @@ public class SearchFeatureResultParser extends MinML {
     public void endElement(String name) {
         if (name.toLowerCase().equals("feature")) {
             featureIsParent = false;
-        }
-        else if (featureIsParent) {
+        } else if (featureIsParent) {
             if (name.toLowerCase().equals("id")) {
                 if (thisText.length() > 0) {
                     String featureId = thisText.toString().trim();
                     ((MapFeature) features.lastElement()).setId(featureId);
                 }
-            }
-
-            else if (name.toLowerCase().equals("name")) {
+            } else if (name.toLowerCase().equals("name")) {
                 if (thisText.length() > 0) {
                     String featureName = thisText.toString().trim();
                     ((MapFeature) features.lastElement()).setName(featureName);
                 }
-            }
-
-            else if (name.toLowerCase().equals("x")) {
+            } else if (name.toLowerCase().equals("x")) {
                 if (thisText.length() > 0) {
                     String xStr = thisText.toString().trim();
                     Float featureX = Float.parse(xStr, 10);
                     ((MapFeature) features.lastElement()).setX(featureX);
                 }
-            }
-
-            else if (name.toLowerCase().equals("y")) {
+            } else if (name.toLowerCase().equals("y")) {
                 if (thisText.length() > 0) {
                     String yStr = thisText.toString().trim();
                     Float featureY = Float.parse(yStr, 10);
@@ -125,8 +143,7 @@ public class SearchFeatureResultParser extends MinML {
                 }
             }
 
-        }
-        else if (bookmarkIsParent && name.toLowerCase().equals("bookmark")) {
+        } else if (bookmarkIsParent && name.toLowerCase().equals("bookmark")) {
             if (thisText.length() > 0) {
                 String bookmarkStr = thisText.toString().trim();
                 numResult = Integer.parseInt(bookmarkStr);
@@ -149,8 +166,8 @@ public class SearchFeatureResultParser extends MinML {
     }
 
     /**
-     * @return  Returns the notice.
-     * @uml.property  name="numResult"
+     * @return Returns the notice.
+     * @uml.property name="numResult"
      */
     public int getNumResult() {
         return numResult;

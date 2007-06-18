@@ -1,18 +1,42 @@
 /*
- * FindPathResultParser.java
+ * $Id$
+ * $URL$
+ * $Author$
+ * $Revision$
+ * $Date$
  *
- * Created on April 24, 2006, 4:51 PM
+ * ====================================================================
  *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
+ * Copyright (C) 2006-2007 by JVNGIS
+ *
+ * All copyright notices regarding JVNMobileGIS MUST remain
+ * intact in the Java codes and resource files.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ * Support can be obtained from project homepage at:
+ * http://code.google.com/p/jvnmobilegis/
+ *
+ * Correspondence and Marketing Questions can be sent to:
+ * khanh.lnq at javavietnam.org
+ *
+ * @author: Khanh Le
  */
 
-/* * $URL$ * $Author$ * $Revision$ *$Date$ * * *===================================================== * */package org.javavietnam.gis.shared.midp;
+package org.javavietnam.gis.shared.midp;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.util.Vector;
 import org.javavietnam.gis.shared.midp.model.PathStreet;
 import org.xml.sax.AttributeList;
 import org.xml.sax.InputSource;
@@ -20,9 +44,14 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import uk.co.wilson.xml.MinML;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.util.Vector;
+
 
 /**
- * @author  Khanh Parse FindPath result: <path> <street idproperty='streetid' idvalue='3'> <name>Nguyen Thi Minh Khai</name>  </street> <street idproperty='streetid' idvalue='10'> <name>Pastuer</name> </street> </path>
+ * @author Khanh Parse FindPath result: <path> <street idproperty='streetid' idvalue='3'> <name>Nguyen Thi Minh Khai</name>  </street> <street idproperty='streetid' idvalue='10'> <name>Pastuer</name> </street> </path>
  */
 public class FindPathResultParser extends MinML {
 
@@ -38,7 +67,9 @@ public class FindPathResultParser extends MinML {
 
     StringBuffer thisText = new StringBuffer();
 
-    /** Creates a new instance of FindPathResultParser */
+    /**
+     * Creates a new instance of FindPathResultParser
+     */
     public FindPathResultParser(String result) {
         try {
             this.inputStream = new ByteArrayInputStream(result.getBytes("UTF-8"));
@@ -85,8 +116,7 @@ public class FindPathResultParser extends MinML {
 
             path.addElement(street);
             streetIsParent = true;
-        }
-        else if (name.toLowerCase().equals("notice")) {
+        } else if (name.toLowerCase().equals("notice")) {
             noticeIsParent = true;
         }
 
@@ -95,15 +125,13 @@ public class FindPathResultParser extends MinML {
     public void endElement(String name) {
         if (name.toLowerCase().equals("street")) {
             streetIsParent = false;
-        }
-        else if (streetIsParent && name.toLowerCase().equals("name")) {
+        } else if (streetIsParent && name.toLowerCase().equals("name")) {
             if (thisText.length() > 0) {
                 String streetName = thisText.toString().trim();
                 ((PathStreet) path.lastElement()).setName(streetName);
             }
 
-        }
-        else if (noticeIsParent && name.toLowerCase().equals("notice")) {
+        } else if (noticeIsParent && name.toLowerCase().equals("notice")) {
             if (thisText.length() > 0) {
                 notice = thisText.toString().trim();
                 noticeIsParent = false;
@@ -125,8 +153,8 @@ public class FindPathResultParser extends MinML {
     }
 
     /**
-     * @return  Returns the notice.
-     * @uml.property  name="notice"
+     * @return Returns the notice.
+     * @uml.property name="notice"
      */
     public String getNotice() {
         return notice;

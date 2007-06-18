@@ -1,52 +1,124 @@
+/*
+ * $Id$
+ * $URL$
+ * $Author$
+ * $Revision$
+ * $Date$
+ *
+ * ====================================================================
+ *
+ * Copyright (C) 2006-2007 by JVNGIS
+ *
+ * All copyright notices regarding JVNMobileGIS MUST remain
+ * intact in the Java codes and resource files.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ * Support can be obtained from project homepage at:
+ * http://code.google.com/p/jvnmobilegis/
+ *
+ * Correspondence and Marketing Questions can be sent to:
+ * khanh.lnq at javavietnam.org
+ *
+ * @author: Khanh Le
+ */
+
 package henson.midp;
 
 /**
  * <p> Title: Class for float-point calculations in J2ME applications (MIDP 1.0/CLDC 1.0 where float or double types are not available) </p> <p> Description: It makes float-point calculations via integer numbers </p> <p> Copyright: Nikolay Klimchuk Copyright (c) 2002-2005 </p> <p> Company: UNTEH </p> <p> License: Free for use only for non-commercial purpose </p> <p> If you want to use all or part of this class for commercial applications then take into account these conditions: </p> <p> 1. I need a one copy of your product which includes my class with license key and so on </p> <p> 2. Please append my copyright information henson.midp.Float (C) by Nikolay Klimchuk on �About� screen of your product </p> <p> 3. If you have web site please append link <a href=�http://henson.newmail.ru�>Nikolay Klimchuk</a> on the page with description of your product </p> <p> That's all, thank you! </p>
- * @author  Nikolay Klimchuk http://henson.newmail.ru
- * @version  1.01
+ *
+ * @author Nikolay Klimchuk http://henson.newmail.ru
+ * @version 1.01
  */
 
 public class Float {
 
-    /** ERROR constant */
+    /**
+     * ERROR constant
+     */
     final static private Float ERROR = new Float(Long.MAX_VALUE, Long.MAX_VALUE);
     /**
      * Number of itterations in sqrt method, if you want to make calculations more precise set ITNUM=6,7,... or
      * ITMUN=4,3,... to make it faster
      */
     final static private int ITNUM = 5;
-    /** Square root from 3 */
+    /**
+     * Square root from 3
+     */
     final static public Float SQRT3 = new Float(1732050807568877294L, -18L);
-    /** The Float value that is closer than any other to pi, the ratio of the circumference of a circle to its diameter */
+    /**
+     * The Float value that is closer than any other to pi, the ratio of the circumference of a circle to its diameter
+     */
     final static public Float PI = new Float(3141592653589793238L, -18L);
-    /** Zero constant */
+    /**
+     * Zero constant
+     */
     final static public Float ZERO = new Float();
-    /** One constant */
+    /**
+     * One constant
+     */
     final static public Float ONE = new Float(1L);
-    /** The Float value that is closer than any other to e, the base of the natural logarithms */
+    /**
+     * The Float value that is closer than any other to e, the base of the natural logarithms
+     */
     final static public Float E = new Float(271828182845904512L, -17);
-    /** Log10 constant */
+    /**
+     * Log10 constant
+     */
     final static public Float LOG10 = new Float(2302585092994045684L, -18);
     //
-    /** Pi/2 constant */
+    /**
+     * Pi/2 constant
+     */
     final static public Float PIdiv2 = PI.Div(2L);
-    /** Pi/4 constant */
+    /**
+     * Pi/4 constant
+     */
     final static public Float PIdiv4 = PIdiv2.Div(2L);
-    /** Pi/6 constant */
+    /**
+     * Pi/6 constant
+     */
     final static public Float PIdiv6 = PIdiv2.Div(3L);
-    /** Pi/12 constant */
+    /**
+     * Pi/12 constant
+     */
     final static public Float PIdiv12 = PIdiv6.Div(2L);
-    /** Pi*2 constant */
+    /**
+     * Pi*2 constant
+     */
     final static public Float PImul2 = PI.Mul(2L);
-    /** Pi*4 constant */
+    /**
+     * Pi*4 constant
+     */
     final static public Float PImul4 = PI.Mul(4L);
-    /** ln(0.5) constant */
+    /**
+     * ln(0.5) constant
+     */
     final static public Float LOGdiv2 = new Float(-6931471805599453094L, -19);
-    /** Mantissa */
+    /**
+     * Mantissa
+     */
     public long m_Val;
-    /** Exponent */
+    /**
+     * Exponent
+     */
     public long m_E;
-    /** Limit of value */
+    /**
+     * Limit of value
+     */
     private long maxLimit = Long.MAX_VALUE / 100;
 
     //
@@ -59,9 +131,8 @@ public class Float {
 
     /**
      * Create object and makes initialization with value
-     * 
-     * @param value
-     *            long - value
+     *
+     * @param value long - value
      */
     public Float(long value) {
         m_Val = value;
@@ -70,11 +141,9 @@ public class Float {
 
     /**
      * Create object and makes initialization both mantissa and exponent
-     * 
-     * @param value
-     *            long - mantissa
-     * @param e
-     *            long - exponent
+     *
+     * @param value long - mantissa
+     * @param e     long - exponent
      */
     public Float(long value, long e) {
         m_Val = value;
@@ -84,9 +153,8 @@ public class Float {
 
     /**
      * Create object and makes initialization by other Float object
-     * 
-     * @param value
-     *            Float - source object
+     *
+     * @param value Float - source object
      */
     public Float(Float value) {
         m_Val = value.m_Val;
@@ -96,7 +164,7 @@ public class Float {
 
     /**
      * Convert Float object to long number
-     * 
+     *
      * @return long - number
      */
     public long toLong() {
@@ -107,8 +175,7 @@ public class Float {
             if (tmpE < 0) {
                 tmpVal /= 10;
                 tmpE++;
-            }
-            else {
+            } else {
                 tmpVal *= 10;
                 tmpE--;
             }
@@ -118,7 +185,7 @@ public class Float {
 
     /**
      * Convert Float object to string without exponent
-     * 
+     *
      * @return String - string
      */
     public String toShortString() {
@@ -138,8 +205,7 @@ public class Float {
         //
         if (m_Val < 0L) {
             if (len > 1) return str.substring(0, len);
-        }
-        else {
+        } else {
             if (len > 0) return str.substring(0, len);
         }
         //
@@ -148,14 +214,16 @@ public class Float {
 
     /**
      * Check value of current Float object is NaN
-     * 
+     *
      * @return boolean - true-if NaN, false-if not
      */
     public boolean isError() {
         return (this.m_Val == ERROR.m_Val && this.m_E == ERROR.m_E);
     }
 
-    /** Convert Float object to string */
+    /**
+     * Convert Float object to string
+     */
     public String toString() {
         if (isError()) return "NaN";
         //
@@ -179,25 +247,21 @@ public class Float {
                 sb.append(str.substring(0, len - absE));
                 sb.append(".");
                 sb.append(str.substring(len - absE));
-            }
-            else {
+            } else {
                 sb.append(str);
                 for (int i = 0; i < (absE - len); i++)
                     sb.insert(0, "0");
                 sb.insert(0, "0.");
             }
-        }
-        else {
+        } else {
             if (len + m_E > 6) {
                 sb.append(str.charAt(0));
                 if (str.length() > 1) {
                     sb.append(".");
                     sb.append(str.substring(1));
-                }
-                else sb.append(".0");
+                } else sb.append(".0");
                 sb.append("E" + (len - 1 + m_E));
-            }
-            else {
+            } else {
                 sb.append(str);
                 for (int i = 0; i < m_E; i++)
                     sb.append("0");
@@ -213,9 +277,8 @@ public class Float {
 
     /**
      * Append value of argument to value of current Float object and return as new Float object
-     * 
-     * @param value
-     *            Float - argument
+     *
+     * @param value Float - argument
      * @return Float - current+value
      */
     public Float Add(Float value) {
@@ -231,18 +294,15 @@ public class Float {
                 if (Math.abs(v1) < maxLimit) {
                     v1 *= 10;
                     e1--;
-                }
-                else {
+                } else {
                     v2 /= 10;
                     e2++;
                 }
-            }
-            else if (e1 < e2) {
+            } else if (e1 < e2) {
                 if (Math.abs(v2) < maxLimit) {
                     v2 *= 10;
                     e2--;
-                }
-                else {
+                } else {
                     v1 /= 10;
                     e1++;
                 }
@@ -264,9 +324,8 @@ public class Float {
 
     /**
      * Subtract value of argument from value of current Float object and return as new Float object
-     * 
-     * @param value
-     *            Float - argument
+     *
+     * @param value Float - argument
      * @return Float - current-value
      */
     public Float Sub(Float value) {
@@ -276,9 +335,8 @@ public class Float {
 
     /**
      * Divide value of current Float object on argument and return as new Float object
-     * 
-     * @param value
-     *            Float - argument
+     *
+     * @param value Float - argument
      * @return Float - current/value
      */
     public Float Mul(long value) {
@@ -287,9 +345,8 @@ public class Float {
 
     /**
      * Multiply value of current Float object on argument and return as new Float object
-     * 
-     * @param value
-     *            Float - argument
+     *
+     * @param value Float - argument
      * @return Float - current*value
      */
     public Float Mul(Float value) {
@@ -306,15 +363,12 @@ public class Float {
                 if (Long.MAX_VALUE / m_Val < value.m_Val) {
                     value.m_Val /= 10;
                     value.m_E++;
-                }
-                else break;
-            }
-            else {
+                } else break;
+            } else {
                 if (Long.MAX_VALUE / value.m_Val < m_Val) {
                     m_Val /= 10;
                     m_E++;
-                }
-                else break;
+                } else break;
             }
         }
         while (true);
@@ -329,9 +383,8 @@ public class Float {
 
     /**
      * Divide value of current Float object on argument and return as new Float object
-     * 
-     * @param value
-     *            Float - argument
+     *
+     * @param value Float - argument
      * @return Float - current/value
      */
     public Float Div(long value) {
@@ -340,9 +393,8 @@ public class Float {
 
     /**
      * Divide value of current Float object on argument and return as new Float object
-     * 
-     * @param value
-     *            Float - argument
+     *
+     * @param value Float - argument
      * @return Float - current/value
      */
     public Float Div(Float value) {
@@ -363,8 +415,7 @@ public class Float {
             if (Math.abs(v1) > (Long.MAX_VALUE / 10L)) {
                 v2 /= 10L;
                 e2++;
-            }
-            else {
+            } else {
                 v1 *= 10L;
                 e1--;
             }
@@ -386,9 +437,8 @@ public class Float {
 
     /**
      * Is value of current Float object greater?
-     * 
-     * @param x
-     *            Float - argument
+     *
+     * @param x Float - argument
      * @return boolean - true-if current value is greater x, false-if not
      */
     public boolean Great(Float x) {
@@ -402,18 +452,15 @@ public class Float {
                 if (Math.abs(v1) < maxLimit) {
                     v1 *= 10;
                     e1--;
-                }
-                else {
+                } else {
                     v2 /= 10;
                     e2++;
                 }
-            }
-            else if (e1 < e2) {
+            } else if (e1 < e2) {
                 if (Math.abs(v2) < maxLimit) {
                     v2 *= 10;
                     e2--;
-                }
-                else {
+                } else {
                     v1 /= 10;
                     e1++;
                 }
@@ -425,9 +472,8 @@ public class Float {
 
     /**
      * Is value of current Float object less?
-     * 
-     * @param x
-     *            Float - argument
+     *
+     * @param x Float - argument
      * @return boolean - true-if current value is less x, false-if not
      */
     public boolean Less(long x) {
@@ -436,9 +482,8 @@ public class Float {
 
     /**
      * Is value of current Float object less?
-     * 
-     * @param x
-     *            Float - argument
+     *
+     * @param x Float - argument
      * @return boolean - true-if current value is less x, false-if not
      */
     public boolean Less(Float x) {
@@ -452,18 +497,15 @@ public class Float {
                 if (Math.abs(v1) < maxLimit) {
                     v1 *= 10;
                     e1--;
-                }
-                else {
+                } else {
                     v2 /= 10;
                     e2++;
                 }
-            }
-            else if (e1 < e2) {
+            } else if (e1 < e2) {
                 if (Math.abs(v2) < maxLimit) {
                     v2 *= 10;
                     e2--;
-                }
-                else {
+                } else {
                     v1 /= 10;
                     e1++;
                 }
@@ -475,9 +517,8 @@ public class Float {
 
     /**
      * Equal with current Float object?
-     * 
-     * @param x
-     *            Float - argument
+     *
+     * @param x Float - argument
      * @return boolean - true-if equal, false-if not
      */
     public boolean Equal(Float x) {
@@ -499,18 +540,15 @@ public class Float {
                 if (Math.abs(v1) < maxLimit) {
                     v1 *= 10;
                     e1--;
-                }
-                else {
+                } else {
                     v2 /= 10;
                     e2++;
                 }
-            }
-            else if (e1 < e2) {
+            } else if (e1 < e2) {
                 if (Math.abs(v2) < maxLimit) {
                     v2 *= 10;
                     e2--;
-                }
-                else {
+                } else {
                     v1 /= 10;
                     e1++;
                 }
@@ -522,7 +560,7 @@ public class Float {
 
     /**
      * Reverse sign of value in current Float object and return as new Float object
-     * 
+     *
      * @return Float - new Float object
      */
     public Float Neg() {
@@ -533,9 +571,8 @@ public class Float {
      * Returns the trigonometric sine of an angle. Special cases: If the argument is NaN or an infinity, then the result
      * is NaN. If the argument is zero, then the result is a zero with the same sign as the argument. A result must be
      * within 1 ulp of the correctly rounded result. Results must be semi-monotonic
-     * 
-     * @param x
-     *            Float - an angle, in radians
+     *
+     * @param x Float - an angle, in radians
      * @return Float - the sine of the argument
      */
     static public Float sin(Float x) {
@@ -573,9 +610,8 @@ public class Float {
     /**
      * Returns the trigonometric cosine of an angle. Special cases: If the argument is NaN or an infinity, then the
      * result is NaN. A result must be within 1 ulp of the correctly rounded result. Results must be semi-monotonic
-     * 
-     * @param x
-     *            Float - an angle, in radians
+     *
+     * @param x Float - an angle, in radians
      * @return Float - the cosine of the argument
      */
     static public Float cos(Float x) {
@@ -614,9 +650,8 @@ public class Float {
      * less than zero, then the result is NaN. If the argument is positive infinity, then the result is positive
      * infinity. If the argument is positive zero or negative zero, then the result is the same as the argument.
      * Otherwise, the result is the double value closest to the true mathematical square root of the argument value
-     * 
-     * @param x
-     *            Float - a value
+     *
+     * @param x Float - a value
      * @return Float - the positive square root of a. If the argument is NaN or less than zero, the result is NaN
      */
     static public Float sqrt(Float x) {
@@ -665,9 +700,8 @@ public class Float {
      * Returns the trigonometric tangent of an angle. Special cases: If the argument is NaN or an infinity, then the
      * result is NaN. If the argument is zero, then the result is a zero with the same sign as the argument. A result
      * must be within 1 ulp of the correctly rounded result. Results must be semi-monotonic
-     * 
-     * @param x
-     *            Float - an angle, in radians
+     *
+     * @param x Float - an angle, in radians
      * @return Float - the tangent of the argument
      */
     static public Float tan(Float x) {
@@ -678,11 +712,9 @@ public class Float {
 
     /**
      * Returns a new Float object initialized to the value represented by the specified String
-     * 
-     * @param str
-     *            String - the string to be parsed
-     * @param radix
-     *            int - basement of number
+     *
+     * @param str   String - the string to be parsed
+     * @param radix int - basement of number
      * @return Float - the Float object represented by the string argument
      */
     static public Float parse(String str, int radix) {
@@ -755,9 +787,8 @@ public class Float {
      * Returns the arc cosine of an angle, in the range of 0.0 through pi. Special case: If the argument is NaN or its
      * absolute value is greater than 1, then the result is NaN. A result must be within 1 ulp of the correctly rounded
      * result. Results must be semi-monotonic
-     * 
-     * @param x
-     *            Float - the value whose arc cosine is to be returned
+     *
+     * @param x Float - the value whose arc cosine is to be returned
      * @return Float - the arc cosine of the argument
      */
     static public Float acos(Float x) {
@@ -771,9 +802,8 @@ public class Float {
      * its absolute value is greater than 1, then the result is NaN. If the argument is zero, then the result is a zero
      * with the same sign as the argument. A result must be within 1 ulp of the correctly rounded result. Results must
      * be semi-monotonic
-     * 
-     * @param x
-     *            Float - the value whose arc sine is to be returned
+     *
+     * @param x Float - the value whose arc sine is to be returned
      * @return Float - the arc sine of the argument
      */
     static public Float asin(Float x) {
@@ -787,9 +817,8 @@ public class Float {
      * Returns the arc tangent of an angle, in the range of -pi/2 through pi/2. Special cases: If the argument is NaN,
      * then the result is NaN. If the argument is zero, then the result is a zero with the same sign as the argument. A
      * result must be within 1 ulp of the correctly rounded result. Results must be semi-monotonic
-     * 
-     * @param x
-     *            Float - the value whose arc tangent is to be returned
+     *
+     * @param x Float - the value whose arc tangent is to be returned
      * @return Float - the arc tangent of the argument
      */
     static public Float atan(Float x) {
@@ -856,11 +885,9 @@ public class Float {
      * infinity and the second argument is positive infinity, then the result is the double value closest to -pi/4. If
      * both arguments are negative infinity, then the result is the double value closest to -3*pi/4. A result must be
      * within 2 ulps of the correctly rounded result. Results must be semi-monotonic
-     * 
-     * @param y
-     *            Float - the ordinate coordinate
-     * @param x
-     *            Float - the abscissa coordinate
+     *
+     * @param y Float - the ordinate coordinate
+     * @param x Float - the abscissa coordinate
      * @return Float - the theta component of the point (r,�theta) in polar coordinates that corresponds to the point
      *         (x,�y) in Cartesian coordinates
      */
@@ -893,9 +920,8 @@ public class Float {
      * is NaN. If the argument is positive infinity, then the result is positive infinity. If the argument is negative
      * infinity, then the result is positive zero. A result must be within 1 ulp of the correctly rounded result.
      * Results must be semi-monotonic
-     * 
-     * @param x
-     *            Float - the exponent to raise e to
+     *
+     * @param x Float - the exponent to raise e to
      * @return Float - the value e^x, where e is the base of the natural logarithms
      */
     static public Float exp(Float x) {
@@ -924,9 +950,8 @@ public class Float {
     // x=40 diff=0.67%
     /**
      * Internal log subroutine
-     * 
-     * @param x
-     *            Float
+     *
+     * @param x Float
      * @return Float
      */
     static private Float _log(Float x) {
@@ -967,9 +992,8 @@ public class Float {
      * zero, then the result is NaN. If the argument is positive infinity, then the result is positive infinity. If the
      * argument is positive zero or negative zero, then the result is negative infinity. A result must be within 1 ulp
      * of the correctly rounded result. Results must be semi-monotonic
-     * 
-     * @param x
-     *            Float - a number greater than 0.0
+     *
+     * @param x Float - a number greater than 0.0
      * @return Float - the value ln(x), the natural logarithm of x
      */
     static public Float log(Float x) {
@@ -1008,6 +1032,7 @@ public class Float {
     // x=25 diff=1.31%
     // x=30 diff=2.95%
     // if x negative y must be integer value
+
     /**
      * Returns the value of the first argument raised to the power of the second argument. Special cases: If the second
      * argument is positive or negative zero, then the result is 1.0. If the second argument is 1.0, then the result is
@@ -1041,11 +1066,9 @@ public class Float {
      * if it is finite and a fixed point of the method ceil or, equivalently, a fixed point of the method floor. A value
      * is a fixed point of a one-argument method if and only if the result of applying the method to the value is equal
      * to the value.) A result must be within 1 ulp of the correctly rounded result. Results must be semi-monotonic.
-     * 
-     * @param x
-     *            Float - the base
-     * @param y
-     *            Float - the exponent
+     *
+     * @param x Float - the base
+     * @param y Float - the exponent
      * @return Float - the value a^b
      */
     static public Float pow(Float x, Float y) {
@@ -1067,8 +1090,7 @@ public class Float {
             //
             if (neg) return ONE.Div(result);
             else return result;
-        }
-        else {
+        } else {
             if (x.Great(ZERO)) return exp(y.Mul(log(x)));
             else return new Float(ERROR);
         }
@@ -1080,9 +1102,8 @@ public class Float {
      * the result is the same as the argument. If the argument is NaN or an infinity or positive zero or negative zero,
      * then the result is the same as the argument. If the argument value is less than zero but greater than -1.0, then
      * the result is negative zero
-     * 
-     * @param x
-     *            Float - a value
+     *
+     * @param x Float - a value
      * @return Float - the smallest (closest to negative infinity) floating-point value that is not less than the
      *         argument and is equal to a mathematical integer
      */
@@ -1098,8 +1119,7 @@ public class Float {
                 tmpVal /= coeff;
                 tmpVal *= coeff;
                 if (x.m_Val - tmpVal > 0) tmpVal += coeff;
-            }
-            else if (tmpVal > 0) return ONE;
+            } else if (tmpVal > 0) return ONE;
             else return ZERO;
         }
         //
@@ -1111,9 +1131,8 @@ public class Float {
      * equal to a mathematical integer. Special cases: If the argument value is already equal to a mathematical integer,
      * then the result is the same as the argument. If the argument is NaN or an infinity or positive zero or negative
      * zero, then the result is the same as the argument
-     * 
-     * @param x
-     *            Float - a value
+     *
+     * @param x Float - a value
      * @return Float - the largest (closest to positive infinity) floating-point value that is not greater than the
      *         argument and is equal to a mathematical integer
      */
@@ -1129,8 +1148,7 @@ public class Float {
                 tmpVal /= coeff;
                 tmpVal *= coeff;
                 if (x.m_Val - tmpVal < 0) tmpVal -= coeff;
-            }
-            else if (tmpVal < 0) return ONE.Neg();
+            } else if (tmpVal < 0) return ONE.Neg();
             else return ZERO;
         }
         //
@@ -1142,9 +1160,8 @@ public class Float {
      * argument is negative, the negation of the argument is returned. Special cases: If the argument is positive zero
      * or negative zero, the result is positive zero. If the argument is infinite, the result is positive infinity. If
      * the argument is NaN, the result is NaN
-     * 
-     * @param x
-     *            Float - the argument whose absolute value is to be determined
+     *
+     * @param x Float - the argument whose absolute value is to be determined
      * @return Float - the absolute value of the argument
      */
     static public Float abs(Float x) {
@@ -1154,9 +1171,8 @@ public class Float {
 
     /**
      * Integer part of Float object
-     * 
-     * @param x
-     *            Float - source Float object
+     *
+     * @param x Float - source Float object
      * @return Float - result Float object
      */
     static public Float Int(Float x) {
@@ -1170,8 +1186,7 @@ public class Float {
                     coeff *= 10;
                 tmpVal /= coeff;
                 tmpVal *= coeff;
-            }
-            else return Float.ZERO;
+            } else return Float.ZERO;
         }
         //
         return new Float(tmpVal, x.m_E);
@@ -1179,9 +1194,8 @@ public class Float {
 
     /**
      * Fractional part of Float object
-     * 
-     * @param x
-     *            Float - source Float object
+     *
+     * @param x Float - source Float object
      * @return Float - result Float object
      */
     static public Float Frac(Float x) {
@@ -1191,9 +1205,8 @@ public class Float {
     /**
      * Converts an angle measured in degrees to an approximately equivalent angle measured in radians. The conversion
      * from degrees to radians is generally inexact
-     * 
-     * @param x
-     *            Float - an angle, in degrees
+     *
+     * @param x Float - an angle, in degrees
      * @return Float - the measurement of the angle x in radians
      */
     static public Float toRadians(Float x) {
@@ -1203,9 +1216,8 @@ public class Float {
     /**
      * Converts an angle measured in radians to an approximately equivalent angle measured in degrees. The conversion
      * from radians to degrees is generally inexact; users should not expect cos(toRadians(90.0)) to exactly equal 0.0
-     * 
-     * @param x
-     *            Float - an angle, in radians
+     *
+     * @param x Float - an angle, in radians
      * @return Float - the measurement of the angle angrad in degrees
      */
     static public Float toDegrees(Float x) {

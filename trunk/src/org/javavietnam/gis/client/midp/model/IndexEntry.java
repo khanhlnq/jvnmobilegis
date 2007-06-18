@@ -39,15 +39,48 @@
  * You acknowledge that this software is not designed, licensed or
  * intended for use in the design, construction, operation or maintenance
  * of any nuclear facility.
+  */
+
+/*
  * $Id$
+ * $URL$
+ * $Author$
+ * $Revision$
+ * $Date$
+ *
+ * ====================================================================
+ *
+ * Copyright (C) 2006-2007 by JVNGIS
+ *
+ * All copyright notices regarding JVNMobileGIS MUST remain
+ * intact in the Java codes and resource files.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ * Support can be obtained from project homepage at:
+ * http://code.google.com/p/jvnmobilegis/
+ *
+ * Correspondence and Marketing Questions can be sent to:
+ * khanh.lnq at javavietnam.org
+ *
+ * @author: Khanh Le
  */
+
 package org.javavietnam.gis.client.midp.model;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 
 /**
@@ -85,64 +118,64 @@ public class IndexEntry {
     }
 
     /**
-     * @return  the type
-     * @uml.property  name="type"
+     * @return the type
+     * @uml.property name="type"
      */
     public int getType() {
         return type;
     }
 
     /**
-     * @return  the key
-     * @uml.property  name="key"
+     * @return the key
+     * @uml.property name="key"
      */
     public String getKey() {
         return key;
     }
 
     /**
-     * @return  the expirationDate
-     * @uml.property  name="expirationDate"
+     * @return the expirationDate
+     * @uml.property name="expirationDate"
      */
     public long getExpirationDate() {
         return expirationDate;
     }
 
     /**
-     * @param expirationDate  the expirationDate to set
-     * @uml.property  name="expirationDate"
+     * @param expirationDate the expirationDate to set
+     * @uml.property name="expirationDate"
      */
     public void setExpirationDate(long expirationDate) {
         this.expirationDate = expirationDate;
     }
 
     /**
-     * @return  the marked
-     * @uml.property  name="marked"
+     * @return the marked
+     * @uml.property name="marked"
      */
     public boolean isMarked() {
         return marked;
     }
 
     /**
-     * @param marked  the marked to set
-     * @uml.property  name="marked"
+     * @param marked the marked to set
+     * @uml.property name="marked"
      */
     public void setMarked(boolean marked) {
         this.marked = marked;
     }
 
     /**
-     * @return  the recordId
-     * @uml.property  name="recordId"
+     * @return the recordId
+     * @uml.property name="recordId"
      */
     public int getRecordId() {
         return recordId;
     }
 
     /**
-     * @return  the mode
-     * @uml.property  name="mode"
+     * @return the mode
+     * @uml.property name="mode"
      */
     public int getMode() {
         return mode;
@@ -183,8 +216,8 @@ public class IndexEntry {
         DataInputStream dataStream = new DataInputStream(byteStream);
 
         return (type == dataStream.readInt() || type == TYPE_ANY)
-               && (dataStream.readUTF().equals(key) || key == null)
-               && (mode == dataStream.readInt() || mode == MODE_ANY);
+                && (dataStream.readUTF().equals(key) || key == null)
+                && (mode == dataStream.readInt() || mode == MODE_ANY);
     }
 
 }

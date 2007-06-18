@@ -3,7 +3,8 @@
 // @(#)MinML.java, 1.7, 18th November 2001
 // Author: John Wilson - tug@wilson.co.uk
 
-/* * $URL$ * $Author$ * $Revision$ *$Date$ * * *===================================================== * */package uk.co.wilson.xml;
+/* * $URL$ * $Author$ * $Revision$ *$Date$ * * *===================================================== * */
+package uk.co.wilson.xml;
 
 /*
  * Copyright (c) 2000, 2001 John Wilson (tug@wilson.co.uk). All rights reserved. Redistribution and use in source and
@@ -22,6 +23,10 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE
  */
 
+import org.xml.sax.*;
+import uk.org.xml.sax.DocumentHandler;
+import uk.org.xml.sax.Parser;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -29,16 +34,6 @@ import java.io.Writer;
 import java.util.EmptyStackException;
 import java.util.Stack;
 import java.util.Vector;
-import org.xml.sax.AttributeList;
-import org.xml.sax.DTDHandler;
-import org.xml.sax.EntityResolver;
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.InputSource;
-import org.xml.sax.Locator;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
-import uk.org.xml.sax.DocumentHandler;
-import uk.org.xml.sax.Parser;
 
 
 /**
@@ -157,13 +152,13 @@ public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
 
                 if (currentChar > ']') {
                     transition = state.charAt(14);
-                }
-                else {
+                } else {
                     final int charClass = charClasses[currentChar + 1];
 
-                    if (charClass == -1) fatalError("Document contains illegal control character with value " + currentChar,
-                                                    this.lineNumber,
-                                                    this.columnNumber);
+                    if (charClass == -1)
+                        fatalError("Document contains illegal control character with value " + currentChar,
+                                this.lineNumber,
+                                this.columnNumber);
 
                     if (charClass == 12) {
                         if (currentChar == '\r') {
@@ -189,270 +184,266 @@ public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
                 final String operand = operands[transition >>> 8];
 
                 switch (transition & 0XFF) {
-                case endStartName:
-                    // end of start element name
-                    elementName = buffer.getString();
-                    if (currentChar != '>' && currentChar != '/') break; // change state to operand
-                    // drop through to emit start element (we have no attributes)
-
-                case emitStartElement:
-                    // emit start element
-
-                    final Writer newWriter = this.extDocumentHandler.startElement(elementName,
-                                                                                  attrs,
-                                                                                  (this.tags.empty()) ? this.extDocumentHandler.startDocument(buffer)
-                                                                                                     : buffer.getWriter());
-
-                    buffer.pushWriter(newWriter);
-                    this.tags.push(elementName);
-
-                    attributeValues.removeAllElements();
-                    attributeNames.removeAllElements();
-
-                    if (mixedContentLevel != -1) mixedContentLevel++;
-
-                    if (currentChar != '/') break; // change state to operand
-
-                    // <element/> drop through
-
-                case emitEndElement:
-                    // emit end element
-
-                    try {
-                        final String begin = (String) this.tags.pop();
-
-                        buffer.popWriter();
+                    case endStartName:
+                        // end of start element name
                         elementName = buffer.getString();
+                        if (currentChar != '>' && currentChar != '/') break; // change state to operand
+                        // drop through to emit start element (we have no attributes)
 
-                        if (currentChar != '/' && !elementName.equals(begin)) {
-                            fatalError("end tag </" + elementName + "> does not match begin tag <" + begin + ">",
-                                       this.lineNumber,
-                                       this.columnNumber);
-                        }
-                        else {
-                            this.documentHandler.endElement(begin);
+                    case emitStartElement:
+                        // emit start element
 
-                            if (this.tags.empty()) {
-                                this.documentHandler.endDocument();
-                                return;
+                        final Writer newWriter = this.extDocumentHandler.startElement(elementName,
+                                attrs,
+                                (this.tags.empty()) ? this.extDocumentHandler.startDocument(buffer)
+                                        : buffer.getWriter());
+
+                        buffer.pushWriter(newWriter);
+                        this.tags.push(elementName);
+
+                        attributeValues.removeAllElements();
+                        attributeNames.removeAllElements();
+
+                        if (mixedContentLevel != -1) mixedContentLevel++;
+
+                        if (currentChar != '/') break; // change state to operand
+
+                        // <element/> drop through
+
+                    case emitEndElement:
+                        // emit end element
+
+                        try {
+                            final String begin = (String) this.tags.pop();
+
+                            buffer.popWriter();
+                            elementName = buffer.getString();
+
+                            if (currentChar != '/' && !elementName.equals(begin)) {
+                                fatalError("end tag </" + elementName + "> does not match begin tag <" + begin + ">",
+                                        this.lineNumber,
+                                        this.columnNumber);
+                            } else {
+                                this.documentHandler.endElement(begin);
+
+                                if (this.tags.empty()) {
+                                    this.documentHandler.endDocument();
+                                    return;
+                                }
                             }
                         }
-                    }
-                    catch (final EmptyStackException e) {
-                        fatalError("end tag at begining of document", this.lineNumber, this.columnNumber);
-                    }
+                        catch (final EmptyStackException e) {
+                            fatalError("end tag at begining of document", this.lineNumber, this.columnNumber);
+                        }
 
-                    if (mixedContentLevel != -1) --mixedContentLevel;
+                        if (mixedContentLevel != -1) --mixedContentLevel;
 
-                    break; // change state to operand
+                        break; // change state to operand
 
-                case emitCharacters:
-                    // emit characters
+                    case emitCharacters:
+                        // emit characters
 
-                    buffer.flush();
-                    break; // change state to operand
+                        buffer.flush();
+                        break; // change state to operand
 
-                case emitCharactersSave:
-                    // emit characters and save current character
+                    case emitCharactersSave:
+                        // emit characters and save current character
 
-                    if (mixedContentLevel == -1) mixedContentLevel = 0;
+                        if (mixedContentLevel == -1) mixedContentLevel = 0;
 
-                    buffer.flush();
+                        buffer.flush();
 
-                    buffer.saveChar((char) currentChar);
+                        buffer.saveChar((char) currentChar);
 
-                    break; // change state to operand
+                        break; // change state to operand
 
-                case possiblyEmitCharacters:
-                    // write any skipped whitespace if in mixed content
+                    case possiblyEmitCharacters:
+                        // write any skipped whitespace if in mixed content
 
-                    if (mixedContentLevel != -1) buffer.flush();
-                    break; // change state to operand
+                        if (mixedContentLevel != -1) buffer.flush();
+                        break; // change state to operand
 
-                case saveAttributeName:
-                    // save attribute name
+                    case saveAttributeName:
+                        // save attribute name
 
-                    attributeNames.addElement(buffer.getString());
-                    break; // change state to operand
+                        attributeNames.addElement(buffer.getString());
+                        break; // change state to operand
 
-                case saveAttributeValue:
-                    // save attribute value
+                    case saveAttributeValue:
+                        // save attribute value
 
-                    attributeValues.addElement(buffer.getString());
-                    break; // change state to operand
+                        attributeValues.addElement(buffer.getString());
+                        break; // change state to operand
 
-                case startComment:
-                    // change state if we have found "<!--"
+                    case startComment:
+                        // change state if we have found "<!--"
 
-                    if (buffer.read() != '-') continue; // not "<!--"
+                        if (buffer.read() != '-') continue; // not "<!--"
 
-                    break; // change state to operand
+                        break; // change state to operand
 
-                case endComment:
-                    // change state if we find "-->"
+                    case endComment:
+                        // change state if we find "-->"
 
-                    if ((currentChar = buffer.read()) == '-') {
-                        // deal with the case where we might have "------->"
-                        while ((currentChar = buffer.read()) == '-')
-                            ;
+                        if ((currentChar = buffer.read()) == '-') {
+                            // deal with the case where we might have "------->"
+                            while ((currentChar = buffer.read()) == '-')
+                                ;
 
-                        if (currentChar == '>') break; // end of comment, change state to operand
-                    }
+                            if (currentChar == '>') break; // end of comment, change state to operand
+                        }
 
-                    continue; // not end of comment, don't change state
+                        continue; // not end of comment, don't change state
 
-                case incLevel:
+                    case incLevel:
 
-                    level++;
+                        level++;
 
-                    break;
+                        break;
 
-                case decLevel:
+                    case decLevel:
 
-                    if (level == 0) break; // outer level <> change state
+                        if (level == 0) break; // outer level <> change state
 
-                    level--;
+                        level--;
 
-                    continue; // in nested <>, don't change state
+                        continue; // in nested <>, don't change state
 
-                case startCDATA:
-                    // change state if we have found "<![CDATA["
+                    case startCDATA:
+                        // change state if we have found "<![CDATA["
 
-                    if (buffer.read() != 'C') continue; // don't change state
-                    if (buffer.read() != 'D') continue; // don't change state
-                    if (buffer.read() != 'A') continue; // don't change state
-                    if (buffer.read() != 'T') continue; // don't change state
-                    if (buffer.read() != 'A') continue; // don't change state
-                    if (buffer.read() != '[') continue; // don't change state
-                    break; // change state to operand
+                        if (buffer.read() != 'C') continue; // don't change state
+                        if (buffer.read() != 'D') continue; // don't change state
+                        if (buffer.read() != 'A') continue; // don't change state
+                        if (buffer.read() != 'T') continue; // don't change state
+                        if (buffer.read() != 'A') continue; // don't change state
+                        if (buffer.read() != '[') continue; // don't change state
+                        break; // change state to operand
 
-                case endCDATA:
-                    // change state if we find "]]>"
+                    case endCDATA:
+                        // change state if we find "]]>"
 
-                    if ((currentChar = buffer.read()) == ']') {
-                        // deal with the case where we might have "]]]]]]]>"
-                        while ((currentChar = buffer.read()) == ']')
+                        if ((currentChar = buffer.read()) == ']') {
+                            // deal with the case where we might have "]]]]]]]>"
+                            while ((currentChar = buffer.read()) == ']')
+                                buffer.write(']');
+
+                            if (currentChar == '>') break; // end of CDATA section, change state to operand
+
                             buffer.write(']');
-
-                        if (currentChar == '>') break; // end of CDATA section, change state to operand
+                        }
 
                         buffer.write(']');
-                    }
+                        buffer.write(currentChar);
+                        continue; // not end of CDATA section, don't change state
 
-                    buffer.write(']');
-                    buffer.write(currentChar);
-                    continue; // not end of CDATA section, don't change state
+                    case processCharRef:
+                        // process character entity
 
-                case processCharRef:
-                    // process character entity
+                        int crefState = 0;
 
-                    int crefState = 0;
+                        currentChar = buffer.read();
 
-                    currentChar = buffer.read();
+                        while (true) {
+                            if ("#amp;&pos;'quot;\"gt;>lt;<".charAt(crefState) == currentChar) {
+                                crefState++;
 
-                    while (true) {
-                        if ("#amp;&pos;'quot;\"gt;>lt;<".charAt(crefState) == currentChar) {
-                            crefState++;
-
-                            if (currentChar == ';') {
-                                buffer.write("#amp;&pos;'quot;\"gt;>lt;<".charAt(crefState));
-                                break;
-
-                            }
-                            else if (currentChar == '#') {
-                                final int radix;
-
-                                currentChar = buffer.read();
-
-                                if (currentChar == 'x') {
-                                    radix = 16;
-                                    currentChar = buffer.read();
-                                }
-                                else {
-                                    radix = 10;
-                                }
-
-                                int charRef = Character.digit((char) currentChar, radix);
-
-                                while (true) {
-                                    currentChar = buffer.read();
-
-                                    final int digit = Character.digit((char) currentChar, radix);
-
-                                    if (digit == -1) break;
-
-                                    charRef = (char) ((charRef * radix) + digit);
-                                }
-
-                                if (currentChar == ';' && charRef != -1) {
-                                    buffer.write(charRef);
+                                if (currentChar == ';') {
+                                    buffer.write("#amp;&pos;'quot;\"gt;>lt;<".charAt(crefState));
                                     break;
+
+                                } else if (currentChar == '#') {
+                                    final int radix;
+
+                                    currentChar = buffer.read();
+
+                                    if (currentChar == 'x') {
+                                        radix = 16;
+                                        currentChar = buffer.read();
+                                    } else {
+                                        radix = 10;
+                                    }
+
+                                    int charRef = Character.digit((char) currentChar, radix);
+
+                                    while (true) {
+                                        currentChar = buffer.read();
+
+                                        final int digit = Character.digit((char) currentChar, radix);
+
+                                        if (digit == -1) break;
+
+                                        charRef = (char) ((charRef * radix) + digit);
+                                    }
+
+                                    if (currentChar == ';' && charRef != -1) {
+                                        buffer.write(charRef);
+                                        break;
+                                    }
+
+                                    fatalError("invalid Character Entitiy", this.lineNumber, this.columnNumber);
+                                } else {
+                                    currentChar = buffer.read();
                                 }
+                            } else {
+                                crefState = ("\u0001\u000b\u0006\u00ff\u00ff\u00ff\u00ff\u00ff\u00ff\u00ff\u00ff" +
+                                        // # a m p ; & p o s ; '
+                                        // 0 1 2 3 4 5 6 7 8 9 a
+                                        "\u0011\u00ff\u00ff\u00ff\u00ff\u00ff\u0015\u00ff\u00ff\u00ff"
+                                        +
+                                        // q u o t ; " g t ; >
+                                        // b b d e f 10 11 12 13 14
+                                        "\u00ff\u00ff\u00ff").charAt(crefState);
+                                // l t ;
+                                // 15 16 17
 
-                                fatalError("invalid Character Entitiy", this.lineNumber, this.columnNumber);
-                            }
-                            else {
-                                currentChar = buffer.read();
+                                if (crefState == 255)
+                                    fatalError("invalid Character Entitiy", this.lineNumber, this.columnNumber);
                             }
                         }
-                        else {
-                            crefState = ("\u0001\u000b\u0006\u00ff\u00ff\u00ff\u00ff\u00ff\u00ff\u00ff\u00ff" +
-                            // # a m p ; & p o s ; '
-                                         // 0 1 2 3 4 5 6 7 8 9 a
-                                         "\u0011\u00ff\u00ff\u00ff\u00ff\u00ff\u0015\u00ff\u00ff\u00ff"
-                                         +
-                                         // q u o t ; " g t ; >
-                                         // b b d e f 10 11 12 13 14
-                                         "\u00ff\u00ff\u00ff").charAt(crefState);
-                            // l t ;
-                            // 15 16 17
 
-                            if (crefState == 255) fatalError("invalid Character Entitiy", this.lineNumber, this.columnNumber);
-                        }
-                    }
+                        break;
 
-                    break;
+                    case parseError:
+                        // report fatal error
 
-                case parseError:
-                    // report fatal error
+                        fatalError(operand, this.lineNumber, this.columnNumber);
+                        // drop through to exit parser
 
-                    fatalError(operand, this.lineNumber, this.columnNumber);
-                    // drop through to exit parser
+                    case exitParser:
+                        // exit parser
 
-                case exitParser:
-                    // exit parser
+                        return;
 
-                    return;
+                    case writeCdata:
+                        // write character data
+                        // this will also write any skipped whitespace
 
-                case writeCdata:
-                    // write character data
-                    // this will also write any skipped whitespace
+                        buffer.write(currentChar);
+                        break; // change state to operand
 
-                    buffer.write(currentChar);
-                    break; // change state to operand
+                    case discardAndChange:
+                        // throw saved characters away and change state
 
-                case discardAndChange:
-                    // throw saved characters away and change state
+                        buffer.reset();
+                        break; // change state to operand
 
-                    buffer.reset();
-                    break; // change state to operand
+                    case discardSaveAndChange:
+                        // throw saved characters away, save character and change state
 
-                case discardSaveAndChange:
-                    // throw saved characters away, save character and change state
+                        buffer.reset();
+                        // drop through to save character and change state
 
-                    buffer.reset();
-                    // drop through to save character and change state
+                    case saveAndChange:
+                        // save character and change state
 
-                case saveAndChange:
-                    // save character and change state
+                        buffer.saveChar((char) currentChar);
+                        break; // change state to operand
 
-                    buffer.saveChar((char) currentChar);
-                    break; // change state to operand
+                    case change:
+                        // change state to operand
 
-                case change:
-                    // change state to operand
-
-                    break; // change state to operand
+                        break; // change state to operand
                 }
 
                 state = operand;
@@ -492,8 +483,8 @@ public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
     }
 
     /**
-     * @param documentHandler  the documentHandler to set
-     * @uml.property  name="documentHandler"
+     * @param documentHandler the documentHandler to set
+     * @uml.property name="documentHandler"
      */
     public void setDocumentHandler(final org.xml.sax.DocumentHandler handler) {
         this.documentHandler = (handler == null) ? this : handler;
@@ -501,8 +492,7 @@ public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
     }
 
     /**
-     * @param documentHandler
-     *            The documentHandler to set.
+     * @param documentHandler The documentHandler to set.
      */
     public void setDocumentHandler(final DocumentHandler handler) {
         this.documentHandler = this.extDocumentHandler = (handler == null) ? this : handler;
@@ -510,8 +500,8 @@ public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
     }
 
     /**
-     * @param errorHandler  The errorHandler to set.
-     * @uml.property  name="errorHandler"
+     * @param errorHandler The errorHandler to set.
+     * @uml.property name="errorHandler"
      */
     public void setErrorHandler(final ErrorHandler handler) {
         this.errorHandler = (handler == null) ? this : handler;
@@ -570,16 +560,16 @@ public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
     }
 
     /**
-     * @return  Returns the lineNumber.
-     * @uml.property  name="lineNumber"
+     * @return Returns the lineNumber.
+     * @uml.property name="lineNumber"
      */
     public int getLineNumber() {
         return this.lineNumber;
     }
 
     /**
-     * @return  Returns the columnNumber.
-     * @uml.property  name="columnNumber"
+     * @return Returns the columnNumber.
+     * @uml.property name="columnNumber"
      */
     public int getColumnNumber() {
         return this.columnNumber;
@@ -636,8 +626,8 @@ public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
         }
 
         /**
-         * @return  Returns the writer.
-         * @uml.property  name="writer"
+         * @return Returns the writer.
+         * @uml.property name="writer"
          */
         public Writer getWriter() {
             return writer;
@@ -669,8 +659,7 @@ public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
                 if (count != 0) {
                     if (written) {
                         _flush();
-                    }
-                    else if (count >= (chars.length - MinML.this.bufferIncrement)) {
+                    } else if (count >= (chars.length - MinML.this.bufferIncrement)) {
                         final char[] newChars = new char[chars.length + MinML.this.bufferIncrement];
 
                         System.arraycopy(chars, 0, newChars, 0, count);
@@ -699,8 +688,7 @@ public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
                         catch (final SAXException e) {
                             throw new IOException(e.toString());
                         }
-                    }
-                    else {
+                    } else {
                         writer.write(chars, 0, count);
                     }
                 }
@@ -730,7 +718,7 @@ public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
     private final int bufferIncrement;
 
     private static final byte[] charClasses = {
-    // EOF
+            // EOF
             13,
             // \t \n \r
             -1,
@@ -831,7 +819,7 @@ public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
             14,
             9,
             14,
-            10 };
+            10};
 
     private static final String[] operands = {
             "\u0d15\u1611\u1611\u1611\u1611\u1611\u1611\u1611\u1611\u1611\u1611\u1611\u0015\u0010\u1611",
@@ -863,5 +851,5 @@ public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
             "invalid attribute value",
             "expecting end tag",
             "empty tag",
-            "unexpected character after <!" };
+            "unexpected character after <!"};
 }
