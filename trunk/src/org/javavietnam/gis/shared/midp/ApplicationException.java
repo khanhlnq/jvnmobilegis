@@ -74,8 +74,10 @@
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq at javavietnam.org
- *
+ * 
+ * @version: 1.0
  * @author: Khanh Le
+ * @Date Created: 22 Jun 2007
  */
 
 package org.javavietnam.gis.shared.midp;
@@ -121,16 +123,16 @@ public class ApplicationException extends Exception {
     }
 
     /**
-     * @return Returns the code.
-     * @uml.property name="code"
+    * @return Returns the code.
+    * @uml.property name="code"
      */
     public int getCode() {
         return code;
     }
 
     /**
-     * @return Returns the exception.
-     * @uml.property name="exception"
+    * @return Returns the exception.
+    * @uml.property name="exception"
      */
     public Exception getException() {
         return exception;

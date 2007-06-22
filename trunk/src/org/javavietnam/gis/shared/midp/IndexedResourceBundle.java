@@ -31,8 +31,10 @@
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq at javavietnam.org
- *
+ * 
+ * @version: 1.0
  * @author: Khanh Le
+ * @Date Created: 22 Jun 2007
  */
 
 package org.javavietnam.gis.shared.midp;
@@ -61,8 +63,8 @@ public class IndexedResourceBundle {
     }
 
     /**
-     * @return Returns the locale.
-     * @uml.property name="locale"
+    * @return Returns the locale.
+    * @uml.property name="locale"
      */
     public String getLocale() {
         return locale;

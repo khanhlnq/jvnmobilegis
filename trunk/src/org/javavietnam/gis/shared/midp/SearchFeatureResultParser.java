@@ -31,8 +31,10 @@
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq at javavietnam.org
- *
+ * 
+ * @version: 1.0
  * @author: Khanh Le
+ * @Date Created: 22 Jun 2007
  */
 
 package org.javavietnam.gis.shared.midp;
@@ -65,7 +67,7 @@ public class SearchFeatureResultParser extends MinML {
     StringBuffer thisText = new StringBuffer();
 
     /**
-     * Creates a new instance of FindPathResultParser
+    * Creates a new instance of FindPathResultParser
      */
     public SearchFeatureResultParser(String result) {
         try {
@@ -166,8 +168,8 @@ public class SearchFeatureResultParser extends MinML {
     }
 
     /**
-     * @return Returns the notice.
-     * @uml.property name="numResult"
+    * @return Returns the notice.
+    * @uml.property name="numResult"
      */
     public int getNumResult() {
         return numResult;

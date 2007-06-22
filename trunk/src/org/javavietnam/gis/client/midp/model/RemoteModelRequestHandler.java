@@ -74,8 +74,10 @@
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq at javavietnam.org
- *
+ * 
+ * @version: 1.0
  * @author: Khanh Le
+ * @Date Created: 22 Jun 2007
  */        
 
 package org.javavietnam.gis.client.midp.model;
@@ -95,7 +97,7 @@ import java.util.Vector;
 abstract public class RemoteModelRequestHandler implements RequestHandler {
 
     /**
-     * @link aggregation
+    * @link aggregation
      */
     private RemoteModelRequestHandler nextHandler;
     protected static ProgressObserver progressObserver;
@@ -105,8 +107,8 @@ abstract public class RemoteModelRequestHandler implements RequestHandler {
     }
 
     /**
-     * @return Returns the nextHandler.
-     * @uml.property name="nextHandler"
+    * @return Returns the nextHandler.
+    * @uml.property name="nextHandler"
      */
     public RequestHandler getNextHandler() {
         return nextHandler;
@@ -129,8 +131,8 @@ abstract public class RemoteModelRequestHandler implements RequestHandler {
     }
 
     /**
-     * @param progressObserver The progressObserver to set.
-     * @uml.property name="progressObserver"
+    * @param progressObserver The progressObserver to set.
+    * @uml.property name="progressObserver"
      */
     public static void setProgressObserver(ProgressObserver progressObserver) {
         RemoteModelRequestHandler.progressObserver = progressObserver;

@@ -39,7 +39,7 @@
  * You acknowledge that this software is not designed, licensed or
  * intended for use in the design, construction, operation or maintenance
  * of any nuclear facility.
-  */
+ */
 
 /*
  * $Id$
@@ -74,8 +74,10 @@
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq at javavietnam.org
- *
+ * 
+ * @version: 1.0
  * @author: Khanh Le
+ * @Date Created: 22 Jun 2007
  */
 
 package org.javavietnam.gis.client.midp.model;
@@ -106,7 +108,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
     }
 
     /**
-     * Get image from WMS server @
+    * Get image from WMS server @
      */
     public Image getMapWMS(WMSRequestParameter requestParam, Vector layerList) throws ModelException, ApplicationException {
         HttpConnection connection = null;

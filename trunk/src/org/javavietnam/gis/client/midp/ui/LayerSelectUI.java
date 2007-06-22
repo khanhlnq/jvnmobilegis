@@ -31,8 +31,10 @@
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq at javavietnam.org
- *
+ * 
+ * @version: 1.0
  * @author: Khanh Le
+ * @Date Created: 22 Jun 2007
  */
 
 package org.javavietnam.gis.client.midp.ui;
@@ -97,8 +99,8 @@ public class LayerSelectUI extends Form implements CommandListener {
     }
 
     /**
-     * @return Returns the askNextTime.
-     * @uml.property name="askNextTime"
+    * @return Returns the askNextTime.
+    * @uml.property name="askNextTime"
      */
     public boolean isAskNextTime() {
         return askNextTime;

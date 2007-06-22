@@ -74,8 +74,10 @@
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq at javavietnam.org
- *
+ * 
+ * @version: 1.0
  * @author: Khanh Le
+ * @Date Created: 22 Jun 2007
  */
 
 package org.javavietnam.gis.shared.midp.model;
@@ -93,8 +95,8 @@ public abstract class ModelObjectLoader {
     }
 
     /**
-     * @return Returns the instance.
-     * @uml.property name="instance"
+    * @return Returns the instance.
+    * @uml.property name="instance"
      */
     public static ModelObjectLoader getInstance() {
         return instance;

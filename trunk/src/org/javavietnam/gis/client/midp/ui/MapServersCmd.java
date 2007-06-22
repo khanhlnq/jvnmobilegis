@@ -31,8 +31,10 @@
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq at javavietnam.org
- *
+ * 
+ * @version: 1.0
  * @author: Khanh Le
+ * @Date Created: 22 Jun 2007
  */
 
 package org.javavietnam.gis.client.midp.ui;
@@ -58,7 +60,7 @@ public class MapServersCmd implements ItemCommandListener {
     public final Command mapServer04;
 
     /**
-     * Creates a new instance of MapServersCmd
+    * Creates a new instance of MapServersCmd
      */
     public MapServersCmd(UIController uiController) {
         this.uiController = uiController;

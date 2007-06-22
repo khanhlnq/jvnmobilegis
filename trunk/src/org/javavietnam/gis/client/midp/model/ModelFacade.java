@@ -41,7 +41,6 @@
  * of any nuclear facility.
  */
 
-
 /*
  * $Id$
  * $URL$
@@ -75,8 +74,10 @@
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq at javavietnam.org
- *
+ * 
+ * @version: 1.0
  * @author: Khanh Le
+ * @Date Created: 22 Jun 2007
  */
 
 package org.javavietnam.gis.client.midp.model;
@@ -147,8 +148,8 @@ public class ModelFacade {
     }
 
     /**
-     * @param locale The locale to set.
-     * @uml.property name="locale"
+    * @param locale The locale to set.
+    * @uml.property name="locale"
      */
     public void setLocale(String locale) throws ApplicationException {
         IndexedResourceBundle errorBundle;
@@ -163,8 +164,8 @@ public class ModelFacade {
     }
 
     /**
-     * @return the locale
-     * @uml.property name="locale"
+    * @return the locale
+    * @uml.property name="locale"
      */
     public String getLocale() {
         return locale;

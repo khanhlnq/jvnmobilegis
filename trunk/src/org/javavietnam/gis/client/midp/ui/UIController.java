@@ -39,7 +39,6 @@
  * You acknowledge that this software is not designed, licensed or
  * intended for use in the design, construction, operation or maintenance
  * of any nuclear facility.
- * $Id$
  */
 
 /*
@@ -75,8 +74,10 @@
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq at javavietnam.org
- *
+ * 
+ * @version: 1.0
  * @author: Khanh Le
+ * @Date Created: 22 Jun 2007
  */
 
 package org.javavietnam.gis.client.midp.ui;
@@ -155,8 +156,8 @@ public class UIController {
     }
 
     /**
-     * @return Returns the display.
-     * @uml.property name="display"
+    * @return Returns the display.
+    * @uml.property name="display"
      */
     public Display getDisplay() {
         return display;
@@ -171,8 +172,8 @@ public class UIController {
     }
 
     /**
-     * @return the model
-     * @uml.property name="model"
+    * @return the model
+    * @uml.property name="model"
      */
     public ModelFacade getModel() {
         return model;
