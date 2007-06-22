@@ -1,8 +1,45 @@
 // SAX locator interface for document events.
 // No warranty; no copyright -- use this as you will.
-// $Id$
 
-/* * $URL$ * $Author$ * $Revision$ *$Date$ * * *===================================================== * */
+/*
+ * $Id$
+ * $URL$
+ * $Author$
+ * $Revision$
+ * $Date$
+ *
+ * ====================================================================
+ *
+ * Copyright (C) 2006-2007 by JVNGIS
+ *
+ * All copyright notices regarding JVNMobileGIS MUST remain
+ * intact in the Java codes and resource files.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ * Support can be obtained from project homepage at:
+ * http://code.google.com/p/jvnmobilegis/
+ *
+ * Correspondence and Marketing Questions can be sent to:
+ * khanh.lnq at javavietnam.org
+ * 
+ * @version: 1.0
+ * @author: Khanh Le
+ * @Date Created: 22 Jun 2007
+ */
+ 
 package org.xml.sax;
 
 /**
@@ -29,41 +66,41 @@ package org.xml.sax;
 public interface Locator {
 
     /**
-     * Return the public identifier for the current document event.
-     * <p/>
-     * This will be the public identifier
+    * Return the public identifier for the current document event.
+    * <p/>
+    * This will be the public identifier
      *
-     * @return A string containing the public identifier, or null if none is available.
-     * @see #getSystemId
+    * @return A string containing the public identifier, or null if none is available.
+    * @see #getSystemId
      */
     public abstract String getPublicId();
 
     /**
-     * Return the system identifier for the current document event.
-     * <p/>
-     * If the system identifier is a URL, the parser must resolve it fully before passing it to the application.
-     * </p>
+    * Return the system identifier for the current document event.
+    * <p/>
+    * If the system identifier is a URL, the parser must resolve it fully before passing it to the application.
+    * </p>
      *
-     * @return A string containing the system identifier, or null if none is available.
-     * @see #getPublicId
+    * @return A string containing the system identifier, or null if none is available.
+    * @see #getPublicId
      */
     public abstract String getSystemId();
 
     /**
-     * Return the line number where the current document event ends. Note that this is the line position of the first
-     * character after the text associated with the document event.
+    * Return the line number where the current document event ends. Note that this is the line position of the first
+    * character after the text associated with the document event.
      *
-     * @return The line number, or -1 if none is available.
-     * @see #getColumnNumber
+    * @return The line number, or -1 if none is available.
+    * @see #getColumnNumber
      */
     public abstract int getLineNumber();
 
     /**
-     * Return the column number where the current document event ends. Note that this is the column number of the first
-     * character after the text associated with the document event. The first column in a line is position 1.
+    * Return the column number where the current document event ends. Note that this is the column number of the first
+    * character after the text associated with the document event. The first column in a line is position 1.
      *
-     * @return The column number, or -1 if none is available.
-     * @see #getLineNumber
+    * @return The column number, or -1 if none is available.
+    * @see #getLineNumber
      */
     public abstract int getColumnNumber();
 

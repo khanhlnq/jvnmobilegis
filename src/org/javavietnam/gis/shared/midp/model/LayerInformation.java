@@ -31,8 +31,10 @@
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq at javavietnam.org
- *
+ * 
+ * @version: 1.0
  * @author: Khanh Le
+ * @Date Created: 22 Jun 2007
  */
 
 package org.javavietnam.gis.shared.midp.model;
@@ -51,13 +53,13 @@ public class LayerInformation {
     private ServerInformation server;
     private LayerInformation parent;
     /**
-     * @uml.property name="latLonBoundingBox"
-     * @uml.associationEnd multiplicity="(0 -1)"
+    * @uml.property name="latLonBoundingBox"
+    * @uml.associationEnd multiplicity="(0 -1)"
      */
     private Float[] latLonBoundingBox;
 
     /**
-     * Erstellt ein neues Objekt mit Refferenz auf den Server, der diesen Layer anbietet.
+    * Erstellt ein neues Objekt mit Refferenz auf den Server, der diesen Layer anbietet.
      */
     public LayerInformation(ServerInformation server) {
         this.server = server;
@@ -65,35 +67,35 @@ public class LayerInformation {
     }
 
     /**
-     * Setzt die Refferenz auf den �bergeordneten Layer <br>
-     * Diese kann ben�tigt werden, da die Layer sich ihre Eigenschaften teilweise vererben
+    * Setzt die Refferenz auf den �bergeordneten Layer <br>
+    * Diese kann ben�tigt werden, da die Layer sich ihre Eigenschaften teilweise vererben
      */
     public void setParentLayer(LayerInformation parent) {
         this.parent = parent;
     }
 
     /**
-     * Gibt die Refferenz auf den �bergeordneten Layer <br>
-     * Diese kann ben�tigt werden, da die Layer sich ihre Eigenschaften teilweise vererben
+    * Gibt die Refferenz auf den �bergeordneten Layer <br>
+    * Diese kann ben�tigt werden, da die Layer sich ihre Eigenschaften teilweise vererben
      *
-     * @return Refferenz auf �bergeordneten Layer, oder null f�r den Root-Layer
+    * @return Refferenz auf �bergeordneten Layer, oder null f�r den Root-Layer
      */
     public LayerInformation getParentLayer() {
         return parent;
     }
 
     /**
-     * Setzt die den Bereich in dem dieser Layer verf�gbar ist
+    * Setzt die den Bereich in dem dieser Layer verf�gbar ist
      */
     public void setLatLonBoundingBox(Float minx, Float miny, Float maxx, Float maxy) {
         latLonBoundingBox = new Float[]{minx, miny, maxx, maxy};
     }
 
     /**
-     * Gibt die den Bereich in dem dieser Layer verf�gbar ist
+    * Gibt die den Bereich in dem dieser Layer verf�gbar ist
      *
-     * @return floatArray mit { minx, miny, maxx, maxy }
-     * @uml.property name="latLonBoundingBox"
+    * @return floatArray mit { minx, miny, maxx, maxy }
+    * @uml.property name="latLonBoundingBox"
      */
     public Float[] getLatLonBoundingBox() {
         if (latLonBoundingBox == null && parent != null) return parent.getLatLonBoundingBox();
@@ -101,46 +103,46 @@ public class LayerInformation {
     }
 
     /**
-     * Setzt eine beliebige Eigenschaft des Layers <br>
-     * <br>
-     * <br>
-     * Von dem GetCapabilities-Parser werden im Moment folgende gesetzt: <br>
-     * queryable, srs, title, name, abstract <br>
-     * <br>
-     * Beachte: Die Keys sollten LowerCase sein. <br>
-     * <br>
-     * Die Eigenschaft srs ist einfach als Text gespeichert, wie im XML-Dokument <br>
-     * Eine Funktion getSRSList gibt es noch nicht
+    * Setzt eine beliebige Eigenschaft des Layers <br>
+    * <br>
+    * <br>
+    * Von dem GetCapabilities-Parser werden im Moment folgende gesetzt: <br>
+    * queryable, srs, title, name, abstract <br>
+    * <br>
+    * Beachte: Die Keys sollten LowerCase sein. <br>
+    * <br>
+    * Die Eigenschaft srs ist einfach als Text gespeichert, wie im XML-Dokument <br>
+    * Eine Funktion getSRSList gibt es noch nicht
      */
     public void setField(String key, String value) {
         data.put(key, value);
     }
 
     /**
-     * Liefert eine beliebige Eigenschaft des Layers <br>
-     * <br>
-     * <br>
-     * Von dem GetCapabilities-Parser werden im Moment folgende gesetzt: <br>
-     * queryable, srs, title, name, abstract <br>
-     * <br>
-     * Beachte: Die Keys sollten LowerCase sein. <br>
-     * <br>
-     * Die Eigenschaft srs ist einfach als Text gespeichert, wie im XML-Dokument <br>
-     * Eine Funktion getSRSList gibt es noch nicht. Kann aber bei bedarf hinzu kommen.
+    * Liefert eine beliebige Eigenschaft des Layers <br>
+    * <br>
+    * <br>
+    * Von dem GetCapabilities-Parser werden im Moment folgende gesetzt: <br>
+    * queryable, srs, title, name, abstract <br>
+    * <br>
+    * Beachte: Die Keys sollten LowerCase sein. <br>
+    * <br>
+    * Die Eigenschaft srs ist einfach als Text gespeichert, wie im XML-Dokument <br>
+    * Eine Funktion getSRSList gibt es noch nicht. Kann aber bei bedarf hinzu kommen.
      */
     public String getField(String key) {
         return (String) data.get(key);
     }
 
     /**
-     * Liefert eine Refferenz auf den Server, der diesen Layer anbietet.
+    * Liefert eine Refferenz auf den Server, der diesen Layer anbietet.
      */
     public ServerInformation getServerInformation() {
         return server;
     }
 
     /**
-     * Liefert den Titel des Layers
+    * Liefert den Titel des Layers
      */
     public String toString() {
         if (getField("title") != null) return getField("title");

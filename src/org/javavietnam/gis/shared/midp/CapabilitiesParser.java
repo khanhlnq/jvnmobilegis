@@ -31,8 +31,10 @@
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq at javavietnam.org
- *
+ * 
+ * @version: 1.0
  * @author: Khanh Le
+ * @Date Created: 22 Jun 2007
  */
 
 package org.javavietnam.gis.shared.midp;
@@ -85,7 +87,7 @@ public class CapabilitiesParser extends MinML {
     }
 
     /**
-     * Gibt eine Baumstruktur zur�ck, die die Layer repr�sentiert
+    * Gibt eine Baumstruktur zur�ck, die die Layer repr�sentiert
      */
     public Vector constructDataTree() {
         try {

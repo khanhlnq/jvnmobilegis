@@ -74,8 +74,10 @@
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq at javavietnam.org
- *
+ * 
+ * @version: 1.0
  * @author: Khanh Le
+ * @Date Created: 22 Jun 2007
  */
 
 package org.javavietnam.gis.client.midp.model;
@@ -89,7 +91,7 @@ import org.javavietnam.gis.shared.midp.ApplicationException;
 public class LocalModel {
 
     /**
-     * @link aggregation
+    * @link aggregation
      */
     private RMSAdapter rmsAdapter;
     private Preferences preferences = null;
@@ -100,8 +102,8 @@ public class LocalModel {
     }
 
     /**
-     * @param progressObserver the progressObserver to set
-     * @uml.property name="progressObserver"
+    * @param progressObserver the progressObserver to set
+    * @uml.property name="progressObserver"
      */
     public static void setProgressObserver(ProgressObserver progressObserver) {
         progressObserver = progressObserver;
@@ -116,13 +118,13 @@ public class LocalModel {
     }
 
     /*
-     * This is used as cache and is maintained up-to-date, getting the preferences always returns the same instance,
-     * setting new preferences does not replace this instance but updates the individual attributes/properties of this
-     * instance
+    * This is used as cache and is maintained up-to-date, getting the preferences always returns the same instance,
+    * setting new preferences does not replace this instance but updates the individual attributes/properties of this
+    * instance
      */
     /**
-     * @return the preferences
-     * @uml.property name="preferences"
+    * @return the preferences
+    * @uml.property name="preferences"
      */
     public Preferences getPreferences() throws ApplicationException {
         if (preferences == null) {
@@ -146,8 +148,8 @@ public class LocalModel {
 
     // public void setPreferences() throws ApplicationException {
     /**
-     * @param preferences the preferences to set
-     * @uml.property name="preferences"
+    * @param preferences the preferences to set
+    * @uml.property name="preferences"
      */
     public void setPreferences(Preferences preferences) throws ApplicationException {
         this.preferences.copy(preferences);

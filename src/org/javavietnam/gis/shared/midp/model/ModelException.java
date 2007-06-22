@@ -74,8 +74,10 @@
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq at javavietnam.org
- *
+ * 
+ * @version: 1.0
  * @author: Khanh Le
+ * @Date Created: 22 Jun 2007
  */
 
 package org.javavietnam.gis.shared.midp.model;
@@ -101,8 +103,8 @@ public class ModelException extends Exception {
     }
 
     /**
-     * @return Returns the causeCode.
-     * @uml.property name="causeCode"
+    * @return Returns the causeCode.
+    * @uml.property name="causeCode"
      */
     public int getCauseCode() {
         return causeCode;

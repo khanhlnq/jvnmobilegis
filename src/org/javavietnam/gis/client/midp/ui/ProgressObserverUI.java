@@ -39,7 +39,6 @@
  * You acknowledge that this software is not designed, licensed or
  * intended for use in the design, construction, operation or maintenance
  * of any nuclear facility.
- * $Id$
  */
 
 /*
@@ -75,8 +74,10 @@
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq at javavietnam.org
- *
+ * 
+ * @version: 1.0
  * @author: Khanh Le
+ * @Date Created: 22 Jun 2007
  */
 
 package org.javavietnam.gis.client.midp.ui;
@@ -126,16 +127,16 @@ public class ProgressObserverUI extends Form implements ProgressObserver, Comman
     }
 
     /**
-     * @return Returns the stoppable.
-     * @uml.property name="stoppable"
+    * @return Returns the stoppable.
+    * @uml.property name="stoppable"
      */
     public boolean isStoppable() {
         return stoppable;
     }
 
     /**
-     * @param stoppable The stoppable to set.
-     * @uml.property name="stoppable"
+    * @param stoppable The stoppable to set.
+    * @uml.property name="stoppable"
      */
     public void setStoppable(boolean stoppable) {
         this.stoppable = stoppable;
@@ -148,9 +149,9 @@ public class ProgressObserverUI extends Form implements ProgressObserver, Comman
     }
 
     /**
-     * Indicates whether the user has stopped the progress. This message should be called before calling update.
+    * Indicates whether the user has stopped the progress. This message should be called before calling update.
      *
-     * @uml.property name="stopped"
+    * @uml.property name="stopped"
      */
     public boolean isStopped() {
         return stopped;

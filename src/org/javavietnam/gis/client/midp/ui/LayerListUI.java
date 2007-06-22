@@ -31,8 +31,10 @@
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq at javavietnam.org
- *
+ * 
+ * @version: 1.0
  * @author: Khanh Le
+ * @Date Created: 22 Jun 2007
  */
 
 package org.javavietnam.gis.client.midp.ui;
@@ -95,16 +97,16 @@ public class LayerListUI extends List implements CommandListener {
     }
 
     /**
-     * @return Returns the layerList.
-     * @uml.property name="layerList"
+    * @return Returns the layerList.
+    * @uml.property name="layerList"
      */
     public Vector getLayerList() {
         return layerList;
     }
 
     /**
-     * @param layerList The layerList to set.
-     * @uml.property name="layerList"
+    * @param layerList The layerList to set.
+    * @uml.property name="layerList"
      */
     private void setLayerList(Vector layerList) {
         this.layerList = layerList;

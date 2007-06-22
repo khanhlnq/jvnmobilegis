@@ -74,8 +74,10 @@
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq at javavietnam.org
- *
+ * 
+ * @version: 1.0
  * @author: Khanh Le
+ * @Date Created: 22 Jun 2007
  */
 
 package org.javavietnam.gis.client.midp.model;
@@ -97,7 +99,7 @@ import java.util.Vector;
 public class RemoteModelProxy extends ModelObjectLoader {
 
     /**
-     * @link dependency
+    * @link dependency
      */
     /* # RMSCacheHandler lnkRMSCacheHandler; */
     private RemoteModelRequestHandler requestHandlerChain;

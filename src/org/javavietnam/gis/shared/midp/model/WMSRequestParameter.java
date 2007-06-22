@@ -31,8 +31,10 @@
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq at javavietnam.org
- *
+ * 
+ * @version: 1.0
  * @author: Khanh Le
+ * @Date Created: 22 Jun 2007
  */
 
 package org.javavietnam.gis.shared.midp.model;
@@ -53,12 +55,12 @@ public interface WMSRequestParameter {
     public int getPixelHeight();
 
     /**
-     * X-Koordinate der Linken, oberen Ecke
+    * X-Koordinate der Linken, oberen Ecke
      */
     public Float getBoundingX1();
 
     /**
-     * Y-Koordinate der Linken, oberen Ecke
+    * Y-Koordinate der Linken, oberen Ecke
      */
     public Float getBoundingY1();
 
