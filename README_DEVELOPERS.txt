@@ -17,7 +17,7 @@ You can also build/emulate this project without IDE, all you need are:
 To make a small size application, I recommend using Proguard to obfuscate the deployed package.
 
 4. Make executable file for Windows
-I don't like Windows! But to bring convenience to non-Java users, I have included Mide2Exe to "bin" folder. It's easy to use, you can make the executable file yourself to demo it without Java installed.
+I don't like Windows! But to bring convenience to non-Java users, I have included Mide2Exe (http://kwyshell.myweb.hinet.net/Project/Midp2Exe/) to "bin" folder. It's easy to use, you can make the executable file yourself to demo it without Java installed.
 Run "Midp2Exe -jar JVNMobileGIS.jar -jad JVNMobileGIS.jad -o JVNMobileGIS.exe" in "bin" directory to make the file.
 
 Happy developing!!!
