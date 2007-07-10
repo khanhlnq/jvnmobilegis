@@ -1,6 +1,8 @@
 #summary JVNMobileGIS - a Java mobile map viewer
 #labels home
 
+http://jvnmobilegis.googlecode.com/svn/trunk/docs/images/JVNMobileGIS_PPC_small.png
+
 = JVNMobileGIS =
 
 JVNMobileGIS the first WMS mobile viewer in Vietnam. It is small in size which can fetch map data from remote server. 
@@ -19,5 +21,4 @@ JVNMobileGIS the first WMS mobile viewer in Vietnam. It is small in size which c
     * Alert when new version is availabe 
     * Support touch screen devices (e.g. Pocket PC, UIQ,...). You can drag map on the screen.
     * Pre-defined some popular server to save your input time.
-
 
