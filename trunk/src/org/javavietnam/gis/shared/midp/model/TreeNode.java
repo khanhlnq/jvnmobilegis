@@ -44,7 +44,7 @@ package org.javavietnam.gis.shared.midp.model;
  */
 public class TreeNode implements TreeNodeInterface {
 
-    LayerInformation content;
+    private LayerInformation content;
 
     public TreeNode(LayerInformation content) {
         this.content = content;

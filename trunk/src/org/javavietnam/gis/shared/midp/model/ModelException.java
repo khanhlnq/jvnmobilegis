@@ -93,18 +93,17 @@ import java.io.IOException;
  */
 public class ModelException extends Exception {
 
-    public static final byte CAUSE_GENERAL = 0;
+    private static final byte CAUSE_GENERAL = 0;
     private int causeCode = CAUSE_GENERAL;
 
-    public ModelException(int causeCode) {
+    private ModelException(int causeCode) {
         this.causeCode = causeCode;
 
-        return;
     }
 
     /**
-    * @return Returns the causeCode.
-    * @uml.property name="causeCode"
+     * @return Returns the causeCode.
+     * @uml.property name="causeCode"
      */
     public int getCauseCode() {
         return causeCode;
@@ -114,7 +113,6 @@ public class ModelException extends Exception {
         try {
             dataStream.writeInt(causeCode);
 
-            return;
         }
         catch (IOException ioe) {
             throw new ApplicationException(ioe);

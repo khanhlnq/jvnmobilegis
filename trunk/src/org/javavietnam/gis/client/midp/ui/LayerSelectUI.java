@@ -48,7 +48,7 @@ import java.util.Vector;
 /**
  * @author Khanh
  */
-public class LayerSelectUI extends Form implements CommandListener {
+class LayerSelectUI extends Form implements CommandListener {
 
     private UIController uiController;
     private Command backCommand;
@@ -56,12 +56,11 @@ public class LayerSelectUI extends Form implements CommandListener {
     private ChoiceGroup choiceLayer;
     private ChoiceGroup choiceAskNextTime;
     private boolean askNextTime = true;
-    String[] askNextTimeArr;
 
     public LayerSelectUI(UIController uiController) {
         super(uiController.getString(UIConstants.LAYER_SELECT_TITLE));
         this.uiController = uiController;
-        askNextTimeArr = new String[2];
+        String[] askNextTimeArr = new String[2];
         askNextTimeArr[0] = uiController.getString(UIConstants.YES);
         askNextTimeArr[1] = uiController.getString(UIConstants.NO);
         choiceLayer = new ChoiceGroup(uiController.getString(UIConstants.CHOOSE_LAYER_FOR_INFO), ChoiceGroup.EXCLUSIVE);
@@ -99,8 +98,8 @@ public class LayerSelectUI extends Form implements CommandListener {
     }
 
     /**
-    * @return Returns the askNextTime.
-    * @uml.property name="askNextTime"
+     * @return Returns the askNextTime.
+     * @uml.property name="askNextTime"
      */
     public boolean isAskNextTime() {
         return askNextTime;

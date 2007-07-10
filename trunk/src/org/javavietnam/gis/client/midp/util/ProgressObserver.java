@@ -87,14 +87,14 @@ package org.javavietnam.gis.client.midp.util;
 public interface ProgressObserver {
 
     /**
-    * @return
-    * @uml.property name="stoppable"
+     * @return
+     * @uml.property name="stoppable"
      */
     public boolean isStoppable();
 
     /**
-    * @param stoppable
-    * @uml.property name="stoppable"
+     * @param stoppable
+     * @uml.property name="stoppable"
      */
     public void setStoppable(boolean stoppable);
 

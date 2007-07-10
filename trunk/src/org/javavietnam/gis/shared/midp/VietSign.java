@@ -45,7 +45,7 @@ import javax.microedition.midlet.MIDlet;
 
 public class VietSign implements CommandListener, ItemCommandListener {
 
-    public static final Command signCommand = new Command("B\u1ecf d\u1ea5u", Command.SCREEN, 0);
+    private static final Command signCommand = new Command("B\u1ecf d\u1ea5u", Command.SCREEN, 0);
 
     private static final String signA = "a\u00e1\u00e0\u1ea3\u00e3\u1ea1"
             + "\u0103\u1eaf\u1eb1\u1eb3\u1eb5\u1eb7"
@@ -95,7 +95,7 @@ public class VietSign implements CommandListener, ItemCommandListener {
         item.setItemCommandListener(this);
     }
 
-    void initList(String signString) {
+    private void initList(String signString) {
         listSign = null;
         listSign = new List("B\u1ecf d\u1ea5u ti\u1ebfng Vi\u1ec7t", List.IMPLICIT);
         listSign.setTicker(new Ticker("B\u1ea1n h\u00e3y ch\u1ecdn k\u00fd t\u1ef1 c\u00f3 d\u1ea5u ph\u00f9 h\u1ee3p"));
@@ -112,7 +112,7 @@ public class VietSign implements CommandListener, ItemCommandListener {
         if (possible) Display.getDisplay(midlet).setCurrent(listSign);
     }
 
-    void setError() {
+    private void setError() {
         Alert errorAlert = new Alert("\u263b L\u1ed7i x\u1ea3y ra. ",
                 "Kh\u00f4ng b\u1ecf d\u1ea5u \u0111\u01b0\u1ee3c!\nB\u1ecf d\u1ea5u kh\u00f4ng \u0111\u00fang.",
                 null,
@@ -162,7 +162,7 @@ public class VietSign implements CommandListener, ItemCommandListener {
         }
     }
 
-    void deInitialize(boolean all) {
+    private void deInitialize(boolean all) {
         previous = null;
         possible = true;
         textField = null;

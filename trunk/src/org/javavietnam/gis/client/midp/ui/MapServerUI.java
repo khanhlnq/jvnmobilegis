@@ -45,7 +45,7 @@ import javax.microedition.lcdui.*;
 /**
  * @author Khanh
  */
-public class MapServerUI extends Form implements CommandListener {
+class MapServerUI extends Form implements CommandListener {
 
     private UIController uiController;
     private TextField serverField;

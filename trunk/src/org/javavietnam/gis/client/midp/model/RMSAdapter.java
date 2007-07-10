@@ -91,15 +91,15 @@ import javax.microedition.rms.RecordStoreException;
 import java.io.*;
 
 
-public class RMSAdapter {
+class RMSAdapter {
 
-    public static final String RECORD_STORE_INDEX = "INDEX";
-    public static final String RECORD_STORE_LOCAL_DATA = "LOCAL_DATA";
+    private static final String RECORD_STORE_INDEX = "INDEX";
+    private static final String RECORD_STORE_LOCAL_DATA = "LOCAL_DATA";
     private RecordStore indexRecordStore;
     private RecordStore localDataRecordStore;
 
     /**
-    * @link dependency
+     * @link dependency
      */
     /* # IndexEntry lnkIndexEntry; */
     private static class IndexEntryFilter implements RecordFilter {
@@ -117,7 +117,6 @@ public class RMSAdapter {
             this.type = type;
             this.mode = mode;
 
-            return;
         }
 
         public boolean matches(byte[] candidate) {
@@ -138,7 +137,6 @@ public class RMSAdapter {
             indexRecordStore = RecordStore.openRecordStore(RECORD_STORE_INDEX, true);
             localDataRecordStore = RecordStore.openRecordStore(RECORD_STORE_LOCAL_DATA, true);
 
-            return;
         }
         catch (RecordStoreException rse) {
             rse.printStackTrace();
@@ -152,7 +150,6 @@ public class RMSAdapter {
             indexRecordStore.closeRecordStore();
             localDataRecordStore.closeRecordStore();
 
-            return;
         }
         catch (RecordStoreException rse) {
             rse.printStackTrace();
@@ -178,7 +175,6 @@ public class RMSAdapter {
                 indexRecordStore.addRecord(data, 0, data.length);
             }
 
-            return;
         }
         catch (IOException ioe) {
             throw new ApplicationException(ioe);
@@ -251,7 +247,6 @@ public class RMSAdapter {
                 }
             }
 
-            return;
         }
         catch (RecordStoreException rse) {
             rse.printStackTrace();
@@ -264,7 +259,6 @@ public class RMSAdapter {
         try {
             recordStore.deleteRecord(recordId);
 
-            return;
         }
         catch (RecordStoreException rse) {
             rse.printStackTrace();

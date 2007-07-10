@@ -118,18 +118,16 @@ public class ModelFacade {
 
         setLocale(locale);
 
-        return;
     }
 
     public ModelFacade() throws ApplicationException {
         localModel = new LocalModel();
         remoteModel = new RemoteModelProxy();
 
-        return;
     }
 
     public void setProgressObserver(ProgressObserver progressObserver) {
-        LocalModel.setProgressObserver(progressObserver);
+        localModel.setProgressObserver(progressObserver);
         remoteModel.setProgressObserver(progressObserver);
     }
 
@@ -137,19 +135,19 @@ public class ModelFacade {
         localModel.init();
         remoteModel.init();
 
-        return;
     }
 
     public void destroy() throws ApplicationException {
         localModel.destroy();
         remoteModel.destroy();
 
-        return;
     }
 
     /**
-    * @param locale The locale to set.
-    * @uml.property name="locale"
+     * @param locale The locale to set.
+     * @throws org.javavietnam.gis.shared.midp.ApplicationException
+     *
+     * @uml.property name="locale"
      */
     public void setLocale(String locale) throws ApplicationException {
         IndexedResourceBundle errorBundle;
@@ -160,12 +158,11 @@ public class ModelFacade {
 
         ApplicationException.setResourceBundle(errorBundle);
 
-        return;
     }
 
     /**
-    * @return the locale
-    * @uml.property name="locale"
+     * @return the locale
+     * @uml.property name="locale"
      */
     public String getLocale() {
         return locale;
@@ -260,7 +257,6 @@ public class ModelFacade {
     public void setPreferences(Preferences preferences) throws ApplicationException {
         localModel.setPreferences(preferences);
 
-        return;
     }
 
 }

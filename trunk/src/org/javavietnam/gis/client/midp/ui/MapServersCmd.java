@@ -52,15 +52,17 @@ import javax.microedition.lcdui.TextField;
  */
 public class MapServersCmd implements ItemCommandListener {
 
-    UIController uiController;
+    private UIController uiController;
 
-    public final Command mapServer01;
-    public final Command mapServer02;
-    public final Command mapServer03;
-    public final Command mapServer04;
+    private final Command mapServer01;
+    private final Command mapServer02;
+    private final Command mapServer03;
+    private final Command mapServer04;
 
     /**
-    * Creates a new instance of MapServersCmd
+     * Creates a new instance of MapServersCmd
+     *
+     * @param uiController
      */
     public MapServersCmd(UIController uiController) {
         this.uiController = uiController;

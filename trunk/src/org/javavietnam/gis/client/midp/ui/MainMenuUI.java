@@ -90,7 +90,7 @@ import javax.microedition.lcdui.List;
 
 /**
  */
-public class MainMenuUI extends List implements CommandListener {
+class MainMenuUI extends List implements CommandListener {
 
     private UIController uiController;
     private Command exitCommand;

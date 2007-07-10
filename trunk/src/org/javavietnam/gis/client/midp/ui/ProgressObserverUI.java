@@ -94,12 +94,12 @@ public class ProgressObserverUI extends Form implements ProgressObserver, Comman
     private UIController uiController;
     private static final int GAUGE_MAX = 8;
     private static final int GAUGE_LEVELS = 4;
-    int current = 0;
-    Gauge gauge;
-    StringItem note;
-    Command stopCommand;
-    boolean stoppable;
-    boolean stopped;
+    private int current = 0;
+    private Gauge gauge;
+    private StringItem note;
+    private Command stopCommand;
+    private boolean stoppable;
+    private boolean stopped;
 
     public ProgressObserverUI(UIController uiController) {
         super("");
@@ -127,16 +127,16 @@ public class ProgressObserverUI extends Form implements ProgressObserver, Comman
     }
 
     /**
-    * @return Returns the stoppable.
-    * @uml.property name="stoppable"
+     * @return Returns the stoppable.
+     * @uml.property name="stoppable"
      */
     public boolean isStoppable() {
         return stoppable;
     }
 
     /**
-    * @param stoppable The stoppable to set.
-    * @uml.property name="stoppable"
+     * @param stoppable The stoppable to set.
+     * @uml.property name="stoppable"
      */
     public void setStoppable(boolean stoppable) {
         this.stoppable = stoppable;
@@ -149,9 +149,9 @@ public class ProgressObserverUI extends Form implements ProgressObserver, Comman
     }
 
     /**
-    * Indicates whether the user has stopped the progress. This message should be called before calling update.
+     * Indicates whether the user has stopped the progress. This message should be called before calling update.
      *
-    * @uml.property name="stopped"
+     * @uml.property name="stopped"
      */
     public boolean isStopped() {
         return stopped;

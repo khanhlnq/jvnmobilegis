@@ -107,7 +107,6 @@ public class Preferences {
         this.setWebGISURL(preferences.getWebGISURL());
         this.setFindPathLayer(preferences.getFindPathLayer());
 
-        return;
     }
 
     public void serialize(DataOutputStream dataStream) throws ApplicationException {
@@ -117,7 +116,6 @@ public class Preferences {
             dataStream.writeUTF(getWebGISURL());
             dataStream.writeUTF(getFindPathLayer());
 
-            return;
         }
         catch (IOException ioe) {
             throw new ApplicationException(ioe);
@@ -149,48 +147,48 @@ public class Preferences {
     }
 
     /**
-    * @return the wmsServerURL
-    * @uml.property name="wmsServerURL"
+     * @return the wmsServerURL
+     * @uml.property name="wmsServerURL"
      */
     public String getWmsServerURL() {
         return wmsServerURL;
     }
 
     /**
-    * @param wmsServerURL the wmsServerURL to set
-    * @uml.property name="wmsServerURL"
+     * @param wmsServerURL the wmsServerURL to set
+     * @uml.property name="wmsServerURL"
      */
     public void setWmsServerURL(String wmsServerURL) {
         this.wmsServerURL = wmsServerURL;
     }
 
     /**
-    * @return the webGISURL
-    * @uml.property name="webGISURL"
+     * @return the webGISURL
+     * @uml.property name="webGISURL"
      */
     public String getWebGISURL() {
         return webGISURL;
     }
 
     /**
-    * @param webGISURL the webGISURL to set
-    * @uml.property name="webGISURL"
+     * @param webGISURL the webGISURL to set
+     * @uml.property name="webGISURL"
      */
     public void setWebGISURL(String webGISURL) {
         this.webGISURL = webGISURL;
     }
 
     /**
-    * @return the findPathLayer
-    * @uml.property name="findPathLayer"
+     * @return the findPathLayer
+     * @uml.property name="findPathLayer"
      */
     public String getFindPathLayer() {
         return findPathLayer;
     }
 
     /**
-    * @param findPathLayer the findPathLayer to set
-    * @uml.property name="findPathLayer"
+     * @param findPathLayer the findPathLayer to set
+     * @uml.property name="findPathLayer"
      */
     public void setFindPathLayer(String findPathLayer) {
         this.findPathLayer = findPathLayer;

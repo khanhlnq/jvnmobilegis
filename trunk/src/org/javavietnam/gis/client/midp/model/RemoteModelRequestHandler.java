@@ -78,7 +78,7 @@
  * @version: 1.0
  * @author: Khanh Le
  * @Date Created: 22 Jun 2007
- */        
+ */
 
 package org.javavietnam.gis.client.midp.model;
 
@@ -97,18 +97,18 @@ import java.util.Vector;
 abstract public class RemoteModelRequestHandler implements RequestHandler {
 
     /**
-    * @link aggregation
+     * @link aggregation
      */
     private RemoteModelRequestHandler nextHandler;
-    protected static ProgressObserver progressObserver;
+    private static ProgressObserver progressObserver;
 
     public RemoteModelRequestHandler(RemoteModelRequestHandler nextHandler) {
         this.nextHandler = nextHandler;
     }
 
     /**
-    * @return Returns the nextHandler.
-    * @uml.property name="nextHandler"
+     * @return Returns the nextHandler.
+     * @uml.property name="nextHandler"
      */
     public RequestHandler getNextHandler() {
         return nextHandler;
@@ -119,7 +119,6 @@ abstract public class RemoteModelRequestHandler implements RequestHandler {
             nextHandler.init();
         }
 
-        return;
     }
 
     public void destroy() throws ApplicationException {
@@ -127,18 +126,17 @@ abstract public class RemoteModelRequestHandler implements RequestHandler {
             nextHandler.destroy();
         }
 
-        return;
     }
 
     /**
-    * @param progressObserver The progressObserver to set.
-    * @uml.property name="progressObserver"
+     * @param progressObserver The progressObserver to set.
+     * @uml.property name="progressObserver"
      */
     public static void setProgressObserver(ProgressObserver progressObserver) {
         RemoteModelRequestHandler.progressObserver = progressObserver;
     }
 
-    protected static void updateProgress() throws ApplicationException {
+    static void updateProgress() throws ApplicationException {
         if (progressObserver != null) {
             if (!progressObserver.isStopped()) {
                 progressObserver.updateProgress();

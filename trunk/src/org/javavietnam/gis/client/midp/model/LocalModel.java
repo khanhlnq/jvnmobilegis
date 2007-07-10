@@ -88,10 +88,10 @@ import org.javavietnam.gis.shared.midp.ApplicationException;
 
 /**
  */
-public class LocalModel {
+class LocalModel {
 
     /**
-    * @link aggregation
+     * @link aggregation
      */
     private RMSAdapter rmsAdapter;
     private Preferences preferences = null;
@@ -102,11 +102,11 @@ public class LocalModel {
     }
 
     /**
-    * @param progressObserver the progressObserver to set
-    * @uml.property name="progressObserver"
+     * @param progressObserver the progressObserver to set
+     * @uml.property name="progressObserver"
      */
-    public static void setProgressObserver(ProgressObserver progressObserver) {
-        progressObserver = progressObserver;
+    public void setProgressObserver(ProgressObserver progressObserver) {
+        this.progressObserver = progressObserver;
     }
 
     public void init() throws ApplicationException {
@@ -123,8 +123,10 @@ public class LocalModel {
     * instance
      */
     /**
-    * @return the preferences
-    * @uml.property name="preferences"
+     * @return the preferences
+     * @throws org.javavietnam.gis.shared.midp.ApplicationException
+     *
+     * @uml.property name="preferences"
      */
     public Preferences getPreferences() throws ApplicationException {
         if (preferences == null) {
@@ -135,7 +137,7 @@ public class LocalModel {
             } else {
                 preferences = new Preferences();
 
-                int recordId = rmsAdapter.storePreferences(preferences, indexEntry != null ? indexEntry.getRecordId() : -1);
+                int recordId = rmsAdapter.storePreferences(preferences, -1);
 
                 indexEntry = new IndexEntry(recordId, IndexEntry.TYPE_PREFERENCES, "*", IndexEntry.MODE_PERSISTING);
 
@@ -148,8 +150,10 @@ public class LocalModel {
 
     // public void setPreferences() throws ApplicationException {
     /**
-    * @param preferences the preferences to set
-    * @uml.property name="preferences"
+     * @param preferences the preferences to set
+     * @throws org.javavietnam.gis.shared.midp.ApplicationException
+     *
+     * @uml.property name="preferences"
      */
     public void setPreferences(Preferences preferences) throws ApplicationException {
         this.preferences.copy(preferences);
@@ -163,7 +167,6 @@ public class LocalModel {
             rmsAdapter.addIndexEntry(indexEntry);
         }
 
-        return;
     }
 
 }

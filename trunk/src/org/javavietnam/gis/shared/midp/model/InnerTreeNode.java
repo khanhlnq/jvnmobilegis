@@ -47,7 +47,7 @@ import java.util.Vector;
  */
 public class InnerTreeNode extends Vector implements TreeNodeInterface {
 
-    LayerInformation content;
+    private LayerInformation content;
 
     public InnerTreeNode(LayerInformation content) {
         this.content = content;

@@ -89,11 +89,11 @@ import java.io.*;
  */
 public class IndexEntry {
 
-    public static final int TYPE_ANY = -1;
+    private static final int TYPE_ANY = -1;
     public static final int TYPE_PREFERENCES = 5;
     public static final int MODE_ANY = -1;
     public static final int MODE_PERSISTING = 0;
-    public static final int MODE_CACHING = 1;
+    private static final int MODE_CACHING = 1;
     private int type;
     private String key;
     private long expirationDate;
@@ -104,7 +104,6 @@ public class IndexEntry {
     public IndexEntry(int recordId, int type, String key) {
         this(recordId, type, key, MODE_CACHING);
 
-        return;
     }
 
     public IndexEntry(int recordId, int type, String key, int mode) {
@@ -113,71 +112,70 @@ public class IndexEntry {
         this.key = key;
         this.mode = mode;
 
-        return;
     }
 
     private IndexEntry() {
     }
 
     /**
-    * @return the type
-    * @uml.property name="type"
+     * @return the type
+     * @uml.property name="type"
      */
     public int getType() {
         return type;
     }
 
     /**
-    * @return the key
-    * @uml.property name="key"
+     * @return the key
+     * @uml.property name="key"
      */
     public String getKey() {
         return key;
     }
 
     /**
-    * @return the expirationDate
-    * @uml.property name="expirationDate"
+     * @return the expirationDate
+     * @uml.property name="expirationDate"
      */
     public long getExpirationDate() {
         return expirationDate;
     }
 
     /**
-    * @param expirationDate the expirationDate to set
-    * @uml.property name="expirationDate"
+     * @param expirationDate the expirationDate to set
+     * @uml.property name="expirationDate"
      */
     public void setExpirationDate(long expirationDate) {
         this.expirationDate = expirationDate;
     }
 
     /**
-    * @return the marked
-    * @uml.property name="marked"
+     * @return the marked
+     * @uml.property name="marked"
      */
     public boolean isMarked() {
         return marked;
     }
 
     /**
-    * @param marked the marked to set
-    * @uml.property name="marked"
+     * @param marked the marked to set
+     * @uml.property name="marked"
      */
     public void setMarked(boolean marked) {
         this.marked = marked;
     }
 
     /**
-    * @return the recordId
-    * @uml.property name="recordId"
+     * @return the recordId
+     * @uml.property name="recordId"
      */
     public int getRecordId() {
         return recordId;
     }
 
     /**
-    * @return the mode
-    * @uml.property name="mode"
+     * @return the mode
+     * @uml.property name="mode"
      */
     public int getMode() {
         return mode;

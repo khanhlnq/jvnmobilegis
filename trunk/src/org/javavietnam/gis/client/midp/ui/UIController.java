@@ -125,7 +125,7 @@ public class UIController {
 
     private static final String[] iconPaths = {"/icons/JVNMobileGIS.png",};
     private MIDlet midlet;
-    public Display display;
+    private Display display;
     private IndexedResourceBundle resourceBundle;
     private ModelFacade model;
     public VietSign vietSign;
@@ -156,10 +156,10 @@ public class UIController {
     }
 
     /**
-    * @return Returns the display.
-    * @uml.property name="display"
+     * @return Returns the display.
+     * @uml.property name="display"
      */
-    public Display getDisplay() {
+    private Display getDisplay() {
         return display;
     }
 
@@ -172,8 +172,8 @@ public class UIController {
     }
 
     /**
-    * @return the model
-    * @uml.property name="model"
+     * @return the model
+     * @uml.property name="model"
      */
     public ModelFacade getModel() {
         return model;
@@ -243,11 +243,11 @@ public class UIController {
         showErrorAlert(new ApplicationException(e), mainMenuUI);
     }
 
-    public void showErrorAlert(ApplicationException ae, Displayable d) {
+    private void showErrorAlert(ApplicationException ae, Displayable d) {
         showErrorAlert(ae.getMessage(), d);
     }
 
-    public void showErrorAlert(String message) {
+    private void showErrorAlert(String message) {
         showErrorAlert(message, display.getCurrent());
     }
 
@@ -260,11 +260,11 @@ public class UIController {
         display.setCurrent(alert, d);
     }
 
-    public void showInfoAlert(String message, Displayable d) {
+    private void showInfoAlert(String message, Displayable d) {
         showInfoAlert(null, message, d);
     }
 
-    public void showInfoAlert(String title, String message, Displayable d) {
+    private void showInfoAlert(String title, String message, Displayable d) {
         Alert alert = new Alert((title == null) ? getString(UIConstants.MOBILEGIS_CLIENT) : title);
 
         alert.setType(AlertType.INFO);
@@ -273,13 +273,13 @@ public class UIController {
         display.setCurrent(alert, d);
     }
 
-    public void runWithProgress(Thread thread, String title, boolean stoppable) {
+    private void runWithProgress(Thread thread, String title, boolean stoppable) {
         progressObserverUI.init(title, stoppable);
         getDisplay().setCurrent(progressObserverUI);
         thread.start();
     }
 
-    public void mainMenuRequested() {
+    private void mainMenuRequested() {
         display.setCurrent(mainMenuUI);
     }
 
@@ -450,7 +450,6 @@ public class UIController {
             this.taskId = taskId;
             this.fallbackUI = fallbackUI;
 
-            return;
         }
 
         public void run() {

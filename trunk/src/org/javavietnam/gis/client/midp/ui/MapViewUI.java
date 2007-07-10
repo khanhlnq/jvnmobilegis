@@ -40,45 +40,45 @@
  * intended for use in the design, construction, operation or maintenance
  * of any nuclear facility.
  */
- 
- /*
- * $Id$
- * $URL$
- * $Author$
- * $Revision$
- * $Date$
- *
- * ====================================================================
- *
- * Copyright (C) 2006-2007 by JVNGIS
- *
- * All copyright notices regarding JVNMobileGIS MUST remain
- * intact in the Java codes and resource files.
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
- * Support can be obtained from project homepage at:
- * http://code.google.com/p/jvnmobilegis/
- *
- * Correspondence and Marketing Questions can be sent to:
- * khanh.lnq at javavietnam.org
- * 
- * @version: 1.0
- * @author: Khanh Le
- * @Date Created: 22 Jun 2007
- */
+
+/*
+* $Id$
+* $URL$
+* $Author$
+* $Revision$
+* $Date$
+*
+* ====================================================================
+*
+* Copyright (C) 2006-2007 by JVNGIS
+*
+* All copyright notices regarding JVNMobileGIS MUST remain
+* intact in the Java codes and resource files.
+*
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 2 of the License, or
+* any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program; if not, write to the Free Software
+* Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+*
+* Support can be obtained from project homepage at:
+* http://code.google.com/p/jvnmobilegis/
+*
+* Correspondence and Marketing Questions can be sent to:
+* khanh.lnq at javavietnam.org
+*
+* @version: 1.0
+* @author: Khanh Le
+* @Date Created: 22 Jun 2007
+*/
 
 package org.javavietnam.gis.client.midp.ui;
 
@@ -109,36 +109,35 @@ public class MapViewUI extends Canvas implements CommandListener, WMSRequestPara
 
     private int cursorX;
     private int cursorY;
-    boolean startPointSelected = false;
-    boolean endPointSelected = false;
+    private boolean startPointSelected = false;
+    private boolean endPointSelected = false;
 
-    boolean isDragging = false;
+    private boolean isDragging = false;
     private int pointerStartX;
     private int pointerStartY;
     private int pointerEndX;
     private int pointerEndY;
 
     /**
-    * @uml.property name="startPoint"
-    * @uml.associationEnd multiplicity="(0 -1)"
+     * @uml.property name="startPoint"
+     * @uml.associationEnd multiplicity="(0 -1)"
      */
     private Float[] startPoint = new Float[2];
     /**
-    * @uml.property name="endPoint"
-    * @uml.associationEnd multiplicity="(0 -1)"
+     * @uml.property name="endPoint"
+     * @uml.associationEnd multiplicity="(0 -1)"
      */
     private Float[] endPoint = new Float[2];
     private boolean isViewPath = false;
     private boolean isViewFeature = false;
     /**
-    * @uml.property name="boundingBox"
-    * @uml.associationEnd multiplicity="(0 -1)"
+     * @uml.property name="boundingBox"
+     * @uml.associationEnd multiplicity="(0 -1)"
      */
-    Float[] boundingBox = new Float[4];
+    private Float[] boundingBox = new Float[4];
     private String getMapURL = "";
-    private String srs = "";
-    Image wmsImg;
-    int cursorSize;
+    private Image wmsImg;
+    private int cursorSize;
 
     public MapViewUI(UIController uiController, boolean suppressKeyEvents) {
         super();
@@ -177,11 +176,8 @@ public class MapViewUI extends Canvas implements CommandListener, WMSRequestPara
     }
 
     public void initParam(Float[] latLonBoundingBox, String getMapURL, String srs) {
-        for (int i = 0; i < 4; i++) {
-            boundingBox[i] = latLonBoundingBox[i];
-        }
+        System.arraycopy(latLonBoundingBox, 0, boundingBox, 0, 4);
         this.getMapURL = getMapURL;
-        this.srs = srs;
 
         // Resize bounding box to device dimension
         Float boxWidth = (getBoxHeight().Mul(getWidth())).Div(getHeight());
@@ -203,13 +199,11 @@ public class MapViewUI extends Canvas implements CommandListener, WMSRequestPara
     }
 
     /**
-    * @param latLonBoundingBox the boundingBox to set
-    * @uml.property name="boundingBox"
+     * @param latLonBoundingBox the boundingBox to set
+     * @uml.property name="boundingBox"
      */
     public void setBoundingBox(Float[] latLonBoundingBox) {
-        for (int i = 0; i < 4; i++) {
-            boundingBox[i] = latLonBoundingBox[i];
-        }
+        System.arraycopy(latLonBoundingBox, 0, boundingBox, 0, 4);
 
         // Resize bounding box to device dimension
         Float boxWidth = (getBoxHeight().Mul(getWidth())).Div(getHeight());
@@ -231,8 +225,8 @@ public class MapViewUI extends Canvas implements CommandListener, WMSRequestPara
     }
 
     /**
-    * @return the boundingBox
-    * @uml.property name="boundingBox"
+     * @return the boundingBox
+     * @uml.property name="boundingBox"
      */
     public Float[] getBoundingBox() {
         return boundingBox;
@@ -288,8 +282,8 @@ public class MapViewUI extends Canvas implements CommandListener, WMSRequestPara
     }
 
     /**
-    * @return Returns the getMapURL.
-    * @uml.property name="getMapURL"
+     * @return Returns the getMapURL.
+     * @uml.property name="getMapURL"
      */
     public String getGetMapURL() {
         return getMapURL;
@@ -318,8 +312,8 @@ public class MapViewUI extends Canvas implements CommandListener, WMSRequestPara
     }
 
     // Transform from cursor coordinate to world coordinate
-    public Float[] transformFromView(int[] source) {
-        if (2 != source.length || null == source) {
+    private Float[] transformFromView(int[] source) {
+        if (2 != source.length) {
             return null;
         }
 
@@ -332,7 +326,7 @@ public class MapViewUI extends Canvas implements CommandListener, WMSRequestPara
     }
 
     // Transform from world coordinate to cursor coordinate
-    public int[] transformFromReal(Float[] source) {
+    private int[] transformFromReal(Float[] source) {
         if (2 != source.length || null == source[0] || null == source[1]) {
             return null;
         }
@@ -351,7 +345,7 @@ public class MapViewUI extends Canvas implements CommandListener, WMSRequestPara
     // Center at the cursor
     private void reCenter(int[] curPoint) {
         if (curPoint.length == 2) {
-            Float[] point = new Float[2];
+            Float[] point;
             point = transformFromView(curPoint);
             reCenter(point);
         }
@@ -418,7 +412,6 @@ public class MapViewUI extends Canvas implements CommandListener, WMSRequestPara
     }
 
     private void zoomToScale(Float scale) {
-        Float oldScale = getCurrentScale();
         Float oldWidth = getBoxWidth();
         Float oldHeight = getBoxHeight();
 
@@ -527,7 +520,7 @@ public class MapViewUI extends Canvas implements CommandListener, WMSRequestPara
         repaint(cursors[0] - cursorSize, cursors[1] - cursorSize, 2 * cursorSize, 2 * cursorSize);
     }
 
-    public static String floatToString(Float f, int num) {
+    private static String floatToString(Float f, int num) {
         String floatValue = f.toString();
         if (floatValue.indexOf('.') >= 0 && (floatValue.indexOf('.') + num + 1 < floatValue.length())) {
             return floatValue.substring(0, floatValue.indexOf('.') + num + 1);
@@ -699,7 +692,6 @@ public class MapViewUI extends Canvas implements CommandListener, WMSRequestPara
                 break;
             case KEY_NUM5:
                 int[] cursors = {getCursorX(), getCursorY()};
-                Float[] point = transformFromView(cursors);
                 uiController.selectInfoLayerRequested();
                 break;
             default:
@@ -793,18 +785,18 @@ public class MapViewUI extends Canvas implements CommandListener, WMSRequestPara
     }
 
     /**
-    * @return Returns the cursorX.
-    * @uml.property name="cursorX"
+     * @return Returns the cursorX.
+     * @uml.property name="cursorX"
      */
-    public int getCursorX() {
+    private int getCursorX() {
         return cursorX;
     }
 
     /**
-    * @return Returns the cursorY.
-    * @uml.property name="cursorY"
+     * @return Returns the cursorY.
+     * @uml.property name="cursorY"
      */
-    public int getCursorY() {
+    private int getCursorY() {
         return cursorY;
     }
 
@@ -818,8 +810,8 @@ public class MapViewUI extends Canvas implements CommandListener, WMSRequestPara
     }
 
     /**
-    * @return Returns the startPoint.
-    * @uml.property name="startPoint"
+     * @return Returns the startPoint.
+     * @uml.property name="startPoint"
      */
     public Float[] getStartPoint() {
         if (!startPointSelected) return null;
@@ -827,8 +819,8 @@ public class MapViewUI extends Canvas implements CommandListener, WMSRequestPara
     }
 
     /**
-    * @return Returns the endPoint.
-    * @uml.property name="endPoint"
+     * @return Returns the endPoint.
+     * @uml.property name="endPoint"
      */
     public Float[] getEndPoint() {
         if (!endPointSelected) return null;

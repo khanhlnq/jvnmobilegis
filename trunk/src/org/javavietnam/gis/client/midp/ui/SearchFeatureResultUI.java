@@ -52,7 +52,7 @@ import java.util.Vector;
 /**
  * @author Khanh
  */
-public class SearchFeatureResultUI extends List implements CommandListener {
+class SearchFeatureResultUI extends List implements CommandListener {
 
     private UIController uiController;
     private Command backCommand;
@@ -118,16 +118,15 @@ public class SearchFeatureResultUI extends List implements CommandListener {
     }
 
     /**
-    * @return the numResult
-    * @uml.property name="numResult"
+     * @return the numResult
+     * @uml.property name="numResult"
      */
     public int getNumResult() {
         return numResult;
     }
 
     public MapFeature getSelectedFeature() {
-        MapFeature feature = (MapFeature) features.elementAt(getSelectedIndex());
-        return feature;
+        return (MapFeature) features.elementAt(getSelectedIndex());
     }
 
 }

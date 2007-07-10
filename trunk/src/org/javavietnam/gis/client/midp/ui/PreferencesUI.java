@@ -47,7 +47,7 @@ import javax.microedition.lcdui.*;
 /**
  * @author Khanh
  */
-public class PreferencesUI extends Form implements CommandListener {
+class PreferencesUI extends Form implements CommandListener {
 
     private UIController uiController;
     private ChoiceGroup languageChoice;

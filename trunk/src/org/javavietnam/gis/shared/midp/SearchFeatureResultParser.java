@@ -58,16 +58,18 @@ public class SearchFeatureResultParser extends MinML {
 
     private Vector features;
 
-    boolean featureIsParent;
+    private boolean featureIsParent;
 
-    boolean bookmarkIsParent;
+    private boolean bookmarkIsParent;
 
     private int numResult = 0;
 
-    StringBuffer thisText = new StringBuffer();
+    private StringBuffer thisText = new StringBuffer();
 
     /**
-    * Creates a new instance of FindPathResultParser
+     * Creates a new instance of FindPathResultParser
+     *
+     * @param result
      */
     public SearchFeatureResultParser(String result) {
         try {
@@ -80,7 +82,7 @@ public class SearchFeatureResultParser extends MinML {
     }
 
     public SearchFeatureResultParser(InputStream result) {
-        this.inputStream = inputStream;
+        this.inputStream = result;
     }
 
     public Vector parseFeatures() {
@@ -168,8 +170,8 @@ public class SearchFeatureResultParser extends MinML {
     }
 
     /**
-    * @return Returns the notice.
-    * @uml.property name="numResult"
+     * @return Returns the notice.
+     * @uml.property name="numResult"
      */
     public int getNumResult() {
         return numResult;
