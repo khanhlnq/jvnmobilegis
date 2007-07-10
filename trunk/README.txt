@@ -1,5 +1,5 @@
 JVNMobileGIS - WMS mobile viewer
-Copyright 2006 - JavaVietnam.org
+Copyright 2007 - JavaVietnam.org
 
 This program is intended for all MIDP 2.0, CLDC 1.0 mobile phones. It support get map from any OGC WMS 1.0.0 compliant server. Some features are for JavaVietnam's map server only (e.g: Find Path, Search Feature).
 
@@ -13,6 +13,9 @@ Software requirements:
   a. MIDP 2.0, CLDC 1.0 mobile phones
   b. Support Unicode font
   
+User Guide:
+We have one but it is in Vietnamese (sorry). I will try my best to make an English userguide. I'm not good in English though :)
+
 Contact information:
 Khanh Le Ngoc Quoc
-khanh.lnq AT gmail.com
+khanh.lnq AT javavietnam.org

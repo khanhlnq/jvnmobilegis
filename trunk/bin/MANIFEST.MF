@@ -1,6 +1,8 @@
-Find-Path-Layer: jvn:hcm_roads_topo
-MIDlet-1: JVNMobileGIS,/icons/JVNMobileGIS_icon.png,org.javavietnam.gis.client.midp.JVNMobileGISMIDlet
+MIDlet-1: JVNMobileGIS,  /icons/JVNMobileGIS_icon.png,  org.javavietnam
+ .gis.client.midp.JVNMobileGISMIDlet
 MIDlet-Description: A mobile GIS viewer, developed by JVN-GIS team
+MIDlet-Icon: /home/khanhlnq/projects/_remote/googlecode/jvnmobilegis/tr
+ unk/res/icons/JVNMobileGIS_icon.png
 MIDlet-Info-URL: http://code.google.com/p/jvnmobilegis/
 MIDlet-Name: JVNMobileGIS
 MIDlet-Permissions: javax.microedition.io.Connector.http
@@ -12,3 +14,4 @@ MobileGIS-Locale: en-US
 Update-URL: http://jvnmobilegis.googlecode.com/svn/trunk/JVNMobileGISCurrentVersion.txt
 WMS-Server-URL: http://www2.hcm.ciren.gov.vn/geoserver/wms?request=GetCapabilities&service=WMS&version=1.0.0
 WebGIS-URL: http://www2.hcm.ciren.gov.vn/jvnwebgis
+Find-Path-Layer: jvn:hcm_roads_topo
