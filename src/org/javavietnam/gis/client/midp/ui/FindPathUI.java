@@ -49,15 +49,13 @@ import java.util.Vector;
 /**
  * @author Khanh
  */
-public class FindPathUI extends Form implements CommandListener {
+class FindPathUI extends Form implements CommandListener {
 
     private UIController uiController;
     private Command backCommand;
     private Command viewPathCommand;
 
     private StringItem resultStr;
-
-    private Vector path;
 
     private boolean isPathFound = false;
 
@@ -81,7 +79,7 @@ public class FindPathUI extends Form implements CommandListener {
         removeCommand(viewPathCommand);
         // resultStr.setText(result);
         // System.out.println("************* Path String: " + result);
-        path = new Vector();
+        Vector path;
         path = parser.parsePath();
 
         if (null != path && 0 < path.size()) {
@@ -106,7 +104,7 @@ public class FindPathUI extends Form implements CommandListener {
             resultStr.setLabel(uiController.getString(UIConstants.NOTICE));
             String note = parser.getNotice();
             if (null != note) {
-                note.trim();
+                note = note.trim();
             }
             if (null == note || "".equals(note)) {
                 note = uiController.getString(UIConstants.FINDPATH_ERROR);

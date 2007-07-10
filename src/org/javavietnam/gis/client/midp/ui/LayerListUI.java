@@ -51,14 +51,13 @@ import java.util.Vector;
 
 /**
  */
-public class LayerListUI extends List implements CommandListener {
+class LayerListUI extends List implements CommandListener {
 
     private UIController uiController;
     private Command backCommand;
     private Command getMapCommand;
 
     private Vector layerList;
-    private boolean[] layerFlags;
 
     public LayerListUI(UIController uiController) {
         super(uiController.getString(UIConstants.LAYER_LIST_TITLE), List.MULTIPLE);
@@ -97,23 +96,23 @@ public class LayerListUI extends List implements CommandListener {
     }
 
     /**
-    * @return Returns the layerList.
-    * @uml.property name="layerList"
+     * @return Returns the layerList.
+     * @uml.property name="layerList"
      */
     public Vector getLayerList() {
         return layerList;
     }
 
     /**
-    * @param layerList The layerList to set.
-    * @uml.property name="layerList"
+     * @param layerList The layerList to set.
+     * @uml.property name="layerList"
      */
     private void setLayerList(Vector layerList) {
         this.layerList = layerList;
     }
 
     public Vector getSelectedLayerList() {
-        layerFlags = null;
+        boolean[] layerFlags;
         layerFlags = new boolean[size()];
         Vector selectLayerList = new Vector();
 

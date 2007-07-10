@@ -55,12 +55,16 @@ public interface WMSRequestParameter {
     public int getPixelHeight();
 
     /**
-    * X-Koordinate der Linken, oberen Ecke
+     * X-Koordinate der Linken, oberen Ecke
+     *
+     * @return
      */
     public Float getBoundingX1();
 
     /**
-    * Y-Koordinate der Linken, oberen Ecke
+     * Y-Koordinate der Linken, oberen Ecke
+     *
+     * @return
      */
     public Float getBoundingY1();
 

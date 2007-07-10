@@ -45,7 +45,7 @@ import javax.microedition.lcdui.*;
 /**
  * @author Khanh
  */
-public class FeatureInfoUI extends Form implements CommandListener {
+class FeatureInfoUI extends Form implements CommandListener {
 
     private UIController uiController;
     private Command backCommand;

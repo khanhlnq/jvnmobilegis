@@ -96,10 +96,10 @@ import java.util.Vector;
 
 /**
  */
-public class RemoteModelProxy extends ModelObjectLoader {
+class RemoteModelProxy extends ModelObjectLoader {
 
     /**
-    * @link dependency
+     * @link dependency
      */
     /* # RMSCacheHandler lnkRMSCacheHandler; */
     private RemoteModelRequestHandler requestHandlerChain;
@@ -107,7 +107,6 @@ public class RemoteModelProxy extends ModelObjectLoader {
     public RemoteModelProxy() throws ApplicationException {
         requestHandlerChain = new HTTPCommunicationHandler(null);
 
-        return;
     }
 
     public void setProgressObserver(ProgressObserver progressObserver) {
@@ -117,13 +116,11 @@ public class RemoteModelProxy extends ModelObjectLoader {
     public void init() throws ApplicationException {
         requestHandlerChain.init();
 
-        return;
     }
 
     public void destroy() throws ApplicationException {
         requestHandlerChain.destroy();
 
-        return;
     }
 
     public Image getMapWMS(WMSRequestParameter requestParam, Vector layerList) throws ModelException, ApplicationException {
@@ -153,8 +150,6 @@ public class RemoteModelProxy extends ModelObjectLoader {
     public Vector getCapabilitiesWMS(String serviceURL) throws ModelException, ApplicationException {
         String result = requestHandlerChain.getCapabilitiesWMS(serviceURL);
         CapabilitiesParser parser = new CapabilitiesParser(result);
-        Vector dataTree = parser.constructDataTree();
-
-        return dataTree;
+        return parser.constructDataTree();
     }
 }

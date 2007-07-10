@@ -47,127 +47,127 @@ package henson.midp;
  */
 
 public class Float {
-    
+
     /**
-    * ERROR constant
+     * ERROR constant
      */
     final static private Float ERROR = new Float(Long.MAX_VALUE, Long.MAX_VALUE);
     /**
-    * Number of itterations in sqrt method, if you want to make calculations more precise set ITNUM=6,7,... or
-    * ITMUN=4,3,... to make it faster
+     * Number of itterations in sqrt method, if you want to make calculations more precise set ITNUM=6,7,... or
+     * ITMUN=4,3,... to make it faster
      */
     final static private int ITNUM = 5;
     /**
-    * Square root from 3
+     * Square root from 3
      */
-    final static public Float SQRT3 = new Float(1732050807568877294L, -18L);
+    private final static Float SQRT3 = new Float(1732050807568877294L, -18L);
     /**
-    * The Float value that is closer than any other to pi, the ratio of the circumference of a circle to its diameter
+     * The Float value that is closer than any other to pi, the ratio of the circumference of a circle to its diameter
      */
-    final static public Float PI = new Float(3141592653589793238L, -18L);
+    private final static Float PI = new Float(3141592653589793238L, -18L);
     /**
-    * Zero constant
+     * Zero constant
      */
-    final static public Float ZERO = new Float();
+    private final static Float ZERO = new Float();
     /**
-    * One constant
+     * One constant
      */
-    final static public Float ONE = new Float(1L);
+    private final static Float ONE = new Float(1L);
     /**
-    * The Float value that is closer than any other to e, the base of the natural logarithms
+     * The Float value that is closer than any other to e, the base of the natural logarithms
      */
     final static public Float E = new Float(271828182845904512L, -17);
     /**
-    * Log10 constant
+     * Log10 constant
      */
-    final static public Float LOG10 = new Float(2302585092994045684L, -18);
+    private final static Float LOG10 = new Float(2302585092994045684L, -18);
     //
     /**
-    * Pi/2 constant
+     * Pi/2 constant
      */
-    final static public Float PIdiv2 = PI.Div(2L);
+    private final static Float PIdiv2 = PI.Div(2L);
     /**
-    * Pi/4 constant
+     * Pi/4 constant
      */
     final static public Float PIdiv4 = PIdiv2.Div(2L);
     /**
-    * Pi/6 constant
+     * Pi/6 constant
      */
-    final static public Float PIdiv6 = PIdiv2.Div(3L);
+    private final static Float PIdiv6 = PIdiv2.Div(3L);
     /**
-    * Pi/12 constant
+     * Pi/12 constant
      */
-    final static public Float PIdiv12 = PIdiv6.Div(2L);
+    private final static Float PIdiv12 = PIdiv6.Div(2L);
     /**
-    * Pi*2 constant
+     * Pi*2 constant
      */
-    final static public Float PImul2 = PI.Mul(2L);
+    private final static Float PImul2 = PI.Mul(2L);
     /**
-    * Pi*4 constant
+     * Pi*4 constant
      */
     final static public Float PImul4 = PI.Mul(4L);
     /**
-    * ln(0.5) constant
+     * ln(0.5) constant
      */
-    final static public Float LOGdiv2 = new Float(-6931471805599453094L, -19);
+    private final static Float LOGdiv2 = new Float(-6931471805599453094L, -19);
     /**
-    * Mantissa
+     * Mantissa
      */
-    public long m_Val;
+    private long m_Val;
     /**
-    * Exponent
+     * Exponent
      */
-    public long m_E;
+    private long m_E;
     /**
-    * Limit of value
+     * Limit of value
      */
     private long maxLimit = Long.MAX_VALUE / 100;
-    
+
     //
     /**
-    * Create object with zero inside
+     * Create object with zero inside
      */
-    public Float() {
+    private Float() {
         m_Val = m_E = 0;
     }
-    
+
     /**
-    * Create object and makes initialization with value
+     * Create object and makes initialization with value
      *
-    * @param value long - value
+     * @param value long - value
      */
     public Float(long value) {
         m_Val = value;
         m_E = 0;
     }
-    
+
     /**
-    * Create object and makes initialization both mantissa and exponent
+     * Create object and makes initialization both mantissa and exponent
      *
-    * @param value long - mantissa
-    * @param e     long - exponent
+     * @param value long - mantissa
+     * @param e     long - exponent
      */
-    public Float(long value, long e) {
+    private Float(long value, long e) {
         m_Val = value;
         if (m_Val == 0) m_E = 0;
         else m_E = e;
     }
-    
+
     /**
-    * Create object and makes initialization by other Float object
+     * Create object and makes initialization by other Float object
      *
-    * @param value Float - source object
+     * @param value Float - source object
      */
     public Float(Float value) {
         m_Val = value.m_Val;
         if (m_Val == 0) m_E = 0;
         else m_E = value.m_E;
     }
-    
+
     /**
-    * Convert Float object to long number
+     * Convert Float object to long number
      *
-    * @return long - number
+     * @return long - number
      */
     public long toLong() {
         long tmpE = m_E;
@@ -184,11 +184,11 @@ public class Float {
         }
         return tmpVal;
     }
-    
+
     /**
-    * Convert Float object to string without exponent
+     * Convert Float object to string without exponent
      *
-    * @return String - string
+     * @return String - string
      */
     public String toShortString() {
         if (isError()) return "NaN";
@@ -213,18 +213,18 @@ public class Float {
         //
         return "0";
     }
-    
+
     /**
-    * Check value of current Float object is NaN
+     * Check value of current Float object is NaN
      *
-    * @return boolean - true-if NaN, false-if not
+     * @return boolean - true-if NaN, false-if not
      */
-    public boolean isError() {
+    private boolean isError() {
         return (this.m_Val == ERROR.m_Val && this.m_E == ERROR.m_E);
     }
-    
+
     /**
-    * Convert Float object to string
+     * Convert Float object to string
      */
     public String toString() {
         if (isError()) return "NaN";
@@ -262,7 +262,7 @@ public class Float {
                     sb.append(".");
                     sb.append(str.substring(1));
                 } else sb.append(".0");
-                sb.append("E" + (len - 1 + m_E));
+                sb.append("E").append(len - 1 + m_E);
             } else {
                 sb.append(str);
                 for (int i = 0; i < m_E; i++)
@@ -276,12 +276,12 @@ public class Float {
         //
         return str;
     }
-    
+
     /**
-    * Append value of argument to value of current Float object and return as new Float object
+     * Append value of argument to value of current Float object and return as new Float object
      *
-    * @param value Float - argument
-    * @return Float - current+value
+     * @param value Float - argument
+     * @return Float - current+value
      */
     public Float Add(Float value) {
         if (value.Equal(ZERO)) return new Float(this);
@@ -323,33 +323,33 @@ public class Float {
         //
         return new Float(v1 + v2, e1);
     }
-    
+
     /**
-    * Subtract value of argument from value of current Float object and return as new Float object
+     * Subtract value of argument from value of current Float object and return as new Float object
      *
-    * @param value Float - argument
-    * @return Float - current-value
+     * @param value Float - argument
+     * @return Float - current-value
      */
     public Float Sub(Float value) {
         if (value.Equal(ZERO)) return new Float(m_Val, m_E);
         return Add(new Float(-value.m_Val, value.m_E));
     }
-    
+
     /**
-    * Divide value of current Float object on argument and return as new Float object
+     * Divide value of current Float object on argument and return as new Float object
      *
-    * @param value Float - argument
-    * @return Float - current/value
+     * @param value Float - argument
+     * @return Float - current/value
      */
     public Float Mul(long value) {
         return Mul(new Float(value, 0));
     }
-    
+
     /**
-    * Multiply value of current Float object on argument and return as new Float object
+     * Multiply value of current Float object on argument and return as new Float object
      *
-    * @param value Float - argument
-    * @return Float - current*value
+     * @param value Float - argument
+     * @return Float - current*value
      */
     public Float Mul(Float value) {
         if (value.Equal(ZERO) || this.Equal(ZERO)) return new Float(ZERO);
@@ -382,22 +382,22 @@ public class Float {
         long v = m_Val * value.m_Val;
         return new Float(v, e);
     }
-    
+
     /**
-    * Divide value of current Float object on argument and return as new Float object
+     * Divide value of current Float object on argument and return as new Float object
      *
-    * @param value Float - argument
-    * @return Float - current/value
+     * @param value Float - argument
+     * @return Float - current/value
      */
     public Float Div(long value) {
         return Div(new Float(value, 0));
     }
-    
+
     /**
-    * Divide value of current Float object on argument and return as new Float object
+     * Divide value of current Float object on argument and return as new Float object
      *
-    * @param value Float - argument
-    * @return Float - current/value
+     * @param value Float - argument
+     * @return Float - current/value
      */
     public Float Div(Float value) {
         if (value.Equal(ONE)) return new Float(this);
@@ -428,22 +428,22 @@ public class Float {
         f.RemoveZero();
         return f;
     }
-    
-    public void RemoveZero() {
+
+    private void RemoveZero() {
         if (m_Val == 0) return;
         while (m_Val % 10 == 0) {
             m_Val /= 10;
             m_E++;
         }
     }
-    
+
     /**
-    * Is value of current Float object greater?
+     * Is value of current Float object greater?
      *
-    * @param x Float - argument
-    * @return boolean - true-if current value is greater x, false-if not
+     * @param x Float - argument
+     * @return boolean - true-if current value is greater x, false-if not
      */
-    public boolean Great(Float x) {
+    private boolean Great(Float x) {
         long e1 = m_E;
         long e2 = x.m_E;
         long v1 = m_Val;
@@ -471,22 +471,22 @@ public class Float {
         //
         return v1 > v2;
     }
-    
+
     /**
-    * Is value of current Float object less?
+     * Is value of current Float object less?
      *
-    * @param x Float - argument
-    * @return boolean - true-if current value is less x, false-if not
+     * @param x Float - argument
+     * @return boolean - true-if current value is less x, false-if not
      */
-    public boolean Less(long x) {
+    private boolean Less(long x) {
         return Less(new Float(x, 0));
     }
-    
+
     /**
-    * Is value of current Float object less?
+     * Is value of current Float object less?
      *
-    * @param x Float - argument
-    * @return boolean - true-if current value is less x, false-if not
+     * @param x Float - argument
+     * @return boolean - true-if current value is less x, false-if not
      */
     public boolean Less(Float x) {
         long e1 = m_E;
@@ -516,14 +516,14 @@ public class Float {
         //
         return v1 < v2;
     }
-    
+
     /**
-    * Equal with current Float object?
+     * Equal with current Float object?
      *
-    * @param x Float - argument
-    * @return boolean - true-if equal, false-if not
+     * @param x Float - argument
+     * @return boolean - true-if equal, false-if not
      */
-    public boolean Equal(Float x) {
+    private boolean Equal(Float x) {
         long e1 = m_E;
         long e2 = x.m_E;
         long v1 = m_Val;
@@ -559,25 +559,25 @@ public class Float {
         //
         return (v1 == v2);
     }
-    
+
     /**
-    * Reverse sign of value in current Float object and return as new Float object
+     * Reverse sign of value in current Float object and return as new Float object
      *
-    * @return Float - new Float object
+     * @return Float - new Float object
      */
-    public Float Neg() {
+    private Float Neg() {
         return new Float(-m_Val, m_E);
     }
-    
+
     /**
-    * Returns the trigonometric sine of an angle. Special cases: If the argument is NaN or an infinity, then the result
-    * is NaN. If the argument is zero, then the result is a zero with the same sign as the argument. A result must be
-    * within 1 ulp of the correctly rounded result. Results must be semi-monotonic
+     * Returns the trigonometric sine of an angle. Special cases: If the argument is NaN or an infinity, then the result
+     * is NaN. If the argument is zero, then the result is a zero with the same sign as the argument. A result must be
+     * within 1 ulp of the correctly rounded result. Results must be semi-monotonic
      *
-    * @param x Float - an angle, in radians
-    * @return Float - the sine of the argument
+     * @param x Float - an angle, in radians
+     * @return Float - the sine of the argument
      */
-    static public Float sin(Float x) {
+    private static Float sin(Float x) {
         while (x.Great(PI))
             x = x.Sub(PImul2);
         while (x.Less(PI.Neg()))
@@ -608,15 +608,15 @@ public class Float {
         //
         return result;
     }
-    
+
     /**
-    * Returns the trigonometric cosine of an angle. Special cases: If the argument is NaN or an infinity, then the
-    * result is NaN. A result must be within 1 ulp of the correctly rounded result. Results must be semi-monotonic
+     * Returns the trigonometric cosine of an angle. Special cases: If the argument is NaN or an infinity, then the
+     * result is NaN. A result must be within 1 ulp of the correctly rounded result. Results must be semi-monotonic
      *
-    * @param x Float - an angle, in radians
-    * @return Float - the cosine of the argument
+     * @param x Float - an angle, in radians
+     * @return Float - the cosine of the argument
      */
-    static public Float cos(Float x) {
+    private static Float cos(Float x) {
         while (x.Great(PI))
             x = x.Sub(PImul2);
         while (x.Less(PI.Neg()))
@@ -646,17 +646,17 @@ public class Float {
         //
         return result;
     }
-    
+
     /**
-    * Returns the correctly rounded positive square root of a double value. Special cases: If the argument is NaN or
-    * less than zero, then the result is NaN. If the argument is positive infinity, then the result is positive
-    * infinity. If the argument is positive zero or negative zero, then the result is the same as the argument.
-    * Otherwise, the result is the double value closest to the true mathematical square root of the argument value
+     * Returns the correctly rounded positive square root of a double value. Special cases: If the argument is NaN or
+     * less than zero, then the result is NaN. If the argument is positive infinity, then the result is positive
+     * infinity. If the argument is positive zero or negative zero, then the result is the same as the argument.
+     * Otherwise, the result is the double value closest to the true mathematical square root of the argument value
      *
-    * @param x Float - a value
-    * @return Float - the positive square root of a. If the argument is NaN or less than zero, the result is NaN
+     * @param x Float - a value
+     * @return Float - the positive square root of a. If the argument is NaN or less than zero, the result is NaN
      */
-    static public Float sqrt(Float x) {
+    private static Float sqrt(Float x) {
         int sp = 0;
         boolean inv = false;
         Float a, b;
@@ -697,27 +697,27 @@ public class Float {
         if (inv) a = ONE.Div(a);
         return a;
     }
-    
+
     /**
-    * Returns the trigonometric tangent of an angle. Special cases: If the argument is NaN or an infinity, then the
-    * result is NaN. If the argument is zero, then the result is a zero with the same sign as the argument. A result
-    * must be within 1 ulp of the correctly rounded result. Results must be semi-monotonic
+     * Returns the trigonometric tangent of an angle. Special cases: If the argument is NaN or an infinity, then the
+     * result is NaN. If the argument is zero, then the result is a zero with the same sign as the argument. A result
+     * must be within 1 ulp of the correctly rounded result. Results must be semi-monotonic
      *
-    * @param x Float - an angle, in radians
-    * @return Float - the tangent of the argument
+     * @param x Float - an angle, in radians
+     * @return Float - the tangent of the argument
      */
     static public Float tan(Float x) {
         Float c = cos(x);
         if (c.Equal(ZERO)) return new Float(ERROR);
         return (sin(x).Div(c));
     }
-    
+
     /**
-    * Returns a new Float object initialized to the value represented by the specified String
+     * Returns a new Float object initialized to the value represented by the specified String
      *
-    * @param str   String - the string to be parsed
-    * @param radix int - basement of number
-    * @return Float - the Float object represented by the string argument
+     * @param str   String - the string to be parsed
+     * @param radix int - basement of number
+     * @return Float - the Float object represented by the string argument
      */
     static public Float parse(String str, int radix) {
         // Abs
@@ -734,7 +734,7 @@ public class Float {
         if (pos2 == -1) pos2 = str.indexOf('e');
         //
         if (pos2 != -1) {
-            String tmp = new String(str.substring(pos2 + 1));
+            String tmp = str.substring(pos2 + 1);
             exp = Long.parseLong(tmp);
             str = str.substring(0, pos2);
         }
@@ -783,46 +783,46 @@ public class Float {
         newValue.RemoveZero();
         return newValue;
     }
-    
+
     /**
-    * Returns the arc cosine of an angle, in the range of 0.0 through pi. Special case: If the argument is NaN or its
-    * absolute value is greater than 1, then the result is NaN. A result must be within 1 ulp of the correctly rounded
-    * result. Results must be semi-monotonic
+     * Returns the arc cosine of an angle, in the range of 0.0 through pi. Special case: If the argument is NaN or its
+     * absolute value is greater than 1, then the result is NaN. A result must be within 1 ulp of the correctly rounded
+     * result. Results must be semi-monotonic
      *
-    * @param x Float - the value whose arc cosine is to be returned
-    * @return Float - the arc cosine of the argument
+     * @param x Float - the value whose arc cosine is to be returned
+     * @return Float - the arc cosine of the argument
      */
     static public Float acos(Float x) {
         Float f = asin(x);
         if (f.isError()) return f;
         return PIdiv2.Sub(f);
     }
-    
+
     /**
-    * Returns the arc sine of an angle, in the range of -pi/2 through pi/2. Special cases: If the argument is NaN or
-    * its absolute value is greater than 1, then the result is NaN. If the argument is zero, then the result is a zero
-    * with the same sign as the argument. A result must be within 1 ulp of the correctly rounded result. Results must
-    * be semi-monotonic
+     * Returns the arc sine of an angle, in the range of -pi/2 through pi/2. Special cases: If the argument is NaN or
+     * its absolute value is greater than 1, then the result is NaN. If the argument is zero, then the result is a zero
+     * with the same sign as the argument. A result must be within 1 ulp of the correctly rounded result. Results must
+     * be semi-monotonic
      *
-    * @param x Float - the value whose arc sine is to be returned
-    * @return Float - the arc sine of the argument
+     * @param x Float - the value whose arc sine is to be returned
+     * @return Float - the arc sine of the argument
      */
-    static public Float asin(Float x) {
+    private static Float asin(Float x) {
         if (x.Less(ONE.Neg()) || x.Great(ONE)) return new Float(ERROR);
         if (x.Equal(ONE.Neg())) return PIdiv2.Neg();
         if (x.Equal(ONE)) return PIdiv2;
         return atan(x.Div(sqrt(ONE.Sub(x.Mul(x)))));
     }
-    
+
     /**
-    * Returns the arc tangent of an angle, in the range of -pi/2 through pi/2. Special cases: If the argument is NaN,
-    * then the result is NaN. If the argument is zero, then the result is a zero with the same sign as the argument. A
-    * result must be within 1 ulp of the correctly rounded result. Results must be semi-monotonic
+     * Returns the arc tangent of an angle, in the range of -pi/2 through pi/2. Special cases: If the argument is NaN,
+     * then the result is NaN. If the argument is zero, then the result is a zero with the same sign as the argument. A
+     * result must be within 1 ulp of the correctly rounded result. Results must be semi-monotonic
      *
-    * @param x Float - the value whose arc tangent is to be returned
-    * @return Float - the arc tangent of the argument
+     * @param x Float - the value whose arc tangent is to be returned
+     * @return Float - the arc tangent of the argument
      */
-    static public Float atan(Float x) {
+    private static Float atan(Float x) {
         boolean signChange = false;
         boolean Invert = false;
         int sp = 0;
@@ -865,32 +865,32 @@ public class Float {
         //
         return a;
     }
-    
+
     /**
-    * Converts rectangular coordinates (x,�y) to polar (r,�theta). This method computes the phase theta by computing an
-    * arc tangent of y/x in the range of -pi to pi. Special cases: If either argument is NaN, then the result is NaN.
-    * If the first argument is positive zero and the second argument is positive, or the first argument is positive and
-    * finite and the second argument is positive infinity, then the result is positive zero. If the first argument is
-    * negative zero and the second argument is positive, or the first argument is negative and finite and the second
-    * argument is positive infinity, then the result is negative zero. If the first argument is positive zero and the
-    * second argument is negative, or the first argument is positive and finite and the second argument is negative
-    * infinity, then the result is the double value closest to pi. If the first argument is negative zero and the
-    * second argument is negative, or the first argument is negative and finite and the second argument is negative
-    * infinity, then the result is the double value closest to -pi. If the first argument is positive and the second
-    * argument is positive zero or negative zero, or the first argument is positive infinity and the second argument is
-    * finite, then the result is the double value closest to pi/2. If the first argument is negative and the second
-    * argument is positive zero or negative zero, or the first argument is negative infinity and the second argument is
-    * finite, then the result is the double value closest to -pi/2. If both arguments are positive infinity, then the
-    * result is the double value closest to pi/4. If the first argument is positive infinity and the second argument is
-    * negative infinity, then the result is the double value closest to 3*pi/4. If the first argument is negative
-    * infinity and the second argument is positive infinity, then the result is the double value closest to -pi/4. If
-    * both arguments are negative infinity, then the result is the double value closest to -3*pi/4. A result must be
-    * within 2 ulps of the correctly rounded result. Results must be semi-monotonic
+     * Converts rectangular coordinates (x,�y) to polar (r,�theta). This method computes the phase theta by computing an
+     * arc tangent of y/x in the range of -pi to pi. Special cases: If either argument is NaN, then the result is NaN.
+     * If the first argument is positive zero and the second argument is positive, or the first argument is positive and
+     * finite and the second argument is positive infinity, then the result is positive zero. If the first argument is
+     * negative zero and the second argument is positive, or the first argument is negative and finite and the second
+     * argument is positive infinity, then the result is negative zero. If the first argument is positive zero and the
+     * second argument is negative, or the first argument is positive and finite and the second argument is negative
+     * infinity, then the result is the double value closest to pi. If the first argument is negative zero and the
+     * second argument is negative, or the first argument is negative and finite and the second argument is negative
+     * infinity, then the result is the double value closest to -pi. If the first argument is positive and the second
+     * argument is positive zero or negative zero, or the first argument is positive infinity and the second argument is
+     * finite, then the result is the double value closest to pi/2. If the first argument is negative and the second
+     * argument is positive zero or negative zero, or the first argument is negative infinity and the second argument is
+     * finite, then the result is the double value closest to -pi/2. If both arguments are positive infinity, then the
+     * result is the double value closest to pi/4. If the first argument is positive infinity and the second argument is
+     * negative infinity, then the result is the double value closest to 3*pi/4. If the first argument is negative
+     * infinity and the second argument is positive infinity, then the result is the double value closest to -pi/4. If
+     * both arguments are negative infinity, then the result is the double value closest to -3*pi/4. A result must be
+     * within 2 ulps of the correctly rounded result. Results must be semi-monotonic
      *
-    * @param y Float - the ordinate coordinate
-    * @param x Float - the abscissa coordinate
-    * @return Float - the theta component of the point (r,�theta) in polar coordinates that corresponds to the point
-    *         (x,�y) in Cartesian coordinates
+     * @param y Float - the ordinate coordinate
+     * @param x Float - the abscissa coordinate
+     * @return Float - the theta component of the point (r,�theta) in polar coordinates that corresponds to the point
+     *         (x,�y) in Cartesian coordinates
      */
     static public Float atan2(Float y, Float x) {
         // if x=y=0
@@ -906,7 +906,7 @@ public class Float {
         if (y.Less(ZERO)) return PIdiv2.Neg();
         else return new Float(PIdiv2);
     }
-    
+
     // precise
     // x=-35 diff=1.48%
     // x=-30 diff=0.09%
@@ -917,15 +917,15 @@ public class Float {
     // x=34 diff=0.91%
     // x=35 diff=1.46%
     /**
-    * Returns Euler's number e raised to the power of a double value. Special cases: If the argument is NaN, the result
-    * is NaN. If the argument is positive infinity, then the result is positive infinity. If the argument is negative
-    * infinity, then the result is positive zero. A result must be within 1 ulp of the correctly rounded result.
-    * Results must be semi-monotonic
+     * Returns Euler's number e raised to the power of a double value. Special cases: If the argument is NaN, the result
+     * is NaN. If the argument is positive infinity, then the result is positive infinity. If the argument is negative
+     * infinity, then the result is positive zero. A result must be within 1 ulp of the correctly rounded result.
+     * Results must be semi-monotonic
      *
-    * @param x Float - the exponent to raise e to
-    * @return Float - the value e^x, where e is the base of the natural logarithms
+     * @param x Float - the exponent to raise e to
+     * @return Float - the value e^x, where e is the base of the natural logarithms
      */
-    static public Float exp(Float x) {
+    private static Float exp(Float x) {
         if (x.Equal(ZERO)) return new Float(ONE);
         //
         Float f = new Float(ONE);
@@ -943,17 +943,17 @@ public class Float {
         if (isless) return ONE.Div(f);
         else return f;
     }
-    
+
     // precise
     // x=25 diff=0.12%
     // x=30 diff=0.25%
     // x=35 diff=0.44%
     // x=40 diff=0.67%
     /**
-    * Internal log subroutine
+     * Internal log subroutine
      *
-    * @param x Float
-    * @return Float
+     * @param x Float
+     * @return Float
      */
     static private Float _log(Float x) {
         if (!x.Great(ZERO)) return new Float(ERROR);
@@ -987,17 +987,17 @@ public class Float {
         //
         return f;
     }
-    
+
     /**
-    * Returns the natural logarithm (base e) of a double value. Special cases: If the argument is NaN or less than
-    * zero, then the result is NaN. If the argument is positive infinity, then the result is positive infinity. If the
-    * argument is positive zero or negative zero, then the result is negative infinity. A result must be within 1 ulp
-    * of the correctly rounded result. Results must be semi-monotonic
+     * Returns the natural logarithm (base e) of a double value. Special cases: If the argument is NaN or less than
+     * zero, then the result is NaN. If the argument is positive infinity, then the result is positive infinity. If the
+     * argument is positive zero or negative zero, then the result is negative infinity. A result must be within 1 ulp
+     * of the correctly rounded result. Results must be semi-monotonic
      *
-    * @param x Float - a number greater than 0.0
-    * @return Float - the value ln(x), the natural logarithm of x
+     * @param x Float - a number greater than 0.0
+     * @return Float - the value ln(x), the natural logarithm of x
      */
-    static public Float log(Float x) {
+    private static Float log(Float x) {
         if (!x.Great(ZERO)) return new Float(ERROR);
         //
         if (x.Equal(ONE)) return new Float(ZERO);
@@ -1008,7 +1008,7 @@ public class Float {
         }
         return _log(x);
     }
-    
+
     static public Float log10(Float x) {
         if (!x.Great(ZERO)) return new Float(ERROR);
         //
@@ -1018,59 +1018,59 @@ public class Float {
         if (f.isError()) return f;
         return f.Div(LOG10);
     }
-    
+
     /*
-    * static public Float log10(Float x) { if(!x.Great(ZERO)) return new Float(ERROR); // boolean neg=false; if(x.m_Val<0) {
-    * neg=true; x.m_Val=-x.m_Val; } // int index=0; if(x.Great(Float.ONE)) { // ������ 1 while(x.Great(Float.ONE)) {
-    * x=x.Div(10); index++; } } else { // ������ ��� ����� 1 while(x.Less(Float.ONE)) { x=x.Mul(10); index--; } } //
-    * Float res=new Float(index); if(!x.Equal(ONE)) res=res.Add(log(x).Div(LOG10)); // if(neg) return
-    * Float.ONE.Div(res); else return res; }
-     */
-    
+   * static public Float log10(Float x) { if(!x.Great(ZERO)) return new Float(ERROR); // boolean neg=false; if(x.m_Val<0) {
+   * neg=true; x.m_Val=-x.m_Val; } // int index=0; if(x.Great(Float.ONE)) { // ������ 1 while(x.Great(Float.ONE)) {
+   * x=x.Div(10); index++; } } else { // ������ ��� ����� 1 while(x.Less(Float.ONE)) { x=x.Mul(10); index--; } } //
+   * Float res=new Float(index); if(!x.Equal(ONE)) res=res.Add(log(x).Div(LOG10)); // if(neg) return
+   * Float.ONE.Div(res); else return res; }
+    */
+
     // precise y=3.5
     // x=15 diff=0.06%
     // x=20 diff=0.40%
     // x=25 diff=1.31%
     // x=30 diff=2.95%
     // if x negative y must be integer value
-    
+
     /**
-    * Returns the value of the first argument raised to the power of the second argument. Special cases: If the second
-    * argument is positive or negative zero, then the result is 1.0. If the second argument is 1.0, then the result is
-    * the same as the first argument. If the second argument is NaN, then the result is NaN. If the first argument is
-    * NaN and the second argument is nonzero, then the result is NaN. If the absolute value of the first argument is
-    * greater than 1 and the second argument is positive infinity, or the absolute value of the first argument is less
-    * than 1 and the second argument is negative infinity, then the result is positive infinity. If the absolute value
-    * of the first argument is greater than 1 and the second argument is negative infinity, or the absolute value of
-    * the first argument is less than 1 and the second argument is positive infinity, then the result is positive zero.
-    * If the absolute value of the first argument equals 1 and the second argument is infinite, then the result is NaN.
-    * If the first argument is positive zero and the second argument is greater than zero, or the first argument is
-    * positive infinity and the second argument is less than zero, then the result is positive zero. If the first
-    * argument is positive zero and the second argument is less than zero, or the first argument is positive infinity
-    * and the second argument is greater than zero, then the result is positive infinity. If the first argument is
-    * negative zero and the second argument is greater than zero but not a finite odd integer, or the first argument is
-    * negative infinity and the second argument is less than zero but not a finite odd integer, then the result is
-    * positive zero. If the first argument is negative zero and the second argument is a positive finite odd integer,
-    * or the first argument is negative infinity and the second argument is a negative finite odd integer, then the
-    * result is negative zero. If the first argument is negative zero and the second argument is less than zero but not
-    * a finite odd integer, or the first argument is negative infinity and the second argument is greater than zero but
-    * not a finite odd integer, then the result is positive infinity. If the first argument is negative zero and the
-    * second argument is a negative finite odd integer, or the first argument is negative infinity and the second
-    * argument is a positive finite odd integer, then the result is negative infinity. If the first argument is finite
-    * and less than zero if the second argument is a finite even integer, the result is equal to the result of raising
-    * the absolute value of the first argument to the power of the second argument if the second argument is a finite
-    * odd integer, the result is equal to the negative of the result of raising the absolute value of the first
-    * argument to the power of the second argument if the second argument is finite and not an integer, then the result
-    * is NaN. If both arguments are integers, then the result is exactly equal to the mathematical result of raising
-    * the first argument to the power of the second argument if that result can in fact be represented exactly as a
-    * double value. (In the foregoing descriptions, a floating-point value is considered to be an integer if and only
-    * if it is finite and a fixed point of the method ceil or, equivalently, a fixed point of the method floor. A value
-    * is a fixed point of a one-argument method if and only if the result of applying the method to the value is equal
-    * to the value.) A result must be within 1 ulp of the correctly rounded result. Results must be semi-monotonic.
+     * Returns the value of the first argument raised to the power of the second argument. Special cases: If the second
+     * argument is positive or negative zero, then the result is 1.0. If the second argument is 1.0, then the result is
+     * the same as the first argument. If the second argument is NaN, then the result is NaN. If the first argument is
+     * NaN and the second argument is nonzero, then the result is NaN. If the absolute value of the first argument is
+     * greater than 1 and the second argument is positive infinity, or the absolute value of the first argument is less
+     * than 1 and the second argument is negative infinity, then the result is positive infinity. If the absolute value
+     * of the first argument is greater than 1 and the second argument is negative infinity, or the absolute value of
+     * the first argument is less than 1 and the second argument is positive infinity, then the result is positive zero.
+     * If the absolute value of the first argument equals 1 and the second argument is infinite, then the result is NaN.
+     * If the first argument is positive zero and the second argument is greater than zero, or the first argument is
+     * positive infinity and the second argument is less than zero, then the result is positive zero. If the first
+     * argument is positive zero and the second argument is less than zero, or the first argument is positive infinity
+     * and the second argument is greater than zero, then the result is positive infinity. If the first argument is
+     * negative zero and the second argument is greater than zero but not a finite odd integer, or the first argument is
+     * negative infinity and the second argument is less than zero but not a finite odd integer, then the result is
+     * positive zero. If the first argument is negative zero and the second argument is a positive finite odd integer,
+     * or the first argument is negative infinity and the second argument is a negative finite odd integer, then the
+     * result is negative zero. If the first argument is negative zero and the second argument is less than zero but not
+     * a finite odd integer, or the first argument is negative infinity and the second argument is greater than zero but
+     * not a finite odd integer, then the result is positive infinity. If the first argument is negative zero and the
+     * second argument is a negative finite odd integer, or the first argument is negative infinity and the second
+     * argument is a positive finite odd integer, then the result is negative infinity. If the first argument is finite
+     * and less than zero if the second argument is a finite even integer, the result is equal to the result of raising
+     * the absolute value of the first argument to the power of the second argument if the second argument is a finite
+     * odd integer, the result is equal to the negative of the result of raising the absolute value of the first
+     * argument to the power of the second argument if the second argument is finite and not an integer, then the result
+     * is NaN. If both arguments are integers, then the result is exactly equal to the mathematical result of raising
+     * the first argument to the power of the second argument if that result can in fact be represented exactly as a
+     * double value. (In the foregoing descriptions, a floating-point value is considered to be an integer if and only
+     * if it is finite and a fixed point of the method ceil or, equivalently, a fixed point of the method floor. A value
+     * is a fixed point of a one-argument method if and only if the result of applying the method to the value is equal
+     * to the value.) A result must be within 1 ulp of the correctly rounded result. Results must be semi-monotonic.
      *
-    * @param x Float - the base
-    * @param y Float - the exponent
-    * @return Float - the value a^b
+     * @param x Float - the base
+     * @param y Float - the exponent
+     * @return Float - the value a^b
      */
     static public Float pow(Float x, Float y) {
         if (x.Equal(ZERO)) return new Float(ZERO);
@@ -1096,17 +1096,17 @@ public class Float {
             else return new Float(ERROR);
         }
     }
-    
+
     /**
-    * Returns the smallest (closest to negative infinity) double value that is not less than the argument and is equal
-    * to a mathematical integer. Special cases: If the argument value is already equal to a mathematical integer, then
-    * the result is the same as the argument. If the argument is NaN or an infinity or positive zero or negative zero,
-    * then the result is the same as the argument. If the argument value is less than zero but greater than -1.0, then
-    * the result is negative zero
+     * Returns the smallest (closest to negative infinity) double value that is not less than the argument and is equal
+     * to a mathematical integer. Special cases: If the argument value is already equal to a mathematical integer, then
+     * the result is the same as the argument. If the argument is NaN or an infinity or positive zero or negative zero,
+     * then the result is the same as the argument. If the argument value is less than zero but greater than -1.0, then
+     * the result is negative zero
      *
-    * @param x Float - a value
-    * @return Float - the smallest (closest to negative infinity) floating-point value that is not less than the
-    *         argument and is equal to a mathematical integer
+     * @param x Float - a value
+     * @return Float - the smallest (closest to negative infinity) floating-point value that is not less than the
+     *         argument and is equal to a mathematical integer
      */
     static public Float ceil(Float x) {
         long tmpVal = x.m_Val;
@@ -1126,16 +1126,16 @@ public class Float {
         //
         return new Float(tmpVal, x.m_E);
     }
-    
+
     /**
-    * Returns the largest (closest to positive infinity) double value that is not greater than the argument and is
-    * equal to a mathematical integer. Special cases: If the argument value is already equal to a mathematical integer,
-    * then the result is the same as the argument. If the argument is NaN or an infinity or positive zero or negative
-    * zero, then the result is the same as the argument
+     * Returns the largest (closest to positive infinity) double value that is not greater than the argument and is
+     * equal to a mathematical integer. Special cases: If the argument value is already equal to a mathematical integer,
+     * then the result is the same as the argument. If the argument is NaN or an infinity or positive zero or negative
+     * zero, then the result is the same as the argument
      *
-    * @param x Float - a value
-    * @return Float - the largest (closest to positive infinity) floating-point value that is not greater than the
-    *         argument and is equal to a mathematical integer
+     * @param x Float - a value
+     * @return Float - the largest (closest to positive infinity) floating-point value that is not greater than the
+     *         argument and is equal to a mathematical integer
      */
     static public Float floor(Float x) {
         long tmpVal = x.m_Val;
@@ -1155,28 +1155,28 @@ public class Float {
         //
         return new Float(tmpVal, x.m_E);
     }
-    
+
     /**
-    * Returns the absolute value of a Float object. If the argument is not negative, the argument is returned. If the
-    * argument is negative, the negation of the argument is returned. Special cases: If the argument is positive zero
-    * or negative zero, the result is positive zero. If the argument is infinite, the result is positive infinity. If
-    * the argument is NaN, the result is NaN
+     * Returns the absolute value of a Float object. If the argument is not negative, the argument is returned. If the
+     * argument is negative, the negation of the argument is returned. Special cases: If the argument is positive zero
+     * or negative zero, the result is positive zero. If the argument is infinite, the result is positive infinity. If
+     * the argument is NaN, the result is NaN
      *
-    * @param x Float - the argument whose absolute value is to be determined
-    * @return Float - the absolute value of the argument
+     * @param x Float - the argument whose absolute value is to be determined
+     * @return Float - the absolute value of the argument
      */
     static public Float abs(Float x) {
         if (x.m_Val < 0) return x.Neg();
         return new Float(x);
     }
-    
+
     /**
-    * Integer part of Float object
+     * Integer part of Float object
      *
-    * @param x Float - source Float object
-    * @return Float - result Float object
+     * @param x Float - source Float object
+     * @return Float - result Float object
      */
-    static public Float Int(Float x) {
+    private static Float Int(Float x) {
         long tmpVal = x.m_Val;
         //
         if (x.m_E < 0) {
@@ -1192,34 +1192,34 @@ public class Float {
         //
         return new Float(tmpVal, x.m_E);
     }
-    
+
     /**
-    * Fractional part of Float object
+     * Fractional part of Float object
      *
-    * @param x Float - source Float object
-    * @return Float - result Float object
+     * @param x Float - source Float object
+     * @return Float - result Float object
      */
     static public Float Frac(Float x) {
         return x.Sub(Int(x));
     }
-    
+
     /**
-    * Converts an angle measured in degrees to an approximately equivalent angle measured in radians. The conversion
-    * from degrees to radians is generally inexact
+     * Converts an angle measured in degrees to an approximately equivalent angle measured in radians. The conversion
+     * from degrees to radians is generally inexact
      *
-    * @param x Float - an angle, in degrees
-    * @return Float - the measurement of the angle x in radians
+     * @param x Float - an angle, in degrees
+     * @return Float - the measurement of the angle x in radians
      */
     static public Float toRadians(Float x) {
         return x.Mul(PI).Div(180L);
     }
-    
+
     /**
-    * Converts an angle measured in radians to an approximately equivalent angle measured in degrees. The conversion
-    * from radians to degrees is generally inexact; users should not expect cos(toRadians(90.0)) to exactly equal 0.0
+     * Converts an angle measured in radians to an approximately equivalent angle measured in degrees. The conversion
+     * from radians to degrees is generally inexact; users should not expect cos(toRadians(90.0)) to exactly equal 0.0
      *
-    * @param x Float - an angle, in radians
-    * @return Float - the measurement of the angle angrad in degrees
+     * @param x Float - an angle, in radians
+     * @return Float - the measurement of the angle angrad in degrees
      */
     static public Float toDegrees(Float x) {
         return x.Mul(180L).Div(PI);

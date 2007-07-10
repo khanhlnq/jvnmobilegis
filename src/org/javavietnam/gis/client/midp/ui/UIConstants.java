@@ -44,7 +44,7 @@ import henson.midp.Float;
 
 /**
  */
-public final class UIConstants {
+final class UIConstants {
 
     // Contants value used among the app
     public static final int SPLASH_TIMEOUT = 2000;

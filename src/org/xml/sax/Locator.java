@@ -39,7 +39,7 @@
  * @author: Khanh Le
  * @Date Created: 22 Jun 2007
  */
- 
+
 package org.xml.sax;
 
 /**
@@ -66,41 +66,41 @@ package org.xml.sax;
 public interface Locator {
 
     /**
-    * Return the public identifier for the current document event.
-    * <p/>
-    * This will be the public identifier
+     * Return the public identifier for the current document event.
+     * <p/>
+     * This will be the public identifier
      *
-    * @return A string containing the public identifier, or null if none is available.
-    * @see #getSystemId
+     * @return A string containing the public identifier, or null if none is available.
+     * @see #getSystemId
      */
     public abstract String getPublicId();
 
     /**
-    * Return the system identifier for the current document event.
-    * <p/>
-    * If the system identifier is a URL, the parser must resolve it fully before passing it to the application.
-    * </p>
+     * Return the system identifier for the current document event.
+     * <p/>
+     * If the system identifier is a URL, the parser must resolve it fully before passing it to the application.
+     * </p>
      *
-    * @return A string containing the system identifier, or null if none is available.
-    * @see #getPublicId
+     * @return A string containing the system identifier, or null if none is available.
+     * @see #getPublicId
      */
     public abstract String getSystemId();
 
     /**
-    * Return the line number where the current document event ends. Note that this is the line position of the first
-    * character after the text associated with the document event.
+     * Return the line number where the current document event ends. Note that this is the line position of the first
+     * character after the text associated with the document event.
      *
-    * @return The line number, or -1 if none is available.
-    * @see #getColumnNumber
+     * @return The line number, or -1 if none is available.
+     * @see #getColumnNumber
      */
     public abstract int getLineNumber();
 
     /**
-    * Return the column number where the current document event ends. Note that this is the column number of the first
-    * character after the text associated with the document event. The first column in a line is position 1.
+     * Return the column number where the current document event ends. Note that this is the column number of the first
+     * character after the text associated with the document event. The first column in a line is position 1.
      *
-    * @return The column number, or -1 if none is available.
-    * @see #getLineNumber
+     * @return The column number, or -1 if none is available.
+     * @see #getLineNumber
      */
     public abstract int getColumnNumber();
 

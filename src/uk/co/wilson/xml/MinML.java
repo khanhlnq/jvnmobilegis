@@ -77,30 +77,30 @@ import java.util.Vector;
  */
 public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
 
-    public static final int endStartName = 0;
-    public static final int emitStartElement = 1;
-    public static final int emitEndElement = 2;
-    public static final int possiblyEmitCharacters = 3;
-    public static final int emitCharacters = 4;
-    public static final int emitCharactersSave = 5;
-    public static final int saveAttributeName = 6;
-    public static final int saveAttributeValue = 7;
-    public static final int startComment = 8;
-    public static final int endComment = 9;
-    public static final int incLevel = 10;
-    public static final int decLevel = 11;
-    public static final int startCDATA = 12;
-    public static final int endCDATA = 13;
-    public static final int processCharRef = 14;
-    public static final int writeCdata = 15;
-    public static final int exitParser = 16;
-    public static final int parseError = 17;
-    public static final int discardAndChange = 18;
-    public static final int discardSaveAndChange = 19;
-    public static final int saveAndChange = 20;
-    public static final int change = 21;
+    private static final int endStartName = 0;
+    private static final int emitStartElement = 1;
+    private static final int emitEndElement = 2;
+    private static final int possiblyEmitCharacters = 3;
+    private static final int emitCharacters = 4;
+    private static final int emitCharactersSave = 5;
+    private static final int saveAttributeName = 6;
+    private static final int saveAttributeValue = 7;
+    private static final int startComment = 8;
+    private static final int endComment = 9;
+    private static final int incLevel = 10;
+    private static final int decLevel = 11;
+    private static final int startCDATA = 12;
+    private static final int endCDATA = 13;
+    private static final int processCharRef = 14;
+    private static final int writeCdata = 15;
+    private static final int exitParser = 16;
+    private static final int parseError = 17;
+    private static final int discardAndChange = 18;
+    private static final int discardSaveAndChange = 19;
+    private static final int saveAndChange = 20;
+    private static final int change = 21;
 
-    public static final int inSkipping = 0;
+    private static final int inSkipping = 0;
     public static final int inSTag = 1;
     public static final int inPossiblyAttribute = 2;
     public static final int inNextAttribute = 3;
@@ -132,7 +132,7 @@ public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
         this(256, 128);
     }
 
-    public void parse(final Reader in) throws SAXException, IOException {
+    private void parse(final Reader in) throws SAXException, IOException {
         final Vector attributeNames = new Vector();
         final Vector attributeValues = new Vector();
 
@@ -166,7 +166,7 @@ public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
         };
 
         final MinMLBuffer buffer = new MinMLBuffer(in);
-        int currentChar = 0, charCount = 0;
+        int currentChar, charCount = 0;
         int level = 0;
         int mixedContentLevel = -1;
         String elementName = null;
@@ -520,8 +520,8 @@ public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
     }
 
     /**
-    * @param documentHandler the documentHandler to set
-    * @uml.property name="documentHandler"
+     * @param handler the documentHandler to set
+     * @uml.property name="documentHandler"
      */
     public void setDocumentHandler(final org.xml.sax.DocumentHandler handler) {
         this.documentHandler = (handler == null) ? this : handler;
@@ -529,7 +529,7 @@ public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
     }
 
     /**
-    * @param documentHandler The documentHandler to set.
+     * @param handler The documentHandler to set.
      */
     public void setDocumentHandler(final DocumentHandler handler) {
         this.documentHandler = this.extDocumentHandler = (handler == null) ? this : handler;
@@ -537,8 +537,8 @@ public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
     }
 
     /**
-    * @param errorHandler The errorHandler to set.
-    * @uml.property name="errorHandler"
+     * @param handler The errorHandler to set.
+     * @uml.property name="errorHandler"
      */
     public void setErrorHandler(final ErrorHandler handler) {
         this.errorHandler = (handler == null) ? this : handler;
@@ -597,22 +597,22 @@ public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
     }
 
     /**
-    * @return Returns the lineNumber.
-    * @uml.property name="lineNumber"
+     * @return Returns the lineNumber.
+     * @uml.property name="lineNumber"
      */
     public int getLineNumber() {
         return this.lineNumber;
     }
 
     /**
-    * @return Returns the columnNumber.
-    * @uml.property name="columnNumber"
+     * @return Returns the columnNumber.
+     * @uml.property name="columnNumber"
      */
     public int getColumnNumber() {
         return this.columnNumber;
     }
 
-    public void fatalError(final String msg, final int lineNumber, final int columnNumber) throws SAXException {
+    private void fatalError(final String msg, final int lineNumber, final int columnNumber) throws SAXException {
         this.errorHandler.fatalError(new SAXParseException(msg, null, null, lineNumber, columnNumber));
     }
 
@@ -663,8 +663,8 @@ public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
         }
 
         /**
-        * @return Returns the writer.
-        * @uml.property name="writer"
+         * @return Returns the writer.
+         * @uml.property name="writer"
          */
         public Writer getWriter() {
             return writer;

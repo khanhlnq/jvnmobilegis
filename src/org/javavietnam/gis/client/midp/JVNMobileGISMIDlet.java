@@ -94,14 +94,13 @@ import javax.microedition.midlet.MIDlet;
  */
 public class JVNMobileGISMIDlet extends MIDlet {
 
-    public static final String PROPERTY_SERVICE_URL = "WMS-Server-URL";
-    public static final String PROPERTY_LOCALE = "MobileGIS-Locale";
-    public static final String PROPERTY_WEBGIS = "WebGIS-URL";
-    public static final String PROPERTY_FINDPATH_LAYER = "Find-Path-Layer";
+    private static final String PROPERTY_SERVICE_URL = "WMS-Server-URL";
+    private static final String PROPERTY_LOCALE = "MobileGIS-Locale";
+    private static final String PROPERTY_WEBGIS = "WebGIS-URL";
+    private static final String PROPERTY_FINDPATH_LAYER = "Find-Path-Layer";
     public static final String PROPERTY_UPDATE_URL = "Update-URL";
     public static final String PROPERTY_MIDLET_VERSION = "MIDlet-Version";
 
-    private UIController controller;
     private ModelFacade model;
 
     protected void startApp() {
@@ -122,7 +121,7 @@ public class JVNMobileGISMIDlet extends MIDlet {
                 model.setPreferences(preferences);
             }
 
-            controller = new UIController(this, model);
+            UIController controller = new UIController(this, model);
 
             controller.init();
         }

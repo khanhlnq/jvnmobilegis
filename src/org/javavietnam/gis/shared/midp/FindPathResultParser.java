@@ -61,16 +61,18 @@ public class FindPathResultParser extends MinML {
 
     private Vector path;
 
-    boolean streetIsParent;
+    private boolean streetIsParent;
 
-    boolean noticeIsParent;
+    private boolean noticeIsParent;
 
     private String notice;
 
-    StringBuffer thisText = new StringBuffer();
+    private StringBuffer thisText = new StringBuffer();
 
     /**
-    * Creates a new instance of FindPathResultParser
+     * Creates a new instance of FindPathResultParser
+     *
+     * @param result
      */
     public FindPathResultParser(String result) {
         try {
@@ -83,7 +85,7 @@ public class FindPathResultParser extends MinML {
     }
 
     public FindPathResultParser(InputStream result) {
-        this.inputStream = inputStream;
+        this.inputStream = result;
     }
 
     public Vector parsePath() {
@@ -155,8 +157,8 @@ public class FindPathResultParser extends MinML {
     }
 
     /**
-    * @return Returns the notice.
-    * @uml.property name="notice"
+     * @return Returns the notice.
+     * @uml.property name="notice"
      */
     public String getNotice() {
         return notice;

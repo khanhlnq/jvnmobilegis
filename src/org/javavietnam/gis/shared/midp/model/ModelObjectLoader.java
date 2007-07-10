@@ -91,12 +91,11 @@ public abstract class ModelObjectLoader {
     protected ModelObjectLoader() {
         instance = this;
 
-        return;
     }
 
     /**
-    * @return Returns the instance.
-    * @uml.property name="instance"
+     * @return Returns the instance.
+     * @uml.property name="instance"
      */
     public static ModelObjectLoader getInstance() {
         return instance;

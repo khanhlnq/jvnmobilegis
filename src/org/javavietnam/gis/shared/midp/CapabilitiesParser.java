@@ -70,7 +70,7 @@ public class CapabilitiesParser extends MinML {
     private boolean serviceIsParent;
     private boolean mapIsParent;
 
-    StringBuffer thisText = new StringBuffer();
+    private StringBuffer thisText = new StringBuffer();
 
     public CapabilitiesParser(InputStream input) {
         this.input = input;
@@ -87,7 +87,9 @@ public class CapabilitiesParser extends MinML {
     }
 
     /**
-    * Gibt eine Baumstruktur zur�ck, die die Layer repr�sentiert
+     * Gibt eine Baumstruktur zur�ck, die die Layer repr�sentiert
+     *
+     * @return
      */
     public Vector constructDataTree() {
         try {
@@ -114,7 +116,7 @@ public class CapabilitiesParser extends MinML {
         if (((Vector) currPath.elementAt(0)).size() > 0) eliminateInnerNodes((Vector) currPath.elementAt(0));
     }
 
-    protected void eliminateInnerNodes(Vector node) {
+    private void eliminateInnerNodes(Vector node) {
         for (int i = 0; i < node.size(); i++) {
             InnerTreeNode currChild = (InnerTreeNode) node.elementAt(i);
             if (currChild.size() > 0) eliminateInnerNodes(currChild);

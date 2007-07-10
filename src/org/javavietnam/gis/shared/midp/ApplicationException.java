@@ -100,39 +100,35 @@ public class ApplicationException extends Exception {
     public ApplicationException(String msg) {
         super(msg);
 
-        return;
     }
 
     public ApplicationException(int code) {
         this.code = code;
 
-        return;
     }
 
     public ApplicationException(int code, String msg) {
         super(msg);
         this.code = code;
 
-        return;
     }
 
     public ApplicationException(Exception exception) {
         this.exception = exception;
 
-        return;
     }
 
     /**
-    * @return Returns the code.
-    * @uml.property name="code"
+     * @return Returns the code.
+     * @uml.property name="code"
      */
     public int getCode() {
         return code;
     }
 
     /**
-    * @return Returns the exception.
-    * @uml.property name="exception"
+     * @return Returns the exception.
+     * @uml.property name="exception"
      */
     public Exception getException() {
         return exception;

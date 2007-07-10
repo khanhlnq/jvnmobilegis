@@ -39,7 +39,7 @@
  * @author: Khanh Le
  * @Date Created: 22 Jun 2007
  */
- 
+
 package org.xml.sax;
 
 /**
@@ -71,41 +71,42 @@ package org.xml.sax;
 public interface DTDHandler {
 
     /**
-    * Receive notification of a notation declaration event.
-    * <p/>
-    * It is up to the application to record the notation for later reference, if necessary.
-    * </p>
-    * <p/>
-    * If a system identifier is present, and it is a URL, the SAX parser must resolve it fully before passing it to the
-    * application.
-    * </p>
+     * Receive notification of a notation declaration event.
+     * <p/>
+     * It is up to the application to record the notation for later reference, if necessary.
+     * </p>
+     * <p/>
+     * If a system identifier is present, and it is a URL, the SAX parser must resolve it fully before passing it to the
+     * application.
+     * </p>
      *
-    * @param name     The notation name.
-    * @param publicId The notation's public identifier, or null if none was given.
-    * @param systemId The notation's system identifier, or null if none was given.
-    * @throws org.xml.sax.SAXException Any SAX exception, possibly wrapping another exception.
-    * @see #unparsedEntityDecl
-    * @see org.xml.sax.AttributeList
+     * @param name     The notation name.
+     * @param publicId The notation's public identifier, or null if none was given.
+     * @param systemId The notation's system identifier, or null if none was given.
+     * @throws org.xml.sax.SAXException Any SAX exception, possibly wrapping another exception.
+     * @see #unparsedEntityDecl
+     * @see org.xml.sax.AttributeList
      */
     public abstract void notationDecl(String name, String publicId, String systemId) throws SAXException;
 
     /**
-    * Receive notification of an unparsed entity declaration event.
-    * <p/>
-    * Note that the notation name corresponds to a notation reported by the notationDecl() event. It is up to the
-    * application to record the entity for later reference, if necessary.
-    * </p>
-    * <p/>
-    * If the system identifier is a URL, the parser must resolve it fully before passing it to the application.
-    * </p>
+     * Receive notification of an unparsed entity declaration event.
+     * <p/>
+     * Note that the notation name corresponds to a notation reported by the notationDecl() event. It is up to the
+     * application to record the entity for later reference, if necessary.
+     * </p>
+     * <p/>
+     * If the system identifier is a URL, the parser must resolve it fully before passing it to the application.
+     * </p>
      *
-    * @param name     The unparsed entity's name.
-    * @param publicId The entity's public identifier, or null if none was given.
-    * @param systemId The entity's system identifier (it must always have one).
-    * @param notation name The name of the associated notation.
-    * @throws org.xml.sax.SAXException Any SAX exception, possibly wrapping another exception.
-    * @see #notationDecl
-    * @see org.xml.sax.AttributeList
+     * @param name         The unparsed entity's name.
+     * @param publicId     The entity's public identifier, or null if none was given.
+     * @param systemId     The entity's system identifier (it must always have one).
+     * @param notation     name The name of the associated notation.
+     * @param notationName
+     * @throws org.xml.sax.SAXException Any SAX exception, possibly wrapping another exception.
+     * @see #notationDecl
+     * @see org.xml.sax.AttributeList
      */
     public abstract void unparsedEntityDecl(String name, String publicId, String systemId, String notationName) throws SAXException;
 

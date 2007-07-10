@@ -39,7 +39,7 @@
  * @author: Khanh Le
  * @Date Created: 22 Jun 2007
  */
- 
+
 package org.xml.sax;
 
 /**

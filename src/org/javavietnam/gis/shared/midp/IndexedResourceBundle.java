@@ -51,11 +51,10 @@ public class IndexedResourceBundle {
     private String locale;
     private String[] resources;
 
-    public IndexedResourceBundle(String locale, String[] resources) {
+    private IndexedResourceBundle(String locale, String[] resources) {
         this.locale = locale;
         this.resources = resources;
 
-        return;
     }
 
     public String getString(int resourceId) {
@@ -63,8 +62,8 @@ public class IndexedResourceBundle {
     }
 
     /**
-    * @return Returns the locale.
-    * @uml.property name="locale"
+     * @return Returns the locale.
+     * @uml.property name="locale"
      */
     public String getLocale() {
         return locale;
@@ -160,7 +159,7 @@ public class IndexedResourceBundle {
     public String toString() {
         StringBuffer buffer = new StringBuffer();
 
-        buffer.append("Contents of resource bundle: " + locale + "\n");
+        buffer.append("Contents of resource bundle: ").append(locale).append("\n");
 
         for (int i = 0; i != resources.length; i++) {
             buffer.append(i);

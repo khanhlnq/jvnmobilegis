@@ -39,7 +39,7 @@
  * @author: Khanh Le
  * @Date Created: 22 Jun 2007
  */
- 
+
 package org.xml.sax;
 
 /**
@@ -58,16 +58,16 @@ public class SAXParseException extends SAXException {
     // ////////////////////////////////////////////////////////////////////
 
     /**
-    * Create a new SAXParseException from a message and a Locator.
-    * <p/>
-    * This constructor is especially useful when an application is creating its own exception from within a
-    * DocumentHandler callback.
-    * </p>
+     * Create a new SAXParseException from a message and a Locator.
+     * <p/>
+     * This constructor is especially useful when an application is creating its own exception from within a
+     * DocumentHandler callback.
+     * </p>
      *
-    * @param message The error or warning message.
-    * @param locator The locator object for the error or warning.
-    * @see org.xml.sax.Locator
-    * @see org.xml.sax.Parser#setLocale
+     * @param message The error or warning message.
+     * @param locator The locator object for the error or warning.
+     * @see org.xml.sax.Locator
+     * @see org.xml.sax.Parser#setLocale
      */
     public SAXParseException(String message, Locator locator) {
         super(message);
@@ -78,17 +78,17 @@ public class SAXParseException extends SAXException {
     }
 
     /**
-    * Wrap an existing exception in a SAXParseException.
-    * <p/>
-    * This constructor is especially useful when an application is creating its own exception from within a
-    * DocumentHandler callback, and needs to wrap an existing exception that is not a subclass of SAXException.
-    * </p>
+     * Wrap an existing exception in a SAXParseException.
+     * <p/>
+     * This constructor is especially useful when an application is creating its own exception from within a
+     * DocumentHandler callback, and needs to wrap an existing exception that is not a subclass of SAXException.
+     * </p>
      *
-    * @param message The error or warning message, or null to use the message from the embedded exception.
-    * @param locator The locator object for the error or warning.
-    * @param e       Any exception
-    * @see org.xml.sax.Locator
-    * @see org.xml.sax.Parser#setLocale
+     * @param message The error or warning message, or null to use the message from the embedded exception.
+     * @param locator The locator object for the error or warning.
+     * @param e       Any exception
+     * @see org.xml.sax.Locator
+     * @see org.xml.sax.Parser#setLocale
      */
     public SAXParseException(String message, Locator locator, Exception e) {
         super(message, e);
@@ -99,20 +99,20 @@ public class SAXParseException extends SAXException {
     }
 
     /**
-    * Create a new SAXParseException.
-    * <p/>
-    * This constructor is most useful for parser writers.
-    * </p>
-    * <p/>
-    * If the system identifier is a URL, the parser must resolve it fully before creating the exception.
-    * </p>
+     * Create a new SAXParseException.
+     * <p/>
+     * This constructor is most useful for parser writers.
+     * </p>
+     * <p/>
+     * If the system identifier is a URL, the parser must resolve it fully before creating the exception.
+     * </p>
      *
-    * @param message      The error or warning message.
-    * @param publicId     The public identifer of the entity that generated the error or warning.
-    * @param systemId     The system identifer of the entity that generated the error or warning.
-    * @param lineNumber   The line number of the end of the text that caused the error or warning.
-    * @param columnNumber The column number of the end of the text that cause the error or warning.
-    * @see org.xml.sax.Parser#setLocale
+     * @param message      The error or warning message.
+     * @param publicId     The public identifer of the entity that generated the error or warning.
+     * @param systemId     The system identifer of the entity that generated the error or warning.
+     * @param lineNumber   The line number of the end of the text that caused the error or warning.
+     * @param columnNumber The column number of the end of the text that cause the error or warning.
+     * @see org.xml.sax.Parser#setLocale
      */
     public SAXParseException(String message, String publicId, String systemId, int lineNumber, int columnNumber) {
         super(message);
@@ -123,22 +123,22 @@ public class SAXParseException extends SAXException {
     }
 
     /**
-    * Create a new SAXParseException with an embedded exception.
-    * <p/>
-    * This constructor is most useful for parser writers who need to wrap an exception that is not a subclass of
-    * SAXException.
-    * </p>
-    * <p/>
-    * If the system identifier is a URL, the parser must resolve it fully before creating the exception.
-    * </p>
+     * Create a new SAXParseException with an embedded exception.
+     * <p/>
+     * This constructor is most useful for parser writers who need to wrap an exception that is not a subclass of
+     * SAXException.
+     * </p>
+     * <p/>
+     * If the system identifier is a URL, the parser must resolve it fully before creating the exception.
+     * </p>
      *
-    * @param message      The error or warning message, or null to use the message from the embedded exception.
-    * @param publicId     The public identifer of the entity that generated the error or warning.
-    * @param systemId     The system identifer of the entity that generated the error or warning.
-    * @param lineNumber   The line number of the end of the text that caused the error or warning.
-    * @param columnNumber The column number of the end of the text that cause the error or warning.
-    * @param e            Another exception to embed in this one.
-    * @see org.xml.sax.Parser#setLocale
+     * @param message      The error or warning message, or null to use the message from the embedded exception.
+     * @param publicId     The public identifer of the entity that generated the error or warning.
+     * @param systemId     The system identifer of the entity that generated the error or warning.
+     * @param lineNumber   The line number of the end of the text that caused the error or warning.
+     * @param columnNumber The column number of the end of the text that cause the error or warning.
+     * @param e            Another exception to embed in this one.
+     * @see org.xml.sax.Parser#setLocale
      */
     public SAXParseException(String message, String publicId, String systemId, int lineNumber, int columnNumber, Exception e) {
         super(message, e);
@@ -149,44 +149,44 @@ public class SAXParseException extends SAXException {
     }
 
     /**
-    * Get the public identifier of the entity where the exception occurred.
+     * Get the public identifier of the entity where the exception occurred.
      *
-    * @return A string containing the public identifier, or null if none is available.
-    * @uml.property name="publicId"
-    * @see org.xml.sax.Locator#getPublicId
+     * @return A string containing the public identifier, or null if none is available.
+     * @uml.property name="publicId"
+     * @see org.xml.sax.Locator#getPublicId
      */
     public String getPublicId() {
         return this.publicId;
     }
 
     /**
-    * Get the system identifier of the entity where the exception occurred. <p> If the system identifier is a URL, it will be resolved fully. </p>
+     * Get the system identifier of the entity where the exception occurred. <p> If the system identifier is a URL, it will be resolved fully. </p>
      *
-    * @return A string containing the system identifier, or null if none is available.
-    * @uml.property name="systemId"
-    * @see org.xml.sax.Locator#getSystemId
+     * @return A string containing the system identifier, or null if none is available.
+     * @uml.property name="systemId"
+     * @see org.xml.sax.Locator#getSystemId
      */
     public String getSystemId() {
         return this.systemId;
     }
 
     /**
-    * The line number of the end of the text where the exception occurred.
+     * The line number of the end of the text where the exception occurred.
      *
-    * @return An integer representing the line number, or -1 if none is available.
-    * @uml.property name="lineNumber"
-    * @see org.xml.sax.Locator#getLineNumber
+     * @return An integer representing the line number, or -1 if none is available.
+     * @uml.property name="lineNumber"
+     * @see org.xml.sax.Locator#getLineNumber
      */
     public int getLineNumber() {
         return this.lineNumber;
     }
 
     /**
-    * The column number of the end of the text where the exception occurred. <p> The first column in a line is position 1. </p>
+     * The column number of the end of the text where the exception occurred. <p> The first column in a line is position 1. </p>
      *
-    * @return An integer representing the column number, or -1 if none is available.
-    * @uml.property name="columnNumber"
-    * @see org.xml.sax.Locator#getColumnNumber
+     * @return An integer representing the column number, or -1 if none is available.
+     * @uml.property name="columnNumber"
+     * @see org.xml.sax.Locator#getColumnNumber
      */
     public int getColumnNumber() {
         return this.columnNumber;

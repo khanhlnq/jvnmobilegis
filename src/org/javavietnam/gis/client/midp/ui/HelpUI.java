@@ -45,12 +45,10 @@ import javax.microedition.lcdui.*;
 /**
  * @author khanhlnq
  */
-public class HelpUI extends Form implements CommandListener {
+class HelpUI extends Form implements CommandListener {
 
     private UIController uiController;
     private Command backCommand;
-
-    private StringItem helpStr;
 
     public HelpUI(UIController uiController, boolean isTouchScreen) {
         super(uiController.getString(UIConstants.HELP_TITLE));
@@ -60,7 +58,7 @@ public class HelpUI extends Form implements CommandListener {
             str = str + "\n" + uiController.getString(UIConstants.HAS_TOUCHSCREEN);
         }
         str = str + "\n\n" + uiController.getString(UIConstants.COPYRIGHT);
-        helpStr = new StringItem(uiController.getString(UIConstants.KEYPADS), str);
+        StringItem helpStr = new StringItem(uiController.getString(UIConstants.KEYPADS), str);
 
         append(helpStr);
 

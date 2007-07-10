@@ -39,7 +39,7 @@
 
 package org.javavietnam.gis.shared.midp;
 
-public class MessageConstants {
+class MessageConstants {
 
     public static final byte ERROR_NONE = 0;
     public static final byte ERROR_UNKNOWN_OPERATION = 1;

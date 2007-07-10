@@ -104,11 +104,10 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
     public HTTPCommunicationHandler(RemoteModelRequestHandler nextHandler) {
         super(nextHandler);
 
-        return;
     }
 
     /**
-    * Get image from WMS server @
+     * Get image from WMS server @
      */
     public Image getMapWMS(WMSRequestParameter requestParam, Vector layerList) throws ModelException, ApplicationException {
         HttpConnection connection = null;
@@ -125,8 +124,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         }
         LayerInformation layerInfo = (LayerInformation) layerList.elementAt(0);
 
-        String wmsUrl = new String(layerInfo.getServerInformation().getGetMapURL());
-        Float f[] = layerInfo.getLatLonBoundingBox();
+        String wmsUrl = layerInfo.getServerInformation().getGetMapURL();
         // TODO Khanh: Will find a better way later.
         // requestParam.initParam(f, wmsUrl);
         StringBuffer url = new StringBuffer(wmsUrl);
@@ -143,15 +141,15 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         }
         // Delete the last comma
         url.deleteCharAt(url.length() - 1);
-        url.append("&bbox=" + new Float(requestParam.getBoundingX1()).toString());
-        url.append("," + new Float(requestParam.getBoundingY1()).toString());
-        url.append("," + new Float(requestParam.getBoundingX2()).toString());
-        url.append("," + new Float(requestParam.getBoundingY2()).toString());
-        url.append("&SRS=" + requestParam.getSRS());
-        url.append("&width=" + requestParam.getPixelWidth() + "&height=" + requestParam.getPixelHeight());
-        url.append("&format=" + requestParam.getImageFormat());
-        url.append("&exceptions=" + requestParam.getTextFormat());
-        url.append("&version=" + requestParam.getVersion());
+        url.append("&bbox=").append(new Float(requestParam.getBoundingX1()).toString());
+        url.append(",").append(new Float(requestParam.getBoundingY1()).toString());
+        url.append(",").append(new Float(requestParam.getBoundingX2()).toString());
+        url.append(",").append(new Float(requestParam.getBoundingY2()).toString());
+        url.append("&SRS=").append(requestParam.getSRS());
+        url.append("&width=").append(requestParam.getPixelWidth()).append("&height=").append(requestParam.getPixelHeight());
+        url.append("&format=").append(requestParam.getImageFormat());
+        url.append("&exceptions=").append(requestParam.getTextFormat());
+        url.append("&version=").append(requestParam.getVersion());
 
         wmsUrl = url.toString();
 
@@ -218,7 +216,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 
         StringBuffer resultBuf = new StringBuffer();
 
-        String wmsUrl = new String(requestParam.getGetMapURL());
+        String wmsUrl = requestParam.getGetMapURL();
         StringBuffer url = new StringBuffer(wmsUrl);
         url.append(wmsUrl.indexOf("?") < 0 ? "?" : "&");
         url.append("request=FindPath");
@@ -230,15 +228,15 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         url.append(requestParam.getFindPathLayer());
         url.append("&spoint=").append(requestParam.getStartPoint()[0]).append(",").append(requestParam.getStartPoint()[1]);
         url.append("&epoint=").append(requestParam.getEndPoint()[0]).append(",").append(requestParam.getEndPoint()[1]);
-        url.append("&bbox=" + new Float(requestParam.getBoundingX1()).toString());
-        url.append("," + new Float(requestParam.getBoundingY1()).toString());
-        url.append("," + new Float(requestParam.getBoundingX2()).toString());
-        url.append("," + new Float(requestParam.getBoundingY2()).toString());
-        url.append("&SRS=" + requestParam.getSRS());
-        url.append("&width=" + requestParam.getPixelWidth() + "&height=" + requestParam.getPixelHeight());
-        url.append("&format=" + requestParam.getXmlFormat());
-        url.append("&exceptions=" + requestParam.getTextFormat());
-        url.append("&version=" + requestParam.getVersion());
+        url.append("&bbox=").append(new Float(requestParam.getBoundingX1()).toString());
+        url.append(",").append(new Float(requestParam.getBoundingY1()).toString());
+        url.append(",").append(new Float(requestParam.getBoundingX2()).toString());
+        url.append(",").append(new Float(requestParam.getBoundingY2()).toString());
+        url.append("&SRS=").append(requestParam.getSRS());
+        url.append("&width=").append(requestParam.getPixelWidth()).append("&height=").append(requestParam.getPixelHeight());
+        url.append("&format=").append(requestParam.getXmlFormat());
+        url.append("&exceptions=").append(requestParam.getTextFormat());
+        url.append("&version=").append(requestParam.getVersion());
 
         wmsUrl = url.toString();
         // wmsUrl =
@@ -288,7 +286,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 
         StringBuffer resultBuf = new StringBuffer();
 
-        String webGISURL = new String(searchParam.getWebGISURL());
+        String webGISURL = searchParam.getWebGISURL();
         StringBuffer url = new StringBuffer(webGISURL);
         url.append((webGISURL.lastIndexOf('/') != (webGISURL.length() - 1)) ? "/searchfeatures?" : "searchfeatures?");
         url.append("minx=").append(searchParam.getBoundingBox()[0].toString());
@@ -348,7 +346,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 
         StringBuffer resultBuf = new StringBuffer();
 
-        String wmsUrl = new String(requestParam.getGetMapURL());
+        String wmsUrl = requestParam.getGetMapURL();
         StringBuffer url = new StringBuffer(wmsUrl);
         url.append(wmsUrl.indexOf("?") < 0 ? "?" : "&");
         url.append("request=GetFeatureInfo");
@@ -363,20 +361,20 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         }
         // Delete the last comma
         url.deleteCharAt(url.length() - 1);
-        url.append("&bbox=" + new Float(requestParam.getBoundingX1()).toString());
-        url.append("," + new Float(requestParam.getBoundingY1()).toString());
-        url.append("," + new Float(requestParam.getBoundingX2()).toString());
-        url.append("," + new Float(requestParam.getBoundingY2()).toString());
-        url.append("&SRS=" + requestParam.getSRS());
-        url.append("&width=" + requestParam.getPixelWidth() + "&height=" + requestParam.getPixelHeight());
-        url.append("&format=" + requestParam.getImageFormat());
-        url.append("&query_layers=" + infoLayer);
-        url.append("&info_format=" + requestParam.getTextFormat());
-        url.append("&x=" + requestParam.getX());
-        url.append("&y=" + requestParam.getY());
+        url.append("&bbox=").append(new Float(requestParam.getBoundingX1()).toString());
+        url.append(",").append(new Float(requestParam.getBoundingY1()).toString());
+        url.append(",").append(new Float(requestParam.getBoundingX2()).toString());
+        url.append(",").append(new Float(requestParam.getBoundingY2()).toString());
+        url.append("&SRS=").append(requestParam.getSRS());
+        url.append("&width=").append(requestParam.getPixelWidth()).append("&height=").append(requestParam.getPixelHeight());
+        url.append("&format=").append(requestParam.getImageFormat());
+        url.append("&query_layers=").append(infoLayer);
+        url.append("&info_format=").append(requestParam.getTextFormat());
+        url.append("&x=").append(requestParam.getX());
+        url.append("&y=").append(requestParam.getY());
         url.append("&feature_count=1");
-        url.append("&exceptions=" + requestParam.getTextFormat());
-        url.append("&version=" + requestParam.getVersion());
+        url.append("&exceptions=").append(requestParam.getTextFormat());
+        url.append("&version=").append(requestParam.getVersion());
 
         wmsUrl = url.toString();
         // wmsUrl =
@@ -464,7 +462,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         System.gc();
         updateProgress();
 
-        String wmsUrl = new String(requestParam.getGetMapURL());
+        String wmsUrl = requestParam.getGetMapURL();
         StringBuffer url = new StringBuffer(wmsUrl);
         url.append(wmsUrl.indexOf("?") < 0 ? "?" : "&");
         url.append("request=FindPath");
@@ -476,15 +474,15 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         url.append(requestParam.getFindPathLayer());
         url.append("&spoint=").append(requestParam.getStartPoint()[0]).append(",").append(requestParam.getStartPoint()[1]);
         url.append("&epoint=").append(requestParam.getEndPoint()[0]).append(",").append(requestParam.getEndPoint()[1]);
-        url.append("&bbox=" + new Float(requestParam.getBoundingX1()).toString());
-        url.append("," + new Float(requestParam.getBoundingY1()).toString());
-        url.append("," + new Float(requestParam.getBoundingX2()).toString());
-        url.append("," + new Float(requestParam.getBoundingY2()).toString());
-        url.append("&SRS=" + requestParam.getSRS());
-        url.append("&width=" + requestParam.getPixelWidth() + "&height=" + requestParam.getPixelHeight());
-        url.append("&format=" + requestParam.getPNGFormat());
-        url.append("&exceptions=" + requestParam.getTextFormat());
-        url.append("&version=" + requestParam.getVersion());
+        url.append("&bbox=").append(new Float(requestParam.getBoundingX1()).toString());
+        url.append(",").append(new Float(requestParam.getBoundingY1()).toString());
+        url.append(",").append(new Float(requestParam.getBoundingX2()).toString());
+        url.append(",").append(new Float(requestParam.getBoundingY2()).toString());
+        url.append("&SRS=").append(requestParam.getSRS());
+        url.append("&width=").append(requestParam.getPixelWidth()).append("&height=").append(requestParam.getPixelHeight());
+        url.append("&format=").append(requestParam.getPNGFormat());
+        url.append("&exceptions=").append(requestParam.getTextFormat());
+        url.append("&version=").append(requestParam.getVersion());
 
         wmsUrl = url.toString();
         // wmsUrl =
@@ -532,8 +530,8 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
     }
 
     public String getCapabilitiesWMS(String serviceURL) throws ModelException, ApplicationException {
-        HttpConnection connection = null;
-        InputStream inputStream = null;
+        HttpConnection connection;
+        InputStream inputStream;
 
         // Try to free-up memory first
         System.gc();
@@ -580,8 +578,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         s = s.trim();
         try {
             byte[] bytes = s.getBytes("ISO-8859-1");
-            String str = new String(bytes, "UTF-8");
-            return str;
+            return new String(bytes, "UTF-8");
         }
         catch (UnsupportedEncodingException e) {
             System.out.println("*********** Unsupported Encoding!");
@@ -641,7 +638,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         }
     }
 
-    void closeConnection(HttpConnection connection, InputStream inputStream) {
+    private void closeConnection(HttpConnection connection, InputStream inputStream) {
         if (inputStream != null) {
             try {
                 inputStream.close();
@@ -658,7 +655,6 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
             } // Ignored
         }
 
-        return;
     }
 
 }
