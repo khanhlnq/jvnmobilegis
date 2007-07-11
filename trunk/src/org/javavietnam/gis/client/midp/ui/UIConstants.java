@@ -130,11 +130,7 @@ final class UIConstants {
     public static final int MAPSERVER_02_URL = 69;
     public static final int MAPSERVER_03_NAME = 70;
     public static final int MAPSERVER_03_URL = 71;
-    public static final int MAPSERVER_04_NAME = 72;
-    public static final int MAPSERVER_04_URL = 73;
-    public static final int HAS_TOUCHSCREEN = 74;
-    public static final int MAP_01_NAME = 75;
-    public static final int MAP_01_URL = 76;
+    public static final int HAS_TOUCHSCREEN = 72;
 
     private UIConstants() {
     }
