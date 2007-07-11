@@ -11,7 +11,9 @@ Software requirements:
   b. or any SDK from mobile phone manufacturers.
 (2) For mobile phone:
   a. MIDP 2.0, CLDC 1.0 mobile phones
-  b. Support Unicode font
+  b. Support Unicode font (optional)
+  c. Go to this URL in your mobile phone browser http://jvnmobilegis.googlecode.com/svn/trunk/bin/JVNMobileGIS.jad
+  d. or install directly JVNMobileGIS.jar from your computer to mobile phone
   
 User Guide:
 We have one but it is in Vietnamese (sorry). I will try my best to make an English userguide. I'm not good in English though :)
