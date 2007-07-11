@@ -20,4 +20,4 @@ We have one but it is in Vietnamese (sorry). I will try my best to make an Engli
 
 Contact information:
 Khanh Le Ngoc Quoc
-khanh.lnq AT javavietnam.org
+khanh.lnq AT gmail.com
