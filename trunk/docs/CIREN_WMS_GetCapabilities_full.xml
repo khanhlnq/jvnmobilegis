@@ -1,0 +1,643 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE WMT_MS_Capabilities SYSTEM "http://www2.hcm.ciren.gov.vn:80/geoserver/schemas/wms/1.1.1/WMS_MS_Capabilities.dtd">
+<WMT_MS_Capabilities version="1.1.1">
+  <Service>
+    <Name>OGC:WMS</Name>
+    <Title>My GeoServer WMS</Title>
+    <Abstract>
+This is a description of your Web Map Server.
+     </Abstract>
+    <KeywordList>
+      <Keyword>WFS</Keyword>
+      <Keyword>WMS</Keyword>
+      <Keyword>GEOSERVER</Keyword>
+    </KeywordList>
+    <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://geoserver.sourceforge.net/html/index.php"/>
+    <ContactInformation>
+      <ContactPersonPrimary>
+        <ContactPerson>Bui Hong Son</ContactPerson>
+        <ContactOrganization>CIREN</ContactOrganization>
+      </ContactPersonPrimary>
+      <ContactPosition>Manager</ContactPosition>
+      <ContactAddress>
+        <AddressType>Office</AddressType>
+        <Address>36 Ly Van Phuc St., Dist. 1</Address>
+        <City>Ho Chi Minh</City>
+        <StateOrProvince>null</StateOrProvince>
+        <PostCode>08408</PostCode>
+        <Country>Viet Nam</Country>
+      </ContactAddress>
+      <ContactVoiceTelephone>(084)0903746638</ContactVoiceTelephone>
+      <ContactFacsimileTelephone>null</ContactFacsimileTelephone>
+      <ContactElectronicMailAddress>bhs@hcm.ciren.gov.vn</ContactElectronicMailAddress>
+    </ContactInformation>
+    <Fees>NONE</Fees>
+    <AccessConstraints>NONE</AccessConstraints>
+  </Service>
+  <Capability>
+    <Request>
+      <GetCapabilities>
+        <Format>application/vnd.ogc.wms_xml</Format>
+        <DCPType>
+          <HTTP>
+            <Get>
+              <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://www2.hcm.ciren.gov.vn:80/geoserver/wms?SERVICE=WMS&amp;"/>
+            </Get>
+            <Post>
+              <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://www2.hcm.ciren.gov.vn:80/geoserver/wms?SERVICE=WMS&amp;"/>
+            </Post>
+          </HTTP>
+        </DCPType>
+      </GetCapabilities>
+      <GetMap>
+        <Format>image/png</Format>
+        <Format>image/jpeg</Format>
+        <Format>application/vnd.google-earth.kml+xml</Format>
+        <Format>image/tiff</Format>
+        <Format>image/geotiff</Format>
+        <Format>application/vnd.google-earth.kmz</Format>
+        <Format>image/gif</Format>
+        <Format>image/svg+xml</Format>
+        <Format>application/pdf</Format>
+        <DCPType>
+          <HTTP>
+            <Get>
+              <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://www2.hcm.ciren.gov.vn:80/geoserver/wms?SERVICE=WMS&amp;"/>
+            </Get>
+          </HTTP>
+        </DCPType>
+      </GetMap>
+      <GetFeatureInfo>
+        <Format>text/plain</Format>
+        <Format>text/html</Format>
+        <Format>application/vnd.ogc.gml</Format>
+        <DCPType>
+          <HTTP>
+            <Get>
+              <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://www2.hcm.ciren.gov.vn:80/geoserver/wms?SERVICE=WMS&amp;"/>
+            </Get>
+            <Post>
+              <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://www2.hcm.ciren.gov.vn:80/geoserver/wms?SERVICE=WMS&amp;"/>
+            </Post>
+          </HTTP>
+        </DCPType>
+      </GetFeatureInfo>
+      <DescribeLayer>
+        <Format>application/vnd.ogc.wms_xml</Format>
+        <DCPType>
+          <HTTP>
+            <Get>
+              <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://www2.hcm.ciren.gov.vn:80/geoserver/wms?SERVICE=WMS&amp;"/>
+            </Get>
+          </HTTP>
+        </DCPType>
+      </DescribeLayer>
+      <GetLegendGraphic>
+        <Format>image/jpeg</Format>
+        <Format>image/png</Format>
+        <Format>image/gif</Format>
+        <DCPType>
+          <HTTP>
+            <Get>
+              <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://www2.hcm.ciren.gov.vn:80/geoserver/wms?SERVICE=WMS&amp;"/>
+            </Get>
+          </HTTP>
+        </DCPType>
+      </GetLegendGraphic>
+    </Request>
+    <Exception>
+      <Format>application/vnd.ogc.se_xml</Format>
+    </Exception>
+    <UserDefinedSymbolization SupportSLD="1" UserLayer="1" UserStyle="1" RemoteWFS="0"/>
+    <Layer>
+      <Title>My GeoServer WMS</Title>
+      <Abstract>
+This is a description of your Web Map Server.
+     </Abstract>
+      <!--All supported EPSG projections:-->
+      <SRS>EPSG:4326</SRS>
+      <SRS>EPSG:32648</SRS>
+      <LatLonBoundingBox minx="-180.0" miny="-90.0" maxx="180.0" maxy="90.0"/>
+      <Layer queryable="1">
+        <Name>webgis:hcm_dghc_rhc_25000</Name>
+        <Title>hcm_dghc_rhc_25000</Title>
+        <Abstract>Generated from hcm_25000</Abstract>
+        <KeywordList>
+          <Keyword>hcm_dghc_rhc_25000 hcm_25000</Keyword>
+        </KeywordList>
+        <SRS>EPSG:32648</SRS>
+        <LatLonBoundingBox minx="106.34989257664344" miny="10.373741751544218" maxx="107.03002702257338" maxy="11.161271096583167"/>
+        <BoundingBox SRS="EPSG:32648" minx="647781.1875" miny="1147440.75" maxx="721692.625" maxy="1234149.25"/>
+        <Style>
+          <Name>hcm_dghc_rhc_25000</Name>
+          <Title>Default Styler for simple road segments</Title>
+          <Abstract/>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://www2.hcm.ciren.gov.vn:80/geoserver/wms/GetLegendGraphic?VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=webgis:hcm_dghc_rhc_25000"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>webgis:hcm_gt_qh_ds_25000</Name>
+        <Title>hcm_gt_qh_ds_25000</Title>
+        <Abstract>Generated from hcm_25000</Abstract>
+        <KeywordList>
+          <Keyword>hcm_gt_qh_ds_25000 hcm_25000</Keyword>
+        </KeywordList>
+        <SRS>EPSG:32648</SRS>
+        <LatLonBoundingBox minx="106.66315298739399" miny="10.78200396036156" maxx="106.76333066113789" maxy="10.904101618879892"/>
+        <BoundingBox SRS="EPSG:32648" minx="681845.0" miny="1192430.375" maxx="692723.8125" maxy="1205875.5"/>
+        <Style>
+          <Name>hcm_gt_qh_ds_25000</Name>
+          <Title>Default Styler for simple road segments</Title>
+          <Abstract/>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://www2.hcm.ciren.gov.vn:80/geoserver/wms/GetLegendGraphic?VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=webgis:hcm_gt_qh_ds_25000"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>webgis:ecozone</Name>
+        <Title>ecozone</Title>
+        <Abstract>Generated from province_1m</Abstract>
+        <KeywordList>
+          <Keyword>province_1m ecozone</Keyword>
+        </KeywordList>
+        <SRS>EPSG:45555</SRS>
+        <LatLonBoundingBox minx="-87.0186163654013" miny="39.055508895794965" maxx="-58.0964703681453" maxy="59.11678931143326"/>
+        <BoundingBox SRS="EPSG:45555" minx="795810.3125" miny="339153.0" maxx="2383940.25" maxy="2150507.0"/>
+        <Style>
+          <Name>ecozone_1m</Name>
+          <Title>Default Styler</Title>
+          <Abstract/>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://www2.hcm.ciren.gov.vn:80/geoserver/wms/GetLegendGraphic?VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=webgis:ecozone"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>webgis:province_city</Name>
+        <Title>province_city</Title>
+        <Abstract>Generated from province_1m</Abstract>
+        <KeywordList>
+          <Keyword>province_city province_1m</Keyword>
+        </KeywordList>
+        <SRS>EPSG:45555</SRS>
+        <LatLonBoundingBox minx="-87.0186163654013" miny="39.055508895794965" maxx="-58.0964703681453" maxy="59.11678931143326"/>
+        <BoundingBox SRS="EPSG:45555" minx="795810.3125" miny="339153.0" maxx="2383940.25" maxy="2150507.0"/>
+        <Style>
+          <Name>province_1m</Name>
+          <Title>Default Styler</Title>
+          <Abstract/>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://www2.hcm.ciren.gov.vn:80/geoserver/wms/GetLegendGraphic?VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=webgis:province_city"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>webgis:province_roads</Name>
+        <Title>province_roads</Title>
+        <Abstract>Generated from province_1m</Abstract>
+        <KeywordList>
+          <Keyword>province_1m province_roads</Keyword>
+        </KeywordList>
+        <SRS>EPSG:45555</SRS>
+        <LatLonBoundingBox minx="-88.04046467647805" miny="36.73725506155845" maxx="-56.99607426260354" maxy="59.78850482759567"/>
+        <BoundingBox SRS="EPSG:45555" minx="742855.6875" miny="84671.984375" maxx="2427249.25" maxy="2216960.75"/>
+        <Style>
+          <Name>province_roads_1m</Name>
+          <Title>Default Styler</Title>
+          <Abstract/>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://www2.hcm.ciren.gov.vn:80/geoserver/wms/GetLegendGraphic?VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=webgis:province_roads"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>webgis:hcm_dghc_xp_25000</Name>
+        <Title>hcm_dghc_xp_25000</Title>
+        <Abstract>Generated from hcm_25000</Abstract>
+        <KeywordList>
+          <Keyword>hcm_dghc_xp_25000 hcm_25000</Keyword>
+        </KeywordList>
+        <SRS>EPSG:32648</SRS>
+        <LatLonBoundingBox minx="106.34989257664344" miny="10.373741751544218" maxx="107.03002702257338" maxy="11.161271096583167"/>
+        <BoundingBox SRS="EPSG:32648" minx="647781.1875" miny="1147440.75" maxx="721692.625" maxy="1234149.25"/>
+        <Style>
+          <Name>hcm_dghc_xp_25000</Name>
+          <Title>A boring default style</Title>
+          <Abstract>A sample style that just prints out a transparent red interior with a red outline</Abstract>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://www2.hcm.ciren.gov.vn:80/geoserver/wms/GetLegendGraphic?VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=webgis:hcm_dghc_xp_25000"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>webgis:hcm_dc_25000</Name>
+        <Title>hcm_dc_25000</Title>
+        <Abstract>Generated from hcm_25000</Abstract>
+        <KeywordList>
+          <Keyword>hcm_25000 hcm_dc_25000</Keyword>
+        </KeywordList>
+        <SRS>EPSG:32648</SRS>
+        <LatLonBoundingBox minx="106.36475009677164" miny="10.377585803615618" maxx="106.97932922136025" maxy="11.151403870139305"/>
+        <BoundingBox SRS="EPSG:32648" minx="649406.375" miny="1147831.25" maxx="716161.0" maxy="1233065.375"/>
+        <Style>
+          <Name>hcm_dc_25000</Name>
+          <Title>Default Styler</Title>
+          <Abstract/>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://www2.hcm.ciren.gov.vn:80/geoserver/wms/GetLegendGraphic?VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=webgis:hcm_dc_25000"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>webgis:hcm_dd_25000</Name>
+        <Title>hcm_dd_25000</Title>
+        <Abstract>Generated from hcm_25000</Abstract>
+        <KeywordList>
+          <Keyword>hcm_dd_25000 hcm_25000</Keyword>
+        </KeywordList>
+        <SRS>EPSG:32648</SRS>
+        <LatLonBoundingBox minx="106.37265626729827" miny="10.378401341745139" maxx="106.97914286019257" maxy="11.145549553951321"/>
+        <BoundingBox SRS="EPSG:32648" minx="650271.6875" miny="1147921.375" maxx="716144.9375" maxy="1232421.875"/>
+        <Style>
+          <Name>hcm_dd_25000</Name>
+          <Title>Default Styler</Title>
+          <Abstract/>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://www2.hcm.ciren.gov.vn:80/geoserver/wms/GetLegendGraphic?VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=webgis:hcm_dd_25000"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>webgis:cities_points</Name>
+        <Title>cities_points</Title>
+        <Abstract>Generated from province_1m</Abstract>
+        <KeywordList>
+          <Keyword>province_1m cities_points</Keyword>
+        </KeywordList>
+        <SRS>EPSG:45555</SRS>
+        <LatLonBoundingBox minx="-88.02626822872462" miny="36.624789124718895" maxx="-56.65742489433338" maxy="59.778813175277456"/>
+        <BoundingBox SRS="EPSG:45555" minx="744466.8125" miny="80994.84375" maxx="2452394.0" maxy="2216143.25"/>
+        <Style>
+          <Name>province_point_1m</Name>
+          <Title>Default Styler</Title>
+          <Abstract/>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://www2.hcm.ciren.gov.vn:80/geoserver/wms/GetLegendGraphic?VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=webgis:cities_points"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>webgis:hcm_dghc_qh_25000</Name>
+        <Title>hcm_dghc_qh_25000</Title>
+        <Abstract>Generated from hcm_25000</Abstract>
+        <KeywordList>
+          <Keyword>hcm_dghc_qh_25000 hcm_25000</Keyword>
+        </KeywordList>
+        <SRS>EPSG:32648</SRS>
+        <LatLonBoundingBox minx="106.34989257664344" miny="10.373741751544218" maxx="107.03002702257338" maxy="11.161271096583167"/>
+        <BoundingBox SRS="EPSG:32648" minx="647781.1875" miny="1147440.75" maxx="721692.625" maxy="1234149.25"/>
+        <Style>
+          <Name>hcm_dghc_qh_25000</Name>
+          <Title>Default Styler</Title>
+          <Abstract/>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://www2.hcm.ciren.gov.vn:80/geoserver/wms/GetLegendGraphic?VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=webgis:hcm_dghc_qh_25000"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>webgis:hcm_tp_cv_25000</Name>
+        <Title>hcm_tp_cv_25000</Title>
+        <Abstract>Generated from hcm_25000</Abstract>
+        <KeywordList>
+          <Keyword>hcm_tp_cv_25000 hcm_25000</Keyword>
+        </KeywordList>
+        <SRS>EPSG:32648</SRS>
+        <LatLonBoundingBox minx="106.62214979544657" miny="10.745918547219501" maxx="106.83031598017129" maxy="10.87180787829623"/>
+        <BoundingBox SRS="EPSG:32648" minx="677381.4375" miny="1188481.5" maxx="700069.25" maxy="1202279.125"/>
+        <Style>
+          <Name>hcm_tp_cv_25000</Name>
+          <Title>Default Styler</Title>
+          <Abstract/>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://www2.hcm.ciren.gov.vn:80/geoserver/wms/GetLegendGraphic?VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=webgis:hcm_tp_cv_25000"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>webgis:national_roads</Name>
+        <Title>national_roads</Title>
+        <Abstract>Generated from province_1m</Abstract>
+        <KeywordList>
+          <Keyword>national_roads province_1m</Keyword>
+        </KeywordList>
+        <SRS>EPSG:45555</SRS>
+        <LatLonBoundingBox minx="-88.04688767219353" miny="36.6097449002608" maxx="-56.62342111291502" maxy="59.78850482759567"/>
+        <BoundingBox SRS="EPSG:45555" minx="742855.6875" miny="79998.5703125" maxx="2454415.5" maxy="2216960.75"/>
+        <Style>
+          <Name>nation_roads_1m</Name>
+          <Title>Default Styler</Title>
+          <Abstract/>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://www2.hcm.ciren.gov.vn:80/geoserver/wms/GetLegendGraphic?VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=webgis:national_roads"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>webgis:neu_nations</Name>
+        <Title>neu_nations</Title>
+        <Abstract>Generated from province_1m</Abstract>
+        <KeywordList>
+          <Keyword>province_1m neu_nations</Keyword>
+        </KeywordList>
+        <SRS>EPSG:45555</SRS>
+        <LatLonBoundingBox minx="-88.04679672413614" miny="36.61062422149828" maxx="-56.637577416588464" maxy="59.77658278892005"/>
+        <BoundingBox SRS="EPSG:45555" minx="742863.3125" miny="79998.4609375" maxx="2454143.75" maxy="2215615.75"/>
+        <Style>
+          <Name>neu_nations_1m</Name>
+          <Title>Default Styler</Title>
+          <Abstract/>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://www2.hcm.ciren.gov.vn:80/geoserver/wms/GetLegendGraphic?VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=webgis:neu_nations"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>webgis:hcm_th_02_sh_25000</Name>
+        <Title>hcm_th_02_sh_25000</Title>
+        <Abstract>Generated from hcm_25000</Abstract>
+        <KeywordList>
+          <Keyword>hcm_th_02_sh_25000 hcm_25000</Keyword>
+        </KeywordList>
+        <SRS>EPSG:32648</SRS>
+        <LatLonBoundingBox minx="106.29470176757056" miny="10.373214700748177" maxx="107.07389842375841" maxy="11.167919555940086"/>
+        <BoundingBox SRS="EPSG:32648" minx="641738.125" miny="1147413.25" maxx="726480.875" maxy="1234857.5"/>
+        <Style>
+          <Name>hcm_th_02_sh_25000</Name>
+          <Title>Default Styler</Title>
+          <Abstract/>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://www2.hcm.ciren.gov.vn:80/geoserver/wms/GetLegendGraphic?VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=webgis:hcm_th_02_sh_25000"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>webgis:rivers_1</Name>
+        <Title>rivers_1</Title>
+        <Abstract>Generated from province_1m</Abstract>
+        <KeywordList>
+          <Keyword>province_1m rivers_1</Keyword>
+        </KeywordList>
+        <SRS>EPSG:45555</SRS>
+        <LatLonBoundingBox minx="-88.04635303021728" miny="36.60788694340427" maxx="-56.62501881050946" maxy="59.777664283834525"/>
+        <BoundingBox SRS="EPSG:45555" minx="742900.4375" miny="79998.5703125" maxx="2454989.0" maxy="2215744.25"/>
+        <Style>
+          <Name>river_1n_1m</Name>
+          <Title>Default Styler</Title>
+          <Abstract/>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://www2.hcm.ciren.gov.vn:80/geoserver/wms/GetLegendGraphic?VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=webgis:rivers_1"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>webgis:hcm_th_01_vs_25000</Name>
+        <Title>hcm_th_01_vs_25000</Title>
+        <Abstract>Generated from hcm_25000</Abstract>
+        <KeywordList>
+          <Keyword>hcm_th_01_vs_25000 hcm_25000</Keyword>
+        </KeywordList>
+        <SRS>EPSG:32648</SRS>
+        <LatLonBoundingBox minx="106.29470176757056" miny="10.373214700748177" maxx="107.07389842375841" maxy="11.167919555940086"/>
+        <BoundingBox SRS="EPSG:32648" minx="641738.125" miny="1147413.25" maxx="726480.875" maxy="1234857.5"/>
+        <Style>
+          <Name>hcm_th_01_vs_25000</Name>
+          <Title>Default Styler for simple road segments</Title>
+          <Abstract/>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://www2.hcm.ciren.gov.vn:80/geoserver/wms/GetLegendGraphic?VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=webgis:hcm_th_01_vs_25000"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>webgis:rail_roads</Name>
+        <Title>rail_roads</Title>
+        <Abstract>Generated from province_1m</Abstract>
+        <KeywordList>
+          <Keyword>province_1m rail_roads</Keyword>
+        </KeywordList>
+        <SRS>EPSG:45555</SRS>
+        <LatLonBoundingBox minx="-87.95769136045826" miny="37.62634213438596" maxx="-58.7140925389481" maxy="59.78835682161412"/>
+        <BoundingBox SRS="EPSG:45555" minx="743014.125" miny="142942.34375" maxx="2303837.75" maxy="2216971.25"/>
+        <Style>
+          <Name>rail_1m</Name>
+          <Title>Default Styler for simple road segments</Title>
+          <Abstract/>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://www2.hcm.ciren.gov.vn:80/geoserver/wms/GetLegendGraphic?VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=webgis:rail_roads"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>webgis:hcm_gt_qh_dgt_25000</Name>
+        <Title>hcm_gt_qh_dgt_25000</Title>
+        <Abstract>Generated from hcm_25000</Abstract>
+        <KeywordList>
+          <Keyword>hcm_gt_qh_dgt_25000 hcm_25000</Keyword>
+        </KeywordList>
+        <SRS>EPSG:32648</SRS>
+        <LatLonBoundingBox minx="106.35013357617079" miny="10.378031578018515" maxx="107.0295197784021" maxy="11.162201349745583"/>
+        <BoundingBox SRS="EPSG:32648" minx="647805.5625" miny="1147915.0" maxx="721636.5" maxy="1234252.25"/>
+        <Style>
+          <Name>hcm_gt_qh_dgt_25000_bw</Name>
+          <Title>Default Styler</Title>
+          <Abstract/>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://www2.hcm.ciren.gov.vn:80/geoserver/wms/GetLegendGraphic?VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=webgis:hcm_gt_qh_dgt_25000"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>webgis:main_cities_points</Name>
+        <Title>main_cities_points</Title>
+        <Abstract>Generated from province_1m</Abstract>
+        <KeywordList>
+          <Keyword>main_cities_points province_1m</Keyword>
+        </KeywordList>
+        <SRS>EPSG:45555</SRS>
+        <LatLonBoundingBox minx="-85.49481224516282" miny="43.55117010969573" maxx="-70.94625660894782" maxy="58.42659807376247"/>
+        <BoundingBox SRS="EPSG:45555" minx="883187.25" miny="580586.3125" maxx="1540468.5" maxy="2089256.875"/>
+        <Style>
+          <Name>main_city_point_1m</Name>
+          <Title>Default Styler</Title>
+          <Abstract/>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://www2.hcm.ciren.gov.vn:80/geoserver/wms/GetLegendGraphic?VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=webgis:main_cities_points"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>webgis:city_zones</Name>
+        <Title>city_zones</Title>
+        <Abstract>Generated from province_1m</Abstract>
+        <KeywordList>
+          <Keyword>province_1m city_zones</Keyword>
+        </KeywordList>
+        <SRS>EPSG:45555</SRS>
+        <LatLonBoundingBox minx="-86.73119713609773" miny="42.86327373935384" maxx="-59.24647890699114" maxy="59.30486247264418"/>
+        <BoundingBox SRS="EPSG:45555" minx="765087.5625" miny="747396.25" maxx="2292764.5" maxy="2166243.0"/>
+        <Style>
+          <Name>city_zone_1m</Name>
+          <Title>Default Styler</Title>
+          <Abstract/>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://www2.hcm.ciren.gov.vn:80/geoserver/wms/GetLegendGraphic?VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=webgis:city_zones"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>webgis:river_2</Name>
+        <Title>river_2</Title>
+        <Abstract>Generated from province_1m</Abstract>
+        <KeywordList>
+          <Keyword>river_2 province_1m</Keyword>
+        </KeywordList>
+        <SRS>EPSG:45555</SRS>
+        <LatLonBoundingBox minx="-87.91410576349816" miny="37.10063212701824" maxx="-58.1846003281651" maxy="59.774250971362065"/>
+        <BoundingBox SRS="EPSG:45555" minx="752171.0" miny="95433.21875" maxx="2341562.5" maxy="2216960.75"/>
+        <Style>
+          <Name>river_2n_1m</Name>
+          <Title>Default Styler</Title>
+          <Abstract/>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://www2.hcm.ciren.gov.vn:80/geoserver/wms/GetLegendGraphic?VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=webgis:river_2"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>webgis:hcm_gt_qh_cau_25000</Name>
+        <Title>hcm_gt_qh_cau_25000</Title>
+        <Abstract>Generated from hcm_25000</Abstract>
+        <KeywordList>
+          <Keyword>hcm_gt_qh_cau_25000 hcm_25000</Keyword>
+        </KeywordList>
+        <SRS>EPSG:32648</SRS>
+        <LatLonBoundingBox minx="106.42580455596314" miny="10.399020567131545" maxx="106.94488339798693" maxy="11.074678568183812"/>
+        <BoundingBox SRS="EPSG:32648" minx="656081.1875" miny="1150179.75" maxx="712453.0" maxy="1224610.625"/>
+        <Style>
+          <Name>hcm_gt_qh_cau_25000</Name>
+          <Title>Default Styler</Title>
+          <Abstract/>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://www2.hcm.ciren.gov.vn:80/geoserver/wms/GetLegendGraphic?VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=webgis:hcm_gt_qh_cau_25000"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>webgis:vn_sea</Name>
+        <Title>vn_sea</Title>
+        <Abstract>Generated from province_1m</Abstract>
+        <KeywordList>
+          <Keyword>province_1m vn_sea</Keyword>
+        </KeywordList>
+        <SRS>EPSG:45555</SRS>
+        <LatLonBoundingBox minx="-77.05986556765829" miny="38.77398983737653" maxx="-61.793872672683726" maxy="51.74495991294809"/>
+        <BoundingBox SRS="EPSG:45555" minx="1620965.5" miny="321397.78125" maxx="2423078.75" maxy="1526758.125"/>
+        <Style>
+          <Name>vn_sea_1m</Name>
+          <Title>Default Styler</Title>
+          <Abstract/>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://www2.hcm.ciren.gov.vn:80/geoserver/wms/GetLegendGraphic?VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=webgis:vn_sea"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>webgis:hcm_th_01_ts_25000</Name>
+        <Title>hcm_th_01_ts_25000</Title>
+        <Abstract>Generated from hcm_25000</Abstract>
+        <KeywordList>
+          <Keyword>hcm_th_01_ts_25000 hcm_25000</Keyword>
+        </KeywordList>
+        <SRS>EPSG:32648</SRS>
+        <LatLonBoundingBox minx="106.29469422798712" miny="10.373503748378527" maxx="107.06758404106768" maxy="11.167916202553151"/>
+        <BoundingBox SRS="EPSG:32648" minx="641737.1875" miny="1147440.75" maxx="725791.0" maxy="1234857.125"/>
+        <Style>
+          <Name>hcm_th_01_ts_25000</Name>
+          <Title>Default Styler</Title>
+          <Abstract/>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://www2.hcm.ciren.gov.vn:80/geoserver/wms/GetLegendGraphic?VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=webgis:hcm_th_01_ts_25000"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>webgis:part3</Name>
+        <Title>part3_Type</Title>
+        <Abstract>Generated from test</Abstract>
+        <KeywordList>
+          <Keyword>test part3</Keyword>
+        </KeywordList>
+        <SRS>EPSG:32648</SRS>
+        <LatLonBoundingBox minx="105.72113410623122" miny="10.611684931989412" maxx="106.0527282929301" maxy="10.865306394664957"/>
+        <BoundingBox SRS="EPSG:32648" minx="578882.4899953661" miny="1173238.309" maxx="615062.401" maxy="1201180.0200027071"/>
+        <Style>
+          <Name>cite_lakes</Name>
+          <Title>Default Styler</Title>
+          <Abstract/>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://www2.hcm.ciren.gov.vn:80/geoserver/wms/GetLegendGraphic?VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=webgis:part3"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1">
+        <Name>webgis:hcm_ct_25000</Name>
+        <Title>hcm_ct_25000</Title>
+        <Abstract>Generated from hcm_webgis</Abstract>
+        <KeywordList>
+          <Keyword>hcm_ct_25000 hcm_webgis</Keyword>
+        </KeywordList>
+        <SRS>EPSG:32648</SRS>
+        <LatLonBoundingBox minx="106.62373113748592" miny="10.658526650681601" maxx="106.73234504713503" maxy="10.818775998159355"/>
+        <BoundingBox SRS="EPSG:32648" minx="677605.625" miny="1178752.375" maxx="689390.0625" maxy="1196414.25"/>
+        <Style>
+          <Name>hcm_ct_25000</Name>
+          <Title>Default Styler</Title>
+          <Abstract/>
+          <LegendURL width="20" height="20">
+            <Format>image/png</Format>
+            <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://www2.hcm.ciren.gov.vn:80/geoserver/wms/GetLegendGraphic?VERSION=1.0.0&amp;FORMAT=image/png&amp;WIDTH=20&amp;HEIGHT=20&amp;LAYER=webgis:hcm_ct_25000"/>
+          </LegendURL>
+        </Style>
+      </Layer>     
+    </Layer>
+  </Capability>
+</WMT_MS_Capabilities>
