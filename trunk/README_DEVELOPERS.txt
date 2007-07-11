@@ -24,4 +24,4 @@ Happy developing!!!
   
 Contact information:
 Khanh Le Ngoc Quoc
-khanh.lnq AT javavietnam.org
+khanh.lnq AT gmail.com
