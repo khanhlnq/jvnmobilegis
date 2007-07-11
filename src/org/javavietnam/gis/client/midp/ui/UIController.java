@@ -234,6 +234,9 @@ public class UIController {
     public void commandAction(Command command, Displayable displayable) {
         if (command == mainMenuCommand) {
             mainMenuRequested();
+        } else if (command == aboutCommand) {
+            showInfoAlert(getString(UIConstants.ABOUT), getString(UIConstants.MOBILEGIS_CLIENT) + " version "
+                    + midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION) + "\n" + getString(UIConstants.COPYRIGHT), display.getCurrent());
         } else if (command == exitCommand) {
             exitRequested();
         }
