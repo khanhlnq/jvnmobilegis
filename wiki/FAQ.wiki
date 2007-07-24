@@ -36,8 +36,7 @@ You have to have good knowledge of Java ME, basic knowledge of GIS.
 Please read [http://jvnmobilegis.googlecode.com/svn/trunk/README_DEVELOPERS.txt Developer README] 
 
 === Can I develop this project in Linux? ===
-Of course you can. I'm developing it in Linux now
-
+Of course you can. I'm developing it in Ubuntu now
 
 
 
