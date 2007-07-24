@@ -97,7 +97,7 @@ public class JVNMobileGISMIDlet extends MIDlet {
     private static final String PROPERTY_SERVICE_URL = "WMS-Server-URL";
     private static final String PROPERTY_LOCALE = "MobileGIS-Locale";
     private static final String PROPERTY_WEBGIS = "WebGIS-URL";
-    private static final String PROPERTY_FINDPATH_LAYER = "Find-Path-Layer";
+    // private static final String PROPERTY_FINDPATH_LAYER = "Find-Path-Layer";
     public static final String PROPERTY_UPDATE_URL = "Update-URL";
     public static final String PROPERTY_MIDLET_VERSION = "MIDlet-Version";
 
@@ -116,7 +116,7 @@ public class JVNMobileGISMIDlet extends MIDlet {
                 preferences.setDefaultLocale(getAppProperty(PROPERTY_LOCALE));
                 preferences.setWmsServerURL(getAppProperty(PROPERTY_SERVICE_URL));
                 preferences.setWebGISURL(getAppProperty(PROPERTY_WEBGIS));
-                preferences.setFindPathLayer(getAppProperty(PROPERTY_FINDPATH_LAYER));
+                // preferences.setFindPathLayer(getAppProperty(PROPERTY_FINDPATH_LAYER));
                 model.setLocale(preferences.getDefaultLocale());
                 model.setPreferences(preferences);
             }

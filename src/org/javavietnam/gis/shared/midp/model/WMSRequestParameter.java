@@ -91,11 +91,11 @@ public interface WMSRequestParameter {
 
     public Float getCurrentScale();
 
-    public Float[] getStartPoint();
+    // public Float[] getStartPoint();
 
-    public Float[] getEndPoint();
+    // public Float[] getEndPoint();
 
-    public String getFindPathLayer();
+    // public String getFindPathLayer();
 
     public String getGetMapURL();
 

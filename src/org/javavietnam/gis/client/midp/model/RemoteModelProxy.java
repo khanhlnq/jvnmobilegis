@@ -131,9 +131,9 @@ class RemoteModelProxy extends ModelObjectLoader {
         return requestHandlerChain.checkUpdate(updateURL);
     }
 
-    public String findPathWMS(WMSRequestParameter requestParam) throws ModelException, ApplicationException {
+    /*public String findPathWMS(WMSRequestParameter requestParam) throws ModelException, ApplicationException {
         return requestHandlerChain.findPathWMS(requestParam);
-    }
+    }*/
 
     public String searchFeature(SearchFeatureParameter searchParam) throws ModelException, ApplicationException {
         return requestHandlerChain.searchFeature(searchParam);
@@ -143,9 +143,9 @@ class RemoteModelProxy extends ModelObjectLoader {
         return requestHandlerChain.getFeatureInfo(requestParam, layerList, infoLayer);
     }
 
-    public Image viewPathWMS(WMSRequestParameter requestParam) throws ModelException, ApplicationException {
+    /*public Image viewPathWMS(WMSRequestParameter requestParam) throws ModelException, ApplicationException {
         return requestHandlerChain.viewPathWMS(requestParam);
-    }
+    }*/
 
     public Vector getCapabilitiesWMS(String serviceURL) throws ModelException, ApplicationException {
         String result = requestHandlerChain.getCapabilitiesWMS(serviceURL);

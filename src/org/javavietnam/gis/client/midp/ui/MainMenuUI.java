@@ -103,7 +103,7 @@ class MainMenuUI extends List implements CommandListener {
             append(uiController.getString(UIConstants.SERVER_UI_TITLE), null);
             append(uiController.getString(UIConstants.PREFERENCES), null);
             append(uiController.getString(UIConstants.CHECK_UPDATE), null);
-            exitCommand = new Command(uiController.getString(UIConstants.EXIT), Command.EXIT, 1);
+            exitCommand = new Command(uiController.getString(UIConstants.EXIT), Command.EXIT, 75);
 
             addCommand(exitCommand);
             setCommandListener(this);

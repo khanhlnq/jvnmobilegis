@@ -164,9 +164,9 @@ abstract public class RemoteModelRequestHandler implements RequestHandler {
         return getRemoteModelRequestHandler().checkUpdate(updateURL);
     }
 
-    public String findPathWMS(WMSRequestParameter requestParam) throws ModelException, ApplicationException {
+    /*public String findPathWMS(WMSRequestParameter requestParam) throws ModelException, ApplicationException {
         return getRemoteModelRequestHandler().findPathWMS(requestParam);
-    }
+    }*/
 
     public String searchFeature(SearchFeatureParameter searchParam) throws ModelException, ApplicationException {
         return getRemoteModelRequestHandler().searchFeature(searchParam);
@@ -176,9 +176,9 @@ abstract public class RemoteModelRequestHandler implements RequestHandler {
         return getRemoteModelRequestHandler().getFeatureInfo(requestParam, layerList, infoLayer);
     }
 
-    public Image viewPathWMS(WMSRequestParameter requestParam) throws ModelException, ApplicationException {
+    /*public Image viewPathWMS(WMSRequestParameter requestParam) throws ModelException, ApplicationException {
         return getRemoteModelRequestHandler().viewPathWMS(requestParam);
-    }
+    }*/
 
     public String getCapabilitiesWMS(String serviceURL) throws ModelException, ApplicationException {
         return getRemoteModelRequestHandler().getCapabilitiesWMS(serviceURL);

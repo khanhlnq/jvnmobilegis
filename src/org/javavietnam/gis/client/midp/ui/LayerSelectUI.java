@@ -70,7 +70,7 @@ class LayerSelectUI extends Form implements CommandListener {
         append(choiceAskNextTime);
 
         confirmCommand = new Command(uiController.getString(UIConstants.CONFIRM), Command.OK, 0);
-        backCommand = new Command(uiController.getString(UIConstants.BACK), Command.BACK, 1);
+        backCommand = new Command(uiController.getString(UIConstants.BACK), Command.BACK, 5);
 
         addCommand(confirmCommand);
         addCommand(backCommand);

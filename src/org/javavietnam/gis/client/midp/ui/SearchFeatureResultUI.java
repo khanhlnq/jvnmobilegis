@@ -67,7 +67,7 @@ class SearchFeatureResultUI extends List implements CommandListener {
         super(uiController.getString(UIConstants.SEARCH_FEATURE_RESULT_UI_TITLE), List.IMPLICIT);
         this.uiController = uiController;
 
-        backCommand = new Command(uiController.getString(UIConstants.BACK), Command.BACK, 2);
+        backCommand = new Command(uiController.getString(UIConstants.BACK), Command.BACK, 5);
         viewOnMapCommand = new Command(uiController.getString(UIConstants.VIEW_ON_MAP), Command.SCREEN, 1);
         nextCommand = new Command(uiController.getString(UIConstants.NEXT), Command.SCREEN, 0);
 
