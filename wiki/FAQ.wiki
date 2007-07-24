@@ -27,17 +27,16 @@ At first, this application is for GIS specialists. But we're improving to make i
 
 === How can I join this project? ===
 Send a message with subject: [PROJECT-MEMBER-REQUEST] xxxxxx
-to [discussion group http://groups.google.com/group/JVNMobileGIS]
+to [http://groups.google.com/group/JVNMobileGIS discussion group]
 
 === What do I need to know to join this project? ===
 You have to have good knowledge of Java ME, basic knowledge of GIS.
 
 === What tools do I need? ===
-Please read [Developer README http://jvnmobilegis.googlecode.com/svn/trunk/README_DEVELOPERS.txt] 
+Please read [http://jvnmobilegis.googlecode.com/svn/trunk/README_DEVELOPERS.txt Developer README] 
 
 === Can I develop this project in Linux? ===
 Of course you can. I'm developing it in Linux now
-
 
 
 
