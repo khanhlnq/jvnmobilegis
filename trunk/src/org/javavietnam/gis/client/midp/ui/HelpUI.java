@@ -62,7 +62,7 @@ class HelpUI extends Form implements CommandListener {
 
         append(helpStr);
 
-        backCommand = new Command(uiController.getString(UIConstants.BACK), Command.BACK, 1);
+        backCommand = new Command(uiController.getString(UIConstants.BACK), Command.BACK, 5);
 
         addCommand(backCommand);
         setCommandListener(this);

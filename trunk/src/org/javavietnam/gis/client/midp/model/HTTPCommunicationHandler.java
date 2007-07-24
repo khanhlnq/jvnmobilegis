@@ -206,7 +206,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         return img;
     }
 
-    public String findPathWMS(WMSRequestParameter requestParam) throws ModelException, ApplicationException {
+    /*public String findPathWMS(WMSRequestParameter requestParam) throws ModelException, ApplicationException {
         HttpConnection connection = null;
         InputStream inputStream = null;
 
@@ -278,7 +278,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         }
 
         return toUTF8(resultBuf.toString());
-    }
+    }*/
 
     public String searchFeature(SearchFeatureParameter searchParam) throws ModelException, ApplicationException {
         HttpConnection connection = null;
@@ -452,7 +452,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         return toUTF8(resultBuf.toString());
     }
 
-    public Image viewPathWMS(WMSRequestParameter requestParam) throws ModelException, ApplicationException {
+    /*public Image viewPathWMS(WMSRequestParameter requestParam) throws ModelException, ApplicationException {
         HttpConnection connection = null;
         InputStream inputStream = null;
 
@@ -527,7 +527,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         }
 
         return path;
-    }
+    }*/
 
     public String getCapabilitiesWMS(String serviceURL) throws ModelException, ApplicationException {
         HttpConnection connection;

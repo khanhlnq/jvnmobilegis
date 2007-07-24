@@ -34,10 +34,10 @@
     <setting name="MIDlet-Description" module.settings.user.defined.value="A mobile map viewer, developed by JVNGIS team" />
     <setting name="MIDlet-Icon" module.settings.user.defined.value="$MODULE_DIR$/res/icons/JVNMobileGIS_icon.png" />
     <setting name="MIDlet-Info-URL" module.settings.user.defined.value="http://code.google.com/p/jvnmobilegis/" />
-    <setting name="MIDlet-Jar-Size" module.settings.user.defined.value="114233" />
+    <setting name="MIDlet-Jar-Size" module.settings.user.defined.value="106650" />
     <setting name="MIDlet-Jar-URL" module.settings.user.defined.value="JVNMobileGIS.jar" />
     <setting name="MIDlet-Name" module.settings.user.defined.value="JVNMobileGIS" />
-    <setting name="MIDlet-Vendor" module.settings.user.defined.value="JavaVietnam &amp; CIREN" />
+    <setting name="MIDlet-Vendor" module.settings.user.defined.value="JavaVietnam" />
     <setting name="MIDlet-Version" module.settings.user.defined.value="1.0.0" />
     <setting name="MicroEdition-Configuration" module.settings.user.defined.value="CLDC-1.0" />
     <setting name="MicroEdition-Profile" module.settings.user.defined.value="MIDP-2.0" />
@@ -49,7 +49,6 @@
       <option module.settings.user.defined.key="MobileGIS-Locale" module.settings.user.defined.value="en-US" />
       <option module.settings.user.defined.key="Update-URL" module.settings.user.defined.value="http://jvnmobilegis.googlecode.com/svn/trunk/JVNMobileGISCurrentVersion.txt" />
       <option module.settings.user.defined.key="WMS-Server-URL" module.settings.user.defined.value="http://jvnmobilegis.googlecode.com/svn/trunk/docs/servers/CIREN_WMS_GetCapabilities_short.xml" />
-      <option module.settings.user.defined.key="Find-Path-Layer" module.settings.user.defined.value="jvn:hcm_roads_topo" />
       <option module.settings.user.defined.key="WebGIS-URL" module.settings.user.defined.value="http://www2.hcm.ciren.gov.vn/jvnwebgis" />
     </userDefinedOptions>
   </component>

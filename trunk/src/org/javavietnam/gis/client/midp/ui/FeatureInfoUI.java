@@ -58,7 +58,7 @@ class FeatureInfoUI extends Form implements CommandListener {
         resultStr = new StringItem(uiController.getString(UIConstants.FEATUREINFO_RESULT_STR), "");
         append(resultStr);
 
-        backCommand = new Command(uiController.getString(UIConstants.BACK), Command.BACK, 1);
+        backCommand = new Command(uiController.getString(UIConstants.BACK), Command.BACK, 5);
 
         addCommand(backCommand);
         setCommandListener(this);

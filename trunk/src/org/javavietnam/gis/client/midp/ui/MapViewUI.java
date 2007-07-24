@@ -83,7 +83,6 @@
 package org.javavietnam.gis.client.midp.ui;
 
 import henson.midp.Float;
-import org.javavietnam.gis.shared.midp.ApplicationException;
 import org.javavietnam.gis.shared.midp.model.MapFeature;
 import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
 
@@ -100,7 +99,7 @@ public class MapViewUI extends Canvas implements CommandListener, WMSRequestPara
     private Command zoomOutCommand;
     private Command resetCommand;
     private Command recenterCommand;
-    private Command findPathCommand;
+    // private Command findPathCommand;
     private Command searchFeatureCommand;
     private Command helpCommand;
 
@@ -109,8 +108,8 @@ public class MapViewUI extends Canvas implements CommandListener, WMSRequestPara
 
     private int cursorX;
     private int cursorY;
-    private boolean startPointSelected = false;
-    private boolean endPointSelected = false;
+    // private boolean startPointSelected = false;
+    // private boolean endPointSelected = false;
 
     private boolean isDragging = false;
     private int pointerStartX;
@@ -122,13 +121,13 @@ public class MapViewUI extends Canvas implements CommandListener, WMSRequestPara
      * @uml.property name="startPoint"
      * @uml.associationEnd multiplicity="(0 -1)"
      */
-    private Float[] startPoint = new Float[2];
+    // private Float[] startPoint = new Float[2];
     /**
      * @uml.property name="endPoint"
      * @uml.associationEnd multiplicity="(0 -1)"
      */
-    private Float[] endPoint = new Float[2];
-    private boolean isViewPath = false;
+    // private Float[] endPoint = new Float[2];
+    // private boolean isViewPath = false;
     private boolean isViewFeature = false;
     /**
      * @uml.property name="boundingBox"
@@ -148,15 +147,15 @@ public class MapViewUI extends Canvas implements CommandListener, WMSRequestPara
 
         cursorSize = Font.getDefaultFont().charWidth('+');
 
-        backCommand = new Command(uiController.getString(UIConstants.BACK), Command.BACK, 0);
+        backCommand = new Command(uiController.getString(UIConstants.BACK), Command.BACK, 5);
         zoomInCommand = new Command(uiController.getString(UIConstants.ZOOM_IN_CMD), Command.SCREEN, 1);
         zoomOutCommand = new Command(uiController.getString(UIConstants.ZOOM_OUT_CMD), Command.SCREEN, 2);
         resetCommand = new Command(uiController.getString(UIConstants.RESET_VIEW_CMD), Command.SCREEN, 3);
         recenterCommand = new Command(uiController.getString(UIConstants.RECENTER_CMD), Command.SCREEN, 4);
-        refreshCommand = new Command(uiController.getString(UIConstants.REFRESH), Command.SCREEN, 7);
-        findPathCommand = new Command(uiController.getString(UIConstants.FIND_PATH_CMD), Command.SCREEN, 5);
+        refreshCommand = new Command(uiController.getString(UIConstants.REFRESH), Command.SCREEN, 5);
+        // findPathCommand = new Command(uiController.getString(UIConstants.FIND_PATH_CMD), Command.SCREEN, 5);
         searchFeatureCommand = new Command(uiController.getString(UIConstants.SEARCH_FEATURE_UI_TITLE), Command.SCREEN, 6);
-        helpCommand = new Command(uiController.getString(UIConstants.HELP_CMD), Command.SCREEN, 8);
+        helpCommand = new Command(uiController.getString(UIConstants.HELP_CMD), Command.SCREEN, 7);
 
         addCommand(zoomInCommand);
         addCommand(zoomOutCommand);
@@ -164,7 +163,7 @@ public class MapViewUI extends Canvas implements CommandListener, WMSRequestPara
         addCommand(recenterCommand);
         addCommand(backCommand);
         addCommand(refreshCommand);
-        addCommand(findPathCommand);
+        // addCommand(findPathCommand);
         addCommand(searchFeatureCommand);
         addCommand(helpCommand);
 
@@ -194,8 +193,8 @@ public class MapViewUI extends Canvas implements CommandListener, WMSRequestPara
         boundingBox[0] = boundingBox[2].Sub(boxWidth);
         boundingBox[1] = boundingBox[3].Sub(boxHeight);
 
-        startPointSelected = false;
-        endPointSelected = false;
+        // startPointSelected = false;
+        // endPointSelected = false;
     }
 
     /**
@@ -220,8 +219,8 @@ public class MapViewUI extends Canvas implements CommandListener, WMSRequestPara
         boundingBox[0] = boundingBox[2].Sub(boxWidth);
         boundingBox[1] = boundingBox[3].Sub(boxHeight);
 
-        startPointSelected = false;
-        endPointSelected = false;
+        // startPointSelected = false;
+        // endPointSelected = false;
     }
 
     /**
@@ -264,9 +263,9 @@ public class MapViewUI extends Canvas implements CommandListener, WMSRequestPara
         return ("image/png");
     }
 
-    public void setIsViewPath(boolean viewPath) {
+    /*public void setIsViewPath(boolean viewPath) {
         this.isViewPath = viewPath;
-    }
+    }*/
 
     public void setIsViewFeature(boolean viewFeature) {
         this.isViewFeature = viewFeature;
@@ -496,7 +495,7 @@ public class MapViewUI extends Canvas implements CommandListener, WMSRequestPara
         }
     }
 
-    private void setStartPoint() {
+    /*private void setStartPoint() {
         int[] cursors = {getCursorX(), getCursorY()};
         int[] oldCursors = transformFromReal(startPoint);
         startPoint = transformFromView(cursors);
@@ -518,7 +517,7 @@ public class MapViewUI extends Canvas implements CommandListener, WMSRequestPara
             repaint(oldCursors[0] - cursorSize, oldCursors[1] - cursorSize, 2 * cursorSize, 2 * cursorSize);
         }
         repaint(cursors[0] - cursorSize, cursors[1] - cursorSize, 2 * cursorSize, 2 * cursorSize);
-    }
+    }*/
 
     private static String floatToString(Float f, int num) {
         String floatValue = f.toString();
@@ -558,7 +557,7 @@ public class MapViewUI extends Canvas implements CommandListener, WMSRequestPara
             g.setFont(Font.getDefaultFont());
             g.setColor(oldColor);
 
-            // Draw startpoint, end point
+            /*// Draw startpoint, end point
             if (startPointSelected) {
                 g.setColor(0x00FF00);
                 int[] startCursor = transformFromReal(getStartPoint());
@@ -570,7 +569,7 @@ public class MapViewUI extends Canvas implements CommandListener, WMSRequestPara
                 int[] endCursor = transformFromReal(getEndPoint());
                 g.fillArc(endCursor[0] - cursorSize / 2, endCursor[1] - cursorSize / 2, cursorSize, cursorSize, 0, 360);
                 g.setColor(oldColor);
-            }
+            }*/
 
             g.setColor(0x0000FF);
             g.drawChar('+', cursorX, cursorY + (cursorSize / 2), Graphics.BASELINE | Graphics.HCENTER);
@@ -622,11 +621,11 @@ public class MapViewUI extends Canvas implements CommandListener, WMSRequestPara
                 boundingBox[2] = boundingBox[2].Sub(dx);
                 boundingBox[3] = boundingBox[3].Sub(dy);
 
-                if (isViewPath) {
+                /*if (isViewPath) {
                     uiController.viewPathRequested();
-                } else {
-                    uiController.updateMapRequested();
-                }
+                } else {*/
+                uiController.updateMapRequested();
+                // }
             } else {
                 // if distance is less than 1, then consider pointer press
                 pointerPressed(x, y);
@@ -652,46 +651,45 @@ public class MapViewUI extends Canvas implements CommandListener, WMSRequestPara
         switch (keyCode) {
             case KEY_NUM2:
                 moveUp();
-                if (isViewPath) {
+                /*if (isViewPath) {
                     uiController.viewPathRequested();
-                } else {
-                    uiController.updateMapRequested();
-                }
+                } else {*/
+                uiController.updateMapRequested();
+                // }
                 break;
             case KEY_NUM8:
                 moveDown();
-                if (isViewPath) {
-                    uiController.viewPathRequested();
-                } else {
-                    uiController.updateMapRequested();
-                }
+//                if (isViewPath) {
+//                    uiController.viewPathRequested();
+//                } else {
+                uiController.updateMapRequested();
+                // }
                 break;
             case KEY_NUM4:
                 moveLeft();
-                if (isViewPath) {
-                    uiController.viewPathRequested();
-                } else {
-                    uiController.updateMapRequested();
-                }
+//                if (isViewPath) {
+//                    uiController.viewPathRequested();
+//                } else {
+                uiController.updateMapRequested();
+                // }
                 break;
             case KEY_NUM6:
                 moveRight();
-                if (isViewPath) {
-                    uiController.viewPathRequested();
-                } else {
-                    uiController.updateMapRequested();
-                }
+//                if (isViewPath) {
+//                    uiController.viewPathRequested();
+//                } else {
+                uiController.updateMapRequested();
+                // }
                 break;
-            case KEY_NUM1:
-                isViewPath = false;
+                /*case KEY_NUM1:
+                // isViewPath = false;
                 setStartPoint();
                 break;
             case KEY_NUM3:
-                isViewPath = false;
+                // isViewPath = false;
                 setEndPoint();
-                break;
+                break;*/
             case KEY_NUM5:
-                int[] cursors = {getCursorX(), getCursorY()};
                 uiController.selectInfoLayerRequested();
                 break;
             default:
@@ -722,45 +720,46 @@ public class MapViewUI extends Canvas implements CommandListener, WMSRequestPara
 
     public void commandAction(Command command, Displayable displayable) {
         if (command == refreshCommand) {
-            if (isViewPath) {
-                uiController.viewPathRequested();
-            } else {
-                uiController.updateMapRequested();
-            }
+//            if (isViewPath) {
+//                uiController.viewPathRequested();
+//            } else {
+            uiController.updateMapRequested();
+            // }
         } else if (command == zoomInCommand) {
             zoomIn();
-            if (isViewPath) {
-                uiController.viewPathRequested();
-            } else {
-                uiController.updateMapRequested();
-            }
+//            if (isViewPath) {
+//                uiController.viewPathRequested();
+//            } else {
+            uiController.updateMapRequested();
+            // }
         } else if (command == zoomOutCommand) {
             zoomOut();
-            if (isViewPath) {
-                uiController.viewPathRequested();
-            } else {
-                uiController.updateMapRequested();
-            }
+//            if (isViewPath) {
+//                uiController.viewPathRequested();
+//            } else {
+            uiController.updateMapRequested();
+            // }
         } else if (command == resetCommand) {
-            isViewPath = false;
+            // isViewPath = false;
             uiController.getMapRequested();
         } else if (command == recenterCommand) {
             int[] cursors = {getCursorX(), getCursorY()};
             reCenter(cursors);
-            if (isViewPath) {
-                uiController.viewPathRequested();
-            } else {
-                uiController.updateMapRequested();
-            }
+//            if (isViewPath) {
+//                uiController.viewPathRequested();
+//            } else {
+            uiController.updateMapRequested();
+            // }
         } else if (command == backCommand) {
-            isViewPath = false;
+            // isViewPath = false;
             isViewFeature = false;
             uiController.layerListRequested();
-        } else if (command == findPathCommand) {
+        } /*else if (command == findPathCommand) {
             isViewPath = false;
             isViewFeature = false;
             uiController.findPathRequested();
-        } else if (command == searchFeatureCommand) {
+        }*/
+        else if (command == searchFeatureCommand) {
             if (isViewFeature) {
                 uiController.searchResultUIRequested();
             } else {
@@ -770,7 +769,7 @@ public class MapViewUI extends Canvas implements CommandListener, WMSRequestPara
         } else if (command == helpCommand) {
             uiController.helpRequested();
         } else {
-            isViewPath = false;
+            // isViewPath = false;
             isViewFeature = false;
             uiController.commandAction(command, displayable);
         }
@@ -813,21 +812,21 @@ public class MapViewUI extends Canvas implements CommandListener, WMSRequestPara
      * @return Returns the startPoint.
      * @uml.property name="startPoint"
      */
-    public Float[] getStartPoint() {
+    /*public Float[] getStartPoint() {
         if (!startPointSelected) return null;
         return startPoint;
-    }
+    }*/
 
     /**
      * @return Returns the endPoint.
      * @uml.property name="endPoint"
      */
-    public Float[] getEndPoint() {
+    /*public Float[] getEndPoint() {
         if (!endPointSelected) return null;
         return endPoint;
-    }
+    }*/
 
-    public String getFindPathLayer() {
+    /*public String getFindPathLayer() {
         try {
             return (uiController.getModel().getPreferences().getFindPathLayer());
         }
@@ -835,6 +834,6 @@ public class MapViewUI extends Canvas implements CommandListener, WMSRequestPara
             e.printStackTrace();
             return "";
         }
-    }
+    }*/
 
 }

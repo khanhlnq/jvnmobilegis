@@ -77,7 +77,7 @@ public class SearchFeatureUI extends Form implements CommandListener, SearchFeat
         append(fWord);
 
         searchCommand = new Command(uiController.getString(UIConstants.SEARCH), Command.SCREEN, 0);
-        backCommand = new Command(uiController.getString(UIConstants.BACK), Command.BACK, 1);
+        backCommand = new Command(uiController.getString(UIConstants.BACK), Command.BACK, 5);
         addCommand(searchCommand);
         addCommand(backCommand);
         setCommandListener(this);

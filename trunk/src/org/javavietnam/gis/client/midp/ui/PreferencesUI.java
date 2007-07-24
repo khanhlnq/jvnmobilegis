@@ -53,7 +53,7 @@ class PreferencesUI extends Form implements CommandListener {
     private ChoiceGroup languageChoice;
     private TextField serverField;
     private TextField webGISField;
-    private TextField findPathLayerField;
+    // private TextField findPathLayerField;
     private Command saveCommand;
 
     public PreferencesUI(UIController uiController) {
@@ -66,14 +66,14 @@ class PreferencesUI extends Form implements CommandListener {
             languageChoice = new ChoiceGroup(uiController.getString(UIConstants.LANGUAGE), Choice.POPUP, languages, null);
             serverField = new TextField(uiController.getString(UIConstants.GET_CAPABILITIES_TITLE), "", 255, TextField.URL);
             webGISField = new TextField(uiController.getString(UIConstants.WEBGIS_URL), "", 255, TextField.URL);
-            findPathLayerField = new TextField(uiController.getString(UIConstants.FINDPATH_LAYER), "", 255, TextField.URL);
+            // findPathLayerField = new TextField(uiController.getString(UIConstants.FINDPATH_LAYER), "", 255, TextField.URL);
 
             uiController.mapServersCmd.addCommands(serverField);
 
             append(languageChoice);
             append(serverField);
             append(webGISField);
-            append(findPathLayerField);
+            // append(findPathLayerField);
 
             saveCommand = new Command(uiController.getString(UIConstants.SAVE), Command.SCREEN, 0);
 
@@ -95,7 +95,7 @@ class PreferencesUI extends Form implements CommandListener {
 
         serverField.setString(preferences.getWmsServerURL());
         webGISField.setString(preferences.getWebGISURL());
-        findPathLayerField.setString(preferences.getFindPathLayer());
+        // findPathLayerField.setString(preferences.getFindPathLayer());
     }
 
     public int getSelectedLanguage() {
@@ -110,9 +110,9 @@ class PreferencesUI extends Form implements CommandListener {
         return webGISField.getString();
     }
 
-    public String getFindPathLayer() {
+    /*public String getFindPathLayer() {
         return findPathLayerField.getString();
-    }
+    }*/
 
     public void commandAction(Command command, Displayable displayable) {
         if (saveCommand == command) {

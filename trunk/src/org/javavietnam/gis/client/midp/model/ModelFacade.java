@@ -196,14 +196,14 @@ public class ModelFacade {
         }
     }
 
-    public String findPathWMS(WMSRequestParameter requestParam) throws ApplicationException {
+    /*public String findPathWMS(WMSRequestParameter requestParam) throws ApplicationException {
         try {
             return remoteModel.findPathWMS(requestParam);
         }
         catch (ModelException me) {
             throw new ApplicationException(errorMessageCodeMap[me.getCauseCode()]);
         }
-    }
+    }*/
 
     public String checkUpdate(String updateURL) throws ApplicationException {
         try {
@@ -232,14 +232,14 @@ public class ModelFacade {
         }
     }
 
-    public Image viewPathWMS(WMSRequestParameter requestParam) throws ApplicationException {
+    /*public Image viewPathWMS(WMSRequestParameter requestParam) throws ApplicationException {
         try {
             return remoteModel.viewPathWMS(requestParam);
         }
         catch (ModelException me) {
             throw new ApplicationException(errorMessageCodeMap[me.getCauseCode()]);
         }
-    }
+    }*/
 
     public Vector getCapabilitiesWMS(String serverURL) throws ApplicationException {
         try {

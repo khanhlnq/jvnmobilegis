@@ -64,7 +64,7 @@ class LayerListUI extends List implements CommandListener {
         this.uiController = uiController;
         setLayerList(new Vector());
 
-        backCommand = new Command(uiController.getString(UIConstants.BACK), Command.BACK, 1);
+        backCommand = new Command(uiController.getString(UIConstants.BACK), Command.BACK, 5);
         getMapCommand = new Command(uiController.getString(UIConstants.GETMAP), Command.SCREEN, 0);
         addCommand(backCommand);
         addCommand(getMapCommand);

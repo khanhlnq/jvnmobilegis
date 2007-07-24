@@ -96,7 +96,7 @@ public class Preferences {
     private String locale = "";
     private String wmsServerURL = "";
     private String webGISURL = "";
-    private String findPathLayer = "";
+    // private String findPathLayer = "";
 
     public Preferences() {
     }
@@ -105,7 +105,7 @@ public class Preferences {
         this.locale = preferences.locale;
         this.setWmsServerURL(preferences.getWmsServerURL());
         this.setWebGISURL(preferences.getWebGISURL());
-        this.setFindPathLayer(preferences.getFindPathLayer());
+        // this.setFindPathLayer(preferences.getFindPathLayer());
 
     }
 
@@ -114,7 +114,7 @@ public class Preferences {
             dataStream.writeUTF(locale);
             dataStream.writeUTF(getWmsServerURL());
             dataStream.writeUTF(getWebGISURL());
-            dataStream.writeUTF(getFindPathLayer());
+            // dataStream.writeUTF(getFindPathLayer());
 
         }
         catch (IOException ioe) {
@@ -129,7 +129,7 @@ public class Preferences {
             preferences.locale = dataStream.readUTF();
             preferences.setWmsServerURL(dataStream.readUTF());
             preferences.setWebGISURL(dataStream.readUTF());
-            preferences.setFindPathLayer(dataStream.readUTF());
+            // preferences.setFindPathLayer(dataStream.readUTF());
 
             return preferences;
         }
@@ -182,16 +182,16 @@ public class Preferences {
      * @return the findPathLayer
      * @uml.property name="findPathLayer"
      */
-    public String getFindPathLayer() {
+    /*public String getFindPathLayer() {
         return findPathLayer;
-    }
+    }*/
 
     /**
      * @param findPathLayer the findPathLayer to set
      * @uml.property name="findPathLayer"
      */
-    public void setFindPathLayer(String findPathLayer) {
+    /*public void setFindPathLayer(String findPathLayer) {
         this.findPathLayer = findPathLayer;
-    }
+    }*/
 
 }

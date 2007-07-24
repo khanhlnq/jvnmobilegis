@@ -111,8 +111,8 @@ public class UIController {
         public static final byte EVENT_ID_GETMAPWMS = 1;
         public static final byte EVENT_ID_GETCAPABILITIESWMS = 2;
         public static final byte EVENT_ID_UPDATEMAPWMS = 3;
-        public static final byte EVENT_ID_FINDPATHWMS = 4;
-        public static final byte EVENT_ID_VIEWPATHWMS = 5;
+        // public static final byte EVENT_ID_FINDPATHWMS = 4;
+        // public static final byte EVENT_ID_VIEWPATHWMS = 5;
         public static final byte EVENT_ID_GETFEATUREINFO = 6;
         public static final byte EVENT_ID_SEARCHFEATURE = 7;
         public static final byte EVENT_ID_VIEWFEATURE = 8;
@@ -139,7 +139,7 @@ public class UIController {
     private PreferencesUI preferencesUI;
     private MapServerUI mapServerUI;
     private MapViewUI mapViewUI;
-    private FindPathUI findPathUI;
+    // private FindPathUI findPathUI;
     private SearchFeatureUI searchFeatureUI;
     private SearchFeatureResultUI searchFeatureResultUI;
     private LayerSelectUI layerSelectUI;
@@ -193,7 +193,7 @@ public class UIController {
         preferencesUI = new PreferencesUI(this);
         mapViewUI = new MapViewUI(this, false);
         layerListUI = new LayerListUI(this);
-        findPathUI = new FindPathUI(this);
+        // findPathUI = new FindPathUI(this);
         searchFeatureUI = new SearchFeatureUI(this);
         searchFeatureResultUI = new SearchFeatureResultUI(this);
         layerSelectUI = new LayerSelectUI(this);
@@ -221,7 +221,7 @@ public class UIController {
         Alert alert = new Alert(null, getString(UIConstants.MOBILEGIS_CLIENT)
                 + " version "
                 + midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION)
-                + "\n"
+                + " \n"
                 + getString(UIConstants.COPYRIGHT), icons[UIConstants.ICON_IDX_SPLASH], null);
         alert.setTimeout(UIConstants.SPLASH_TIMEOUT);
         display.setCurrent(alert, mainMenuUI);
@@ -236,7 +236,7 @@ public class UIController {
             mainMenuRequested();
         } else if (command == aboutCommand) {
             showInfoAlert(getString(UIConstants.ABOUT), getString(UIConstants.MOBILEGIS_CLIENT) + " version "
-                    + midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION) + "\n" + getString(UIConstants.COPYRIGHT), display.getCurrent());
+                    + midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION) + " \n" + getString(UIConstants.COPYRIGHT), display.getCurrent());
         } else if (command == exitCommand) {
             exitRequested();
         }
@@ -312,7 +312,7 @@ public class UIController {
             }
             preferences.setWmsServerURL(preferencesUI.getServerURL());
             preferences.setWebGISURL(preferencesUI.getWebGISURL());
-            preferences.setFindPathLayer(preferencesUI.getFindPathLayer());
+            // preferences.setFindPathLayer(preferencesUI.getFindPathLayer());
             model.setPreferences(preferences);
 
             // apply new language and reload
@@ -355,9 +355,9 @@ public class UIController {
         display.setCurrent(mapViewUI);
     }
 
-    public void findPathResultRequested() {
+    /*public void findPathResultRequested() {
         display.setCurrent(findPathUI);
-    }
+    }*/
 
     public void helpRequested() {
         display.setCurrent(helpUI);
@@ -379,9 +379,9 @@ public class UIController {
         }
     }
 
-    public void findPathRequested() {
+    /*public void findPathRequested() {
         runWithProgress(new EventDispatcher(EventIds.EVENT_ID_FINDPATHWMS, mapViewUI), getString(UIConstants.PROCESSING), true);
-    }
+    }*/
 
     public void searchFeatureRequested() {
         runWithProgress(new EventDispatcher(EventIds.EVENT_ID_SEARCHFEATURE, searchFeatureUI), getString(UIConstants.PROCESSING), true);
@@ -409,10 +409,10 @@ public class UIController {
         display.setCurrent(searchFeatureResultUI);
     }
 
-    public void viewPathRequested() {
+    /*public void viewPathRequested() {
         mapViewUI.setIsViewPath(true);
         runWithProgress(new EventDispatcher(EventIds.EVENT_ID_VIEWPATHWMS, findPathUI), getString(UIConstants.PROCESSING), false);
-    }
+    }*/
 
     public void viewFeatureRequested() {
         mapViewUI.setIsViewFeature(true);
@@ -471,7 +471,7 @@ public class UIController {
                         break;
                     }
 
-                    case EventIds.EVENT_ID_VIEWPATHWMS: {
+                    /*case EventIds.EVENT_ID_VIEWPATHWMS: {
                         Image img = viewPathWMS(mapViewUI);
 
                         if (img == null) {
@@ -482,7 +482,7 @@ public class UIController {
                         }
 
                         break;
-                    }
+                    }*/
 
                     case EventIds.EVENT_ID_VIEWFEATURE: {
                         MapFeature feature = searchFeatureResultUI.getSelectedFeature();
@@ -502,13 +502,13 @@ public class UIController {
                         break;
                     }
 
-                    case EventIds.EVENT_ID_FINDPATHWMS: {
+                    /*case EventIds.EVENT_ID_FINDPATHWMS: {
                         String result = findPathWMS(mapViewUI);
                         findPathUI.init(result);
                         display.setCurrent(findPathUI);
 
                         break;
-                    }
+                    }*/
 
                     case EventIds.EVENT_ID_SEARCHFEATURE: {
                         String result = searchFeature(searchFeatureUI);
@@ -592,7 +592,7 @@ public class UIController {
     }
 
     private void createCommands() {
-        exitCommand = new Command(getString(UIConstants.EXIT), Command.EXIT, 15);
+        exitCommand = new Command(getString(UIConstants.EXIT), Command.EXIT, 75);
         mainMenuCommand = new Command(getString(UIConstants.MAIN_MENU), Command.OK, 13);
         aboutCommand = new Command(getString(UIConstants.ABOUT), Command.OK, 14);
     }
@@ -619,9 +619,9 @@ public class UIController {
         return model.getMapWMS(requestParam, layerList);
     }
 
-    private String findPathWMS(WMSRequestParameter requestParam) throws ApplicationException {
+    /*private String findPathWMS(WMSRequestParameter requestParam) throws ApplicationException {
         return model.findPathWMS(requestParam);
-    }
+    }*/
 
     private String searchFeature(SearchFeatureParameter searchParam) throws ApplicationException {
         return model.searchFeature(searchParam);
@@ -631,9 +631,9 @@ public class UIController {
         return model.getFeatureInfo(requestParam, layerList, infoLayer);
     }
 
-    private Image viewPathWMS(WMSRequestParameter requestParam) throws ApplicationException {
+    /*private Image viewPathWMS(WMSRequestParameter requestParam) throws ApplicationException {
         return model.viewPathWMS(requestParam);
-    }
+    }*/
 
     private Image updateMapWMS(WMSRequestParameter requestParam, Vector layerList) throws ApplicationException {
         return model.getMapWMS(requestParam, layerList);
