@@ -10,6 +10,9 @@ You should know what this list is for :)
 ===Can my phone install this application?===
 If your phone have Java installed and support CLDC 1.0, MIDP 2.0 or above, you can install this application.
 
+===What do I need to use this application?===
+This is an online application. Your phone must be able to connect to Internet via GPRS, 3G or Wifi.
+
 ===I don't have mobile phone. Can I try this application on PC?===
 Yes, you can. Please download executable package, extract and run JVNMobileGIS.exe (virus-free guarantee, because I'm using Ubuntu)
 
@@ -26,6 +29,9 @@ There is no cost of buying this application. But because it is an online applica
 ===This application is difficult to use===
 At first, this application is for GIS specialists. But we're improving to make it more user-friendly
 
+===Does JVNMobileGIS support GPS?===
+No, it doesn't support GPS for now.
+
 = Developers =
 
 === How can I join this project? ===
@@ -40,7 +46,6 @@ Please read [http://jvnmobilegis.googlecode.com/svn/trunk/README_DEVELOPERS.txt 
 
 === Can I develop this project in Linux? ===
 Of course you can. I'm developing it in Ubuntu now
-
 
 
 
