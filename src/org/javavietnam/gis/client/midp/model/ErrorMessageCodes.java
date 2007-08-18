@@ -70,7 +70,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  * Support can be obtained from project homepage at:
- * http://code.google.com/p/jvnmobilegis/
+ * http://jvnmobilegis.googlecode.com/
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq at javavietnam.org
@@ -88,10 +88,11 @@ public final class ErrorMessageCodes {
     public static final int ERROR_CANNOT_CONNECT = 1;
     public static final int NO_SELECTED_LAYER = 2;
     public static final int NO_SELECTED_POINT = 3;
+    public static final int ERROR_UNAUTHORIZED = 4;
     public static final int ERROR_BROKEN_HANDLER_CHAIN = 50;
     public static final int ERROR_OPERATION_INTERRUPTED = 52;
 
-    private ErrorMessageCodes() {
-    }
+    // private ErrorMessageCodes() {
+    // }
 
 }

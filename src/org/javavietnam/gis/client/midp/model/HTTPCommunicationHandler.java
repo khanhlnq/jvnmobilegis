@@ -70,11 +70,11 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  * Support can be obtained from project homepage at:
- * http://code.google.com/p/jvnmobilegis/
+ * http://jvnmobilegis.googlecode.com/
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq at javavietnam.org
- * 
+ *
  * @version: 1.0
  * @author: Khanh Le
  * @Date Created: 22 Jun 2007
@@ -91,19 +91,24 @@ import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
 
 import javax.microedition.io.Connector;
 import javax.microedition.io.HttpConnection;
+import javax.microedition.io.HttpsConnection;
+import javax.microedition.io.SecurityInfo;
 import javax.microedition.lcdui.Image;
+import javax.microedition.pki.Certificate;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Vector;
 
-
 public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
+
+    // store the last valid credentials
+    private String wwwAuthenticate = null;
+    private String credentials = null;
 
     public HTTPCommunicationHandler(RemoteModelRequestHandler nextHandler) {
         super(nextHandler);
-
     }
 
     /**
@@ -183,23 +188,19 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
             img = Image.createImage(baos.toByteArray(), 0, baos.size());
 
             updateProgress();
-
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             int ch;
             try {
                 while ((ch = inputStream.read()) != -1) {
                     System.out.print((char) ch);
                 }
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
             System.out.println();
             ioe.printStackTrace();
             throw new ApplicationException(ErrorMessageCodes.ERROR_CANNOT_CONNECT);
-        }
-        finally {
+        } finally {
             closeConnection(connection, inputStream);
         }
 
@@ -207,77 +208,65 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
     }
 
     /*public String findPathWMS(WMSRequestParameter requestParam) throws ModelException, ApplicationException {
-        HttpConnection connection = null;
-        InputStream inputStream = null;
-
-        if (null == requestParam.getStartPoint() || null == requestParam.getEndPoint()) {
-            throw new ApplicationException(ErrorMessageCodes.NO_SELECTED_POINT);
-        }
-
-        StringBuffer resultBuf = new StringBuffer();
-
-        String wmsUrl = requestParam.getGetMapURL();
-        StringBuffer url = new StringBuffer(wmsUrl);
-        url.append(wmsUrl.indexOf("?") < 0 ? "?" : "&");
-        url.append("request=FindPath");
-        url.append("&service=wms");
-        url.append("&styles="); // 7.2.3.4; MUST be present and
-        // may be a null value for default
-        // or must one from the list.
-        url.append("&layers=");
-        url.append(requestParam.getFindPathLayer());
-        url.append("&spoint=").append(requestParam.getStartPoint()[0]).append(",").append(requestParam.getStartPoint()[1]);
-        url.append("&epoint=").append(requestParam.getEndPoint()[0]).append(",").append(requestParam.getEndPoint()[1]);
-        url.append("&bbox=").append(new Float(requestParam.getBoundingX1()).toString());
-        url.append(",").append(new Float(requestParam.getBoundingY1()).toString());
-        url.append(",").append(new Float(requestParam.getBoundingX2()).toString());
-        url.append(",").append(new Float(requestParam.getBoundingY2()).toString());
-        url.append("&SRS=").append(requestParam.getSRS());
-        url.append("&width=").append(requestParam.getPixelWidth()).append("&height=").append(requestParam.getPixelHeight());
-        url.append("&format=").append(requestParam.getXmlFormat());
-        url.append("&exceptions=").append(requestParam.getTextFormat());
-        url.append("&version=").append(requestParam.getVersion());
-
-        wmsUrl = url.toString();
-        // wmsUrl =
-        // "http://localhost:8080/geoserver/wms?&request=FindPath&service=wms&styles=&LAYERS=jvn:roads_topo&spoint=105.94586,10.78163&epoint=105.94065,10.79906&bbox=105.93026,10.75845,105.95795,10.80074&SRS=EPSG:4326&width=240&height=367&format=text/xml&version=1.1.1";
-
-        try {
-            connection = openGETConnection(wmsUrl);
-
-            // System.out.println("******** Reading stream: ");
-
-            updateProgress();
-
-            inputStream = openConnectionInputStream(connection);
-
-            updateProgress();
-
-            int ch;
-            while ((ch = inputStream.read()) != -1) {
-                resultBuf.append((char) ch);
-                // System.out.print((char) ch);
-            }
-
-        }
-        catch (IOException ioe) {
-            // int ch;
-            // try {
-            // while ((ch = inputStream.read()) != -1) {
-            // System.out.print((char)ch);
-            // }
-            // } catch (IOException e) {
-            // e.printStackTrace();
-            // }
-            System.out.println();
-            ioe.printStackTrace();
-            throw new ApplicationException(ErrorMessageCodes.ERROR_CANNOT_CONNECT);
-        }
-        finally {
-            closeConnection(connection, inputStream);
-        }
-
-        return toUTF8(resultBuf.toString());
+    HttpConnection connection = null;
+    InputStream inputStream = null;
+    if (null == requestParam.getStartPoint() || null == requestParam.getEndPoint()) {
+    throw new ApplicationException(ErrorMessageCodes.NO_SELECTED_POINT);
+    }
+    StringBuffer resultBuf = new StringBuffer();
+    String wmsUrl = requestParam.getGetMapURL();
+    StringBuffer url = new StringBuffer(wmsUrl);
+    url.append(wmsUrl.indexOf("?") < 0 ? "?" : "&");
+    url.append("request=FindPath");
+    url.append("&service=wms");
+    url.append("&styles="); // 7.2.3.4; MUST be present and
+    // may be a null value for default
+    // or must one from the list.
+    url.append("&layers=");
+    url.append(requestParam.getFindPathLayer());
+    url.append("&spoint=").append(requestParam.getStartPoint()[0]).append(",").append(requestParam.getStartPoint()[1]);
+    url.append("&epoint=").append(requestParam.getEndPoint()[0]).append(",").append(requestParam.getEndPoint()[1]);
+    url.append("&bbox=").append(new Float(requestParam.getBoundingX1()).toString());
+    url.append(",").append(new Float(requestParam.getBoundingY1()).toString());
+    url.append(",").append(new Float(requestParam.getBoundingX2()).toString());
+    url.append(",").append(new Float(requestParam.getBoundingY2()).toString());
+    url.append("&SRS=").append(requestParam.getSRS());
+    url.append("&width=").append(requestParam.getPixelWidth()).append("&height=").append(requestParam.getPixelHeight());
+    url.append("&format=").append(requestParam.getXmlFormat());
+    url.append("&exceptions=").append(requestParam.getTextFormat());
+    url.append("&version=").append(requestParam.getVersion());
+    wmsUrl = url.toString();
+    // wmsUrl =
+    // "http://localhost:8080/geoserver/wms?&request=FindPath&service=wms&styles=&LAYERS=jvn:roads_topo&spoint=105.94586,10.78163&epoint=105.94065,10.79906&bbox=105.93026,10.75845,105.95795,10.80074&SRS=EPSG:4326&width=240&height=367&format=text/xml&version=1.1.1";
+    try {
+    connection = openGETConnection(wmsUrl);
+    // System.out.println("******** Reading stream: ");
+    updateProgress();
+    inputStream = openConnectionInputStream(connection);
+    updateProgress();
+    int ch;
+    while ((ch = inputStream.read()) != -1) {
+    resultBuf.append((char) ch);
+    // System.out.print((char) ch);
+    }
+    }
+    catch (IOException ioe) {
+    // int ch;
+    // try {
+    // while ((ch = inputStream.read()) != -1) {
+    // System.out.print((char)ch);
+    // }
+    // } catch (IOException e) {
+    // e.printStackTrace();
+    // }
+    System.out.println();
+    ioe.printStackTrace();
+    throw new ApplicationException(ErrorMessageCodes.ERROR_CANNOT_CONNECT);
+    }
+    finally {
+    closeConnection(connection, inputStream);
+    }
+    return toUTF8(resultBuf.toString());
     }*/
 
     public String searchFeature(SearchFeatureParameter searchParam) throws ModelException, ApplicationException {
@@ -302,7 +291,6 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         // For testing only
         // webGISURL =
         // "http://khanhlnq:8080/jvnwebgis/searchfeatures?minx=617420&miny=1144670&maxx=752520&maxy=1238000&word=n&start=0";
-
         try {
             connection = openGETConnection(webGISURL);
 
@@ -322,14 +310,11 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
             while ((ch = inputStream.read()) != -1) {
                 resultBuf.append((char) ch);
             }
-
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             System.out.println();
             ioe.printStackTrace();
             throw new ApplicationException(ErrorMessageCodes.ERROR_CANNOT_CONNECT);
-        }
-        finally {
+        } finally {
             closeConnection(connection, inputStream);
         }
 
@@ -379,12 +364,10 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         wmsUrl = url.toString();
         // wmsUrl =
         // "http://localhost:8080/geoserver/wms?&request=FindPath&service=wms&styles=&LAYERS=jvn:roads_topo&spoint=105.94586,10.78163&epoint=105.94065,10.79906&bbox=105.93026,10.75845,105.95795,10.80074&SRS=EPSG:4326&width=240&height=367&format=text/xml&version=1.1.1";
-
         try {
             connection = openGETConnection(wmsUrl);
 
             // System.out.println("******** Reading stream: ");
-
             updateProgress();
 
             inputStream = openConnectionInputStream(connection);
@@ -396,9 +379,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
                 resultBuf.append((char) ch);
                 System.out.print((char) ch);
             }
-
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             // int ch;
             // try {
             // while ((ch = inputStream.read()) != -1) {
@@ -410,8 +391,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
             System.out.println();
             ioe.printStackTrace();
             throw new ApplicationException(ErrorMessageCodes.ERROR_CANNOT_CONNECT);
-        }
-        finally {
+        } finally {
             closeConnection(connection, inputStream);
         }
 
@@ -438,14 +418,11 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
                 resultBuf.append((char) ch);
                 System.out.print((char) ch);
             }
-
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             System.out.println();
             ioe.printStackTrace();
             throw new ApplicationException(ErrorMessageCodes.ERROR_CANNOT_CONNECT);
-        }
-        finally {
+        } finally {
             closeConnection(connection, inputStream);
         }
 
@@ -453,80 +430,68 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
     }
 
     /*public Image viewPathWMS(WMSRequestParameter requestParam) throws ModelException, ApplicationException {
-        HttpConnection connection = null;
-        InputStream inputStream = null;
-
-        Image path;
-
-        // Try to free-up memory first
-        System.gc();
-        updateProgress();
-
-        String wmsUrl = requestParam.getGetMapURL();
-        StringBuffer url = new StringBuffer(wmsUrl);
-        url.append(wmsUrl.indexOf("?") < 0 ? "?" : "&");
-        url.append("request=FindPath");
-        url.append("&service=wms");
-        url.append("&styles="); // 7.2.3.4; MUST be present and
-        // may be a null value for default
-        // or must one from the list.
-        url.append("&layers=");
-        url.append(requestParam.getFindPathLayer());
-        url.append("&spoint=").append(requestParam.getStartPoint()[0]).append(",").append(requestParam.getStartPoint()[1]);
-        url.append("&epoint=").append(requestParam.getEndPoint()[0]).append(",").append(requestParam.getEndPoint()[1]);
-        url.append("&bbox=").append(new Float(requestParam.getBoundingX1()).toString());
-        url.append(",").append(new Float(requestParam.getBoundingY1()).toString());
-        url.append(",").append(new Float(requestParam.getBoundingX2()).toString());
-        url.append(",").append(new Float(requestParam.getBoundingY2()).toString());
-        url.append("&SRS=").append(requestParam.getSRS());
-        url.append("&width=").append(requestParam.getPixelWidth()).append("&height=").append(requestParam.getPixelHeight());
-        url.append("&format=").append(requestParam.getPNGFormat());
-        url.append("&exceptions=").append(requestParam.getTextFormat());
-        url.append("&version=").append(requestParam.getVersion());
-
-        wmsUrl = url.toString();
-        // wmsUrl =
-        // "http://localhost:8080/geoserver/wms?&request=FindPath&service=wms&styles=&LAYERS=jvn:roads_topo&spoint=105.94586,10.78163&epoint=105.94065,10.79906&bbox=105.93026,10.75845,105.95795,10.80074&SRS=EPSG:4326&width=240&height=367&format=image/png&version=1.1.1";
-
-        try {
-            connection = openGETConnection(wmsUrl);
-
-            updateProgress();
-
-            inputStream = openConnectionInputStream(connection);
-
-            updateProgress();
-
-            // Check for content type
-            String contentType = connection.getHeaderField("content-type");
-            if (!contentType.equals(requestParam.getImageFormat())) {
-                StringBuffer msgBuf = new StringBuffer();
-                int ch;
-                while ((ch = inputStream.read()) != -1) {
-                    msgBuf.append((char) ch);
-                }
-                throw new ApplicationException(msgBuf.toString());
-            }
-
-            // Read input stream into byte[]
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            int ch;
-            while ((ch = inputStream.read()) != -1) {
-                baos.write(ch);
-            }
-
-            path = Image.createImage(baos.toByteArray(), 0, baos.size());
-        }
-        catch (IOException ioe) {
-            System.out.println();
-            ioe.printStackTrace();
-            throw new ApplicationException(ErrorMessageCodes.ERROR_CANNOT_CONNECT);
-        }
-        finally {
-            closeConnection(connection, inputStream);
-        }
-
-        return path;
+    HttpConnection connection = null;
+    InputStream inputStream = null;
+    Image path;
+    // Try to free-up memory first
+    System.gc();
+    updateProgress();
+    String wmsUrl = requestParam.getGetMapURL();
+    StringBuffer url = new StringBuffer(wmsUrl);
+    url.append(wmsUrl.indexOf("?") < 0 ? "?" : "&");
+    url.append("request=FindPath");
+    url.append("&service=wms");
+    url.append("&styles="); // 7.2.3.4; MUST be present and
+    // may be a null value for default
+    // or must one from the list.
+    url.append("&layers=");
+    url.append(requestParam.getFindPathLayer());
+    url.append("&spoint=").append(requestParam.getStartPoint()[0]).append(",").append(requestParam.getStartPoint()[1]);
+    url.append("&epoint=").append(requestParam.getEndPoint()[0]).append(",").append(requestParam.getEndPoint()[1]);
+    url.append("&bbox=").append(new Float(requestParam.getBoundingX1()).toString());
+    url.append(",").append(new Float(requestParam.getBoundingY1()).toString());
+    url.append(",").append(new Float(requestParam.getBoundingX2()).toString());
+    url.append(",").append(new Float(requestParam.getBoundingY2()).toString());
+    url.append("&SRS=").append(requestParam.getSRS());
+    url.append("&width=").append(requestParam.getPixelWidth()).append("&height=").append(requestParam.getPixelHeight());
+    url.append("&format=").append(requestParam.getPNGFormat());
+    url.append("&exceptions=").append(requestParam.getTextFormat());
+    url.append("&version=").append(requestParam.getVersion());
+    wmsUrl = url.toString();
+    // wmsUrl =
+    // "http://localhost:8080/geoserver/wms?&request=FindPath&service=wms&styles=&LAYERS=jvn:roads_topo&spoint=105.94586,10.78163&epoint=105.94065,10.79906&bbox=105.93026,10.75845,105.95795,10.80074&SRS=EPSG:4326&width=240&height=367&format=image/png&version=1.1.1";
+    try {
+    connection = openGETConnection(wmsUrl);
+    updateProgress();
+    inputStream = openConnectionInputStream(connection);
+    updateProgress();
+    // Check for content type
+    String contentType = connection.getHeaderField("content-type");
+    if (!contentType.equals(requestParam.getImageFormat())) {
+    StringBuffer msgBuf = new StringBuffer();
+    int ch;
+    while ((ch = inputStream.read()) != -1) {
+    msgBuf.append((char) ch);
+    }
+    throw new ApplicationException(msgBuf.toString());
+    }
+    // Read input stream into byte[]
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    int ch;
+    while ((ch = inputStream.read()) != -1) {
+    baos.write(ch);
+    }
+    path = Image.createImage(baos.toByteArray(), 0, baos.size());
+    }
+    catch (IOException ioe) {
+    System.out.println();
+    ioe.printStackTrace();
+    throw new ApplicationException(ErrorMessageCodes.ERROR_CANNOT_CONNECT);
+    }
+    finally {
+    closeConnection(connection, inputStream);
+    }
+    return path;
     }*/
 
     public String getCapabilitiesWMS(String serviceURL) throws ModelException, ApplicationException {
@@ -552,8 +517,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
             }
 
             return resultBuf.toString();
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             ioe.printStackTrace();
             throw new ApplicationException(ErrorMessageCodes.ERROR_CANNOT_CONNECT);
         }
@@ -567,9 +531,11 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 
         String ret = "";
         for (int i = 0; i < source.length(); i++) {
-            if (source.charAt(i) != oldChar) ret += source.charAt(i);
-            else ret += dest;
-
+            if (source.charAt(i) != oldChar) {
+                ret += source.charAt(i);
+            } else {
+                ret += dest;
+            }
         }
         return ret;
     }
@@ -579,8 +545,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         try {
             byte[] bytes = s.getBytes("ISO-8859-1");
             return new String(bytes, "UTF-8");
-        }
-        catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException e) {
             System.out.println("*********** Unsupported Encoding!");
             return s;
         }
@@ -605,15 +570,32 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 
     private HttpConnection openGETConnection(String serverURL) throws IOException {
         try {
-            System.out.println("********** GET serverURL: " + encodeURL(serverURL));
-            HttpConnection connection = (HttpConnection) Connector.open(encodeURL(serverURL));
+            HttpConnection connection;
+            serverURL = encodeURL(serverURL.trim());
+
+            System.out.println("********** GET serverURL: " + serverURL);
+
+            connection = (HttpConnection) Connector.open(serverURL);
 
             connection.setRequestProperty("User-Agent", System.getProperty("microedition.profiles"));
-            connection.setRequestMethod(HttpConnection.GET);
+
+            if (0 == serverURL.indexOf("https://")) {
+                if (credentials != null) {
+                    connection.setRequestProperty("Authorization", "Basic " + credentials);
+                }
+                connection.setRequestMethod(HttpConnection.POST);
+
+                SecurityInfo si = ((HttpsConnection) connection).getSecurityInfo();
+                Certificate c = si.getServerCertificate();
+                String subject = c.getSubject();
+
+                System.out.println("Server certificate subject: \n" + subject);
+            } else {
+                connection.setRequestMethod(HttpConnection.GET);
+            }
 
             return connection;
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw ioe;
         }
     }
@@ -621,40 +603,58 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
     private InputStream openConnectionInputStream(HttpConnection connection) throws IOException, ModelException, ApplicationException {
         try {
             int responseCode = connection.getResponseCode();
+            InputStream inputStream = null;
+            String reponseMessage = connection.getResponseMessage();
 
             if (responseCode == HttpConnection.HTTP_OK || responseCode == HttpConnection.HTTP_CREATED) {
-                InputStream inputStream = connection.openInputStream();
+                inputStream = connection.openInputStream();
 
                 if (null == inputStream) {
                     throw new ApplicationException(ErrorMessageCodes.ERROR_CANNOT_CONNECT);
                 }
 
                 return inputStream;
+            } else if (responseCode == HttpConnection.HTTP_UNAUTHORIZED) {
+                // missing credentials when server requires
+                // them, or credentials sent but invalid
+                wwwAuthenticate = connection.getHeaderField("WWW-Authenticate");
+                System.out.println("*********** WWW-Authenticate: " + wwwAuthenticate);
+                closeConnection(connection, inputStream);
+                throw new ApplicationException(ErrorMessageCodes.ERROR_UNAUTHORIZED);
+                // open again, this time with credentials
+            } else {
+                // System.out.println(" ******* Response Code = " + responseCode);
+                // throw new ApplicationException(ErrorMessageCodes.ERROR_CANNOT_CONNECT);
+                throw new ApplicationException("HTTP_" + String.valueOf(responseCode) + ": " + reponseMessage);
             }
-            throw new ApplicationException(ErrorMessageCodes.ERROR_CANNOT_CONNECT);
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             throw ioe;
         }
     }
+
 
     private void closeConnection(HttpConnection connection, InputStream inputStream) {
         if (inputStream != null) {
             try {
                 inputStream.close();
-            }
-            catch (IOException ioe) {
+            } catch (IOException ioe) {
             } // Ignored
         }
 
         if (connection != null) {
             try {
                 connection.close();
-            }
-            catch (IOException ioe) {
+            } catch (IOException ioe) {
             } // Ignored
         }
+    }
 
+    public String getWwwAuthenticate() {
+        return wwwAuthenticate;
+    }
+
+    public void setCredentials(String credentials) {
+        this.credentials = credentials;
     }
 
 }

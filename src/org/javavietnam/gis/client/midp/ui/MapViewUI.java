@@ -70,7 +70,7 @@
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
 * Support can be obtained from project homepage at:
-* http://code.google.com/p/jvnmobilegis/
+* http://jvnmobilegis.googlecode.com/
 *
 * Correspondence and Marketing Questions can be sent to:
 * khanh.lnq at javavietnam.org
@@ -87,11 +87,12 @@ import org.javavietnam.gis.shared.midp.model.MapFeature;
 import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
 
 import javax.microedition.lcdui.*;
+import javax.microedition.lcdui.game.GameCanvas;
 
 
 /**
  */
-public class MapViewUI extends Canvas implements CommandListener, WMSRequestParameter {
+public class MapViewUI extends GameCanvas implements CommandListener, WMSRequestParameter {
 
     private UIController uiController;
     private Command backCommand;
@@ -139,7 +140,8 @@ public class MapViewUI extends Canvas implements CommandListener, WMSRequestPara
     private int cursorSize;
 
     public MapViewUI(UIController uiController, boolean suppressKeyEvents) {
-        super();
+        super(suppressKeyEvents);
+        this.setFullScreenMode(true);
         this.uiController = uiController;
 
         cursorX = getWidth() / 2;

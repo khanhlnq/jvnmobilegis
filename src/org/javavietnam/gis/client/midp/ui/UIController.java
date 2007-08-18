@@ -70,7 +70,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  * Support can be obtained from project homepage at:
- * http://code.google.com/p/jvnmobilegis/
+ * http://jvnmobilegis.googlecode.com/
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq at javavietnam.org
@@ -89,10 +89,7 @@ import org.javavietnam.gis.client.midp.model.Preferences;
 import org.javavietnam.gis.shared.midp.ApplicationException;
 import org.javavietnam.gis.shared.midp.IndexedResourceBundle;
 import org.javavietnam.gis.shared.midp.VietSign;
-import org.javavietnam.gis.shared.midp.model.LayerInformation;
-import org.javavietnam.gis.shared.midp.model.MapFeature;
-import org.javavietnam.gis.shared.midp.model.SearchFeatureParameter;
-import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
+import org.javavietnam.gis.shared.midp.model.*;
 
 import javax.microedition.lcdui.*;
 import javax.microedition.midlet.MIDlet;
@@ -103,7 +100,6 @@ import java.util.Vector;
 /**
  */
 public class UIController {
-
     private static final String BASE_NAME_UI_RESOURCES = "UIResources2";
 
     public static class EventIds {
@@ -118,9 +114,6 @@ public class UIController {
         public static final byte EVENT_ID_VIEWFEATURE = 8;
         public static final byte EVENT_ID_CHECKUPDATE = 9;
 
-        private EventIds() {
-        }
-
     }
 
     private static final String[] iconPaths = {"/icons/JVNMobileGIS.png",};
@@ -134,7 +127,7 @@ public class UIController {
     private Command mainMenuCommand;
     private Command exitCommand;
     private Command aboutCommand;
-    private Alert alert;
+    // private Alert alert;
     private MainMenuUI mainMenuUI;
     private PreferencesUI preferencesUI;
     private MapServerUI mapServerUI;
@@ -148,7 +141,10 @@ public class UIController {
     private LayerListUI layerListUI;
     private ProgressObserverUI progressObserverUI;
 
+    private Credentials credentials;
+
     public UIController(MIDlet midlet, ModelFacade model) {
+        this.credentials = new Credentials();
         this.midlet = midlet;
         this.display = Display.getDisplay(midlet);
         this.model = model;
@@ -191,7 +187,7 @@ public class UIController {
         mainMenuUI = new MainMenuUI(this);
         mapServerUI = new MapServerUI(this, model.getPreferences().getWmsServerURL());
         preferencesUI = new PreferencesUI(this);
-        mapViewUI = new MapViewUI(this, false);
+        mapViewUI = new MapViewUI(this, true);
         layerListUI = new LayerListUI(this);
         // findPathUI = new FindPathUI(this);
         searchFeatureUI = new SearchFeatureUI(this);
@@ -431,8 +427,17 @@ public class UIController {
             model.setPreferences(preference);
         }
         catch (ApplicationException e) {
-            e.printStackTrace();
-            showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n" + e.getMessage());
+            if (ErrorMessageCodes.ERROR_UNAUTHORIZED == e.getCode()) {
+                try {
+                    promtForCredentials(model.getWwwAuthenticate());
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n" + e.getMessage());
+                }
+            } else {
+                e.printStackTrace();
+                showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n" + e.getMessage());
+            }
         }
 
         runWithProgress(new EventDispatcher(EventIds.EVENT_ID_GETCAPABILITIESWMS, mapServerUI), getString(UIConstants.PROCESSING), false);
@@ -554,7 +559,7 @@ public class UIController {
                     }
 
                     case EventIds.EVENT_ID_CHECKUPDATE: {
-                        String currentVersion = checkUpdate(midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_UPDATE_URL));
+                        String currentVersion = checkUpdate(midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_UPDATE_URL)).trim();
                         String oldVersion = midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION);
                         // System.out.println("****** Current Version = " + currentVersion + ". oldVersion = " +
                         // oldVersion);
@@ -645,6 +650,59 @@ public class UIController {
 
     private Vector getCapabilitiesWMS(String serverURL) throws ApplicationException {
         return model.getCapabilitiesWMS(serverURL);
+    }
+
+    public Credentials getCredentials() {
+        return credentials;
+    }
+
+    public void promtForCredentials(String challenge)
+            throws IOException {
+        try {
+            java.lang.String realm = getAuthenticationRealm(challenge);
+            promptAuthenticationDialog(realm);
+            if (credentials.getUsername() == null || credentials.getPassword() == null) {
+                throw new java.io.IOException("Must give username & password");
+            }
+            // Calculate the credentials
+            credentials.setCredentials(org.javavietnam.gis.client.midp.util.HttpUtils.base64Encode(credentials.getUsername() + ":" + credentials.getUsername()));
+            // Set credentials for HTTPS
+            model.setCredentials(credentials.getCredentials());
+        } catch (ApplicationException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+
+    private String getAuthenticationRealm(String challenge)
+            throws IOException {
+        if (challenge == null) {
+            throw new IOException("Missing authentication challenge");
+        }
+        challenge = challenge.trim();
+        if (!challenge.startsWith("Basic")) {
+            throw new IOException(
+                    "Authentication scheme not \"Basic\"");
+        }
+        int length = challenge.length();
+        // we don't check for extra double quotes...
+        if ((length < 8) ||
+                (!challenge.substring(5, 13).equals(" realm=\"")) ||
+                (challenge.charAt(length - 1) != '\"')) {
+            throw new IOException("Authentication realm syntax error");
+        }
+        return challenge.substring(13, length - 1);
+    }
+
+    private void promptAuthenticationDialog(String realm) {
+        // This is a nasty method, as it must suspend the current
+        // thread, put up a prompt dialog, get the result, and wake
+        // up again
+        PromptDialog dialog = new PromptDialog(display, realm);
+        dialog.promptForInput();
+        // this call blocks us until answered
+        credentials.setUsername(dialog.getUsername());
+        credentials.setPassword(dialog.getPassword());
     }
 
 }
