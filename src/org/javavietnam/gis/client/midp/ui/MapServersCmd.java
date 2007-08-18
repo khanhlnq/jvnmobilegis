@@ -66,9 +66,9 @@ public class MapServersCmd implements ItemCommandListener {
     public MapServersCmd(UIController uiController) {
         this.uiController = uiController;
 
-        mapServer01 = new Command("> " + uiController.getString(UIConstants.MAPSERVER_01_NAME), Command.SCREEN, 1);
-        mapServer02 = new Command("> " + uiController.getString(UIConstants.MAPSERVER_02_NAME), Command.SCREEN, 1);
-        mapServer03 = new Command("> " + uiController.getString(UIConstants.MAPSERVER_03_NAME), Command.SCREEN, 1);
+        mapServer01 = new Command("> " + uiController.getString(UIConstants.MAPSERVER_01_NAME), Command.SCREEN, 5);
+        mapServer02 = new Command("> " + uiController.getString(UIConstants.MAPSERVER_02_NAME), Command.SCREEN, 5);
+        mapServer03 = new Command("> " + uiController.getString(UIConstants.MAPSERVER_03_NAME), Command.SCREEN, 5);
     }
 
     public void addCommands(TextField item) {
