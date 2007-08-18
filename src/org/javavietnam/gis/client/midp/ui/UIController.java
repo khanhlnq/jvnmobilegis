@@ -74,7 +74,7 @@
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq at javavietnam.org
- * 
+ *
  * @version: 1.0
  * @author: Khanh Le
  * @Date Created: 22 Jun 2007
@@ -90,7 +90,6 @@ import org.javavietnam.gis.shared.midp.ApplicationException;
 import org.javavietnam.gis.shared.midp.IndexedResourceBundle;
 import org.javavietnam.gis.shared.midp.VietSign;
 import org.javavietnam.gis.shared.midp.model.*;
-
 import javax.microedition.lcdui.*;
 import javax.microedition.midlet.MIDlet;
 import java.io.IOException;
@@ -100,6 +99,7 @@ import java.util.Vector;
 /**
  */
 public class UIController {
+
     private static final String BASE_NAME_UI_RESOURCES = "UIResources2";
 
     public static class EventIds {
@@ -113,10 +113,9 @@ public class UIController {
         public static final byte EVENT_ID_SEARCHFEATURE = 7;
         public static final byte EVENT_ID_VIEWFEATURE = 8;
         public static final byte EVENT_ID_CHECKUPDATE = 9;
-
     }
 
-    private static final String[] iconPaths = {"/icons/JVNMobileGIS.png",};
+    private static final String[] iconPaths = {"/icons/JVNMobileGIS.png"};
     private MIDlet midlet;
     private Display display;
     private IndexedResourceBundle resourceBundle;
@@ -140,6 +139,7 @@ public class UIController {
     private HelpUI helpUI;
     private LayerListUI layerListUI;
     private ProgressObserverUI progressObserverUI;
+    private PromptDialog promptDialog;
 
     private Credentials credentials;
 
@@ -199,6 +199,7 @@ public class UIController {
         } else {
             helpUI = new HelpUI(this, false);
         }
+        promptDialog = new PromptDialog(this);
 
         createCommands();
         setCommands(mapViewUI);
@@ -209,19 +210,13 @@ public class UIController {
         for (int i = 0; i < iconPaths.length; i++) {
             try {
                 icons[i] = Image.createImage(iconPaths[i]);
-            }
-            catch (IOException ioe) {
+            } catch (IOException ioe) {
             }
         }
 
-        Alert alert = new Alert(null, getString(UIConstants.MOBILEGIS_CLIENT)
-                + " version "
-                + midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION)
-                + " \n"
-                + getString(UIConstants.COPYRIGHT), icons[UIConstants.ICON_IDX_SPLASH], null);
+        Alert alert = new Alert(null, getString(UIConstants.MOBILEGIS_CLIENT) + " version " + midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION) + " \n" + getString(UIConstants.COPYRIGHT), icons[UIConstants.ICON_IDX_SPLASH], null);
         alert.setTimeout(UIConstants.SPLASH_TIMEOUT);
         display.setCurrent(alert, mainMenuUI);
-
     }
 
     public void destroy() {
@@ -231,8 +226,7 @@ public class UIController {
         if (command == mainMenuCommand) {
             mainMenuRequested();
         } else if (command == aboutCommand) {
-            showInfoAlert(getString(UIConstants.ABOUT), getString(UIConstants.MOBILEGIS_CLIENT) + " version "
-                    + midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION) + " \n" + getString(UIConstants.COPYRIGHT), display.getCurrent());
+            showInfoAlert(getString(UIConstants.ABOUT), getString(UIConstants.MOBILEGIS_CLIENT) + " version " + midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION) + " \n" + getString(UIConstants.COPYRIGHT), display.getCurrent());
         } else if (command == exitCommand) {
             exitRequested();
         }
@@ -285,8 +279,7 @@ public class UIController {
     public void preferencesUIRequested() {
         try {
             preferencesUI.init(model.getPreferences());
-        }
-        catch (ApplicationException e) {
+        } catch (ApplicationException e) {
             e.printStackTrace();
             showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n" + e.getMessage());
         }
@@ -320,8 +313,7 @@ public class UIController {
                 // just return to main menu
                 mainMenuRequested();
             }
-        }
-        catch (ApplicationException e) {
+        } catch (ApplicationException e) {
             e.printStackTrace();
             showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n" + e.getMessage());
         }
@@ -334,8 +326,7 @@ public class UIController {
     public void mapServerRequested() {
         try {
             mapServerUI.setServerURL(model.getPreferences().getWmsServerURL());
-        }
-        catch (ApplicationException e) {
+        } catch (ApplicationException e) {
             e.printStackTrace();
             showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n" + e.getMessage());
         }
@@ -352,7 +343,7 @@ public class UIController {
     }
 
     /*public void findPathResultRequested() {
-        display.setCurrent(findPathUI);
+    display.setCurrent(findPathUI);
     }*/
 
     public void helpRequested() {
@@ -376,7 +367,7 @@ public class UIController {
     }
 
     /*public void findPathRequested() {
-        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_FINDPATHWMS, mapViewUI), getString(UIConstants.PROCESSING), true);
+    runWithProgress(new EventDispatcher(EventIds.EVENT_ID_FINDPATHWMS, mapViewUI), getString(UIConstants.PROCESSING), true);
     }*/
 
     public void searchFeatureRequested() {
@@ -392,8 +383,7 @@ public class UIController {
         try {
             // set new bounding box for search
             searchFeatureUI.initParam(mapViewUI.getBoundingBox(), model.getPreferences().getWebGISURL());
-        }
-        catch (ApplicationException e) {
+        } catch (ApplicationException e) {
             e.printStackTrace();
             showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n" + e.getMessage());
         }
@@ -406,8 +396,8 @@ public class UIController {
     }
 
     /*public void viewPathRequested() {
-        mapViewUI.setIsViewPath(true);
-        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_VIEWPATHWMS, findPathUI), getString(UIConstants.PROCESSING), false);
+    mapViewUI.setIsViewPath(true);
+    runWithProgress(new EventDispatcher(EventIds.EVENT_ID_VIEWPATHWMS, findPathUI), getString(UIConstants.PROCESSING), false);
     }*/
 
     public void viewFeatureRequested() {
@@ -425,19 +415,9 @@ public class UIController {
             Preferences preference = model.getPreferences();
             preference.setWmsServerURL(mapServerUI.getServerURL());
             model.setPreferences(preference);
-        }
-        catch (ApplicationException e) {
-            if (ErrorMessageCodes.ERROR_UNAUTHORIZED == e.getCode()) {
-                try {
-                    promtForCredentials(model.getWwwAuthenticate());
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                    showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n" + e.getMessage());
-                }
-            } else {
-                e.printStackTrace();
-                showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n" + e.getMessage());
-            }
+        } catch (ApplicationException e) {
+            e.printStackTrace();
+            showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n" + e.getMessage());
         }
 
         runWithProgress(new EventDispatcher(EventIds.EVENT_ID_GETCAPABILITIESWMS, mapServerUI), getString(UIConstants.PROCESSING), false);
@@ -457,124 +437,119 @@ public class UIController {
         EventDispatcher(int taskId, Displayable fallbackUI) {
             this.taskId = taskId;
             this.fallbackUI = fallbackUI;
-
         }
 
         public void run() {
             try {
                 switch (taskId) {
-                    case EventIds.EVENT_ID_GETMAPWMS: {
-                        Image img = getMapWMS(mapViewUI, layerListUI.getSelectedLayerList());
+                    case EventIds.EVENT_ID_GETMAPWMS:
+                        {
+                            Image img = getMapWMS(mapViewUI, layerListUI.getSelectedLayerList());
 
-                        if (img == null) {
-                            showErrorAlert(getString(UIConstants.GET_MAP_WMS_ERROR), mainMenuUI);
-                        } else {
-                            mapViewUI.init(img);
-                            display.setCurrent(mapViewUI);
+                            if (img == null) {
+                                showErrorAlert(getString(UIConstants.GET_MAP_WMS_ERROR), mainMenuUI);
+                            } else {
+                                mapViewUI.init(img);
+                                display.setCurrent(mapViewUI);
+                            }
+
+                            break;
                         }
+                /*case EventIds.EVENT_ID_VIEWPATHWMS: {
+                Image img = viewPathWMS(mapViewUI);
+                if (img == null) {
+                showErrorAlert(getString(UIConstants.VIEWPATH_ERROR), findPathUI);
+                } else {
+                mapViewUI.init(img);
+                display.setCurrent(mapViewUI);
+                }
+                break;
+                }*/
 
-                        break;
-                    }
+                    case EventIds.EVENT_ID_VIEWFEATURE:
+                        {
+                            MapFeature feature = searchFeatureResultUI.getSelectedFeature();
+                            // Recenter map view to this feature
+                            mapViewUI.reCenterAtFeature(feature);
 
-                    /*case EventIds.EVENT_ID_VIEWPATHWMS: {
-                        Image img = viewPathWMS(mapViewUI);
+                            // Update new map
+                            Image img = updateMapWMS(mapViewUI, layerListUI.getSelectedLayerList());
 
-                        if (img == null) {
-                            showErrorAlert(getString(UIConstants.VIEWPATH_ERROR), findPathUI);
-                        } else {
-                            mapViewUI.init(img);
-                            display.setCurrent(mapViewUI);
+                            if (img == null) {
+                                showErrorAlert(getString(UIConstants.GET_MAP_WMS_ERROR), mainMenuUI);
+                            } else {
+                                mapViewUI.init(img);
+                                display.setCurrent(mapViewUI);
+                            }
+
+                            break;
                         }
+                /*case EventIds.EVENT_ID_FINDPATHWMS: {
+                String result = findPathWMS(mapViewUI);
+                findPathUI.init(result);
+                display.setCurrent(findPathUI);
+                break;
+                }*/
 
-                        break;
-                    }*/
+                    case EventIds.EVENT_ID_SEARCHFEATURE:
+                        {
+                            String result = searchFeature(searchFeatureUI);
+                            searchFeatureResultUI.init(result);
+                            searchResultUIRequested();
 
-                    case EventIds.EVENT_ID_VIEWFEATURE: {
-                        MapFeature feature = searchFeatureResultUI.getSelectedFeature();
-                        // Recenter map view to this feature
-                        mapViewUI.reCenterAtFeature(feature);
-
-                        // Update new map
-                        Image img = updateMapWMS(mapViewUI, layerListUI.getSelectedLayerList());
-
-                        if (img == null) {
-                            showErrorAlert(getString(UIConstants.GET_MAP_WMS_ERROR), mainMenuUI);
-                        } else {
-                            mapViewUI.init(img);
-                            display.setCurrent(mapViewUI);
+                            break;
                         }
+                    case EventIds.EVENT_ID_GETFEATUREINFO:
+                        {
+                            String result = getFeatureInfo(mapViewUI, layerListUI.getSelectedLayerList(), layerSelectUI.getInfoLayerName());
+                            featureInfoUI.init(result);
+                            display.setCurrent(featureInfoUI);
 
-                        break;
-                    }
-
-                    /*case EventIds.EVENT_ID_FINDPATHWMS: {
-                        String result = findPathWMS(mapViewUI);
-                        findPathUI.init(result);
-                        display.setCurrent(findPathUI);
-
-                        break;
-                    }*/
-
-                    case EventIds.EVENT_ID_SEARCHFEATURE: {
-                        String result = searchFeature(searchFeatureUI);
-                        searchFeatureResultUI.init(result);
-                        searchResultUIRequested();
-
-                        break;
-                    }
-
-                    case EventIds.EVENT_ID_GETFEATUREINFO: {
-                        String result = getFeatureInfo(mapViewUI, layerListUI.getSelectedLayerList(), layerSelectUI.getInfoLayerName());
-                        featureInfoUI.init(result);
-                        display.setCurrent(featureInfoUI);
-
-                        break;
-                    }
-
-                    case EventIds.EVENT_ID_UPDATEMAPWMS: {
-                        Image img = updateMapWMS(mapViewUI, layerListUI.getSelectedLayerList());
-
-                        if (img == null) {
-                            showErrorAlert(getString(UIConstants.GET_MAP_WMS_ERROR), mainMenuUI);
-                        } else {
-                            mapViewUI.init(img);
-                            display.setCurrent(mapViewUI);
+                            break;
                         }
+                    case EventIds.EVENT_ID_UPDATEMAPWMS:
+                        {
+                            Image img = updateMapWMS(mapViewUI, layerListUI.getSelectedLayerList());
 
-                        break;
-                    }
+                            if (img == null) {
+                                showErrorAlert(getString(UIConstants.GET_MAP_WMS_ERROR), mainMenuUI);
+                            } else {
+                                mapViewUI.init(img);
+                                display.setCurrent(mapViewUI);
+                            }
 
-                    case EventIds.EVENT_ID_GETCAPABILITIESWMS: {
-                        Vector constructedDataTree = getCapabilitiesWMS(mapServerUI.getServerURL());
-
-                        if (constructedDataTree == null) {
-                            showErrorAlert(getString(UIConstants.GET_CAPABILITIES_WMS_ERROR), mainMenuUI);
-                        } else {
-                            layerListUI.init((Vector) constructedDataTree.elementAt(0));
-
-                            display.setCurrent(layerListUI);
+                            break;
                         }
+                    case EventIds.EVENT_ID_GETCAPABILITIESWMS:
+                        {
+                            Vector constructedDataTree = getCapabilitiesWMS(mapServerUI.getServerURL());
 
-                        break;
-                    }
+                            if (constructedDataTree == null) {
+                                showErrorAlert(getString(UIConstants.GET_CAPABILITIES_WMS_ERROR), mainMenuUI);
+                            } else {
+                                layerListUI.init((Vector) constructedDataTree.elementAt(0));
 
-                    case EventIds.EVENT_ID_CHECKUPDATE: {
-                        String currentVersion = checkUpdate(midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_UPDATE_URL)).trim();
-                        String oldVersion = midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION);
-                        // System.out.println("****** Current Version = " + currentVersion + ". oldVersion = " +
-                        // oldVersion);
-                        if (null != currentVersion && currentVersion.compareTo(oldVersion) > 0) {
-                            showInfoAlert(getString(UIConstants.UPDATE_AVAILABE), mainMenuUI);
-                        } else {
-                            showInfoAlert(getString(UIConstants.NO_UPDATE_AVAILABE), mainMenuUI);
+                                display.setCurrent(layerListUI);
+                            }
+
+                            break;
                         }
+                    case EventIds.EVENT_ID_CHECKUPDATE:
+                        {
+                            String currentVersion = checkUpdate(midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_UPDATE_URL)).trim();
+                            String oldVersion = midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION);
+                            // System.out.println("****** Current Version = " + currentVersion + ". oldVersion = " +
+                            // oldVersion);
+                            if (null != currentVersion && currentVersion.compareTo(oldVersion) > 0) {
+                                showInfoAlert(getString(UIConstants.UPDATE_AVAILABE), mainMenuUI);
+                            } else {
+                                showInfoAlert(getString(UIConstants.NO_UPDATE_AVAILABE), mainMenuUI);
+                            }
 
-                        break;
-                    }
-
+                            break;
+                        }
                 } // for switch - case
-            }
-            catch (ApplicationException ae) {
+            } catch (ApplicationException ae) {
                 ae.printStackTrace();
                 if (ae.getCode() == ErrorMessageCodes.ERROR_OPERATION_INTERRUPTED) {
                     display.setCurrent(fallbackUI);
@@ -584,16 +559,21 @@ public class UIController {
                     showErrorAlert(ae, fallbackUI);
                 } else if (ae.getCode() == ErrorMessageCodes.NO_SELECTED_POINT) {
                     showErrorAlert(ae, fallbackUI);
+                } else if (ae.getCode() == ErrorMessageCodes.ERROR_UNAUTHORIZED) {
+                    try {
+                        promtForCredentials(model.getWwwAuthenticate());
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                        showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n" + ex.getMessage());
+                    }
                 } else {
                     showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n" + ae.getMessage(), fallbackUI);
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n" + e.getMessage(), mainMenuUI);
             }
         }
-
     }
 
     private void createCommands() {
@@ -615,9 +595,7 @@ public class UIController {
     private Image getMapWMS(WMSRequestParameter requestParam, Vector layerList) throws ApplicationException {
         if (0 < layerList.size()) {
             LayerInformation layerInfo = (LayerInformation) layerList.elementAt(0);
-            mapViewUI.initParam(layerInfo.getLatLonBoundingBox(),
-                    layerInfo.getServerInformation().getGetMapURL(),
-                    layerInfo.getField("srs"));
+            mapViewUI.initParam(layerInfo.getLatLonBoundingBox(), layerInfo.getServerInformation().getGetMapURL(), layerInfo.getField("srs"));
         }
         // Init layers for select layer UI
         layerSelectUI.init(layerListUI.getSelectedLayerList());
@@ -625,7 +603,7 @@ public class UIController {
     }
 
     /*private String findPathWMS(WMSRequestParameter requestParam) throws ApplicationException {
-        return model.findPathWMS(requestParam);
+    return model.findPathWMS(requestParam);
     }*/
 
     private String searchFeature(SearchFeatureParameter searchParam) throws ApplicationException {
@@ -637,7 +615,7 @@ public class UIController {
     }
 
     /*private Image viewPathWMS(WMSRequestParameter requestParam) throws ApplicationException {
-        return model.viewPathWMS(requestParam);
+    return model.viewPathWMS(requestParam);
     }*/
 
     private Image updateMapWMS(WMSRequestParameter requestParam, Vector layerList) throws ApplicationException {
@@ -656,8 +634,7 @@ public class UIController {
         return credentials;
     }
 
-    public void promtForCredentials(String challenge)
-            throws IOException {
+    public void promtForCredentials(String challenge) throws IOException {
         try {
             java.lang.String realm = getAuthenticationRealm(challenge);
             promptAuthenticationDialog(realm);
@@ -674,21 +651,17 @@ public class UIController {
     }
 
 
-    private String getAuthenticationRealm(String challenge)
-            throws IOException {
+    private String getAuthenticationRealm(String challenge) throws IOException {
         if (challenge == null) {
             throw new IOException("Missing authentication challenge");
         }
         challenge = challenge.trim();
-        if (!challenge.startsWith("Basic")) {
-            throw new IOException(
-                    "Authentication scheme not \"Basic\"");
+        if (!challenge.trim().toLowerCase().startsWith("basic")) {
+            throw new IOException("Authentication scheme not \"Basic\"");
         }
         int length = challenge.length();
         // we don't check for extra double quotes...
-        if ((length < 8) ||
-                (!challenge.substring(5, 13).equals(" realm=\"")) ||
-                (challenge.charAt(length - 1) != '\"')) {
+        if ((length < 8) || (!challenge.substring(5, 13).equals(" realm=\"")) || (challenge.charAt(length - 1) != '\"')) {
             throw new IOException("Authentication realm syntax error");
         }
         return challenge.substring(13, length - 1);
@@ -698,11 +671,11 @@ public class UIController {
         // This is a nasty method, as it must suspend the current
         // thread, put up a prompt dialog, get the result, and wake
         // up again
-        PromptDialog dialog = new PromptDialog(display, realm);
-        dialog.promptForInput();
+        display.setCurrent(promptDialog);
+        promptDialog.promptForInput(realm);
+        
         // this call blocks us until answered
-        credentials.setUsername(dialog.getUsername());
-        credentials.setPassword(dialog.getPassword());
+        credentials.setUsername(promptDialog.getUsername());
+        credentials.setPassword(promptDialog.getPassword());
     }
-
 }
