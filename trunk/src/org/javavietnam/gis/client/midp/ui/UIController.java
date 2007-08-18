@@ -188,7 +188,7 @@ public class UIController {
         mainMenuUI = new MainMenuUI(this);
         mapServerUI = new MapServerUI(this, model.getPreferences().getWmsServerURL());
         preferencesUI = new PreferencesUI(this);
-        mapViewUI = new MapViewUI(this, true);
+        mapViewUI = new MapViewUI(this, false);
         layerListUI = new LayerListUI(this);
         // findPathUI = new FindPathUI(this);
         searchFeatureUI = new SearchFeatureUI(this);
