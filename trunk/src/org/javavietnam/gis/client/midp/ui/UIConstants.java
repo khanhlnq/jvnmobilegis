@@ -131,6 +131,13 @@ final class UIConstants {
     public static final int MAPSERVER_03_NAME = 70;
     public static final int MAPSERVER_03_URL = 71;
     public static final int HAS_TOUCHSCREEN = 72;
+    public static final int AUTH_REQUIRED  = 73;
+    public static final int USER = 74;
+    public static final int PASSWORD = 75;
+    public static final int MUST_GIVE_USER_PWD = 76;
+    public static final int ENTER_LOGIN_INFO = 77;
+    public static final int OK = 78;
+    public static final int CALCULATING_CREDENTIALS = 79;
 
     private UIConstants() {
     }
