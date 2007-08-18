@@ -273,7 +273,7 @@ public class UIController {
         thread.start();
     }
 
-    private void mainMenuRequested() {
+    public void mainMenuRequested() {
         display.setCurrent(mainMenuUI);
     }
 
@@ -554,6 +554,7 @@ public class UIController {
                             progressObserverUI.updateProgress();
                             // Calculate the credentials
                             credentials.setCredentials(org.javavietnam.gis.client.midp.util.HttpUtils.base64Encode(credentials.getUsername() + ":" + credentials.getUsername()));
+                            System.out.println("************ Calculated credentials: " + credentials.getCredentials());
                             progressObserverUI.updateProgress();
                             // Set credentials for HTTPS
                             model.setCredentials(credentials.getCredentials());
@@ -647,20 +648,25 @@ public class UIController {
         return credentials;
     }
 
-    public void promtForCredentials(String challenge) throws IOException {
+    public void promtForCredentials(String challenge) {
         try {
             java.lang.String realm = getAuthenticationRealm(challenge);
             promptAuthenticationDialog(realm);
-            if (credentials.getUsername() == null || credentials.getPassword() == null) {
-                throw new java.io.IOException(getString(UIConstants.MUST_GIVE_USER_PWD));
-            }
-            // Calculate the credentials
-            runWithProgress(new EventDispatcher(EventIds.EVENT_ID_CAL_CREDENTIALS, mapServerUI), getString(UIConstants.CALCULATING_CREDENTIALS), true);
         } catch (ApplicationException ex) {
             ex.printStackTrace();
         }
     }
 
+    public void calculateCredentials() {
+        if ("".equals(promptDialog.getUsername()) || "".equals(promptDialog.getPassword())) {
+            showErrorAlert(getString(UIConstants.MUST_GIVE_USER_PWD));
+        } else {
+            credentials.setUsername(promptDialog.getUsername());
+            credentials.setPassword(promptDialog.getPassword());
+            // Calculate the credentials
+            runWithProgress(new EventDispatcher(EventIds.EVENT_ID_CAL_CREDENTIALS, mapServerUI), getString(UIConstants.CALCULATING_CREDENTIALS), true);
+        }
+    }
 
     private String getAuthenticationRealm(String challenge) throws ApplicationException {
         if (challenge == null) {
@@ -684,9 +690,5 @@ public class UIController {
         // up again
         display.setCurrent(promptDialog);
         promptDialog.promptForInput(realm);
-
-        // this call blocks us until answered
-        credentials.setUsername(promptDialog.getUsername());
-        credentials.setPassword(promptDialog.getPassword());
     }
 }

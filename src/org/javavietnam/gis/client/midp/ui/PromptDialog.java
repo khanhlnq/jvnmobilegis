@@ -31,7 +31,6 @@
 // incorporated into the programs developed by the Licensee. No other
 // license, express or implied, by estoppel or otherwise, to any other
 // intellectual property rights is granted herein.
-
 /*
  * $Id: UIController.java 37 2007-07-24 01:51:17Z khanh.lnq $
  * $URL: https://jvnmobilegis.googlecode.com/svn/trunk/src/org/javavietnam/gis/client/midp/ui/UIController.java $
@@ -65,7 +64,7 @@
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq at javavietnam.org
- * 
+ *
  * @version: 1.0
  * @author: Khanh Le
  * @Date Created: 17 Aug 2007
@@ -74,12 +73,12 @@
 package org.javavietnam.gis.client.midp.ui;
 
 import javax.microedition.lcdui.*;
+import org.javavietnam.gis.shared.midp.ApplicationException;
 
-public class PromptDialog
-        extends Form
-        implements CommandListener {
+public class PromptDialog extends Form implements CommandListener {
+
     private UIController uiController;
-    
+
     private final StringItem instructItem;
     private final TextField userField;
     private final TextField passwordField;
@@ -91,7 +90,7 @@ public class PromptDialog
     public PromptDialog(UIController uiController) {
         super("");
         this.uiController = uiController;
-        
+
         instructItem = new StringItem(uiController.getString(UIConstants.AUTH_REQUIRED), uiController.getString(UIConstants.ENTER_LOGIN_INFO));
         append(instructItem);
         userField = new TextField(uiController.getString(UIConstants.USER), "", 16, TextField.ANY);
@@ -110,39 +109,45 @@ public class PromptDialog
     public void promptForInput(String realm) {
         this.setTitle(realm);
 
-        synchronized (this) {
-            try {
-                wait();
-                // make caller wait on our monitor
-            }
-            catch (InterruptedException e) {
-                // never thrown in MIDP
-
-            }
-        }
+//        synchronized (this) {
+//            try {
+//                wait();
+//                // make caller wait on our monitor
+//            }
+//            catch (InterruptedException e) {
+//                // never thrown in MIDP
+//
+//            }
+//        }
     }
 
 
     public void commandAction(Command c, Displayable d) {
         if (c == okCommand) {
             wasCancelled = false;
-            synchronized (this) {
-                notify();
-                // wake up caller
-            }
+            uiController.calculateCredentials();
+//            synchronized (this) {
+//                notify();
+            // wake up caller
+//            }
+//            synchronized (this) {
+//                notify();
+            // wake up caller
+//            }
         } else if (c == cancelCommand) {
             wasCancelled = true;
-            synchronized (this) {
-                notify();
-                // wake up caller
-            }
+            uiController.mainMenuRequested();
+//            synchronized (this) {
+//                notify();
+            // wake up caller
+//            }
         }
     }
 
     public String getUsername() {
         String username = null;
         if (!wasCancelled) {
-            username = userField.getString();
+            username = userField.getString().trim();
         }
         return username;
     }
@@ -151,9 +156,8 @@ public class PromptDialog
     public String getPassword() {
         String password = null;
         if (!wasCancelled) {
-            password = passwordField.getString();
+            password = passwordField.getString().trim();
         }
         return password;
     }
 }
-
