@@ -78,19 +78,22 @@ import javax.microedition.lcdui.*;
 public class PromptDialog
         extends Form
         implements CommandListener {
+    private UIController uiController;
+    
+    private final StringItem instructItem;
     private final TextField userField;
     private final TextField passwordField;
     private final Command okCommand;
     private final Command cancelCommand;
-    private final Display display;
-    private Displayable previousDisplayable;
     private transient boolean wasCancelled;
 
 
-    public PromptDialog(Display display, String realm) {
-        super(realm);
-        this.display = display;
-
+    public PromptDialog(UIController uiController) {
+        super("");
+        this.uiController = uiController;
+        
+        instructItem = new StringItem("Authentication required", "Please enter login information and try again");
+        append(instructItem);
         userField = new TextField("User:", "", 16, TextField.ANY);
         append(userField);
         passwordField = new TextField("Password:", "", 16, TextField.PASSWORD);
@@ -104,11 +107,8 @@ public class PromptDialog
     }
 
 
-    public void promptForInput() {
-        // Warning: if previousDisplayable is an Alert, we'll fail when
-        // we try to restore it.
-        previousDisplayable = display.getCurrent();
-        display.setCurrent(this);
+    public void promptForInput(String realm) {
+        this.setTitle(realm);
 
         synchronized (this) {
             try {
@@ -126,21 +126,20 @@ public class PromptDialog
     public void commandAction(Command c, Displayable d) {
         if (c == okCommand) {
             wasCancelled = false;
-            display.setCurrent(previousDisplayable);
+            uiController.mapServerRequested();
             synchronized (this) {
                 notify();
                 // wake up caller
             }
         } else if (c == cancelCommand) {
             wasCancelled = true;
-            display.setCurrent(previousDisplayable);
+            uiController.mapServerRequested();
             synchronized (this) {
                 notify();
                 // wake up caller
             }
         }
     }
-
 
     public String getUsername() {
         String username = null;
