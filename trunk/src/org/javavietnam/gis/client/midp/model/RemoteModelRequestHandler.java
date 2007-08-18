@@ -70,7 +70,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  * Support can be obtained from project homepage at:
- * http://code.google.com/p/jvnmobilegis/
+ * http://jvnmobilegis.googlecode.com/
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq at javavietnam.org
@@ -182,5 +182,13 @@ abstract public class RemoteModelRequestHandler implements RequestHandler {
 
     public String getCapabilitiesWMS(String serviceURL) throws ModelException, ApplicationException {
         return getRemoteModelRequestHandler().getCapabilitiesWMS(serviceURL);
+    }
+
+    public String getWwwAuthenticate() throws ApplicationException {
+        return getRemoteModelRequestHandler().getWwwAuthenticate();
+    }
+
+    public void setCredentials(String credentials) throws ApplicationException {
+        getRemoteModelRequestHandler().setCredentials(credentials);
     }
 }

@@ -1,9 +1,9 @@
 /*
- * $Id$
- * $URL$
- * $Author$
- * $Revision$
- * $Date$
+ * $Id: UIController.java 37 2007-07-24 01:51:17Z khanh.lnq $
+ * $URL: https://jvnmobilegis.googlecode.com/svn/trunk/src/org/javavietnam/gis/client/midp/ui/UIController.java $
+ * $Author: khanh.lnq $
+ * $Revision: 37 $
+ * $Date: 2007-07-24 08:51:17 +0700 (Tue, 24 Jul 2007) $
  *
  * ====================================================================
  *
@@ -34,27 +34,47 @@
  * 
  * @version: 1.0
  * @author: Khanh Le
- * @Date Created: 22 Jun 2007
+ * @Date Created: 17 Aug 2007
  */
 
 package org.javavietnam.gis.shared.midp.model;
 
-import henson.midp.Float;
-
-
 /**
- * @author Khanh
+ * @author khanhlnq
  */
-public interface SearchFeatureParameter {
+public class Credentials {
+    protected String credentials = null;
+    protected String username = null, password = null;
 
-    public void initParam(Float[] latLonBoundingBox, String webGISURL);
+    public Credentials() {
+    }
 
-    public Float[] getBoundingBox();
+    public Credentials(String credentials) {
+        this.credentials = credentials;
+    }
 
-    public String getWebGISURL();
+    public String getCredentials() {
+        return credentials;
+    }
 
-    public String getKeyWord();
+    public void setCredentials(String credentials) {
+        this.credentials = credentials;
+    }
 
-    public int getStart();
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
 }
