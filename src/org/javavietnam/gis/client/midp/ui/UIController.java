@@ -113,6 +113,7 @@ public class UIController {
         public static final byte EVENT_ID_SEARCHFEATURE = 7;
         public static final byte EVENT_ID_VIEWFEATURE = 8;
         public static final byte EVENT_ID_CHECKUPDATE = 9;
+        public static final byte EVENT_ID_CAL_CREDENTIALS = 10;
     }
 
     private static final String[] iconPaths = {"/icons/JVNMobileGIS.png"};
@@ -548,6 +549,18 @@ public class UIController {
 
                             break;
                         }
+                    case EventIds.EVENT_ID_CAL_CREDENTIALS:
+                        {
+                            progressObserverUI.updateProgress();
+                            // Calculate the credentials
+                            credentials.setCredentials(org.javavietnam.gis.client.midp.util.HttpUtils.base64Encode(credentials.getUsername() + ":" + credentials.getUsername()));
+                            progressObserverUI.updateProgress();
+                            // Set credentials for HTTPS
+                            model.setCredentials(credentials.getCredentials());
+                            display.setCurrent(mapServerUI);
+
+                            break;
+                        }
                 } // for switch - case
             } catch (ApplicationException ae) {
                 ae.printStackTrace();
@@ -639,30 +652,28 @@ public class UIController {
             java.lang.String realm = getAuthenticationRealm(challenge);
             promptAuthenticationDialog(realm);
             if (credentials.getUsername() == null || credentials.getPassword() == null) {
-                throw new java.io.IOException("Must give username & password");
+                throw new java.io.IOException(getString(UIConstants.MUST_GIVE_USER_PWD));
             }
             // Calculate the credentials
-            credentials.setCredentials(org.javavietnam.gis.client.midp.util.HttpUtils.base64Encode(credentials.getUsername() + ":" + credentials.getUsername()));
-            // Set credentials for HTTPS
-            model.setCredentials(credentials.getCredentials());
+            runWithProgress(new EventDispatcher(EventIds.EVENT_ID_CAL_CREDENTIALS, mapServerUI), getString(UIConstants.CALCULATING_CREDENTIALS), true);
         } catch (ApplicationException ex) {
             ex.printStackTrace();
         }
     }
 
 
-    private String getAuthenticationRealm(String challenge) throws IOException {
+    private String getAuthenticationRealm(String challenge) throws ApplicationException {
         if (challenge == null) {
-            throw new IOException("Missing authentication challenge");
+            throw new ApplicationException(ErrorMessageCodes.MISSING_CHALLENGE);
         }
         challenge = challenge.trim();
         if (!challenge.trim().toLowerCase().startsWith("basic")) {
-            throw new IOException("Authentication scheme not \"Basic\"");
+            throw new ApplicationException(ErrorMessageCodes.AUTH_SCHEME_NOT_BASIC);
         }
         int length = challenge.length();
         // we don't check for extra double quotes...
         if ((length < 8) || (!challenge.substring(5, 13).equals(" realm=\"")) || (challenge.charAt(length - 1) != '\"')) {
-            throw new IOException("Authentication realm syntax error");
+            throw new ApplicationException(ErrorMessageCodes.AUTH_REALM_SYNTAX_ERROR);
         }
         return challenge.substring(13, length - 1);
     }
@@ -673,7 +684,7 @@ public class UIController {
         // up again
         display.setCurrent(promptDialog);
         promptDialog.promptForInput(realm);
-        
+
         // this call blocks us until answered
         credentials.setUsername(promptDialog.getUsername());
         credentials.setPassword(promptDialog.getPassword());

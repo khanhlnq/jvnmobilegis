@@ -92,15 +92,15 @@ public class PromptDialog
         super("");
         this.uiController = uiController;
         
-        instructItem = new StringItem("Authentication required", "Please enter login information and try again");
+        instructItem = new StringItem(uiController.getString(UIConstants.AUTH_REQUIRED), uiController.getString(UIConstants.ENTER_LOGIN_INFO));
         append(instructItem);
-        userField = new TextField("User:", "", 16, TextField.ANY);
+        userField = new TextField(uiController.getString(UIConstants.USER), "", 16, TextField.ANY);
         append(userField);
-        passwordField = new TextField("Password:", "", 16, TextField.PASSWORD);
+        passwordField = new TextField(uiController.getString(UIConstants.PASSWORD), "", 16, TextField.PASSWORD);
         append(passwordField);
-        okCommand = new Command("OK", Command.OK, 2);
+        okCommand = new Command(uiController.getString(UIConstants.OK), Command.OK, 2);
         addCommand(okCommand);
-        cancelCommand = new Command("Cancel", Command.CANCEL, 2);
+        cancelCommand = new Command(uiController.getString(UIConstants.CANCEL), Command.CANCEL, 2);
         addCommand(cancelCommand);
 
         setCommandListener(this);
@@ -126,14 +126,12 @@ public class PromptDialog
     public void commandAction(Command c, Displayable d) {
         if (c == okCommand) {
             wasCancelled = false;
-            uiController.mapServerRequested();
             synchronized (this) {
                 notify();
                 // wake up caller
             }
         } else if (c == cancelCommand) {
             wasCancelled = true;
-            uiController.mapServerRequested();
             synchronized (this) {
                 notify();
                 // wake up caller
