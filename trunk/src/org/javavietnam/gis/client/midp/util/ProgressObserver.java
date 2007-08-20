@@ -73,7 +73,7 @@
  * http://jvnmobilegis.googlecode.com/
  *
  * Correspondence and Marketing Questions can be sent to:
- * khanh.lnq at javavietnam.org
+ * khanh.lnq AT gmail.com
  * 
  * @version: 1.0
  * @author: Khanh Le

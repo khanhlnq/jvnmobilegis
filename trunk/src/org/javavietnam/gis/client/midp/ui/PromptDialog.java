@@ -63,7 +63,7 @@
  * http://jvnmobilegis.googlecode.com/
  *
  * Correspondence and Marketing Questions can be sent to:
- * khanh.lnq at javavietnam.org
+ * khanh.lnq AT gmail.com
  *
  * @version: 1.0
  * @author: Khanh Le
@@ -73,7 +73,6 @@
 package org.javavietnam.gis.client.midp.ui;
 
 import javax.microedition.lcdui.*;
-import org.javavietnam.gis.shared.midp.ApplicationException;
 
 public class PromptDialog extends Form implements CommandListener {
 
@@ -84,7 +83,7 @@ public class PromptDialog extends Form implements CommandListener {
     private final TextField passwordField;
     private final Command okCommand;
     private final Command cancelCommand;
-    private transient boolean wasCancelled;
+    private boolean wasCancelled;
 
 
     public PromptDialog(UIController uiController) {
@@ -105,9 +104,8 @@ public class PromptDialog extends Form implements CommandListener {
         setCommandListener(this);
     }
 
-
-    public void promptForInput(String realm) {
-        this.setTitle(realm);
+//    public void promptForInput(String realm) {
+//        this.setTitle(realm);
 
 //        synchronized (this) {
 //            try {
@@ -119,7 +117,7 @@ public class PromptDialog extends Form implements CommandListener {
 //
 //            }
 //        }
-    }
+//    }
 
 
     public void commandAction(Command c, Displayable d) {

@@ -73,7 +73,7 @@
  * http://jvnmobilegis.googlecode.com/
  *
  * Correspondence and Marketing Questions can be sent to:
- * khanh.lnq at javavietnam.org
+ * khanh.lnq AT gmail.com
  * 
  * @version: 1.0
  * @author: Khanh Le
@@ -92,6 +92,8 @@ public final class ErrorMessageCodes {
     public static final int MISSING_CHALLENGE = 5;
     public static final int AUTH_SCHEME_NOT_BASIC = 6;
     public static final int AUTH_REALM_SYNTAX_ERROR = 7;
+    public static final int ERROR_CERTIFICATE = 8;
+    
     public static final int ERROR_BROKEN_HANDLER_CHAIN = 50;
     public static final int ERROR_OPERATION_INTERRUPTED = 52;
 

@@ -1,5 +1,5 @@
 JVNMobileGIS - WMS mobile viewer
-Copyright 2007 - JavaVietnam.org
+Copyright 2007 - JVNGIS
 
 1. Java IDE
 This project is ready for import into popular Java IDEs:

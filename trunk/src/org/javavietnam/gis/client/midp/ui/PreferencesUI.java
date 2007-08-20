@@ -30,7 +30,7 @@
  * http://jvnmobilegis.googlecode.com/
  *
  * Correspondence and Marketing Questions can be sent to:
- * khanh.lnq at javavietnam.org
+ * khanh.lnq AT gmail.com
  * 
  * @version: 1.0
  * @author: Khanh Le
@@ -78,6 +78,8 @@ class PreferencesUI extends Form implements CommandListener {
             saveCommand = new Command(uiController.getString(UIConstants.SAVE), Command.SCREEN, 0);
 
             addCommand(saveCommand);
+            uiController.setCommands(this);
+            
             setCommandListener(this);
         }
         catch (Exception e) {

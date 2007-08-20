@@ -30,7 +30,7 @@
  * http://jvnmobilegis.googlecode.com/
  *
  * Correspondence and Marketing Questions can be sent to:
- * khanh.lnq at javavietnam.org
+ * khanh.lnq AT gmail.com
  * 
  * @version: 1.0
  * @author: Khanh Le
@@ -68,6 +68,8 @@ class LayerListUI extends List implements CommandListener {
         getMapCommand = new Command(uiController.getString(UIConstants.GETMAP), Command.SCREEN, 0);
         addCommand(backCommand);
         addCommand(getMapCommand);
+        uiController.setCommands(this);
+        
         setCommandListener(this);
     }
 

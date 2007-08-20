@@ -73,7 +73,7 @@
  * http://jvnmobilegis.googlecode.com/
  *
  * Correspondence and Marketing Questions can be sent to:
- * khanh.lnq at javavietnam.org
+ * khanh.lnq AT gmail.com
  *
  * @version: 1.0
  * @author: Khanh Le
@@ -100,6 +100,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Vector;
+import javax.microedition.pki.CertificateException;
 
 public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 
@@ -568,7 +569,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         return URL;
     }
 
-    private HttpConnection openGETConnection(String serverURL) throws IOException {
+    private HttpConnection openGETConnection(String serverURL) throws IOException, CertificateException {
         try {
             HttpConnection connection;
             serverURL = encodeURL(serverURL.trim());
@@ -580,30 +581,32 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
             connection.setRequestProperty("User-Agent", System.getProperty("microedition.profiles"));
 
             if (0 == serverURL.indexOf("https://")) {
-                if (credentials != null) {
+                if (null != credentials && !"".equals(credentials)) {
                     connection.setRequestProperty("Authorization", "Basic " + credentials);
                 }
                 connection.setRequestMethod(HttpConnection.POST);
 
-                SecurityInfo si = ((HttpsConnection) connection).getSecurityInfo();
-                Certificate c = si.getServerCertificate();
-                String subject = c.getSubject();
+                // SecurityInfo si = ((HttpsConnection) connection).getSecurityInfo();
+                // Certificate c = si.getServerCertificate();
+                // String subject = c.getSubject();
 
-                System.out.println("Server certificate subject: \n" + subject);
+                // System.out.println("Server certificate subject: \n" + subject);
             } else {
                 connection.setRequestMethod(HttpConnection.GET);
             }
 
             return connection;
+        } catch (CertificateException certe) {
+            throw certe;
         } catch (IOException ioe) {
             throw ioe;
-        }
+        } 
     }
 
-    private InputStream openConnectionInputStream(HttpConnection connection) throws IOException, ModelException, ApplicationException {
+    private InputStream openConnectionInputStream(HttpConnection connection) throws IOException, CertificateException, ModelException, ApplicationException {
+        InputStream inputStream = null;
+        int responseCode = connection.getResponseCode();
         try {
-            int responseCode = connection.getResponseCode();
-            InputStream inputStream = null;
             String reponseMessage = connection.getResponseMessage();
 
             if (responseCode == HttpConnection.HTTP_OK || responseCode == HttpConnection.HTTP_CREATED) {
@@ -618,8 +621,8 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
                 // missing credentials when server requires
                 // them, or credentials sent but invalid
                 wwwAuthenticate = connection.getHeaderField("WWW-Authenticate");
-                System.out.println("*********** WWW-Authenticate: " + wwwAuthenticate);
-                closeConnection(connection, inputStream);
+                // System.out.println("*********** WWW-Authenticate: " + wwwAuthenticate);
+                // closeConnection(connection, inputStream);
                 throw new ApplicationException(ErrorMessageCodes.ERROR_UNAUTHORIZED);
                 // open again, this time with credentials
             } else {
@@ -627,11 +630,14 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
                 // throw new ApplicationException(ErrorMessageCodes.ERROR_CANNOT_CONNECT);
                 throw new ApplicationException("HTTP_" + String.valueOf(responseCode) + ": " + reponseMessage);
             }
+        } catch (CertificateException certe) {
+            throw new ApplicationException(ErrorMessageCodes.ERROR_CERTIFICATE);
         } catch (IOException ioe) {
             throw ioe;
-        }
+        } // finally {
+            // closeConnection(connection, inputStream);
+        //}
     }
-
 
     private void closeConnection(HttpConnection connection, InputStream inputStream) {
         if (inputStream != null) {

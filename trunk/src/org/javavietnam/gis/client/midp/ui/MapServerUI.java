@@ -30,7 +30,7 @@
  * http://jvnmobilegis.googlecode.com/
  *
  * Correspondence and Marketing Questions can be sent to:
- * khanh.lnq at javavietnam.org
+ * khanh.lnq AT gmail.com
  * 
  * @version: 1.0
  * @author: Khanh Le
@@ -65,6 +65,8 @@ class MapServerUI extends Form implements CommandListener {
             fetchCommand = new Command(uiController.getString(UIConstants.GET_CAPABILITIES_CMD), Command.SCREEN, 0);
 
             addCommand(fetchCommand);
+            uiController.setCommands(this);
+            
             setCommandListener(this);
         }
         catch (Exception e) {

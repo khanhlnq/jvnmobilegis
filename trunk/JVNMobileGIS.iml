@@ -12,7 +12,7 @@
     <setting name="MIDlet-Jar-Size" module.settings.user.defined.value="114153" />
     <setting name="MIDlet-Jar-URL" module.settings.user.defined.value="JVNMobileGIS.jar" />
     <setting name="MIDlet-Name" module.settings.user.defined.value="JVNMobileGIS" />
-    <setting name="MIDlet-Vendor" module.settings.user.defined.value="JavaVietnam &amp; CIREN" />
+    <setting name="MIDlet-Vendor" module.settings.user.defined.value="JVNGIS" />
     <setting name="MIDlet-Version" module.settings.user.defined.value="1.0" />
     <jarUrl jarUrlName="$MODULE_DIR$/bin/JVNMobileGIS.jar" />
     <descriptionPath path="$MODULE_DIR$/bin/JVNMobileGIS.jad" useUserDescriptor="true" />
@@ -36,7 +36,7 @@
     <setting name="MIDlet-Jar-Size" module.settings.user.defined.value="112982" />
     <setting name="MIDlet-Jar-URL" module.settings.user.defined.value="JVNMobileGIS.jar" />
     <setting name="MIDlet-Name" module.settings.user.defined.value="JVNMobileGIS" />
-    <setting name="MIDlet-Vendor" module.settings.user.defined.value="JavaVietnam" />
+    <setting name="MIDlet-Vendor" module.settings.user.defined.value="JVNGIS" />
     <setting name="MIDlet-Version" module.settings.user.defined.value="1.0.1" />
     <setting name="MicroEdition-Configuration" module.settings.user.defined.value="CLDC-1.0" />
     <setting name="MicroEdition-Profile" module.settings.user.defined.value="MIDP-2.0" />
@@ -46,8 +46,8 @@
     <userDefinedOptions>
       <option module.settings.user.defined.key="MobileGIS-Locale" module.settings.user.defined.value="en-US" />
       <option module.settings.user.defined.key="Update-URL" module.settings.user.defined.value="http://jvnmobilegis.googlecode.com/svn/trunk/JVNMobileGISCurrentVersion.txt" />
-      <option module.settings.user.defined.key="MIDlet-Permissions" module.settings.user.defined.value="javax.microedition.io.Connector.http, javax.microedition.io.Connector.https" />
       <option module.settings.user.defined.key="WMS-Server-URL" module.settings.user.defined.value="http://jvnmobilegis.googlecode.com/svn/trunk/docs/servers/CIREN_WMS_GetCapabilities_short.xml" />
+      <option module.settings.user.defined.key="MIDlet-Permissions" module.settings.user.defined.value="javax.microedition.io.Connector.http, javax.microedition.io.Connector.https" />
       <option module.settings.user.defined.key="WebGIS-URL" module.settings.user.defined.value="http://www2.hcm.ciren.gov.vn/jvnwebgis" />
     </userDefinedOptions>
   </component>
