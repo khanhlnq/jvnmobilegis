@@ -30,7 +30,7 @@
  * http://jvnmobilegis.googlecode.com/
  *
  * Correspondence and Marketing Questions can be sent to:
- * khanh.lnq at javavietnam.org
+ * khanh.lnq AT gmail.com
  * 
  * @version: 1.0
  * @author: Khanh Le
@@ -131,7 +131,7 @@ final class UIConstants {
     public static final int MAPSERVER_03_NAME = 70;
     public static final int MAPSERVER_03_URL = 71;
     public static final int HAS_TOUCHSCREEN = 72;
-    public static final int AUTH_REQUIRED  = 73;
+    public static final int AUTH_REQUIRED = 73;
     public static final int USER = 74;
     public static final int PASSWORD = 75;
     public static final int MUST_GIVE_USER_PWD = 76;

@@ -73,7 +73,7 @@
 * http://jvnmobilegis.googlecode.com/
 *
 * Correspondence and Marketing Questions can be sent to:
-* khanh.lnq at javavietnam.org
+* khanh.lnq AT gmail.com
 *
 * @version: 1.0
 * @author: Khanh Le
@@ -168,6 +168,8 @@ public class MapViewUI extends GameCanvas implements CommandListener, WMSRequest
         // addCommand(findPathCommand);
         addCommand(searchFeatureCommand);
         addCommand(helpCommand);
+        
+        uiController.setCommands(this);
 
         setCommandListener(this);
     }

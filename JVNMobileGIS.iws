@@ -29,6 +29,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/shared/midp/model/Credentials.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/shared/midp/model/Credentials.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/SearchFeatureUI.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/SearchFeatureUI.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/shared/midp/IndexedResourceBundle.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/shared/midp/IndexedResourceBundle.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/MapServerUI.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/MapServerUI.java" />
@@ -36,35 +37,32 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/xml/sax/InputSource.java" afterPath="$PROJECT_DIR$/src/org/xml/sax/InputSource.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/SearchFeatureResultUI.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/SearchFeatureResultUI.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/model/RemoteModelProxy.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/model/RemoteModelProxy.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JVNMobileGIS.iws" afterPath="$PROJECT_DIR$/JVNMobileGIS.iws" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/FeatureInfoUI.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/FeatureInfoUI.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/PreferencesUI.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/PreferencesUI.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nbproject/build-impl.xml" afterPath="$PROJECT_DIR$/nbproject/build-impl.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/LayerListUI.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/LayerListUI.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/xml/sax/Parser.java" afterPath="$PROJECT_DIR$/src/org/xml/sax/Parser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/model/Preferences.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/model/Preferences.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/servers/CIREN_WMS_GetCapabilities_full.xml" afterPath="$PROJECT_DIR$/docs/servers/CIREN_WMS_GetCapabilities_full.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/model/HTTPCommunicationHandler.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/model/HTTPCommunicationHandler.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/model/RemoteModelRequestHandler.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/model/RemoteModelRequestHandler.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/shared/midp/model/TreeNode.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/shared/midp/model/TreeNode.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/shared/midp/SearchFeatureResultParser.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/shared/midp/SearchFeatureResultParser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/shared/midp/model/ServerInformation.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/shared/midp/model/ServerInformation.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/shared/midp/VietSign.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/shared/midp/VietSign.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/docs/servers/CIREN_WMS_GetCapabilities_short.xml" afterPath="$PROJECT_DIR$/docs/servers/CIREN_WMS_GetCapabilities_short.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JVNMobileGIS.iml" afterPath="$PROJECT_DIR$/JVNMobileGIS.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/uk/org/xml/sax/Parser.java" afterPath="$PROJECT_DIR$/src/uk/org/xml/sax/Parser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/xml/sax/DocumentHandler.java" afterPath="$PROJECT_DIR$/src/org/xml/sax/DocumentHandler.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/model/LocalModel.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/model/LocalModel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/xml/sax/AttributeList.java" afterPath="$PROJECT_DIR$/src/org/xml/sax/AttributeList.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/shared/midp/model/MapFeature.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/shared/midp/model/MapFeature.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/MANIFEST.MF" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/JVNMobileGISMIDlet.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/JVNMobileGISMIDlet.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/shared/midp/model/LayerInformation.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/shared/midp/model/LayerInformation.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/xml/sax/ErrorHandler.java" afterPath="$PROJECT_DIR$/src/org/xml/sax/ErrorHandler.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/shared/midp/model/SearchFeatureParameter.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/shared/midp/model/SearchFeatureParameter.java" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/bin/JVNMobileGIS.jad" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/shared/midp/CapabilitiesParser.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/shared/midp/CapabilitiesParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/MANIFEST.MF" afterPath="$PROJECT_DIR$/bin/MANIFEST.MF" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/model/RequestHandler.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/model/RequestHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/PromptDialog.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/PromptDialog.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/shared/midp/ApplicationException.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/shared/midp/ApplicationException.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/HelpUI.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/HelpUI.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/henson/midp/Float.java" afterPath="$PROJECT_DIR$/src/henson/midp/Float.java" />
@@ -75,24 +73,22 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/xml/sax/SAXParseException.java" afterPath="$PROJECT_DIR$/src/org/xml/sax/SAXParseException.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nbproject/project.properties" afterPath="$PROJECT_DIR$/nbproject/project.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/MapViewUI.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/MapViewUI.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README_DEVELOPERS.txt" afterPath="$PROJECT_DIR$/README_DEVELOPERS.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/LayerSelectUI.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/LayerSelectUI.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/l10n/ErrorResources-en-US.properties" afterPath="$PROJECT_DIR$/res/l10n/ErrorResources-en-US.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/MainMenuUI.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/MainMenuUI.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/UIConstants.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/UIConstants.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/UIController.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/UIController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/shared/midp/model/TreeNodeInterface.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/shared/midp/model/TreeNodeInterface.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/MapServersCmd.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/MapServersCmd.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/util/ProgressObserver.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/util/ProgressObserver.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JVNMobileGIS.ipr" afterPath="$PROJECT_DIR$/JVNMobileGIS.ipr" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$" afterPath="$PROJECT_DIR$" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/xml/sax/DTDHandler.java" afterPath="$PROJECT_DIR$/src/org/xml/sax/DTDHandler.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/shared/midp/MessageConstants.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/shared/midp/MessageConstants.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/uk/co/wilson/xml/MinML.java" afterPath="$PROJECT_DIR$/src/uk/co/wilson/xml/MinML.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.txt" afterPath="$PROJECT_DIR$/README.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/shared/midp/model/ModelException.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/shared/midp/model/ModelException.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/l10n/ErrorResources-vi.properties" afterPath="$PROJECT_DIR$/res/l10n/ErrorResources-vi.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/shared/midp/model/WMSRequestParameter.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/shared/midp/model/WMSRequestParameter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/util/HttpUtils.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/util/HttpUtils.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/shared/midp/model/ModelObjectLoader.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/shared/midp/model/ModelObjectLoader.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/l10n/UIResources2-en-US.properties" afterPath="$PROJECT_DIR$/res/l10n/UIResources2-en-US.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/xml/sax/EntityResolver.java" afterPath="$PROJECT_DIR$/src/org/xml/sax/EntityResolver.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/model/IndexEntry.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/model/IndexEntry.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/model/ModelFacade.java" afterPath="$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/model/ModelFacade.java" />
@@ -222,40 +218,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="UIResources2-en-US.properties" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/l10n/UIResources2-en-US.properties">
+      <file leaf-file-name="UIController.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/UIController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="69" column="84" selection-start="1438" selection-end="1519" vertical-scroll-proportion="1.2712934">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HTTPCommunicationHandler.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/model/HTTPCommunicationHandler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="616" column="71" selection-start="25352" selection-end="25352" vertical-scroll-proportion="0.04731861">
+            <state line="11" column="17" selection-start="683" selection-end="683" vertical-scroll-proportion="-1.0511364">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MANIFEST.MF" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/bin/MANIFEST.MF">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="13" selection-start="673" selection-end="673" vertical-scroll-proportion="0.5205047">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JVNMobileGIS.jad" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bin/JVNMobileGIS.jad">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="95" selection-start="645" selection-end="740" vertical-scroll-proportion="0.6151419">
-              <folding />
             </state>
           </provider>
         </entry>
@@ -446,6 +415,40 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="JVNMobileGIS" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="JVNMobileGIS" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:$PROJECT_DIR$" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:$PROJECT_DIR$/src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:$PROJECT_DIR$/src/org" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:$PROJECT_DIR$/src/org/javavietnam/gis" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:$PROJECT_DIR$/src/org/javavietnam/gis/client/midp" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
           <option name="myItemId" value="PsiDirectory:$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/model" />
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
@@ -527,7 +530,7 @@
     <option name="lastEditedConfigurable" value="JVNMobileGIS" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="0.5" version="1" splitterProportion="0.5">
+    <navigator currentView="ProjectPane" proportions="0.16666667" version="1" splitterProportion="0.5">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -543,8 +546,8 @@
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
-    <property name="RunManagerConfig.showSettingsBeforeRunnig" value="false" />
     <property name="RunManagerConfig.compileBeforeRunning" value="true" />
+    <property name="RunManagerConfig.showSettingsBeforeRunnig" value="false" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
@@ -556,44 +559,6 @@
     </key>
   </component>
   <component name="RunManager" selected="J2ME.Run JVNMobileGIS">
-    <configuration default="true" type="#com.intellij.j2meplugin.run.J2MEConfigurationType" factoryName="J2ME">
-      <module name="JVNMobileGIS" />
-      <USER_OPTIONS />
-      <option name="TARGET_DEVICE_NAME" />
-      <option name="COMMAND_LINE_PARAMETERS" />
-      <option name="MAIN_CLASS_NAME" value="" />
-      <option name="JAD_NAME" value="$PROJECT_DIR$/bin/JVNMobileGIS.jad" />
-      <option name="IS_CLASSES" value="false" />
-      <option name="IS_OTA" value="false" />
-      <option name="INSTALL" />
-      <option name="REMOVE" />
-      <option name="RUN" />
-      <option name="TRANSIENT" />
-      <option name="FORCE" />
-      <option name="TO_START" />
-      <option name="SELECTION" value="0" />
-      <method>
-        <option name="Make" value="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <module name="" />
-    </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -614,6 +579,17 @@
         <option name="Make" value="true" />
       </method>
     </configuration>
+    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <module name="" />
+    </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
       <module name="" />
       <option name="MAIN_CLASS_NAME" />
@@ -625,6 +601,33 @@
       <option name="VM_PARAMETERS" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
+    </configuration>
+    <configuration default="true" type="#com.intellij.j2meplugin.run.J2MEConfigurationType" factoryName="J2ME">
+      <module name="JVNMobileGIS" />
+      <USER_OPTIONS />
+      <option name="TARGET_DEVICE_NAME" />
+      <option name="COMMAND_LINE_PARAMETERS" />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="JAD_NAME" value="$PROJECT_DIR$/bin/JVNMobileGIS.jad" />
+      <option name="IS_CLASSES" value="false" />
+      <option name="IS_OTA" value="false" />
+      <option name="INSTALL" />
+      <option name="REMOVE" />
+      <option name="RUN" />
+      <option name="TRANSIENT" />
+      <option name="FORCE" />
+      <option name="TO_START" />
+      <option name="SELECTION" value="0" />
+      <method>
+        <option name="Make" value="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
     </configuration>
     <configuration default="false" name="Run JVNMobileGIS" type="#com.intellij.j2meplugin.run.J2MEConfigurationType" factoryName="J2ME">
       <module name="JVNMobileGIS" />
@@ -904,13 +907,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/UIController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="594" column="22" selection-start="22895" selection-end="22895" vertical-scroll-proportion="0.032894738">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/FeatureInfoUI.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="60" column="76" selection-start="2125" selection-end="2125" vertical-scroll-proportion="0.1995614">
@@ -941,31 +937,31 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/res/l10n/UIResources2-en-US.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="84" selection-start="1438" selection-end="1519" vertical-scroll-proportion="1.2712934">
+        <state line="69" column="84" selection-start="1438" selection-end="1519" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/model/HTTPCommunicationHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="616" column="71" selection-start="25352" selection-end="25352" vertical-scroll-proportion="0.04731861">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/JVNMobileGIS.jad">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="95" selection-start="645" selection-end="740" vertical-scroll-proportion="0.6151419">
+        <state line="616" column="71" selection-start="25346" selection-end="25346" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bin/MANIFEST.MF">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="13" selection-start="673" selection-end="673" vertical-scroll-proportion="0.5205047">
+        <state line="11" column="13" selection-start="518" selection-end="518" vertical-scroll-proportion="0.31428573">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/javavietnam/gis/client/midp/ui/UIController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="17" selection-start="683" selection-end="683" vertical-scroll-proportion="-1.0511364">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
