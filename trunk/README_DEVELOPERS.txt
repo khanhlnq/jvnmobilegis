@@ -5,8 +5,8 @@ Copyright 2007 - JVNGIS
 This project is ready for import into popular Java IDEs:
 - NetBeans 5.5.x or above (with Mobility Pack)
 - IntelliJ IDEA
-It is not ready for Eclipse yet because I cannot make this project work with EclipseME in my Linux machine. Anybody can build, run and debug this project with EclipseME?
-Be careful when you switch development environment, your tool may overwrite our JAD settings.
+- Eclipse (with EclipseME plugin). Please refer to Project Wiki for instructions how to develop with Eclipse.
+Notice: Be careful when you switch development environment, your tool may overwrite our JAD settings.
 
 2. Without java IDE
 You can also build/emulate this project without IDE, all you need are:
