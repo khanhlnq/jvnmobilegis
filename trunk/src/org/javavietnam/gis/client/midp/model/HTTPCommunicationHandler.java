@@ -91,10 +91,7 @@ import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
 
 import javax.microedition.io.Connector;
 import javax.microedition.io.HttpConnection;
-import javax.microedition.io.HttpsConnection;
-import javax.microedition.io.SecurityInfo;
 import javax.microedition.lcdui.Image;
-import javax.microedition.pki.Certificate;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;

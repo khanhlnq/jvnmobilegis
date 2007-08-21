@@ -106,7 +106,7 @@ class LocalModel {
      * @uml.property name="progressObserver"
      */
     public void setProgressObserver(ProgressObserver progressObserver) {
-        this.progressObserver = progressObserver;
+        LocalModel.progressObserver = progressObserver;
     }
 
     public void init() throws ApplicationException {

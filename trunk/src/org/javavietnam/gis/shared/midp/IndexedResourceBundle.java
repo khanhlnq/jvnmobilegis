@@ -47,7 +47,7 @@ import java.util.Vector;
  */
 public class IndexedResourceBundle {
 
-    private static IndexedResourceBundle instance = null;
+    // private static IndexedResourceBundle instance = null;
     private String locale;
     private String[] resources;
 
