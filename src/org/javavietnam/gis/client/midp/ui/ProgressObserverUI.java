@@ -91,7 +91,7 @@ import javax.microedition.lcdui.*;
  */
 public class ProgressObserverUI extends Form implements ProgressObserver, CommandListener {
 
-    private UIController uiController;
+    // private UIController uiController;
     private static final int GAUGE_MAX = 8;
     private static final int GAUGE_LEVELS = 4;
     private int current = 0;
