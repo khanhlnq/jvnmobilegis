@@ -91,50 +91,50 @@ import javax.microedition.lcdui.List;
  */
 class MainMenuUI extends List implements CommandListener {
 
-	private UIController uiController;
-	private Command exitCommand;
+    private UIController uiController;
+    private Command exitCommand;
 
-	public MainMenuUI(UIController uiController) {
-		super(uiController.getString(UIConstants.MOBILEGIS_CLIENT),
-				List.IMPLICIT);
-		try {
-			this.uiController = uiController;
+    public MainMenuUI(UIController uiController) {
+        super(uiController.getString(UIConstants.MOBILEGIS_CLIENT),
+                List.IMPLICIT);
+        try {
+            this.uiController = uiController;
 
-			append(uiController.getString(UIConstants.SERVER_UI_TITLE), null);
-			append(uiController.getString(UIConstants.PREFERENCES), null);
-			append(uiController.getString(UIConstants.CHECK_UPDATE), null);
-			exitCommand = new Command(uiController.getString(UIConstants.EXIT),
-					Command.EXIT, 75);
+            append(uiController.getString(UIConstants.SERVER_UI_TITLE), null);
+            append(uiController.getString(UIConstants.PREFERENCES), null);
+            append(uiController.getString(UIConstants.CHECK_UPDATE), null);
+            exitCommand = new Command(uiController.getString(UIConstants.EXIT),
+                    Command.EXIT, 75);
 
-			addCommand(exitCommand);
-			setCommandListener(this);
-		} catch (Exception e) {
-			System.out.println("*************** Exception: ");
-			e.printStackTrace();
-		}
-	}
+            addCommand(exitCommand);
+            setCommandListener(this);
+        } catch (Exception e) {
+            System.out.println("*************** Exception: ");
+            e.printStackTrace();
+        }
+    }
 
-	public void commandAction(Command command, Displayable displayable) {
-		if (List.SELECT_COMMAND == command) {
-			String label = getString(getSelectedIndex());
+    public void commandAction(Command command, Displayable displayable) {
+        if (List.SELECT_COMMAND == command) {
+            String label = getString(getSelectedIndex());
 
-			if (label.equals(uiController
-					.getString(UIConstants.SERVER_UI_TITLE))) {
-				uiController.mapServerRequested();
-			} else if (label.equals(uiController
-					.getString(UIConstants.PREFERENCES))) {
-				uiController.preferencesUIRequested();
-			} else if (label.equals(uiController
-					.getString(UIConstants.CHECK_UPDATE))) {
-				uiController.checkUpdateRequested();
-			}
-		} else {
-			if (command == exitCommand) {
-				uiController.exitRequested();
-			} else {
-				uiController.commandAction(command, displayable);
-			}
-		}
-	}
+            if (label.equals(uiController
+                    .getString(UIConstants.SERVER_UI_TITLE))) {
+                uiController.mapServerRequested();
+            } else if (label.equals(uiController
+                    .getString(UIConstants.PREFERENCES))) {
+                uiController.preferencesUIRequested();
+            } else if (label.equals(uiController
+                    .getString(UIConstants.CHECK_UPDATE))) {
+                uiController.checkUpdateRequested();
+            }
+        } else {
+            if (command == exitCommand) {
+                uiController.exitRequested();
+            } else {
+                uiController.commandAction(command, displayable);
+            }
+        }
+    }
 
 }

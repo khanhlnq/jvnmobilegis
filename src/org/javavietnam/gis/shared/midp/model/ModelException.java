@@ -92,39 +92,39 @@ import java.io.IOException;
  */
 public class ModelException extends Exception {
 
-	private static final byte CAUSE_GENERAL = 0;
-	private int causeCode = CAUSE_GENERAL;
+    private static final byte CAUSE_GENERAL = 0;
+    private int causeCode = CAUSE_GENERAL;
 
-	private ModelException(int causeCode) {
-		this.causeCode = causeCode;
+    private ModelException(int causeCode) {
+        this.causeCode = causeCode;
 
-	}
+    }
 
-	/**
-	 * @return Returns the causeCode.
-	 * @uml.property name="causeCode"
-	 */
-	public int getCauseCode() {
-		return causeCode;
-	}
+    /**
+     * @return Returns the causeCode.
+     * @uml.property name="causeCode"
+     */
+    public int getCauseCode() {
+        return causeCode;
+    }
 
-	public void serialize(DataOutputStream dataStream)
-			throws ApplicationException {
-		try {
-			dataStream.writeInt(causeCode);
+    public void serialize(DataOutputStream dataStream)
+            throws ApplicationException {
+        try {
+            dataStream.writeInt(causeCode);
 
-		} catch (IOException ioe) {
-			throw new ApplicationException(ioe);
-		}
-	}
+        } catch (IOException ioe) {
+            throw new ApplicationException(ioe);
+        }
+    }
 
-	public static ModelException deserialize(DataInputStream dataStream)
-			throws ApplicationException {
-		try {
-			return new ModelException(dataStream.readInt());
-		} catch (IOException ioe) {
-			throw new ApplicationException(ioe);
-		}
-	}
+    public static ModelException deserialize(DataInputStream dataStream)
+            throws ApplicationException {
+        try {
+            return new ModelException(dataStream.readInt());
+        } catch (IOException ioe) {
+            throw new ApplicationException(ioe);
+        }
+    }
 
 }

@@ -54,87 +54,87 @@ import org.javavietnam.gis.client.midp.model.Preferences;
  */
 class PreferencesUI extends Form implements CommandListener {
 
-	private UIController uiController;
-	private ChoiceGroup languageChoice;
-	private TextField serverField;
-	private TextField webGISField;
-	// private TextField findPathLayerField;
-	private Command saveCommand;
+    private UIController uiController;
+    private ChoiceGroup languageChoice;
+    private TextField serverField;
+    private TextField webGISField;
+    // private TextField findPathLayerField;
+    private Command saveCommand;
 
-	public PreferencesUI(UIController uiController) {
-		super(uiController.getString(UIConstants.PREFERENCES));
-		try {
-			this.uiController = uiController;
+    public PreferencesUI(UIController uiController) {
+        super(uiController.getString(UIConstants.PREFERENCES));
+        try {
+            this.uiController = uiController;
 
-			String[] languages = { uiController.getString(UIConstants.ENGLISH),
-					uiController.getString(UIConstants.VIETNAMESE) };
+            String[] languages = { uiController.getString(UIConstants.ENGLISH),
+                    uiController.getString(UIConstants.VIETNAMESE) };
 
-			languageChoice = new ChoiceGroup(uiController
-					.getString(UIConstants.LANGUAGE), Choice.POPUP, languages,
-					null);
-			serverField = new TextField(uiController
-					.getString(UIConstants.GET_CAPABILITIES_TITLE), "", 255,
-					TextField.URL);
-			webGISField = new TextField(uiController
-					.getString(UIConstants.WEBGIS_URL), "", 255, TextField.URL);
-			// findPathLayerField = new
-			// TextField(uiController.getString(UIConstants.FINDPATH_LAYER), "",
-			// 255, TextField.URL);
+            languageChoice = new ChoiceGroup(uiController
+                    .getString(UIConstants.LANGUAGE), Choice.POPUP, languages,
+                    null);
+            serverField = new TextField(uiController
+                    .getString(UIConstants.GET_CAPABILITIES_TITLE), "", 255,
+                    TextField.URL);
+            webGISField = new TextField(uiController
+                    .getString(UIConstants.WEBGIS_URL), "", 255, TextField.URL);
+            // findPathLayerField = new
+            // TextField(uiController.getString(UIConstants.FINDPATH_LAYER), "",
+            // 255, TextField.URL);
 
-			uiController.mapServersCmd.addCommands(serverField);
+            uiController.mapServersCmd.addCommands(serverField);
 
-			append(languageChoice);
-			append(serverField);
-			append(webGISField);
-			// append(findPathLayerField);
+            append(languageChoice);
+            append(serverField);
+            append(webGISField);
+            // append(findPathLayerField);
 
-			saveCommand = new Command(uiController.getString(UIConstants.SAVE),
-					Command.SCREEN, 0);
+            saveCommand = new Command(uiController.getString(UIConstants.SAVE),
+                    Command.SCREEN, 0);
 
-			addCommand(saveCommand);
-			uiController.setCommands(this);
+            addCommand(saveCommand);
+            uiController.setCommands(this);
 
-			setCommandListener(this);
-		} catch (Exception e) {
-			System.out.println("*************** Exception: ");
-			e.printStackTrace();
-		}
-	}
+            setCommandListener(this);
+        } catch (Exception e) {
+            System.out.println("*************** Exception: ");
+            e.printStackTrace();
+        }
+    }
 
-	public void init(Preferences preferences) {
-		if ("en-US".equals(preferences.getDefaultLocale())) {
-			languageChoice.setSelectedIndex(0, true);
-		} else if ("vi".equals(preferences.getDefaultLocale())) {
-			languageChoice.setSelectedIndex(1, true);
-		}
+    public void init(Preferences preferences) {
+        if ("en-US".equals(preferences.getDefaultLocale())) {
+            languageChoice.setSelectedIndex(0, true);
+        } else if ("vi".equals(preferences.getDefaultLocale())) {
+            languageChoice.setSelectedIndex(1, true);
+        }
 
-		serverField.setString(preferences.getWmsServerURL());
-		webGISField.setString(preferences.getWebGISURL());
-		// findPathLayerField.setString(preferences.getFindPathLayer());
-	}
+        serverField.setString(preferences.getWmsServerURL());
+        webGISField.setString(preferences.getWebGISURL());
+        // findPathLayerField.setString(preferences.getFindPathLayer());
+    }
 
-	public int getSelectedLanguage() {
-		return languageChoice.getSelectedIndex();
-	}
+    public int getSelectedLanguage() {
+        return languageChoice.getSelectedIndex();
+    }
 
-	public String getServerURL() {
-		return serverField.getString();
-	}
+    public String getServerURL() {
+        return serverField.getString();
+    }
 
-	public String getWebGISURL() {
-		return webGISField.getString();
-	}
+    public String getWebGISURL() {
+        return webGISField.getString();
+    }
 
-	/*
-	 * public String getFindPathLayer() { return findPathLayerField.getString(); }
-	 */
+    /*
+     * public String getFindPathLayer() { return findPathLayerField.getString(); }
+     */
 
-	public void commandAction(Command command, Displayable displayable) {
-		if (saveCommand == command) {
-			uiController.savePreferencesRequested();
-		} else {
-			uiController.commandAction(command, displayable);
-		}
-	}
+    public void commandAction(Command command, Displayable displayable) {
+        if (saveCommand == command) {
+            uiController.savePreferencesRequested();
+        } else {
+            uiController.commandAction(command, displayable);
+        }
+    }
 
 }

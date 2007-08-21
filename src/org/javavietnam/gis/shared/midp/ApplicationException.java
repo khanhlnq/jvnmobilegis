@@ -86,64 +86,64 @@ package org.javavietnam.gis.shared.midp;
  */
 public class ApplicationException extends Exception {
 
-	private static IndexedResourceBundle bundle;
-	private int code = -1;
-	private Exception exception = null;
+    private static IndexedResourceBundle bundle;
+    private int code = -1;
+    private Exception exception = null;
 
-	public static void setResourceBundle(IndexedResourceBundle bundle) {
-		ApplicationException.bundle = bundle;
-	}
+    public static void setResourceBundle(IndexedResourceBundle bundle) {
+        ApplicationException.bundle = bundle;
+    }
 
-	public ApplicationException() {
-	}
+    public ApplicationException() {
+    }
 
-	public ApplicationException(String msg) {
-		super(msg);
+    public ApplicationException(String msg) {
+        super(msg);
 
-	}
+    }
 
-	public ApplicationException(int code) {
-		this.code = code;
+    public ApplicationException(int code) {
+        this.code = code;
 
-	}
+    }
 
-	public ApplicationException(int code, String msg) {
-		super(msg);
-		this.code = code;
+    public ApplicationException(int code, String msg) {
+        super(msg);
+        this.code = code;
 
-	}
+    }
 
-	public ApplicationException(Exception exception) {
-		this.exception = exception;
+    public ApplicationException(Exception exception) {
+        this.exception = exception;
 
-	}
+    }
 
-	/**
-	 * @return Returns the code.
-	 * @uml.property name="code"
-	 */
-	public int getCode() {
-		return code;
-	}
+    /**
+     * @return Returns the code.
+     * @uml.property name="code"
+     */
+    public int getCode() {
+        return code;
+    }
 
-	/**
-	 * @return Returns the exception.
-	 * @uml.property name="exception"
-	 */
-	public Exception getException() {
-		return exception;
-	}
+    /**
+     * @return Returns the exception.
+     * @uml.property name="exception"
+     */
+    public Exception getException() {
+        return exception;
+    }
 
-	public String getMessage() {
-		if (bundle != null && -1 != code) {
-			return bundle.getString(code);
-		}
+    public String getMessage() {
+        if (bundle != null && -1 != code) {
+            return bundle.getString(code);
+        }
 
-		if (exception != null) {
-			return exception.getMessage();
-		}
+        if (exception != null) {
+            return exception.getMessage();
+        }
 
-		return super.getMessage();
-	}
+        return super.getMessage();
+    }
 
 }

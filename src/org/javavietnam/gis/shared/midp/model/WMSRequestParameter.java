@@ -46,57 +46,57 @@ import henson.midp.Float;
  */
 public interface WMSRequestParameter {
 
-	// Added by Khanh Le
-	public void initParam(Float[] latLonBoundingBox, String getMapURL,
-			String srs);
+    // Added by Khanh Le
+    public void initParam(Float[] latLonBoundingBox, String getMapURL,
+            String srs);
 
-	public int getPixelWidth();
+    public int getPixelWidth();
 
-	public int getPixelHeight();
+    public int getPixelHeight();
 
-	/**
-	 * X-Koordinate der Linken, oberen Ecke
-	 * 
-	 * @return
-	 */
-	public Float getBoundingX1();
+    /**
+     * X-Koordinate der Linken, oberen Ecke
+     * 
+     * @return
+     */
+    public Float getBoundingX1();
 
-	/**
-	 * Y-Koordinate der Linken, oberen Ecke
-	 * 
-	 * @return
-	 */
-	public Float getBoundingY1();
+    /**
+     * Y-Koordinate der Linken, oberen Ecke
+     * 
+     * @return
+     */
+    public Float getBoundingY1();
 
-	public Float getBoundingX2();
+    public Float getBoundingX2();
 
-	public Float getBoundingY2();
+    public Float getBoundingY2();
 
-	// Get X, Y in pixel for getFeatureInfo
-	public int getX();
+    // Get X, Y in pixel for getFeatureInfo
+    public int getX();
 
-	public int getY();
+    public int getY();
 
-	public String getImageFormat();
+    public String getImageFormat();
 
-	public String getXmlFormat();
+    public String getXmlFormat();
 
-	public String getTextFormat();
+    public String getTextFormat();
 
-	public String getPNGFormat();
+    public String getPNGFormat();
 
-	public String getSRS();
+    public String getSRS();
 
-	public String getVersion();
+    public String getVersion();
 
-	public Float getCurrentScale();
+    public Float getCurrentScale();
 
-	// public Float[] getStartPoint();
+    // public Float[] getStartPoint();
 
-	// public Float[] getEndPoint();
+    // public Float[] getEndPoint();
 
-	// public String getFindPathLayer();
+    // public String getFindPathLayer();
 
-	public String getGetMapURL();
+    public String getGetMapURL();
 
 }

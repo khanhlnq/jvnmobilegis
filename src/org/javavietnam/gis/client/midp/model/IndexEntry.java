@@ -92,139 +92,139 @@ import java.io.IOException;
  */
 public class IndexEntry {
 
-	private static final int TYPE_ANY = -1;
-	public static final int TYPE_PREFERENCES = 5;
-	public static final int MODE_ANY = -1;
-	public static final int MODE_PERSISTING = 0;
-	private static final int MODE_CACHING = 1;
-	private int type;
-	private String key;
-	private long expirationDate;
-	private boolean marked;
-	private int recordId;
-	private int mode = MODE_CACHING;
+    private static final int TYPE_ANY = -1;
+    public static final int TYPE_PREFERENCES = 5;
+    public static final int MODE_ANY = -1;
+    public static final int MODE_PERSISTING = 0;
+    private static final int MODE_CACHING = 1;
+    private int type;
+    private String key;
+    private long expirationDate;
+    private boolean marked;
+    private int recordId;
+    private int mode = MODE_CACHING;
 
-	public IndexEntry(int recordId, int type, String key) {
-		this(recordId, type, key, MODE_CACHING);
+    public IndexEntry(int recordId, int type, String key) {
+        this(recordId, type, key, MODE_CACHING);
 
-	}
+    }
 
-	public IndexEntry(int recordId, int type, String key, int mode) {
-		this.recordId = recordId;
-		this.type = type;
-		this.key = key;
-		this.mode = mode;
+    public IndexEntry(int recordId, int type, String key, int mode) {
+        this.recordId = recordId;
+        this.type = type;
+        this.key = key;
+        this.mode = mode;
 
-	}
+    }
 
-	private IndexEntry() {
-	}
+    private IndexEntry() {
+    }
 
-	/**
-	 * @return the type
-	 * @uml.property name="type"
-	 */
-	public int getType() {
-		return type;
-	}
+    /**
+     * @return the type
+     * @uml.property name="type"
+     */
+    public int getType() {
+        return type;
+    }
 
-	/**
-	 * @return the key
-	 * @uml.property name="key"
-	 */
-	public String getKey() {
-		return key;
-	}
+    /**
+     * @return the key
+     * @uml.property name="key"
+     */
+    public String getKey() {
+        return key;
+    }
 
-	/**
-	 * @return the expirationDate
-	 * @uml.property name="expirationDate"
-	 */
-	public long getExpirationDate() {
-		return expirationDate;
-	}
+    /**
+     * @return the expirationDate
+     * @uml.property name="expirationDate"
+     */
+    public long getExpirationDate() {
+        return expirationDate;
+    }
 
-	/**
-	 * @param expirationDate
-	 *            the expirationDate to set
-	 * @uml.property name="expirationDate"
-	 */
-	public void setExpirationDate(long expirationDate) {
-		this.expirationDate = expirationDate;
-	}
+    /**
+     * @param expirationDate
+     *            the expirationDate to set
+     * @uml.property name="expirationDate"
+     */
+    public void setExpirationDate(long expirationDate) {
+        this.expirationDate = expirationDate;
+    }
 
-	/**
-	 * @return the marked
-	 * @uml.property name="marked"
-	 */
-	public boolean isMarked() {
-		return marked;
-	}
+    /**
+     * @return the marked
+     * @uml.property name="marked"
+     */
+    public boolean isMarked() {
+        return marked;
+    }
 
-	/**
-	 * @param marked
-	 *            the marked to set
-	 * @uml.property name="marked"
-	 */
-	public void setMarked(boolean marked) {
-		this.marked = marked;
-	}
+    /**
+     * @param marked
+     *            the marked to set
+     * @uml.property name="marked"
+     */
+    public void setMarked(boolean marked) {
+        this.marked = marked;
+    }
 
-	/**
-	 * @return the recordId
-	 * @uml.property name="recordId"
-	 */
-	public int getRecordId() {
-		return recordId;
-	}
+    /**
+     * @return the recordId
+     * @uml.property name="recordId"
+     */
+    public int getRecordId() {
+        return recordId;
+    }
 
-	/**
-	 * @return the mode
-	 * @uml.property name="mode"
-	 */
-	public int getMode() {
-		return mode;
-	}
+    /**
+     * @return the mode
+     * @uml.property name="mode"
+     */
+    public int getMode() {
+        return mode;
+    }
 
-	public byte[] serialize() throws IOException {
-		ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-		DataOutputStream dataStream = new DataOutputStream(byteStream);
+    public byte[] serialize() throws IOException {
+        ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+        DataOutputStream dataStream = new DataOutputStream(byteStream);
 
-		dataStream.writeInt(type);
-		dataStream.writeUTF(key);
-		dataStream.writeInt(mode);
-		dataStream.writeLong(expirationDate);
-		dataStream.writeBoolean(marked);
-		dataStream.writeInt(recordId);
+        dataStream.writeInt(type);
+        dataStream.writeUTF(key);
+        dataStream.writeInt(mode);
+        dataStream.writeLong(expirationDate);
+        dataStream.writeBoolean(marked);
+        dataStream.writeInt(recordId);
 
-		return byteStream.toByteArray();
-	}
+        return byteStream.toByteArray();
+    }
 
-	public static IndexEntry deserialize(byte[] data) throws IOException {
-		ByteArrayInputStream byteStream = new ByteArrayInputStream(data);
-		DataInputStream dataStream = new DataInputStream(byteStream);
-		IndexEntry indexEntry = new IndexEntry();
+    public static IndexEntry deserialize(byte[] data) throws IOException {
+        ByteArrayInputStream byteStream = new ByteArrayInputStream(data);
+        DataInputStream dataStream = new DataInputStream(byteStream);
+        IndexEntry indexEntry = new IndexEntry();
 
-		indexEntry.type = dataStream.readInt();
-		indexEntry.key = dataStream.readUTF();
-		indexEntry.mode = dataStream.readInt();
-		indexEntry.expirationDate = dataStream.readLong();
-		indexEntry.marked = dataStream.readBoolean();
-		indexEntry.recordId = dataStream.readInt();
+        indexEntry.type = dataStream.readInt();
+        indexEntry.key = dataStream.readUTF();
+        indexEntry.mode = dataStream.readInt();
+        indexEntry.expirationDate = dataStream.readLong();
+        indexEntry.marked = dataStream.readBoolean();
+        indexEntry.recordId = dataStream.readInt();
 
-		return indexEntry;
-	}
+        return indexEntry;
+    }
 
-	// Optimization to avoid deserializing and instantiating an IndexEntry when
-	// matching RMS records
-	public static boolean matches(byte[] data, String key, int type, int mode)
-			throws IOException {
-		ByteArrayInputStream byteStream = new ByteArrayInputStream(data);
-		DataInputStream dataStream = new DataInputStream(byteStream);
+    // Optimization to avoid deserializing and instantiating an IndexEntry when
+    // matching RMS records
+    public static boolean matches(byte[] data, String key, int type, int mode)
+            throws IOException {
+        ByteArrayInputStream byteStream = new ByteArrayInputStream(data);
+        DataInputStream dataStream = new DataInputStream(byteStream);
 
-		return (type == dataStream.readInt() || type == TYPE_ANY)
-				&& (dataStream.readUTF().equals(key) || key == null)
-				&& (mode == dataStream.readInt() || mode == MODE_ANY);
-	}
+        return (type == dataStream.readInt() || type == TYPE_ANY)
+                && (dataStream.readUTF().equals(key) || key == null)
+                && (mode == dataStream.readInt() || mode == MODE_ANY);
+    }
 
 }
