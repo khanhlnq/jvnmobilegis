@@ -4,7 +4,7 @@ MIDlet-Info-URL: http://jvnmobilegis.googlecode.com/
 MIDlet-Jar-Size: 112385
 MIDlet-Jar-URL: JVNMobileGIS.jar
 MIDlet-Name: JVNMobileGIS
-MIDlet-Permissions: javax.microedition.io.Connector.http
+MIDlet-Permissions: javax.microedition.io.Connector.http, javax.microedition.io.Connector.https
 MIDlet-Vendor: JVNGIS
 MIDlet-Version: 1.0.1
 MicroEdition-Configuration: CLDC-1.0
