@@ -89,59 +89,59 @@ import org.javavietnam.gis.shared.midp.ApplicationException;
 
 import javax.microedition.midlet.MIDlet;
 
-
 /**
  */
 public class JVNMobileGISMIDlet extends MIDlet {
 
-    private static final String PROPERTY_SERVICE_URL = "WMS-Server-URL";
-    private static final String PROPERTY_LOCALE = "MobileGIS-Locale";
-    private static final String PROPERTY_WEBGIS = "WebGIS-URL";
-    // private static final String PROPERTY_FINDPATH_LAYER = "Find-Path-Layer";
-    public static final String PROPERTY_UPDATE_URL = "Update-URL";
-    public static final String PROPERTY_MIDLET_VERSION = "MIDlet-Version";
+	private static final String PROPERTY_SERVICE_URL = "WMS-Server-URL";
+	private static final String PROPERTY_LOCALE = "MobileGIS-Locale";
+	private static final String PROPERTY_WEBGIS = "WebGIS-URL";
+	// private static final String PROPERTY_FINDPATH_LAYER = "Find-Path-Layer";
+	public static final String PROPERTY_UPDATE_URL = "Update-URL";
+	public static final String PROPERTY_MIDLET_VERSION = "MIDlet-Version";
 
-    private ModelFacade model;
+	private ModelFacade model;
 
-    protected void startApp() {
-        try {
-            model = new ModelFacade();
+	protected void startApp() {
+		try {
+			model = new ModelFacade();
 
-            Preferences preferences = model.getPreferences();
-            // If not start the first time.
-            if (!"".equals(preferences.getDefaultLocale())) {
-                model.setLocale(preferences.getDefaultLocale());
-            } else {
-                // If start the first time. Get values for JAD file
-                preferences.setDefaultLocale(getAppProperty(PROPERTY_LOCALE));
-                preferences.setWmsServerURL(getAppProperty(PROPERTY_SERVICE_URL));
-                preferences.setWebGISURL(getAppProperty(PROPERTY_WEBGIS));
-                // preferences.setFindPathLayer(getAppProperty(PROPERTY_FINDPATH_LAYER));
-                model.setLocale(preferences.getDefaultLocale());
-                model.setPreferences(preferences);
-            }
+			Preferences preferences = model.getPreferences();
+			// If not start the first time.
+			if (!"".equals(preferences.getDefaultLocale())) {
+				model.setLocale(preferences.getDefaultLocale());
+			} else {
+				// If start the first time. Get values for JAD file
+				preferences.setDefaultLocale(getAppProperty(PROPERTY_LOCALE));
+				preferences
+						.setWmsServerURL(getAppProperty(PROPERTY_SERVICE_URL));
+				preferences.setWebGISURL(getAppProperty(PROPERTY_WEBGIS));
+				// preferences.setFindPathLayer(getAppProperty(PROPERTY_FINDPATH_LAYER));
+				model.setLocale(preferences.getDefaultLocale());
+				model.setPreferences(preferences);
+			}
 
-            UIController controller = new UIController(this, model);
+			UIController controller = new UIController(this, model);
 
-            controller.init();
-        }
-        catch (ApplicationException ae) {
-            System.err.println(ae.getException() + "/" + ae.getMessage() + "/" + ae.getCode());
-        }
-    }
+			controller.init();
+		} catch (ApplicationException ae) {
+			System.err.println(ae.getException() + "/" + ae.getMessage() + "/"
+					+ ae.getCode());
+		}
+	}
 
-    protected void destroyApp(boolean unconditional) {
-        try {
-            System.out.println(model);
-            model.destroy();
-        }
-        catch (ApplicationException ae) {
-            ae.printStackTrace();
-            System.err.println(ae.getException() + "/" + ae.getMessage() + "/" + ae.getCode());
-        }
-    }
+	protected void destroyApp(boolean unconditional) {
+		try {
+			System.out.println(model);
+			model.destroy();
+		} catch (ApplicationException ae) {
+			ae.printStackTrace();
+			System.err.println(ae.getException() + "/" + ae.getMessage() + "/"
+					+ ae.getCode());
+		}
+	}
 
-    protected void pauseApp() {
-    }
+	protected void pauseApp() {
+	}
 
 }

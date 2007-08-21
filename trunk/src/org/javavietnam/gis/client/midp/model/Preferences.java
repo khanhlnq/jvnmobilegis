@@ -88,110 +88,114 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-
 /**
  */
 public class Preferences {
 
-    private String locale = "";
-    private String wmsServerURL = "";
-    private String webGISURL = "";
-    // private String findPathLayer = "";
+	private String locale = "";
+	private String wmsServerURL = "";
+	private String webGISURL = "";
 
-    public Preferences() {
-    }
+	// private String findPathLayer = "";
 
-    public void copy(Preferences preferences) {
-        this.locale = preferences.locale;
-        this.setWmsServerURL(preferences.getWmsServerURL());
-        this.setWebGISURL(preferences.getWebGISURL());
-        // this.setFindPathLayer(preferences.getFindPathLayer());
+	public Preferences() {
+	}
 
-    }
+	public void copy(Preferences preferences) {
+		this.locale = preferences.locale;
+		this.setWmsServerURL(preferences.getWmsServerURL());
+		this.setWebGISURL(preferences.getWebGISURL());
+		// this.setFindPathLayer(preferences.getFindPathLayer());
 
-    public void serialize(DataOutputStream dataStream) throws ApplicationException {
-        try {
-            dataStream.writeUTF(locale);
-            dataStream.writeUTF(getWmsServerURL());
-            dataStream.writeUTF(getWebGISURL());
-            // dataStream.writeUTF(getFindPathLayer());
+	}
 
-        }
-        catch (IOException ioe) {
-            throw new ApplicationException(ioe);
-        }
-    }
+	public void serialize(DataOutputStream dataStream)
+			throws ApplicationException {
+		try {
+			dataStream.writeUTF(locale);
+			dataStream.writeUTF(getWmsServerURL());
+			dataStream.writeUTF(getWebGISURL());
+			// dataStream.writeUTF(getFindPathLayer());
 
-    public static Preferences deserialize(DataInputStream dataStream) throws ApplicationException {
-        try {
-            Preferences preferences = new Preferences();
+		} catch (IOException ioe) {
+			throw new ApplicationException(ioe);
+		}
+	}
 
-            preferences.locale = dataStream.readUTF();
-            preferences.setWmsServerURL(dataStream.readUTF());
-            preferences.setWebGISURL(dataStream.readUTF());
-            // preferences.setFindPathLayer(dataStream.readUTF());
+	public static Preferences deserialize(DataInputStream dataStream)
+			throws ApplicationException {
+		try {
+			Preferences preferences = new Preferences();
 
-            return preferences;
-        }
-        catch (IOException ioe) {
-            throw new ApplicationException(ioe);
-        }
-    }
+			preferences.locale = dataStream.readUTF();
+			preferences.setWmsServerURL(dataStream.readUTF());
+			preferences.setWebGISURL(dataStream.readUTF());
+			// preferences.setFindPathLayer(dataStream.readUTF());
 
-    public String getDefaultLocale() {
-        return locale;
-    }
+			return preferences;
+		} catch (IOException ioe) {
+			throw new ApplicationException(ioe);
+		}
+	}
 
-    public void setDefaultLocale(String defaultLocale) {
-        this.locale = defaultLocale;
-    }
+	public String getDefaultLocale() {
+		return locale;
+	}
 
-    /**
-     * @return the wmsServerURL
-     * @uml.property name="wmsServerURL"
-     */
-    public String getWmsServerURL() {
-        return wmsServerURL;
-    }
+	public void setDefaultLocale(String defaultLocale) {
+		this.locale = defaultLocale;
+	}
 
-    /**
-     * @param wmsServerURL the wmsServerURL to set
-     * @uml.property name="wmsServerURL"
-     */
-    public void setWmsServerURL(String wmsServerURL) {
-        this.wmsServerURL = wmsServerURL;
-    }
+	/**
+	 * @return the wmsServerURL
+	 * @uml.property name="wmsServerURL"
+	 */
+	public String getWmsServerURL() {
+		return wmsServerURL;
+	}
 
-    /**
-     * @return the webGISURL
-     * @uml.property name="webGISURL"
-     */
-    public String getWebGISURL() {
-        return webGISURL;
-    }
+	/**
+	 * @param wmsServerURL
+	 *            the wmsServerURL to set
+	 * @uml.property name="wmsServerURL"
+	 */
+	public void setWmsServerURL(String wmsServerURL) {
+		this.wmsServerURL = wmsServerURL;
+	}
 
-    /**
-     * @param webGISURL the webGISURL to set
-     * @uml.property name="webGISURL"
-     */
-    public void setWebGISURL(String webGISURL) {
-        this.webGISURL = webGISURL;
-    }
+	/**
+	 * @return the webGISURL
+	 * @uml.property name="webGISURL"
+	 */
+	public String getWebGISURL() {
+		return webGISURL;
+	}
 
-    /**
-     * @return the findPathLayer
-     * @uml.property name="findPathLayer"
-     */
-    /*public String getFindPathLayer() {
-        return findPathLayer;
-    }*/
+	/**
+	 * @param webGISURL
+	 *            the webGISURL to set
+	 * @uml.property name="webGISURL"
+	 */
+	public void setWebGISURL(String webGISURL) {
+		this.webGISURL = webGISURL;
+	}
 
-    /**
-     * @param findPathLayer the findPathLayer to set
-     * @uml.property name="findPathLayer"
-     */
-    /*public void setFindPathLayer(String findPathLayer) {
-        this.findPathLayer = findPathLayer;
-    }*/
+	/**
+	 * @return the findPathLayer
+	 * @uml.property name="findPathLayer"
+	 */
+	/*
+	 * public String getFindPathLayer() { return findPathLayer; }
+	 */
+
+	/**
+	 * @param findPathLayer
+	 *            the findPathLayer to set
+	 * @uml.property name="findPathLayer"
+	 */
+	/*
+	 * public void setFindPathLayer(String findPathLayer) { this.findPathLayer =
+	 * findPathLayer; }
+	 */
 
 }

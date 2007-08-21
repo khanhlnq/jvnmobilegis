@@ -94,177 +94,182 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Vector;
 
-
 /**
  */
 public class ModelFacade {
 
-    private static final String BASE_NAME_ERROR_RESOURCES = "ErrorResources";
-    private static final String L10N_ROOT_DIR = "/l10n/";
-    private String locale;
-    private static final int[] errorMessageCodeMap = new int[]{
-            ErrorMessageCodes.ERROR_GENERAL,
-            ErrorMessageCodes.ERROR_CANNOT_CONNECT,
-            ErrorMessageCodes.NO_SELECTED_LAYER,
-            ErrorMessageCodes.NO_SELECTED_POINT};
+	private static final String BASE_NAME_ERROR_RESOURCES = "ErrorResources";
+	private static final String L10N_ROOT_DIR = "/l10n/";
+	private String locale;
+	private static final int[] errorMessageCodeMap = new int[] {
+			ErrorMessageCodes.ERROR_GENERAL,
+			ErrorMessageCodes.ERROR_CANNOT_CONNECT,
+			ErrorMessageCodes.NO_SELECTED_LAYER,
+			ErrorMessageCodes.NO_SELECTED_POINT };
 
-    private RemoteModelProxy remoteModel;
+	private RemoteModelProxy remoteModel;
 
-    private LocalModel localModel;
+	private LocalModel localModel;
 
-    public ModelFacade(String locale) throws ApplicationException {
-        localModel = new LocalModel();
-        remoteModel = new RemoteModelProxy();
+	public ModelFacade(String locale) throws ApplicationException {
+		localModel = new LocalModel();
+		remoteModel = new RemoteModelProxy();
 
-        setLocale(locale);
+		setLocale(locale);
 
-    }
+	}
 
-    public ModelFacade() throws ApplicationException {
-        localModel = new LocalModel();
-        remoteModel = new RemoteModelProxy();
+	public ModelFacade() throws ApplicationException {
+		localModel = new LocalModel();
+		remoteModel = new RemoteModelProxy();
 
-    }
+	}
 
-    public void setProgressObserver(ProgressObserver progressObserver) {
-        localModel.setProgressObserver(progressObserver);
-        remoteModel.setProgressObserver(progressObserver);
-    }
+	public void setProgressObserver(ProgressObserver progressObserver) {
+		localModel.setProgressObserver(progressObserver);
+		remoteModel.setProgressObserver(progressObserver);
+	}
 
-    public void init() throws ApplicationException {
-        localModel.init();
-        remoteModel.init();
+	public void init() throws ApplicationException {
+		localModel.init();
+		remoteModel.init();
 
-    }
+	}
 
-    public void destroy() throws ApplicationException {
-        localModel.destroy();
-        remoteModel.destroy();
+	public void destroy() throws ApplicationException {
+		localModel.destroy();
+		remoteModel.destroy();
 
-    }
+	}
 
-    /**
-     * @param locale The locale to set.
-     * @throws org.javavietnam.gis.shared.midp.ApplicationException
-     *
-     * @uml.property name="locale"
-     */
-    public void setLocale(String locale) throws ApplicationException {
-        IndexedResourceBundle errorBundle;
+	/**
+	 * @param locale
+	 *            The locale to set.
+	 * @throws org.javavietnam.gis.shared.midp.ApplicationException
+	 * 
+	 * @uml.property name="locale"
+	 */
+	public void setLocale(String locale) throws ApplicationException {
+		IndexedResourceBundle errorBundle;
 
-        this.locale = locale;
+		this.locale = locale;
 
-        errorBundle = getResourceBundle(BASE_NAME_ERROR_RESOURCES);
+		errorBundle = getResourceBundle(BASE_NAME_ERROR_RESOURCES);
 
-        ApplicationException.setResourceBundle(errorBundle);
+		ApplicationException.setResourceBundle(errorBundle);
 
-    }
+	}
 
-    /**
-     * @return the locale
-     * @uml.property name="locale"
-     */
-    public String getLocale() {
-        return locale;
-    }
+	/**
+	 * @return the locale
+	 * @uml.property name="locale"
+	 */
+	public String getLocale() {
+		return locale;
+	}
 
-    public IndexedResourceBundle getResourceBundle(String baseName) throws ApplicationException {
-        IndexedResourceBundle resourceBundle;
+	public IndexedResourceBundle getResourceBundle(String baseName)
+			throws ApplicationException {
+		IndexedResourceBundle resourceBundle;
 
-        try {
-            InputStream stream = getClass().getResourceAsStream(makeResourceBundleName(baseName, locale));
+		try {
+			InputStream stream = getClass().getResourceAsStream(
+					makeResourceBundleName(baseName, locale));
 
-            resourceBundle = stream != null ? IndexedResourceBundle.getBundleFromPropertyFile(locale, stream) : null;
-        }
-        catch (IOException ioe) {
-            resourceBundle = null;
-        }
+			resourceBundle = stream != null ? IndexedResourceBundle
+					.getBundleFromPropertyFile(locale, stream) : null;
+		} catch (IOException ioe) {
+			resourceBundle = null;
+		}
 
-        return resourceBundle;
-    }
+		return resourceBundle;
+	}
 
-    private String makeResourceBundleName(String baseName, String locale) {
-        return new StringBuffer(L10N_ROOT_DIR).append(baseName).append("-").append(locale).append(".properties").toString();
-    }
+	private String makeResourceBundleName(String baseName, String locale) {
+		return new StringBuffer(L10N_ROOT_DIR).append(baseName).append("-")
+				.append(locale).append(".properties").toString();
+	}
 
-    public Image getMapWMS(WMSRequestParameter requestParam, Vector layerList) throws ApplicationException {
-        try {
-            return remoteModel.getMapWMS(requestParam, layerList);
-        }
-        catch (ModelException me) {
-            throw new ApplicationException(errorMessageCodeMap[me.getCauseCode()]);
-        }
-    }
+	public Image getMapWMS(WMSRequestParameter requestParam, Vector layerList)
+			throws ApplicationException {
+		try {
+			return remoteModel.getMapWMS(requestParam, layerList);
+		} catch (ModelException me) {
+			throw new ApplicationException(errorMessageCodeMap[me
+					.getCauseCode()]);
+		}
+	}
 
-    /*public String findPathWMS(WMSRequestParameter requestParam) throws ApplicationException {
-        try {
-            return remoteModel.findPathWMS(requestParam);
-        }
-        catch (ModelException me) {
-            throw new ApplicationException(errorMessageCodeMap[me.getCauseCode()]);
-        }
-    }*/
+	/*
+	 * public String findPathWMS(WMSRequestParameter requestParam) throws
+	 * ApplicationException { try { return
+	 * remoteModel.findPathWMS(requestParam); } catch (ModelException me) {
+	 * throw new ApplicationException(errorMessageCodeMap[me.getCauseCode()]); } }
+	 */
 
-    public String checkUpdate(String updateURL) throws ApplicationException {
-        try {
-            return remoteModel.checkUpdate(updateURL);
-        }
-        catch (ModelException me) {
-            throw new ApplicationException(errorMessageCodeMap[me.getCauseCode()]);
-        }
-    }
+	public String checkUpdate(String updateURL) throws ApplicationException {
+		try {
+			return remoteModel.checkUpdate(updateURL);
+		} catch (ModelException me) {
+			throw new ApplicationException(errorMessageCodeMap[me
+					.getCauseCode()]);
+		}
+	}
 
-    public String searchFeature(SearchFeatureParameter searchParam) throws ApplicationException {
-        try {
-            return remoteModel.searchFeature(searchParam);
-        }
-        catch (ModelException me) {
-            throw new ApplicationException(errorMessageCodeMap[me.getCauseCode()]);
-        }
-    }
+	public String searchFeature(SearchFeatureParameter searchParam)
+			throws ApplicationException {
+		try {
+			return remoteModel.searchFeature(searchParam);
+		} catch (ModelException me) {
+			throw new ApplicationException(errorMessageCodeMap[me
+					.getCauseCode()]);
+		}
+	}
 
-    public String getFeatureInfo(WMSRequestParameter requestParam, Vector layerList, String infoLayer) throws ApplicationException {
-        try {
-            return remoteModel.getFeatureInfo(requestParam, layerList, infoLayer);
-        }
-        catch (ModelException me) {
-            throw new ApplicationException(errorMessageCodeMap[me.getCauseCode()]);
-        }
-    }
+	public String getFeatureInfo(WMSRequestParameter requestParam,
+			Vector layerList, String infoLayer) throws ApplicationException {
+		try {
+			return remoteModel.getFeatureInfo(requestParam, layerList,
+					infoLayer);
+		} catch (ModelException me) {
+			throw new ApplicationException(errorMessageCodeMap[me
+					.getCauseCode()]);
+		}
+	}
 
-    /*public Image viewPathWMS(WMSRequestParameter requestParam) throws ApplicationException {
-        try {
-            return remoteModel.viewPathWMS(requestParam);
-        }
-        catch (ModelException me) {
-            throw new ApplicationException(errorMessageCodeMap[me.getCauseCode()]);
-        }
-    }*/
+	/*
+	 * public Image viewPathWMS(WMSRequestParameter requestParam) throws
+	 * ApplicationException { try { return
+	 * remoteModel.viewPathWMS(requestParam); } catch (ModelException me) {
+	 * throw new ApplicationException(errorMessageCodeMap[me.getCauseCode()]); } }
+	 */
 
-    public Vector getCapabilitiesWMS(String serverURL) throws ApplicationException {
-        try {
-            return remoteModel.getCapabilitiesWMS(serverURL);
-        }
-        catch (ModelException me) {
-            throw new ApplicationException(errorMessageCodeMap[me.getCauseCode()]);
-        }
-    }
+	public Vector getCapabilitiesWMS(String serverURL)
+			throws ApplicationException {
+		try {
+			return remoteModel.getCapabilitiesWMS(serverURL);
+		} catch (ModelException me) {
+			throw new ApplicationException(errorMessageCodeMap[me
+					.getCauseCode()]);
+		}
+	}
 
-    public Preferences getPreferences() throws ApplicationException {
-        return localModel.getPreferences();
-    }
+	public Preferences getPreferences() throws ApplicationException {
+		return localModel.getPreferences();
+	}
 
-    public void setPreferences(Preferences preferences) throws ApplicationException {
-        localModel.setPreferences(preferences);
+	public void setPreferences(Preferences preferences)
+			throws ApplicationException {
+		localModel.setPreferences(preferences);
 
-    }
+	}
 
-    public String getWwwAuthenticate() throws ApplicationException {
-        return remoteModel.getWwwAuthenticate();
-    }
+	public String getWwwAuthenticate() throws ApplicationException {
+		return remoteModel.getWwwAuthenticate();
+	}
 
-    public void setCredentials(String credentials) throws ApplicationException {
-        remoteModel.setCredentials(credentials);
-    }
+	public void setCredentials(String credentials) throws ApplicationException {
+		remoteModel.setCredentials(credentials);
+	}
 
 }

@@ -84,20 +84,20 @@ package org.javavietnam.gis.client.midp.model;
 
 public final class ErrorMessageCodes {
 
-    public static final int ERROR_GENERAL = 0;
-    public static final int ERROR_CANNOT_CONNECT = 1;
-    public static final int NO_SELECTED_LAYER = 2;
-    public static final int NO_SELECTED_POINT = 3;
-    public static final int ERROR_UNAUTHORIZED = 4;
-    public static final int MISSING_CHALLENGE = 5;
-    public static final int AUTH_SCHEME_NOT_BASIC = 6;
-    public static final int AUTH_REALM_SYNTAX_ERROR = 7;
-    public static final int ERROR_CERTIFICATE = 8;
-    
-    public static final int ERROR_BROKEN_HANDLER_CHAIN = 50;
-    public static final int ERROR_OPERATION_INTERRUPTED = 52;
+	public static final int ERROR_GENERAL = 0;
+	public static final int ERROR_CANNOT_CONNECT = 1;
+	public static final int NO_SELECTED_LAYER = 2;
+	public static final int NO_SELECTED_POINT = 3;
+	public static final int ERROR_UNAUTHORIZED = 4;
+	public static final int MISSING_CHALLENGE = 5;
+	public static final int AUTH_SCHEME_NOT_BASIC = 6;
+	public static final int AUTH_REALM_SYNTAX_ERROR = 7;
+	public static final int ERROR_CERTIFICATE = 8;
 
-    // private ErrorMessageCodes() {
-    // }
+	public static final int ERROR_BROKEN_HANDLER_CHAIN = 50;
+	public static final int ERROR_OPERATION_INTERRUPTED = 52;
+
+	// private ErrorMessageCodes() {
+	// }
 
 }

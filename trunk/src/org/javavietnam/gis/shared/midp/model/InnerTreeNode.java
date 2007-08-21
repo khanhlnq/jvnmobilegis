@@ -41,23 +41,22 @@ package org.javavietnam.gis.shared.midp.model;
 
 import java.util.Vector;
 
-
 /**
  * Klasse zur Datenhaltung innerhalb des LayerPanel
  */
 public class InnerTreeNode extends Vector implements TreeNodeInterface {
 
-    private LayerInformation content;
+	private LayerInformation content;
 
-    public InnerTreeNode(LayerInformation content) {
-        this.content = content;
-    }
+	public InnerTreeNode(LayerInformation content) {
+		this.content = content;
+	}
 
-    public String toString() {
-        return content.toString();
-    }
+	public String toString() {
+		return content.toString();
+	}
 
-    public LayerInformation getLayerInformation() {
-        return content;
-    }
+	public LayerInformation getLayerInformation() {
+		return content;
+	}
 }

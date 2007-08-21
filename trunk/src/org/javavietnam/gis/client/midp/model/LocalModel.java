@@ -85,88 +85,98 @@ package org.javavietnam.gis.client.midp.model;
 import org.javavietnam.gis.client.midp.util.ProgressObserver;
 import org.javavietnam.gis.shared.midp.ApplicationException;
 
-
 /**
  */
 class LocalModel {
 
-    /**
-     * @link aggregation
-     */
-    private RMSAdapter rmsAdapter;
-    private Preferences preferences = null;
-    protected static ProgressObserver progressObserver;
+	/**
+	 * @link aggregation
+	 */
+	private RMSAdapter rmsAdapter;
+	private Preferences preferences = null;
+	protected static ProgressObserver progressObserver;
 
-    public LocalModel() throws ApplicationException {
-        rmsAdapter = new RMSAdapter();
-    }
+	public LocalModel() throws ApplicationException {
+		rmsAdapter = new RMSAdapter();
+	}
 
-    /**
-     * @param progressObserver the progressObserver to set
-     * @uml.property name="progressObserver"
-     */
-    public void setProgressObserver(ProgressObserver progressObserver) {
-        LocalModel.progressObserver = progressObserver;
-    }
+	/**
+	 * @param progressObserver
+	 *            the progressObserver to set
+	 * @uml.property name="progressObserver"
+	 */
+	public void setProgressObserver(ProgressObserver progressObserver) {
+		LocalModel.progressObserver = progressObserver;
+	}
 
-    public void init() throws ApplicationException {
-    }
+	public void init() throws ApplicationException {
+	}
 
-    public void destroy() throws ApplicationException {
-        // cleanup();
-        rmsAdapter.closeRecordStores();
-    }
+	public void destroy() throws ApplicationException {
+		// cleanup();
+		rmsAdapter.closeRecordStores();
+	}
 
-    /*
-    * This is used as cache and is maintained up-to-date, getting the preferences always returns the same instance,
-    * setting new preferences does not replace this instance but updates the individual attributes/properties of this
-    * instance
-     */
-    /**
-     * @return the preferences
-     * @throws org.javavietnam.gis.shared.midp.ApplicationException
-     *
-     * @uml.property name="preferences"
-     */
-    public Preferences getPreferences() throws ApplicationException {
-        if (preferences == null) {
-            IndexEntry indexEntry = rmsAdapter.getIndexEntry("*", IndexEntry.TYPE_PREFERENCES, IndexEntry.MODE_ANY);
+	/*
+	 * This is used as cache and is maintained up-to-date, getting the
+	 * preferences always returns the same instance, setting new preferences
+	 * does not replace this instance but updates the individual
+	 * attributes/properties of this instance
+	 */
+	/**
+	 * @return the preferences
+	 * @throws org.javavietnam.gis.shared.midp.ApplicationException
+	 * 
+	 * @uml.property name="preferences"
+	 */
+	public Preferences getPreferences() throws ApplicationException {
+		if (preferences == null) {
+			IndexEntry indexEntry = rmsAdapter.getIndexEntry("*",
+					IndexEntry.TYPE_PREFERENCES, IndexEntry.MODE_ANY);
 
-            if (indexEntry != null) {
-                preferences = rmsAdapter.loadPreferences(indexEntry.getRecordId());
-            } else {
-                preferences = new Preferences();
+			if (indexEntry != null) {
+				preferences = rmsAdapter.loadPreferences(indexEntry
+						.getRecordId());
+			} else {
+				preferences = new Preferences();
 
-                int recordId = rmsAdapter.storePreferences(preferences, -1);
+				int recordId = rmsAdapter.storePreferences(preferences, -1);
 
-                indexEntry = new IndexEntry(recordId, IndexEntry.TYPE_PREFERENCES, "*", IndexEntry.MODE_PERSISTING);
+				indexEntry = new IndexEntry(recordId,
+						IndexEntry.TYPE_PREFERENCES, "*",
+						IndexEntry.MODE_PERSISTING);
 
-                rmsAdapter.addIndexEntry(indexEntry);
-            }
-        }
+				rmsAdapter.addIndexEntry(indexEntry);
+			}
+		}
 
-        return preferences;
-    }
+		return preferences;
+	}
 
-    // public void setPreferences() throws ApplicationException {
-    /**
-     * @param preferences the preferences to set
-     * @throws org.javavietnam.gis.shared.midp.ApplicationException
-     *
-     * @uml.property name="preferences"
-     */
-    public void setPreferences(Preferences preferences) throws ApplicationException {
-        this.preferences.copy(preferences);
+	// public void setPreferences() throws ApplicationException {
+	/**
+	 * @param preferences
+	 *            the preferences to set
+	 * @throws org.javavietnam.gis.shared.midp.ApplicationException
+	 * 
+	 * @uml.property name="preferences"
+	 */
+	public void setPreferences(Preferences preferences)
+			throws ApplicationException {
+		this.preferences.copy(preferences);
 
-        IndexEntry indexEntry = rmsAdapter.getIndexEntry("*", IndexEntry.TYPE_PREFERENCES, IndexEntry.MODE_ANY);
-        int recordId = rmsAdapter.storePreferences(preferences, indexEntry != null ? indexEntry.getRecordId() : -1);
+		IndexEntry indexEntry = rmsAdapter.getIndexEntry("*",
+				IndexEntry.TYPE_PREFERENCES, IndexEntry.MODE_ANY);
+		int recordId = rmsAdapter.storePreferences(preferences,
+				indexEntry != null ? indexEntry.getRecordId() : -1);
 
-        if (indexEntry == null) {
-            indexEntry = new IndexEntry(recordId, IndexEntry.TYPE_PREFERENCES, "*", IndexEntry.MODE_PERSISTING);
+		if (indexEntry == null) {
+			indexEntry = new IndexEntry(recordId, IndexEntry.TYPE_PREFERENCES,
+					"*", IndexEntry.MODE_PERSISTING);
 
-            rmsAdapter.addIndexEntry(indexEntry);
-        }
+			rmsAdapter.addIndexEntry(indexEntry);
+		}
 
-    }
+	}
 
 }

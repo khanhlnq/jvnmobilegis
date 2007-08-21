@@ -86,18 +86,18 @@ package org.javavietnam.gis.shared.midp.model;
  */
 public abstract class ModelObjectLoader {
 
-    private static ModelObjectLoader instance = null;
+	private static ModelObjectLoader instance = null;
 
-    protected ModelObjectLoader() {
-        instance = this;
+	protected ModelObjectLoader() {
+		instance = this;
 
-    }
+	}
 
-    /**
-     * @return Returns the instance.
-     * @uml.property name="instance"
-     */
-    public static ModelObjectLoader getInstance() {
-        return instance;
-    }
+	/**
+	 * @return Returns the instance.
+	 * @uml.property name="instance"
+	 */
+	public static ModelObjectLoader getInstance() {
+		return instance;
+	}
 }
