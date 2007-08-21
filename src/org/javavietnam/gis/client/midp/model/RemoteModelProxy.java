@@ -93,71 +93,81 @@ import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
 import javax.microedition.lcdui.Image;
 import java.util.Vector;
 
-
 /**
  */
 class RemoteModelProxy extends ModelObjectLoader {
 
-    /**
-     * @link dependency
-     */
-    /* # RMSCacheHandler lnkRMSCacheHandler; */
-    private RemoteModelRequestHandler requestHandlerChain;
+	/**
+	 * @link dependency
+	 */
+	/* # RMSCacheHandler lnkRMSCacheHandler; */
+	private RemoteModelRequestHandler requestHandlerChain;
 
-    public RemoteModelProxy() throws ApplicationException {
-        requestHandlerChain = new HTTPCommunicationHandler(null);
+	public RemoteModelProxy() throws ApplicationException {
+		requestHandlerChain = new HTTPCommunicationHandler(null);
 
-    }
+	}
 
-    public void setProgressObserver(ProgressObserver progressObserver) {
-        RemoteModelRequestHandler.setProgressObserver(progressObserver);
-    }
+	public void setProgressObserver(ProgressObserver progressObserver) {
+		RemoteModelRequestHandler.setProgressObserver(progressObserver);
+	}
 
-    public void init() throws ApplicationException {
-        requestHandlerChain.init();
+	public void init() throws ApplicationException {
+		requestHandlerChain.init();
 
-    }
+	}
 
-    public void destroy() throws ApplicationException {
-        requestHandlerChain.destroy();
+	public void destroy() throws ApplicationException {
+		requestHandlerChain.destroy();
 
-    }
+	}
 
-    public Image getMapWMS(WMSRequestParameter requestParam, Vector layerList) throws ModelException, ApplicationException {
-        return requestHandlerChain.getMapWMS(requestParam, layerList);
-    }
+	public Image getMapWMS(WMSRequestParameter requestParam, Vector layerList)
+			throws ModelException, ApplicationException {
+		return requestHandlerChain.getMapWMS(requestParam, layerList);
+	}
 
-    public String checkUpdate(String updateURL) throws ModelException, ApplicationException {
-        return requestHandlerChain.checkUpdate(updateURL);
-    }
+	public String checkUpdate(String updateURL) throws ModelException,
+			ApplicationException {
+		return requestHandlerChain.checkUpdate(updateURL);
+	}
 
-    /*public String findPathWMS(WMSRequestParameter requestParam) throws ModelException, ApplicationException {
-        return requestHandlerChain.findPathWMS(requestParam);
-    }*/
+	/*
+	 * public String findPathWMS(WMSRequestParameter requestParam) throws
+	 * ModelException, ApplicationException { return
+	 * requestHandlerChain.findPathWMS(requestParam); }
+	 */
 
-    public String searchFeature(SearchFeatureParameter searchParam) throws ModelException, ApplicationException {
-        return requestHandlerChain.searchFeature(searchParam);
-    }
+	public String searchFeature(SearchFeatureParameter searchParam)
+			throws ModelException, ApplicationException {
+		return requestHandlerChain.searchFeature(searchParam);
+	}
 
-    public String getFeatureInfo(WMSRequestParameter requestParam, Vector layerList, String infoLayer) throws ModelException, ApplicationException {
-        return requestHandlerChain.getFeatureInfo(requestParam, layerList, infoLayer);
-    }
+	public String getFeatureInfo(WMSRequestParameter requestParam,
+			Vector layerList, String infoLayer) throws ModelException,
+			ApplicationException {
+		return requestHandlerChain.getFeatureInfo(requestParam, layerList,
+				infoLayer);
+	}
 
-    /*public Image viewPathWMS(WMSRequestParameter requestParam) throws ModelException, ApplicationException {
-        return requestHandlerChain.viewPathWMS(requestParam);
-    }*/
+	/*
+	 * public Image viewPathWMS(WMSRequestParameter requestParam) throws
+	 * ModelException, ApplicationException { return
+	 * requestHandlerChain.viewPathWMS(requestParam); }
+	 */
 
-    public Vector getCapabilitiesWMS(String serviceURL) throws ModelException, ApplicationException {
-        String result = requestHandlerChain.getCapabilitiesWMS(serviceURL);
-        CapabilitiesParser parser = new CapabilitiesParser(result);
-        return parser.constructDataTree();
-    }
+	public Vector getCapabilitiesWMS(String serviceURL) throws ModelException,
+			ApplicationException {
+		String result = requestHandlerChain.getCapabilitiesWMS(serviceURL);
+		CapabilitiesParser parser = new CapabilitiesParser(result);
+		return parser.constructDataTree();
+	}
 
-    public String getWwwAuthenticate() throws ApplicationException {
-        return requestHandlerChain.getWwwAuthenticate();
-    }
+	public String getWwwAuthenticate() throws ApplicationException {
+		return requestHandlerChain.getWwwAuthenticate();
+	}
 
-    public void setCredentials(String credentials) throws ApplicationException {
-        setCredentials(credentials);
-    }
+	public void setCredentials(String credentials) throws ApplicationException {
+		setCredentials(credentials);
+	}
 }

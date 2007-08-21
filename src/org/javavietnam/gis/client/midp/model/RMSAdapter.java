@@ -82,228 +82,237 @@
 
 package org.javavietnam.gis.client.midp.model;
 
-import org.javavietnam.gis.shared.midp.ApplicationException;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 
 import javax.microedition.rms.RecordEnumeration;
 import javax.microedition.rms.RecordFilter;
 import javax.microedition.rms.RecordStore;
 import javax.microedition.rms.RecordStoreException;
-import java.io.*;
 
+import org.javavietnam.gis.shared.midp.ApplicationException;
 
 class RMSAdapter {
 
-    private static final String RECORD_STORE_INDEX = "INDEX";
-    private static final String RECORD_STORE_LOCAL_DATA = "LOCAL_DATA";
-    private RecordStore indexRecordStore;
-    private RecordStore localDataRecordStore;
+	private static final String RECORD_STORE_INDEX = "INDEX";
+	private static final String RECORD_STORE_LOCAL_DATA = "LOCAL_DATA";
+	private RecordStore indexRecordStore;
+	private RecordStore localDataRecordStore;
 
-    /**
-     * @link dependency
-     */
-    /* # IndexEntry lnkIndexEntry; */
-    private static class IndexEntryFilter implements RecordFilter {
+	/**
+	 * @link dependency
+	 */
+	/* # IndexEntry lnkIndexEntry; */
+	private static class IndexEntryFilter implements RecordFilter {
 
-        private String key;
-        private int type;
-        private int mode;
+		private String key;
+		private int type;
+		private int mode;
 
-        public IndexEntryFilter(String key, int type) {
-            this(key, type, IndexEntry.MODE_ANY);
-        }
+		public IndexEntryFilter(String key, int type) {
+			this(key, type, IndexEntry.MODE_ANY);
+		}
 
-        public IndexEntryFilter(String key, int type, int mode) {
-            this.key = key;
-            this.type = type;
-            this.mode = mode;
+		public IndexEntryFilter(String key, int type, int mode) {
+			this.key = key;
+			this.type = type;
+			this.mode = mode;
 
-        }
+		}
 
-        public boolean matches(byte[] candidate) {
-            try {
-                return IndexEntry.matches(candidate, key, type, mode);
-            }
-            catch (IOException ioe) {
-                ioe.printStackTrace();
+		public boolean matches(byte[] candidate) {
+			try {
+				return IndexEntry.matches(candidate, key, type, mode);
+			} catch (IOException ioe) {
+				ioe.printStackTrace();
 
-                return false;
-            }
-        }
+				return false;
+			}
+		}
 
-    }
+	}
 
-    public RMSAdapter() throws ApplicationException {
-        try {
-            indexRecordStore = RecordStore.openRecordStore(RECORD_STORE_INDEX, true);
-            localDataRecordStore = RecordStore.openRecordStore(RECORD_STORE_LOCAL_DATA, true);
+	public RMSAdapter() throws ApplicationException {
+		try {
+			indexRecordStore = RecordStore.openRecordStore(RECORD_STORE_INDEX,
+					true);
+			localDataRecordStore = RecordStore.openRecordStore(
+					RECORD_STORE_LOCAL_DATA, true);
 
-        }
-        catch (RecordStoreException rse) {
-            rse.printStackTrace();
+		} catch (RecordStoreException rse) {
+			rse.printStackTrace();
 
-            throw new ApplicationException(rse);
-        }
-    }
+			throw new ApplicationException(rse);
+		}
+	}
 
-    public void closeRecordStores() throws ApplicationException {
-        try {
-            indexRecordStore.closeRecordStore();
-            localDataRecordStore.closeRecordStore();
+	public void closeRecordStores() throws ApplicationException {
+		try {
+			indexRecordStore.closeRecordStore();
+			localDataRecordStore.closeRecordStore();
 
-        }
-        catch (RecordStoreException rse) {
-            rse.printStackTrace();
+		} catch (RecordStoreException rse) {
+			rse.printStackTrace();
 
-            throw new ApplicationException(rse);
-        }
-    }
+			throw new ApplicationException(rse);
+		}
+	}
 
-    public void addIndexEntry(IndexEntry indexEntry) throws ApplicationException {
-        try {
-            byte[] data = indexEntry.serialize();
+	public void addIndexEntry(IndexEntry indexEntry)
+			throws ApplicationException {
+		try {
+			byte[] data = indexEntry.serialize();
 
-            if (indexRecordStore.getNumRecords() > 0) {
-                RecordEnumeration records = indexRecordStore.enumerateRecords(new IndexEntryFilter(indexEntry.getKey(),
-                        indexEntry.getType()), null, false);
+			if (indexRecordStore.getNumRecords() > 0) {
+				RecordEnumeration records = indexRecordStore.enumerateRecords(
+						new IndexEntryFilter(indexEntry.getKey(), indexEntry
+								.getType()), null, false);
 
-                if (records.hasNextElement()) {
-                    indexRecordStore.setRecord(records.nextRecordId(), data, 0, data.length);
-                } else {
-                    indexRecordStore.addRecord(data, 0, data.length);
-                }
-            } else {
-                indexRecordStore.addRecord(data, 0, data.length);
-            }
+				if (records.hasNextElement()) {
+					indexRecordStore.setRecord(records.nextRecordId(), data, 0,
+							data.length);
+				} else {
+					indexRecordStore.addRecord(data, 0, data.length);
+				}
+			} else {
+				indexRecordStore.addRecord(data, 0, data.length);
+			}
 
-        }
-        catch (IOException ioe) {
-            throw new ApplicationException(ioe);
-        }
-        catch (RecordStoreException rse) {
-            rse.printStackTrace();
+		} catch (IOException ioe) {
+			throw new ApplicationException(ioe);
+		} catch (RecordStoreException rse) {
+			rse.printStackTrace();
 
-            throw new ApplicationException(rse);
-        }
-    }
+			throw new ApplicationException(rse);
+		}
+	}
 
-    public IndexEntry[] getIndexEntries(int type, int mode) throws ApplicationException {
-        try {
-            if (indexRecordStore.getNumRecords() > 0) {
-                RecordEnumeration records = indexRecordStore.enumerateRecords(new IndexEntryFilter(null, type, mode), null, false);
-                IndexEntry[] indexEntries = new IndexEntry[records.numRecords()];
+	public IndexEntry[] getIndexEntries(int type, int mode)
+			throws ApplicationException {
+		try {
+			if (indexRecordStore.getNumRecords() > 0) {
+				RecordEnumeration records = indexRecordStore.enumerateRecords(
+						new IndexEntryFilter(null, type, mode), null, false);
+				IndexEntry[] indexEntries = new IndexEntry[records.numRecords()];
 
-                for (int i = 0; i < indexEntries.length; i++) {
-                    byte[] data = indexRecordStore.getRecord(records.nextRecordId());
+				for (int i = 0; i < indexEntries.length; i++) {
+					byte[] data = indexRecordStore.getRecord(records
+							.nextRecordId());
 
-                    indexEntries[i] = IndexEntry.deserialize(data);
-                }
+					indexEntries[i] = IndexEntry.deserialize(data);
+				}
 
-                return indexEntries;
-            } else {
-                return new IndexEntry[0];
-            }
-        }
-        catch (IOException ioe) {
-            throw new ApplicationException(ioe);
-        }
-        catch (RecordStoreException rse) {
-            rse.printStackTrace();
+				return indexEntries;
+			} else {
+				return new IndexEntry[0];
+			}
+		} catch (IOException ioe) {
+			throw new ApplicationException(ioe);
+		} catch (RecordStoreException rse) {
+			rse.printStackTrace();
 
-            throw new ApplicationException(rse);
-        }
-    }
+			throw new ApplicationException(rse);
+		}
+	}
 
-    public IndexEntry getIndexEntry(String key, int type, int mode) throws ApplicationException {
-        try {
-            if (indexRecordStore.getNumRecords() > 0) {
-                RecordEnumeration records = indexRecordStore.enumerateRecords(new IndexEntryFilter(key, type, mode), null, false);
+	public IndexEntry getIndexEntry(String key, int type, int mode)
+			throws ApplicationException {
+		try {
+			if (indexRecordStore.getNumRecords() > 0) {
+				RecordEnumeration records = indexRecordStore.enumerateRecords(
+						new IndexEntryFilter(key, type, mode), null, false);
 
-                if (records.hasNextElement()) {
-                    byte[] data = indexRecordStore.getRecord(records.nextRecordId());
+				if (records.hasNextElement()) {
+					byte[] data = indexRecordStore.getRecord(records
+							.nextRecordId());
 
-                    return IndexEntry.deserialize(data);
-                }
-            }
+					return IndexEntry.deserialize(data);
+				}
+			}
 
-            return null;
-        }
-        catch (IOException ioe) {
-            throw new ApplicationException(ioe);
-        }
-        catch (RecordStoreException rse) {
-            rse.printStackTrace();
+			return null;
+		} catch (IOException ioe) {
+			throw new ApplicationException(ioe);
+		} catch (RecordStoreException rse) {
+			rse.printStackTrace();
 
-            throw new ApplicationException(rse);
-        }
-    }
+			throw new ApplicationException(rse);
+		}
+	}
 
-    public void deleteIndexEntry(String key, int type) throws ApplicationException {
-        try {
-            if (indexRecordStore.getNumRecords() > 0) {
-                RecordEnumeration records = indexRecordStore.enumerateRecords(new IndexEntryFilter(key, type), null, false);
+	public void deleteIndexEntry(String key, int type)
+			throws ApplicationException {
+		try {
+			if (indexRecordStore.getNumRecords() > 0) {
+				RecordEnumeration records = indexRecordStore.enumerateRecords(
+						new IndexEntryFilter(key, type), null, false);
 
-                while (records.hasNextElement()) {
-                    indexRecordStore.deleteRecord(records.nextRecordId());
-                }
-            }
+				while (records.hasNextElement()) {
+					indexRecordStore.deleteRecord(records.nextRecordId());
+				}
+			}
 
-        }
-        catch (RecordStoreException rse) {
-            rse.printStackTrace();
+		} catch (RecordStoreException rse) {
+			rse.printStackTrace();
 
-            throw new ApplicationException(rse);
-        }
-    }
+			throw new ApplicationException(rse);
+		}
+	}
 
-    private void delete(RecordStore recordStore, int recordId) throws ApplicationException {
-        try {
-            recordStore.deleteRecord(recordId);
+	private void delete(RecordStore recordStore, int recordId)
+			throws ApplicationException {
+		try {
+			recordStore.deleteRecord(recordId);
 
-        }
-        catch (RecordStoreException rse) {
-            rse.printStackTrace();
+		} catch (RecordStoreException rse) {
+			rse.printStackTrace();
 
-            throw new ApplicationException(rse);
-        }
-    }
+			throw new ApplicationException(rse);
+		}
+	}
 
-    public Preferences loadPreferences(int recordId) throws ApplicationException {
-        try {
-            byte[] data = localDataRecordStore.getRecord(recordId);
+	public Preferences loadPreferences(int recordId)
+			throws ApplicationException {
+		try {
+			byte[] data = localDataRecordStore.getRecord(recordId);
 
-            return Preferences.deserialize(new DataInputStream(new ByteArrayInputStream(data)));
-        }
-        catch (RecordStoreException rse) {
-            rse.printStackTrace();
+			return Preferences.deserialize(new DataInputStream(
+					new ByteArrayInputStream(data)));
+		} catch (RecordStoreException rse) {
+			rse.printStackTrace();
 
-            throw new ApplicationException(rse);
-        }
-    }
+			throw new ApplicationException(rse);
+		}
+	}
 
-    public int storePreferences(Preferences preferences, int recordId) throws ApplicationException {
-        try {
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            DataOutputStream dataStream = new DataOutputStream(stream);
+	public int storePreferences(Preferences preferences, int recordId)
+			throws ApplicationException {
+		try {
+			ByteArrayOutputStream stream = new ByteArrayOutputStream();
+			DataOutputStream dataStream = new DataOutputStream(stream);
 
-            preferences.serialize(dataStream);
-            dataStream.flush();
+			preferences.serialize(dataStream);
+			dataStream.flush();
 
-            if (recordId > 0) {
-                localDataRecordStore.setRecord(recordId, stream.toByteArray(), 0, stream.size());
-            } else {
-                recordId = localDataRecordStore.addRecord(stream.toByteArray(), 0, stream.size());
-            }
+			if (recordId > 0) {
+				localDataRecordStore.setRecord(recordId, stream.toByteArray(),
+						0, stream.size());
+			} else {
+				recordId = localDataRecordStore.addRecord(stream.toByteArray(),
+						0, stream.size());
+			}
 
-            return recordId;
-        }
-        catch (IOException ioe) {
-            throw new ApplicationException(ioe);
-        }
-        catch (RecordStoreException rse) {
-            rse.printStackTrace();
+			return recordId;
+		} catch (IOException ioe) {
+			throw new ApplicationException(ioe);
+		} catch (RecordStoreException rse) {
+			rse.printStackTrace();
 
-            throw new ApplicationException(rse);
-        }
-    }
+			throw new ApplicationException(rse);
+		}
+	}
 
 }

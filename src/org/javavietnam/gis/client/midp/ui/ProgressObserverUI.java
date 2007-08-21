@@ -82,91 +82,99 @@
 
 package org.javavietnam.gis.client.midp.ui;
 
+import javax.microedition.lcdui.Command;
+import javax.microedition.lcdui.CommandListener;
+import javax.microedition.lcdui.Displayable;
+import javax.microedition.lcdui.Form;
+import javax.microedition.lcdui.Gauge;
+import javax.microedition.lcdui.StringItem;
+
 import org.javavietnam.gis.client.midp.util.ProgressObserver;
-
-import javax.microedition.lcdui.*;
-
 
 /**
  */
-public class ProgressObserverUI extends Form implements ProgressObserver, CommandListener {
+public class ProgressObserverUI extends Form implements ProgressObserver,
+		CommandListener {
 
-    // private UIController uiController;
-    private static final int GAUGE_MAX = 8;
-    private static final int GAUGE_LEVELS = 4;
-    private int current = 0;
-    private Gauge gauge;
-    private StringItem note;
-    private Command stopCommand;
-    private boolean stoppable;
-    private boolean stopped;
+	// private UIController uiController;
+	private static final int GAUGE_MAX = 8;
+	private static final int GAUGE_LEVELS = 4;
+	private int current = 0;
+	private Gauge gauge;
+	private StringItem note;
+	private Command stopCommand;
+	private boolean stoppable;
+	private boolean stopped;
 
-    public ProgressObserverUI(UIController uiController) {
-        super("");
+	public ProgressObserverUI(UIController uiController) {
+		super("");
 
-        gauge = new Gauge("", false, GAUGE_MAX, 0);
-        note = new StringItem("", "");
-        stopCommand = new Command(uiController.getString(UIConstants.STOP), Command.STOP, 1);
+		gauge = new Gauge("", false, GAUGE_MAX, 0);
+		note = new StringItem("", "");
+		stopCommand = new Command(uiController.getString(UIConstants.STOP),
+				Command.STOP, 1);
 
-        append(gauge);
-        append(note);
-        setCommandListener(this);
-    }
+		append(gauge);
+		append(note);
+		setCommandListener(this);
+	}
 
-    public void init(String note, boolean stoppable) {
-        gauge.setValue(0);
-        setNote(note);
-        setStoppable(stoppable);
+	public void init(String note, boolean stoppable) {
+		gauge.setValue(0);
+		setNote(note);
+		setStoppable(stoppable);
 
-        stopped = false;
-    }
+		stopped = false;
+	}
 
-    public void setNote(String note) {
-        setTitle(note);
-        this.note.setText(note);
-    }
+	public void setNote(String note) {
+		setTitle(note);
+		this.note.setText(note);
+	}
 
-    /**
-     * @return Returns the stoppable.
-     * @uml.property name="stoppable"
-     */
-    public boolean isStoppable() {
-        return stoppable;
-    }
+	/**
+	 * @return Returns the stoppable.
+	 * @uml.property name="stoppable"
+	 */
+	public boolean isStoppable() {
+		return stoppable;
+	}
 
-    /**
-     * @param stoppable The stoppable to set.
-     * @uml.property name="stoppable"
-     */
-    public void setStoppable(boolean stoppable) {
-        this.stoppable = stoppable;
+	/**
+	 * @param stoppable
+	 *            The stoppable to set.
+	 * @uml.property name="stoppable"
+	 */
+	public void setStoppable(boolean stoppable) {
+		this.stoppable = stoppable;
 
-        if (stoppable) {
-            addCommand(stopCommand);
-        } else {
-            removeCommand(stopCommand);
-        }
-    }
+		if (stoppable) {
+			addCommand(stopCommand);
+		} else {
+			removeCommand(stopCommand);
+		}
+	}
 
-    /**
-     * Indicates whether the user has stopped the progress. This message should be called before calling update.
-     *
-     * @uml.property name="stopped"
-     */
-    public boolean isStopped() {
-        return stopped;
-    }
+	/**
+	 * Indicates whether the user has stopped the progress. This message should
+	 * be called before calling update.
+	 * 
+	 * @uml.property name="stopped"
+	 */
+	public boolean isStopped() {
+		return stopped;
+	}
 
-    public void updateProgress() {
-        current = (current + 1) % GAUGE_LEVELS;
+	public void updateProgress() {
+		current = (current + 1) % GAUGE_LEVELS;
 
-        gauge.setValue(current * GAUGE_MAX / GAUGE_LEVELS);
-    }
+		gauge.setValue(current * GAUGE_MAX / GAUGE_LEVELS);
+	}
 
-    public void commandAction(Command c, Displayable d) {
-        if (c == stopCommand) {
-            stopped = true;
-        }
-    }
+	public void commandAction(Command c, Displayable d) {
+		if (c == stopCommand) {
+			stopped = true;
+		}
+	}
 
 }

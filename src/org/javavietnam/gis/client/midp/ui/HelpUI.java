@@ -39,40 +39,46 @@
 
 package org.javavietnam.gis.client.midp.ui;
 
-import javax.microedition.lcdui.*;
-
+import javax.microedition.lcdui.Command;
+import javax.microedition.lcdui.CommandListener;
+import javax.microedition.lcdui.Displayable;
+import javax.microedition.lcdui.Form;
+import javax.microedition.lcdui.StringItem;
 
 /**
  * @author khanhlnq
  */
 class HelpUI extends Form implements CommandListener {
 
-    private UIController uiController;
-    private Command backCommand;
+	private UIController uiController;
+	private Command backCommand;
 
-    public HelpUI(UIController uiController, boolean isTouchScreen) {
-        super(uiController.getString(UIConstants.HELP_TITLE));
-        this.uiController = uiController;
-        String str = uiController.getString(UIConstants.HELP_STRING);
-        if (isTouchScreen) {
-            str = str + "\n" + uiController.getString(UIConstants.HAS_TOUCHSCREEN);
-        }
-        str = str + "\n\n" + uiController.getString(UIConstants.COPYRIGHT);
-        StringItem helpStr = new StringItem(uiController.getString(UIConstants.KEYPADS), str);
+	public HelpUI(UIController uiController, boolean isTouchScreen) {
+		super(uiController.getString(UIConstants.HELP_TITLE));
+		this.uiController = uiController;
+		String str = uiController.getString(UIConstants.HELP_STRING);
+		if (isTouchScreen) {
+			str = str + "\n"
+					+ uiController.getString(UIConstants.HAS_TOUCHSCREEN);
+		}
+		str = str + "\n\n" + uiController.getString(UIConstants.COPYRIGHT);
+		StringItem helpStr = new StringItem(uiController
+				.getString(UIConstants.KEYPADS), str);
 
-        append(helpStr);
+		append(helpStr);
 
-        backCommand = new Command(uiController.getString(UIConstants.BACK), Command.BACK, 5);
+		backCommand = new Command(uiController.getString(UIConstants.BACK),
+				Command.BACK, 5);
 
-        addCommand(backCommand);
-        setCommandListener(this);
-    }
+		addCommand(backCommand);
+		setCommandListener(this);
+	}
 
-    public void commandAction(Command command, Displayable displayable) {
-        if (command == backCommand) {
-            uiController.viewMapRequested();
-        } else {
-            uiController.commandAction(command, displayable);
-        }
-    }
+	public void commandAction(Command command, Displayable displayable) {
+		if (command == backCommand) {
+			uiController.viewMapRequested();
+		} else {
+			uiController.commandAction(command, displayable);
+		}
+	}
 }

@@ -54,127 +54,126 @@ import java.util.Vector;
 
 public class SearchFeatureResultParser extends MinML {
 
-    private InputStream inputStream;
+	private InputStream inputStream;
 
-    private Vector features;
+	private Vector features;
 
-    private boolean featureIsParent;
+	private boolean featureIsParent;
 
-    private boolean bookmarkIsParent;
+	private boolean bookmarkIsParent;
 
-    private int numResult = 0;
+	private int numResult = 0;
 
-    private StringBuffer thisText = new StringBuffer();
+	private StringBuffer thisText = new StringBuffer();
 
-    /**
-     * Creates a new instance of FindPathResultParser
-     *
-     * @param result
-     */
-    public SearchFeatureResultParser(String result) {
-        try {
-            this.inputStream = new ByteArrayInputStream(result.getBytes("UTF-8"));
-        }
-        catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            this.inputStream = new ByteArrayInputStream(result.getBytes());
-        }
-    }
+	/**
+	 * Creates a new instance of FindPathResultParser
+	 * 
+	 * @param result
+	 */
+	public SearchFeatureResultParser(String result) {
+		try {
+			this.inputStream = new ByteArrayInputStream(result
+					.getBytes("UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			this.inputStream = new ByteArrayInputStream(result.getBytes());
+		}
+	}
 
-    public SearchFeatureResultParser(InputStream result) {
-        this.inputStream = result;
-    }
+	public SearchFeatureResultParser(InputStream result) {
+		this.inputStream = result;
+	}
 
-    public Vector parseFeatures() {
-        numResult = 0;
-        try {
-            parse(new InputSource(inputStream));
-        }
-        catch (Exception e) {
-            System.out.println("Exeption: ");
-            e.printStackTrace();
-            return null;
-        }
+	public Vector parseFeatures() {
+		numResult = 0;
+		try {
+			parse(new InputSource(inputStream));
+		} catch (Exception e) {
+			System.out.println("Exeption: ");
+			e.printStackTrace();
+			return null;
+		}
 
-        return features;
-    }
+		return features;
+	}
 
-    public void startDocument() {
-        features = new Vector();
-    }
+	public void startDocument() {
+		features = new Vector();
+	}
 
-    public void endDocument() {
-        // TODO: What will I do here?
-    }
+	public void endDocument() {
+		// TODO: What will I do here?
+	}
 
-    public void startElement(String name, AttributeList attributes) {
+	public void startElement(String name, AttributeList attributes) {
 
-        if (name.toLowerCase().equals("feature")) {
-            MapFeature feature = new MapFeature();
-            features.addElement(feature);
-            featureIsParent = true;
-        } else if (name.toLowerCase().equals("bookmark")) {
-            bookmarkIsParent = true;
-        }
+		if (name.toLowerCase().equals("feature")) {
+			MapFeature feature = new MapFeature();
+			features.addElement(feature);
+			featureIsParent = true;
+		} else if (name.toLowerCase().equals("bookmark")) {
+			bookmarkIsParent = true;
+		}
 
-    }
+	}
 
-    public void endElement(String name) {
-        if (name.toLowerCase().equals("feature")) {
-            featureIsParent = false;
-        } else if (featureIsParent) {
-            if (name.toLowerCase().equals("id")) {
-                if (thisText.length() > 0) {
-                    String featureId = thisText.toString().trim();
-                    ((MapFeature) features.lastElement()).setId(featureId);
-                }
-            } else if (name.toLowerCase().equals("name")) {
-                if (thisText.length() > 0) {
-                    String featureName = thisText.toString().trim();
-                    ((MapFeature) features.lastElement()).setName(featureName);
-                }
-            } else if (name.toLowerCase().equals("x")) {
-                if (thisText.length() > 0) {
-                    String xStr = thisText.toString().trim();
-                    Float featureX = Float.parse(xStr, 10);
-                    ((MapFeature) features.lastElement()).setX(featureX);
-                }
-            } else if (name.toLowerCase().equals("y")) {
-                if (thisText.length() > 0) {
-                    String yStr = thisText.toString().trim();
-                    Float featureY = Float.parse(yStr, 10);
-                    ((MapFeature) features.lastElement()).setY(featureY);
-                }
-            }
+	public void endElement(String name) {
+		if (name.toLowerCase().equals("feature")) {
+			featureIsParent = false;
+		} else if (featureIsParent) {
+			if (name.toLowerCase().equals("id")) {
+				if (thisText.length() > 0) {
+					String featureId = thisText.toString().trim();
+					((MapFeature) features.lastElement()).setId(featureId);
+				}
+			} else if (name.toLowerCase().equals("name")) {
+				if (thisText.length() > 0) {
+					String featureName = thisText.toString().trim();
+					((MapFeature) features.lastElement()).setName(featureName);
+				}
+			} else if (name.toLowerCase().equals("x")) {
+				if (thisText.length() > 0) {
+					String xStr = thisText.toString().trim();
+					Float featureX = Float.parse(xStr, 10);
+					((MapFeature) features.lastElement()).setX(featureX);
+				}
+			} else if (name.toLowerCase().equals("y")) {
+				if (thisText.length() > 0) {
+					String yStr = thisText.toString().trim();
+					Float featureY = Float.parse(yStr, 10);
+					((MapFeature) features.lastElement()).setY(featureY);
+				}
+			}
 
-        } else if (bookmarkIsParent && name.toLowerCase().equals("bookmark")) {
-            if (thisText.length() > 0) {
-                String bookmarkStr = thisText.toString().trim();
-                numResult = Integer.parseInt(bookmarkStr);
-                bookmarkIsParent = false;
-            }
+		} else if (bookmarkIsParent && name.toLowerCase().equals("bookmark")) {
+			if (thisText.length() > 0) {
+				String bookmarkStr = thisText.toString().trim();
+				numResult = Integer.parseInt(bookmarkStr);
+				bookmarkIsParent = false;
+			}
 
-        }
+		}
 
-        thisText.delete(0, thisText.length());
+		thisText.delete(0, thisText.length());
 
-    }
+	}
 
-    public void characters(final char ch[], final int start, final int length) {
-        thisText.append(ch, start, length);
-    }
+	public void characters(final char ch[], final int start, final int length) {
+		thisText.append(ch, start, length);
+	}
 
-    public void fatalError(SAXParseException e) throws SAXException {
-        System.out.println("Error: " + e);
-        throw e;
-    }
+	public void fatalError(SAXParseException e) throws SAXException {
+		System.out.println("Error: " + e);
+		throw e;
+	}
 
-    /**
-     * @return Returns the notice.
-     * @uml.property name="numResult"
-     */
-    public int getNumResult() {
-        return numResult;
-    }
+	/**
+	 * @return Returns the notice.
+	 * @uml.property name="numResult"
+	 */
+	public int getNumResult() {
+		return numResult;
+	}
 
 }

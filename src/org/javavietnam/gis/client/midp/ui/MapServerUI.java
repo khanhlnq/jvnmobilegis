@@ -39,56 +39,62 @@
 
 package org.javavietnam.gis.client.midp.ui;
 
-import javax.microedition.lcdui.*;
-
+import javax.microedition.lcdui.Command;
+import javax.microedition.lcdui.CommandListener;
+import javax.microedition.lcdui.Displayable;
+import javax.microedition.lcdui.Form;
+import javax.microedition.lcdui.TextField;
 
 /**
  * @author Khanh
  */
 class MapServerUI extends Form implements CommandListener {
 
-    private UIController uiController;
-    private TextField serverField;
-    private Command fetchCommand;
+	private UIController uiController;
+	private TextField serverField;
+	private Command fetchCommand;
 
-    public MapServerUI(UIController uiController, String serviceURL) {
-        super(uiController.getString(UIConstants.SERVER_UI_TITLE));
-        try {
-            this.uiController = uiController;
+	public MapServerUI(UIController uiController, String serviceURL) {
+		super(uiController.getString(UIConstants.SERVER_UI_TITLE));
+		try {
+			this.uiController = uiController;
 
-            serverField = new TextField(uiController.getString(UIConstants.GET_CAPABILITIES_TITLE), serviceURL, 255, TextField.URL);
+			serverField = new TextField(uiController
+					.getString(UIConstants.GET_CAPABILITIES_TITLE), serviceURL,
+					255, TextField.URL);
 
-            uiController.mapServersCmd.addCommands(serverField);
+			uiController.mapServersCmd.addCommands(serverField);
 
-            append(serverField);
+			append(serverField);
 
-            fetchCommand = new Command(uiController.getString(UIConstants.GET_CAPABILITIES_CMD), Command.SCREEN, 0);
+			fetchCommand = new Command(uiController
+					.getString(UIConstants.GET_CAPABILITIES_CMD),
+					Command.SCREEN, 0);
 
-            addCommand(fetchCommand);
-            uiController.setCommands(this);
-            
-            setCommandListener(this);
-        }
-        catch (Exception e) {
-            System.out.println("*************** Exception: ");
-            e.printStackTrace();
-        }
-    }
+			addCommand(fetchCommand);
+			uiController.setCommands(this);
 
-    public String getServerURL() {
-        return serverField.getString();
-    }
+			setCommandListener(this);
+		} catch (Exception e) {
+			System.out.println("*************** Exception: ");
+			e.printStackTrace();
+		}
+	}
 
-    public void setServerURL(String serviceURL) {
-        serverField.setString(serviceURL);
-    }
+	public String getServerURL() {
+		return serverField.getString();
+	}
 
-    public void commandAction(Command command, Displayable displayable) {
-        if (fetchCommand == command) {
-            uiController.getCapabilitiesRequested();
-        } else {
-            uiController.commandAction(command, displayable);
-        }
-    }
+	public void setServerURL(String serviceURL) {
+		serverField.setString(serviceURL);
+	}
+
+	public void commandAction(Command command, Displayable displayable) {
+		if (fetchCommand == command) {
+			uiController.getCapabilitiesRequested();
+		} else {
+			uiController.commandAction(command, displayable);
+		}
+	}
 
 }

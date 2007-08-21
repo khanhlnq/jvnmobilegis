@@ -79,133 +79,128 @@ import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 
 public class HttpUtils {
-    private final static char[] hexdigits = new char[16];
+	private final static char[] hexdigits = new char[16];
 
-    // Base-64 encoding is defined in http://RFC.net/rfc1521.html
-    private final static char[] alphabet = new char[64];
+	// Base-64 encoding is defined in http://RFC.net/rfc1521.html
+	private final static char[] alphabet = new char[64];
 
-    static {
-        // fill hexdigits with {0123456789ABCDEF}
-        for (int c = '0', i = 0; c <= '9'; c++, i++) {
-            hexdigits[i] = (char) c;
-        }
-        for (int c = 'A', i = 10; c <= 'F'; c++, i++) {
-            hexdigits[i] = (char) c;
-        }
-        // fill base64 alphabet
-        for (int c = 'A', i = 0; c <= 'Z'; c++, i++) {
-            alphabet[i] = (char) c;
-        }
-        for (int c = 'a', i = 26; c <= 'z'; c++, i++) {
-            alphabet[i] = (char) c;
-        }
-        for (int c = '0', i = 52; c <= '9'; c++, i++) {
-            alphabet[i] = (char) c;
-        }
-        alphabet[62] = (char) '+';
-        alphabet[63] = (char) '/';
-    }
+	static {
+		// fill hexdigits with {0123456789ABCDEF}
+		for (int c = '0', i = 0; c <= '9'; c++, i++) {
+			hexdigits[i] = (char) c;
+		}
+		for (int c = 'A', i = 10; c <= 'F'; c++, i++) {
+			hexdigits[i] = (char) c;
+		}
+		// fill base64 alphabet
+		for (int c = 'A', i = 0; c <= 'Z'; c++, i++) {
+			alphabet[i] = (char) c;
+		}
+		for (int c = 'a', i = 26; c <= 'z'; c++, i++) {
+			alphabet[i] = (char) c;
+		}
+		for (int c = '0', i = 52; c <= '9'; c++, i++) {
+			alphabet[i] = (char) c;
+		}
+		alphabet[62] = (char) '+';
+		alphabet[63] = (char) '/';
+	}
 
+	private HttpUtils() {
+	}
 
-    private HttpUtils() {
-    }
+	// encodes the string in URL format as indicated in RFC 1738
+	static String encodeURL(String url) {
+		int maxBytesPerChar = 10;
+		StringBuffer result = new StringBuffer();
+		ByteArrayOutputStream buffer = new ByteArrayOutputStream(
+				maxBytesPerChar);
+		OutputStreamWriter writer = null;
+		// UTF-8 encoding is recommended by W3C
+		try {
+			writer = new OutputStreamWriter(buffer, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// use default encoding then
+			writer = new OutputStreamWriter(buffer);
+		}
+		int size = url.length();
 
+		for (int i = 0; i < size; i++) {
+			int current = (int) url.charAt(i);
+			// print non changed chars as normal
+			if ((current >= 'a' && current <= 'z')
+					|| (current >= 'A' && current <= 'Z')
+					|| (current >= '0' && current <= '9') || current == '.'
+					|| current == '_' || current == '-' || current == '*') {
+				result.append((char) current);
+			} else if (current == ' ') {
+				// space is a special case
+				result.append('+');
+			} else {
+				// try to write to the ByteArrayStream
+				try {
+					writer.write(current);
+					writer.flush();
+				} catch (IOException e) {
+					buffer.reset();
+					continue;
+				}
+				byte[] array = buffer.toByteArray();
+				for (int j = 0; j < array.length; j++) {
+					byte currentByte = array[j];
+					int low = (int) (currentByte & 0x0F);
+					int high = (int) ((currentByte & 0xF0) >> 4);
 
-    // encodes the string in URL format as indicated in RFC 1738
-    static String encodeURL(String url) {
-        int maxBytesPerChar = 10;
-        StringBuffer result = new StringBuffer();
-        ByteArrayOutputStream buffer = new ByteArrayOutputStream(maxBytesPerChar);
-        OutputStreamWriter writer = null;
-        // UTF-8 encoding is recommended by W3C
-        try {
-            writer = new OutputStreamWriter(buffer, "UTF-8");
-        }
-        catch (UnsupportedEncodingException e) {
-            // use default encoding then
-            writer = new OutputStreamWriter(buffer);
-        }
-        int size = url.length();
+					result.append('%');
+					result.append(hexdigits[high]);
+					result.append(hexdigits[low]);
+				}
+				buffer.reset();
+			}
+		}
+		return result.toString();
+	}
 
-        for (int i = 0; i < size; i++) {
-            int current = (int) url.charAt(i);
-            // print non changed chars as normal
-            if ((current >= 'a' && current <= 'z')
-                    || (current >= 'A' && current <= 'Z')
-                    || (current >= '0' && current <= '9')
-                    || current == '.' || current == '_' || current == '-' || current == '*') {
-                result.append((char) current);
-            } else if (current == ' ') {
-                // space is a special case
-                result.append('+');
-            } else {
-                // try to write to the ByteArrayStream
-                try {
-                    writer.write(current);
-                    writer.flush();
-                }
-                catch (IOException e) {
-                    buffer.reset();
-                    continue;
-                }
-                byte[] array = buffer.toByteArray();
-                for (int j = 0; j < array.length; j++) {
-                    byte currentByte = array[j];
-                    int low = (int) (currentByte & 0x0F);
-                    int high = (int) ((currentByte & 0xF0) >> 4);
+	// Each 3 chars of input is encoded as 4 chars of output from above
+	// 64-char alphabet. It's assumed that chars are 8-bit values.
+	// If length is multiple of 3, no problem.
+	// If length is multiple of 3 + 1, last output char is zero-completed
+	// and two '=' characters are appended.
+	// If length is multiple of 3 + 2, last output char is zero-completed
+	// and one '=' character is appended
+	public static String base64Encode(String str) {
+		StringBuffer buf = new StringBuffer((str.length() + 2) / 3 * 4);
+		int completeGroupChars = (str.length() / 3) * 3;
+		int extraChars = str.length() % 3;
 
-                    result.append('%');
-                    result.append(hexdigits[high]);
-                    result.append(hexdigits[low]);
-                }
-                buffer.reset();
-            }
-        }
-        return result.toString();
-    }
+		// first write complete groups of 3 chars
+		int i;
+		for (i = 0; i < completeGroupChars; i += 3) {
+			int group = ((((int) str.charAt(i)) & 0xFF) << 16)
+					| ((((int) str.charAt(i + 1)) & 0xFF) << 8)
+					| (((int) str.charAt(i + 2)) & 0xFF);
 
+			buf.append(alphabet[(group >> 18) & 63]);
+			buf.append(alphabet[(group >> 12) & 63]);
+			buf.append(alphabet[(group >> 6) & 63]);
+			buf.append(alphabet[group & 63]);
+		}
 
-    // Each 3 chars of input is encoded as 4 chars of output from above
-    // 64-char alphabet. It's assumed that chars are 8-bit values.
-    // If length is multiple of 3, no problem.
-    // If length is multiple of 3 + 1, last output char is zero-completed
-    // and two '=' characters are appended.
-    // If length is multiple of 3 + 2, last output char is zero-completed
-    // and one '=' character is appended
-    public static String base64Encode(String str) {
-        StringBuffer buf = new StringBuffer((str.length() + 2) / 3 * 4);
-        int completeGroupChars = (str.length() / 3) * 3;
-        int extraChars = str.length() % 3;
-
-        // first write complete groups of 3 chars
-        int i;
-        for (i = 0; i < completeGroupChars; i += 3) {
-            int group = ((((int) str.charAt(i)) & 0xFF) << 16) |
-                    ((((int) str.charAt(i + 1)) & 0xFF) << 8) |
-                    (((int) str.charAt(i + 2)) & 0xFF);
-
-            buf.append(alphabet[(group >> 18) & 63]);
-            buf.append(alphabet[(group >> 12) & 63]);
-            buf.append(alphabet[(group >> 6) & 63]);
-            buf.append(alphabet[group & 63]);
-        }
-
-        if (extraChars == 2) {
-            int group = ((((int) str.charAt(i)) & 0xFF) << 16) |
-                    ((((int) str.charAt(i + 1)) & 0xFF) << 8);
-            buf.append(alphabet[(group >> 18) & 63]);
-            buf.append(alphabet[(group >> 12) & 63]);
-            buf.append(alphabet[(group >> 6) & 63]);
-            buf.append('=');
-        } else if (extraChars == 1) {
-            int group = (((int) str.charAt(i)) & 0xFF) << 16;
-            buf.append(alphabet[(group >> 18) & 63]);
-            buf.append(alphabet[(group >> 12) & 63]);
-            buf.append('=');
-            buf.append('=');
-        }
-        return buf.toString();
-    }
+		if (extraChars == 2) {
+			int group = ((((int) str.charAt(i)) & 0xFF) << 16)
+					| ((((int) str.charAt(i + 1)) & 0xFF) << 8);
+			buf.append(alphabet[(group >> 18) & 63]);
+			buf.append(alphabet[(group >> 12) & 63]);
+			buf.append(alphabet[(group >> 6) & 63]);
+			buf.append('=');
+		} else if (extraChars == 1) {
+			int group = (((int) str.charAt(i)) & 0xFF) << 16;
+			buf.append(alphabet[(group >> 18) & 63]);
+			buf.append(alphabet[(group >> 12) & 63]);
+			buf.append('=');
+			buf.append('=');
+		}
+		return buf.toString();
+	}
 
 }
-

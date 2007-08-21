@@ -43,38 +43,38 @@ package org.javavietnam.gis.shared.midp.model;
  * @author khanhlnq
  */
 public class Credentials {
-    protected String credentials = null;
-    protected String username = null, password = null;
+	protected String credentials = null;
+	protected String username = null, password = null;
 
-    public Credentials() {
-    }
+	public Credentials() {
+	}
 
-    public Credentials(String credentials) {
-        this.credentials = credentials;
-    }
+	public Credentials(String credentials) {
+		this.credentials = credentials;
+	}
 
-    public String getCredentials() {
-        return credentials;
-    }
+	public String getCredentials() {
+		return credentials;
+	}
 
-    public void setCredentials(String credentials) {
-        this.credentials = credentials;
-    }
+	public void setCredentials(String credentials) {
+		this.credentials = credentials;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public String getUsername() {
-        return username;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
 }

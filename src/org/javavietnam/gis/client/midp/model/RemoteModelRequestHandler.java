@@ -91,104 +91,119 @@ import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
 import javax.microedition.lcdui.Image;
 import java.util.Vector;
 
-
 /**
  */
 abstract public class RemoteModelRequestHandler implements RequestHandler {
 
-    /**
-     * @link aggregation
-     */
-    private RemoteModelRequestHandler nextHandler;
-    private static ProgressObserver progressObserver;
+	/**
+	 * @link aggregation
+	 */
+	private RemoteModelRequestHandler nextHandler;
+	private static ProgressObserver progressObserver;
 
-    public RemoteModelRequestHandler(RemoteModelRequestHandler nextHandler) {
-        this.nextHandler = nextHandler;
-    }
+	public RemoteModelRequestHandler(RemoteModelRequestHandler nextHandler) {
+		this.nextHandler = nextHandler;
+	}
 
-    /**
-     * @return Returns the nextHandler.
-     * @uml.property name="nextHandler"
-     */
-    public RequestHandler getNextHandler() {
-        return nextHandler;
-    }
+	/**
+	 * @return Returns the nextHandler.
+	 * @uml.property name="nextHandler"
+	 */
+	public RequestHandler getNextHandler() {
+		return nextHandler;
+	}
 
-    public void init() throws ApplicationException {
-        if (nextHandler != null) {
-            nextHandler.init();
-        }
+	public void init() throws ApplicationException {
+		if (nextHandler != null) {
+			nextHandler.init();
+		}
 
-    }
+	}
 
-    public void destroy() throws ApplicationException {
-        if (nextHandler != null) {
-            nextHandler.destroy();
-        }
+	public void destroy() throws ApplicationException {
+		if (nextHandler != null) {
+			nextHandler.destroy();
+		}
 
-    }
+	}
 
-    /**
-     * @param progressObserver The progressObserver to set.
-     * @uml.property name="progressObserver"
-     */
-    public static void setProgressObserver(ProgressObserver progressObserver) {
-        RemoteModelRequestHandler.progressObserver = progressObserver;
-    }
+	/**
+	 * @param progressObserver
+	 *            The progressObserver to set.
+	 * @uml.property name="progressObserver"
+	 */
+	public static void setProgressObserver(ProgressObserver progressObserver) {
+		RemoteModelRequestHandler.progressObserver = progressObserver;
+	}
 
-    static void updateProgress() throws ApplicationException {
-        if (progressObserver != null) {
-            if (!progressObserver.isStopped()) {
-                progressObserver.updateProgress();
+	static void updateProgress() throws ApplicationException {
+		if (progressObserver != null) {
+			if (!progressObserver.isStopped()) {
+				progressObserver.updateProgress();
 
-                return;
-            }
+				return;
+			}
 
-            throw new ApplicationException(ErrorMessageCodes.ERROR_OPERATION_INTERRUPTED);
-        }
-    }
+			throw new ApplicationException(
+					ErrorMessageCodes.ERROR_OPERATION_INTERRUPTED);
+		}
+	}
 
-    private RemoteModelRequestHandler getRemoteModelRequestHandler() throws ApplicationException {
-        if (nextHandler != null) {
-            return nextHandler;
-        }
+	private RemoteModelRequestHandler getRemoteModelRequestHandler()
+			throws ApplicationException {
+		if (nextHandler != null) {
+			return nextHandler;
+		}
 
-        throw new ApplicationException(ErrorMessageCodes.ERROR_BROKEN_HANDLER_CHAIN);
-    }
+		throw new ApplicationException(
+				ErrorMessageCodes.ERROR_BROKEN_HANDLER_CHAIN);
+	}
 
-    public Image getMapWMS(WMSRequestParameter requestParam, Vector layerList) throws ModelException, ApplicationException {
-        return getRemoteModelRequestHandler().getMapWMS(requestParam, layerList);
-    }
+	public Image getMapWMS(WMSRequestParameter requestParam, Vector layerList)
+			throws ModelException, ApplicationException {
+		return getRemoteModelRequestHandler()
+				.getMapWMS(requestParam, layerList);
+	}
 
-    public String checkUpdate(String updateURL) throws ModelException, ApplicationException {
-        return getRemoteModelRequestHandler().checkUpdate(updateURL);
-    }
+	public String checkUpdate(String updateURL) throws ModelException,
+			ApplicationException {
+		return getRemoteModelRequestHandler().checkUpdate(updateURL);
+	}
 
-    /*public String findPathWMS(WMSRequestParameter requestParam) throws ModelException, ApplicationException {
-        return getRemoteModelRequestHandler().findPathWMS(requestParam);
-    }*/
+	/*
+	 * public String findPathWMS(WMSRequestParameter requestParam) throws
+	 * ModelException, ApplicationException { return
+	 * getRemoteModelRequestHandler().findPathWMS(requestParam); }
+	 */
 
-    public String searchFeature(SearchFeatureParameter searchParam) throws ModelException, ApplicationException {
-        return getRemoteModelRequestHandler().searchFeature(searchParam);
-    }
+	public String searchFeature(SearchFeatureParameter searchParam)
+			throws ModelException, ApplicationException {
+		return getRemoteModelRequestHandler().searchFeature(searchParam);
+	}
 
-    public String getFeatureInfo(WMSRequestParameter requestParam, Vector layerList, String infoLayer) throws ModelException, ApplicationException {
-        return getRemoteModelRequestHandler().getFeatureInfo(requestParam, layerList, infoLayer);
-    }
+	public String getFeatureInfo(WMSRequestParameter requestParam,
+			Vector layerList, String infoLayer) throws ModelException,
+			ApplicationException {
+		return getRemoteModelRequestHandler().getFeatureInfo(requestParam,
+				layerList, infoLayer);
+	}
 
-    /*public Image viewPathWMS(WMSRequestParameter requestParam) throws ModelException, ApplicationException {
-        return getRemoteModelRequestHandler().viewPathWMS(requestParam);
-    }*/
+	/*
+	 * public Image viewPathWMS(WMSRequestParameter requestParam) throws
+	 * ModelException, ApplicationException { return
+	 * getRemoteModelRequestHandler().viewPathWMS(requestParam); }
+	 */
 
-    public String getCapabilitiesWMS(String serviceURL) throws ModelException, ApplicationException {
-        return getRemoteModelRequestHandler().getCapabilitiesWMS(serviceURL);
-    }
+	public String getCapabilitiesWMS(String serviceURL) throws ModelException,
+			ApplicationException {
+		return getRemoteModelRequestHandler().getCapabilitiesWMS(serviceURL);
+	}
 
-    public String getWwwAuthenticate() throws ApplicationException {
-        return getRemoteModelRequestHandler().getWwwAuthenticate();
-    }
+	public String getWwwAuthenticate() throws ApplicationException {
+		return getRemoteModelRequestHandler().getWwwAuthenticate();
+	}
 
-    public void setCredentials(String credentials) throws ApplicationException {
-        getRemoteModelRequestHandler().setCredentials(credentials);
-    }
+	public void setCredentials(String credentials) throws ApplicationException {
+		getRemoteModelRequestHandler().setCredentials(credentials);
+	}
 }
