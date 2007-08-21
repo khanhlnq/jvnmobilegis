@@ -54,70 +54,70 @@ import org.javavietnam.gis.shared.midp.model.LayerInformation;
  */
 class LayerSelectUI extends Form implements CommandListener {
 
-	private UIController uiController;
-	private Command backCommand;
-	private Command confirmCommand;
-	private ChoiceGroup choiceLayer;
-	private ChoiceGroup choiceAskNextTime;
-	private boolean askNextTime = true;
+    private UIController uiController;
+    private Command backCommand;
+    private Command confirmCommand;
+    private ChoiceGroup choiceLayer;
+    private ChoiceGroup choiceAskNextTime;
+    private boolean askNextTime = true;
 
-	public LayerSelectUI(UIController uiController) {
-		super(uiController.getString(UIConstants.LAYER_SELECT_TITLE));
-		this.uiController = uiController;
-		String[] askNextTimeArr = new String[2];
-		askNextTimeArr[0] = uiController.getString(UIConstants.YES);
-		askNextTimeArr[1] = uiController.getString(UIConstants.NO);
-		choiceLayer = new ChoiceGroup(uiController
-				.getString(UIConstants.CHOOSE_LAYER_FOR_INFO),
-				ChoiceGroup.EXCLUSIVE);
-		choiceAskNextTime = new ChoiceGroup(uiController
-				.getString(UIConstants.ASK_NEXT_TIME), ChoiceGroup.EXCLUSIVE,
-				askNextTimeArr, null);
-		choiceAskNextTime.setSelectedIndex(0, true);
-		append(choiceLayer);
-		append(choiceAskNextTime);
+    public LayerSelectUI(UIController uiController) {
+        super(uiController.getString(UIConstants.LAYER_SELECT_TITLE));
+        this.uiController = uiController;
+        String[] askNextTimeArr = new String[2];
+        askNextTimeArr[0] = uiController.getString(UIConstants.YES);
+        askNextTimeArr[1] = uiController.getString(UIConstants.NO);
+        choiceLayer = new ChoiceGroup(uiController
+                .getString(UIConstants.CHOOSE_LAYER_FOR_INFO),
+                ChoiceGroup.EXCLUSIVE);
+        choiceAskNextTime = new ChoiceGroup(uiController
+                .getString(UIConstants.ASK_NEXT_TIME), ChoiceGroup.EXCLUSIVE,
+                askNextTimeArr, null);
+        choiceAskNextTime.setSelectedIndex(0, true);
+        append(choiceLayer);
+        append(choiceAskNextTime);
 
-		confirmCommand = new Command(uiController
-				.getString(UIConstants.CONFIRM), Command.OK, 0);
-		backCommand = new Command(uiController.getString(UIConstants.BACK),
-				Command.BACK, 5);
+        confirmCommand = new Command(uiController
+                .getString(UIConstants.CONFIRM), Command.OK, 0);
+        backCommand = new Command(uiController.getString(UIConstants.BACK),
+                Command.BACK, 5);
 
-		addCommand(confirmCommand);
-		addCommand(backCommand);
-		setCommandListener(this);
-	}
+        addCommand(confirmCommand);
+        addCommand(backCommand);
+        setCommandListener(this);
+    }
 
-	public void init(Vector layerList) {
-		choiceLayer.deleteAll();
-		for (int i = 0; i < layerList.size(); i++) {
-			choiceLayer.append(((LayerInformation) layerList.elementAt(i))
-					.getField("name"), null);
-		}
-		askNextTime = true;
-		// choiceAskNextTime.setSelectedIndex(0, true);
-	}
+    public void init(Vector layerList) {
+        choiceLayer.deleteAll();
+        for (int i = 0; i < layerList.size(); i++) {
+            choiceLayer.append(((LayerInformation) layerList.elementAt(i))
+                    .getField("name"), null);
+        }
+        askNextTime = true;
+        // choiceAskNextTime.setSelectedIndex(0, true);
+    }
 
-	public void commandAction(Command command, Displayable displayable) {
-		if (command == backCommand) {
-			uiController.viewMapRequested();
-		} else if (command == confirmCommand) {
-			askNextTime = (0 == choiceAskNextTime.getSelectedIndex());
-			uiController.getFeatureInfoRequested();
-		} else {
-			uiController.commandAction(command, displayable);
-		}
-	}
+    public void commandAction(Command command, Displayable displayable) {
+        if (command == backCommand) {
+            uiController.viewMapRequested();
+        } else if (command == confirmCommand) {
+            askNextTime = (0 == choiceAskNextTime.getSelectedIndex());
+            uiController.getFeatureInfoRequested();
+        } else {
+            uiController.commandAction(command, displayable);
+        }
+    }
 
-	/**
-	 * @return Returns the askNextTime.
-	 * @uml.property name="askNextTime"
-	 */
-	public boolean isAskNextTime() {
-		return askNextTime;
-	}
+    /**
+     * @return Returns the askNextTime.
+     * @uml.property name="askNextTime"
+     */
+    public boolean isAskNextTime() {
+        return askNextTime;
+    }
 
-	public String getInfoLayerName() {
-		return choiceLayer.getString(choiceLayer.getSelectedIndex());
-	}
+    public String getInfoLayerName() {
+        return choiceLayer.getString(choiceLayer.getSelectedIndex());
+    }
 
 }

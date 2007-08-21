@@ -81,89 +81,89 @@ import javax.microedition.lcdui.TextField;
 
 public class PromptDialog extends Form implements CommandListener {
 
-	private UIController uiController;
+    private UIController uiController;
 
-	private final StringItem instructItem;
-	private final TextField userField;
-	private final TextField passwordField;
-	private final Command okCommand;
-	private final Command cancelCommand;
-	private boolean wasCancelled;
+    private final StringItem instructItem;
+    private final TextField userField;
+    private final TextField passwordField;
+    private final Command okCommand;
+    private final Command cancelCommand;
+    private boolean wasCancelled;
 
-	public PromptDialog(UIController uiController) {
-		super("");
-		this.uiController = uiController;
+    public PromptDialog(UIController uiController) {
+        super("");
+        this.uiController = uiController;
 
-		instructItem = new StringItem(uiController
-				.getString(UIConstants.AUTH_REQUIRED), uiController
-				.getString(UIConstants.ENTER_LOGIN_INFO));
-		append(instructItem);
-		userField = new TextField(uiController.getString(UIConstants.USER), "",
-				16, TextField.ANY);
-		append(userField);
-		passwordField = new TextField(uiController
-				.getString(UIConstants.PASSWORD), "", 16, TextField.PASSWORD);
-		append(passwordField);
-		okCommand = new Command(uiController.getString(UIConstants.OK),
-				Command.OK, 2);
-		addCommand(okCommand);
-		cancelCommand = new Command(uiController.getString(UIConstants.CANCEL),
-				Command.CANCEL, 2);
-		addCommand(cancelCommand);
+        instructItem = new StringItem(uiController
+                .getString(UIConstants.AUTH_REQUIRED), uiController
+                .getString(UIConstants.ENTER_LOGIN_INFO));
+        append(instructItem);
+        userField = new TextField(uiController.getString(UIConstants.USER), "",
+                16, TextField.ANY);
+        append(userField);
+        passwordField = new TextField(uiController
+                .getString(UIConstants.PASSWORD), "", 16, TextField.PASSWORD);
+        append(passwordField);
+        okCommand = new Command(uiController.getString(UIConstants.OK),
+                Command.OK, 2);
+        addCommand(okCommand);
+        cancelCommand = new Command(uiController.getString(UIConstants.CANCEL),
+                Command.CANCEL, 2);
+        addCommand(cancelCommand);
 
-		setCommandListener(this);
-	}
+        setCommandListener(this);
+    }
 
-	// public void promptForInput(String realm) {
-	// this.setTitle(realm);
+    // public void promptForInput(String realm) {
+    // this.setTitle(realm);
 
-	// synchronized (this) {
-	// try {
-	// wait();
-	// // make caller wait on our monitor
-	// }
-	// catch (InterruptedException e) {
-	// // never thrown in MIDP
-	//
-	// }
-	// }
-	// }
+    // synchronized (this) {
+    // try {
+    // wait();
+    // // make caller wait on our monitor
+    // }
+    // catch (InterruptedException e) {
+    // // never thrown in MIDP
+    //
+    // }
+    // }
+    // }
 
-	public void commandAction(Command c, Displayable d) {
-		if (c == okCommand) {
-			wasCancelled = false;
-			uiController.calculateCredentials();
-			// synchronized (this) {
-			// notify();
-			// wake up caller
-			// }
-			// synchronized (this) {
-			// notify();
-			// wake up caller
-			// }
-		} else if (c == cancelCommand) {
-			wasCancelled = true;
-			uiController.mainMenuRequested();
-			// synchronized (this) {
-			// notify();
-			// wake up caller
-			// }
-		}
-	}
+    public void commandAction(Command c, Displayable d) {
+        if (c == okCommand) {
+            wasCancelled = false;
+            uiController.calculateCredentials();
+            // synchronized (this) {
+            // notify();
+            // wake up caller
+            // }
+            // synchronized (this) {
+            // notify();
+            // wake up caller
+            // }
+        } else if (c == cancelCommand) {
+            wasCancelled = true;
+            uiController.mainMenuRequested();
+            // synchronized (this) {
+            // notify();
+            // wake up caller
+            // }
+        }
+    }
 
-	public String getUsername() {
-		String username = null;
-		if (!wasCancelled) {
-			username = userField.getString().trim();
-		}
-		return username;
-	}
+    public String getUsername() {
+        String username = null;
+        if (!wasCancelled) {
+            username = userField.getString().trim();
+        }
+        return username;
+    }
 
-	public String getPassword() {
-		String password = null;
-		if (!wasCancelled) {
-			password = passwordField.getString().trim();
-		}
-		return password;
-	}
+    public String getPassword() {
+        String password = null;
+        if (!wasCancelled) {
+            password = passwordField.getString().trim();
+        }
+        return password;
+    }
 }

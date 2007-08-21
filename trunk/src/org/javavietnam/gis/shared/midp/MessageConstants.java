@@ -41,13 +41,13 @@ package org.javavietnam.gis.shared.midp;
 
 class MessageConstants {
 
-	public static final byte ERROR_NONE = 0;
-	public static final byte ERROR_UNKNOWN_OPERATION = 1;
-	public static final byte ERROR_SERVER_ERROR = 2;
-	public static final byte ERROR_MODEL_EXCEPTION = 3;
-	public static final byte ERROR_REQUEST_FORMAT = 4;
+    public static final byte ERROR_NONE = 0;
+    public static final byte ERROR_UNKNOWN_OPERATION = 1;
+    public static final byte ERROR_SERVER_ERROR = 2;
+    public static final byte ERROR_MODEL_EXCEPTION = 3;
+    public static final byte ERROR_REQUEST_FORMAT = 4;
 
-	private MessageConstants() {
-	}
+    private MessageConstants() {
+    }
 
 }

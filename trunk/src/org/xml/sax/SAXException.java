@@ -66,97 +66,97 @@ package org.xml.sax;
  */
 public class SAXException extends Exception {
 
-	/**
-	 * Create a new SAXException.
-	 * 
-	 * @param message
-	 *            The error or warning message.
-	 * @see org.xml.sax.Parser#setLocale
-	 */
-	public SAXException(String message) {
-		// Khanh edit
-		super();
-		this.message = message;
-		this.exception = null;
-	}
+    /**
+     * Create a new SAXException.
+     * 
+     * @param message
+     *            The error or warning message.
+     * @see org.xml.sax.Parser#setLocale
+     */
+    public SAXException(String message) {
+        // Khanh edit
+        super();
+        this.message = message;
+        this.exception = null;
+    }
 
-	/**
-	 * Create a new SAXException wrapping an existing exception. <p/> The
-	 * existing exception will be embedded in the new one, and its message will
-	 * become the default message for the SAXException.
-	 * </p>
-	 * 
-	 * @param e
-	 *            The exception to be wrapped in a SAXException.
-	 */
-	public SAXException(Exception e) {
-		super();
-		this.message = null;
-		this.exception = e;
-	}
+    /**
+     * Create a new SAXException wrapping an existing exception. <p/> The
+     * existing exception will be embedded in the new one, and its message will
+     * become the default message for the SAXException.
+     * </p>
+     * 
+     * @param e
+     *            The exception to be wrapped in a SAXException.
+     */
+    public SAXException(Exception e) {
+        super();
+        this.message = null;
+        this.exception = e;
+    }
 
-	/**
-	 * Create a new SAXException from an existing exception. <p/> The existing
-	 * exception will be embedded in the new one, but the new exception will
-	 * have its own message.
-	 * </p>
-	 * 
-	 * @param message
-	 *            The detail message.
-	 * @param e
-	 *            The exception to be wrapped in a SAXException.
-	 * @see org.xml.sax.Parser#setLocale
-	 */
-	public SAXException(String message, Exception e) {
-		super();
-		this.message = message;
-		this.exception = e;
-	}
+    /**
+     * Create a new SAXException from an existing exception. <p/> The existing
+     * exception will be embedded in the new one, but the new exception will
+     * have its own message.
+     * </p>
+     * 
+     * @param message
+     *            The detail message.
+     * @param e
+     *            The exception to be wrapped in a SAXException.
+     * @see org.xml.sax.Parser#setLocale
+     */
+    public SAXException(String message, Exception e) {
+        super();
+        this.message = message;
+        this.exception = e;
+    }
 
-	/**
-	 * Return a detail message for this exception.
-	 * <p>
-	 * If there is a embedded exception, and if the SAXException has no detail
-	 * message of its own, this method will return the detail message from the
-	 * embedded exception.
-	 * </p>
-	 * 
-	 * @return The error or warning message.
-	 * @uml.property name="message"
-	 * @see org.xml.sax.Parser#setLocale
-	 */
-	public String getMessage() {
-		if (message == null && exception != null) {
-			return exception.getMessage();
-		} else {
-			return this.message;
-		}
-	}
+    /**
+     * Return a detail message for this exception.
+     * <p>
+     * If there is a embedded exception, and if the SAXException has no detail
+     * message of its own, this method will return the detail message from the
+     * embedded exception.
+     * </p>
+     * 
+     * @return The error or warning message.
+     * @uml.property name="message"
+     * @see org.xml.sax.Parser#setLocale
+     */
+    public String getMessage() {
+        if (message == null && exception != null) {
+            return exception.getMessage();
+        } else {
+            return this.message;
+        }
+    }
 
-	/**
-	 * Return the embedded exception, if any.
-	 * 
-	 * @return The embedded exception, or null if there is none.
-	 * @uml.property name="exception"
-	 */
-	public Exception getException() {
-		return exception;
-	}
+    /**
+     * Return the embedded exception, if any.
+     * 
+     * @return The embedded exception, or null if there is none.
+     * @uml.property name="exception"
+     */
+    public Exception getException() {
+        return exception;
+    }
 
-	/**
-	 * Convert this exception to a string.
-	 * 
-	 * @return A string version of this exception.
-	 */
-	public String toString() {
-		return getMessage();
-	}
+    /**
+     * Convert this exception to a string.
+     * 
+     * @return A string version of this exception.
+     */
+    public String toString() {
+        return getMessage();
+    }
 
-	// ////////////////////////////////////////////////////////////////////
-	// Internal state.
-	// ////////////////////////////////////////////////////////////////////
+    // ////////////////////////////////////////////////////////////////////
+    // Internal state.
+    // ////////////////////////////////////////////////////////////////////
 
-	private String message;
-	private Exception exception;
+    private String message;
+    private Exception exception;
 
 }

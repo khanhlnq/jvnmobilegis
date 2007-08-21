@@ -46,14 +46,14 @@ import henson.midp.Float;
  */
 public interface SearchFeatureParameter {
 
-	public void initParam(Float[] latLonBoundingBox, String webGISURL);
+    public void initParam(Float[] latLonBoundingBox, String webGISURL);
 
-	public Float[] getBoundingBox();
+    public Float[] getBoundingBox();
 
-	public String getWebGISURL();
+    public String getWebGISURL();
 
-	public String getKeyWord();
+    public String getKeyWord();
 
-	public int getStart();
+    public int getStart();
 
 }

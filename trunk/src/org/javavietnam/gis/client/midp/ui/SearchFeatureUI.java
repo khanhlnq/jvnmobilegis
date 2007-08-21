@@ -53,97 +53,97 @@ import org.javavietnam.gis.shared.midp.model.SearchFeatureParameter;
  * @author khanhlnq
  */
 public class SearchFeatureUI extends Form implements CommandListener,
-		SearchFeatureParameter {
+        SearchFeatureParameter {
 
-	private UIController uiController;
-	private Command backCommand;
-	private Command searchCommand;
-	private TextField fWord;
-	private String webGISURL;
-	private int start = 0;
+    private UIController uiController;
+    private Command backCommand;
+    private Command searchCommand;
+    private TextField fWord;
+    private String webGISURL;
+    private int start = 0;
 
-	/**
-	 * @uml.property name="boundingBox"
-	 * @uml.associationEnd multiplicity="(0 -1)"
-	 */
-	private Float[] boundingBox = new Float[4];
+    /**
+     * @uml.property name="boundingBox"
+     * @uml.associationEnd multiplicity="(0 -1)"
+     */
+    private Float[] boundingBox = new Float[4];
 
-	/**
-	 * Creates a new instance of SearchUI
-	 * 
-	 * @param uiController
-	 */
-	public SearchFeatureUI(UIController uiController) {
-		super(uiController.getString(UIConstants.SEARCH_FEATURE_UI_TITLE));
-		this.uiController = uiController;
+    /**
+     * Creates a new instance of SearchUI
+     * 
+     * @param uiController
+     */
+    public SearchFeatureUI(UIController uiController) {
+        super(uiController.getString(UIConstants.SEARCH_FEATURE_UI_TITLE));
+        this.uiController = uiController;
 
-		fWord = new TextField(uiController.getString(UIConstants.KEYWORD), "",
-				50, TextField.ANY);
-		uiController.vietSign.addCommands(fWord);
-		append(fWord);
+        fWord = new TextField(uiController.getString(UIConstants.KEYWORD), "",
+                50, TextField.ANY);
+        uiController.vietSign.addCommands(fWord);
+        append(fWord);
 
-		searchCommand = new Command(uiController.getString(UIConstants.SEARCH),
-				Command.SCREEN, 0);
-		backCommand = new Command(uiController.getString(UIConstants.BACK),
-				Command.BACK, 5);
-		addCommand(searchCommand);
-		addCommand(backCommand);
-		setCommandListener(this);
-	}
+        searchCommand = new Command(uiController.getString(UIConstants.SEARCH),
+                Command.SCREEN, 0);
+        backCommand = new Command(uiController.getString(UIConstants.BACK),
+                Command.BACK, 5);
+        addCommand(searchCommand);
+        addCommand(backCommand);
+        setCommandListener(this);
+    }
 
-	public void initParam(Float[] latLonBoundingBox, String webGISURL) {
-		System.arraycopy(latLonBoundingBox, 0, boundingBox, 0, 4);
-		this.webGISURL = webGISURL;
-		fWord.setString("");
-		start = 0;
-	}
+    public void initParam(Float[] latLonBoundingBox, String webGISURL) {
+        System.arraycopy(latLonBoundingBox, 0, boundingBox, 0, 4);
+        this.webGISURL = webGISURL;
+        fWord.setString("");
+        start = 0;
+    }
 
-	public String getKeyWord() {
-		return fWord.getString();
-	}
+    public String getKeyWord() {
+        return fWord.getString();
+    }
 
-	public void commandAction(Command command, Displayable displayable) {
-		if (command == backCommand) {
-			uiController.viewMapRequested();
-		} else if (command == searchCommand) {
-			start = 0;
-			uiController.searchFeatureRequested();
-		} else {
-			uiController.commandAction(command, displayable);
-		}
-	}
+    public void commandAction(Command command, Displayable displayable) {
+        if (command == backCommand) {
+            uiController.viewMapRequested();
+        } else if (command == searchCommand) {
+            start = 0;
+            uiController.searchFeatureRequested();
+        } else {
+            uiController.commandAction(command, displayable);
+        }
+    }
 
-	/**
-	 * @return the boundingBox
-	 * @uml.property name="boundingBox"
-	 */
-	public Float[] getBoundingBox() {
-		return boundingBox;
-	}
+    /**
+     * @return the boundingBox
+     * @uml.property name="boundingBox"
+     */
+    public Float[] getBoundingBox() {
+        return boundingBox;
+    }
 
-	/**
-	 * @return the webGISURL
-	 * @uml.property name="webGISURL"
-	 */
-	public String getWebGISURL() {
-		return webGISURL;
-	}
+    /**
+     * @return the webGISURL
+     * @uml.property name="webGISURL"
+     */
+    public String getWebGISURL() {
+        return webGISURL;
+    }
 
-	/**
-	 * @return the start
-	 * @uml.property name="start"
-	 */
-	public int getStart() {
-		return start;
-	}
+    /**
+     * @return the start
+     * @uml.property name="start"
+     */
+    public int getStart() {
+        return start;
+    }
 
-	/**
-	 * @param start
-	 *            the start to set
-	 * @uml.property name="start"
-	 */
-	public void setStart(int start) {
-		this.start = start;
-	}
+    /**
+     * @param start
+     *            the start to set
+     * @uml.property name="start"
+     */
+    public void setStart(int start) {
+        this.start = start;
+    }
 
 }

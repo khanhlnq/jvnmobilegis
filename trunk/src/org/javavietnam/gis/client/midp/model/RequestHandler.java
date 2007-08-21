@@ -86,9 +86,9 @@ import org.javavietnam.gis.shared.midp.ApplicationException;
 
 public interface RequestHandler {
 
-	RequestHandler getNextHandler();
+    RequestHandler getNextHandler();
 
-	void init() throws ApplicationException;
+    void init() throws ApplicationException;
 
-	void destroy() throws ApplicationException;
+    void destroy() throws ApplicationException;
 }

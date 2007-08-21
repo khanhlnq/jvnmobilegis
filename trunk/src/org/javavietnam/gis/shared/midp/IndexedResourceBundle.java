@@ -50,129 +50,129 @@ import java.util.Vector;
  */
 public class IndexedResourceBundle {
 
-	// private static IndexedResourceBundle instance = null;
-	private String locale;
-	private String[] resources;
+    // private static IndexedResourceBundle instance = null;
+    private String locale;
+    private String[] resources;
 
-	private IndexedResourceBundle(String locale, String[] resources) {
-		this.locale = locale;
-		this.resources = resources;
+    private IndexedResourceBundle(String locale, String[] resources) {
+        this.locale = locale;
+        this.resources = resources;
 
-	}
+    }
 
-	public String getString(int resourceId) {
-		return (resourceId >= 0 && resourceId < resources.length) ? resources[resourceId]
-				: null;
-	}
+    public String getString(int resourceId) {
+        return (resourceId >= 0 && resourceId < resources.length) ? resources[resourceId]
+                : null;
+    }
 
-	/**
-	 * @return Returns the locale.
-	 * @uml.property name="locale"
-	 */
-	public String getLocale() {
-		return locale;
-	}
+    /**
+     * @return Returns the locale.
+     * @uml.property name="locale"
+     */
+    public String getLocale() {
+        return locale;
+    }
 
-	public int size() {
-		return resources.length;
-	}
+    public int size() {
+        return resources.length;
+    }
 
-	public void serialize(DataOutputStream out) throws ApplicationException {
-		try {
-			out.writeUTF(locale);
-			out.writeInt(resources.length);
+    public void serialize(DataOutputStream out) throws ApplicationException {
+        try {
+            out.writeUTF(locale);
+            out.writeInt(resources.length);
 
-			for (int i = 0; i != resources.length; i++) {
-				out.writeUTF(resources[i]);
-			}
-		} catch (IOException ioe) {
-			throw new ApplicationException(ioe);
-		}
-	}
+            for (int i = 0; i != resources.length; i++) {
+                out.writeUTF(resources[i]);
+            }
+        } catch (IOException ioe) {
+            throw new ApplicationException(ioe);
+        }
+    }
 
-	public static IndexedResourceBundle deserialize(DataInputStream in)
-			throws ApplicationException {
-		try {
-			String locale = in.readUTF();
-			String[] resources = new String[in.readInt()];
+    public static IndexedResourceBundle deserialize(DataInputStream in)
+            throws ApplicationException {
+        try {
+            String locale = in.readUTF();
+            String[] resources = new String[in.readInt()];
 
-			for (int i = 0; i != resources.length; i++) {
-				resources[i] = in.readUTF();
-			}
+            for (int i = 0; i != resources.length; i++) {
+                resources[i] = in.readUTF();
+            }
 
-			return new IndexedResourceBundle(locale, resources);
-		} catch (IOException ioe) {
-			throw new ApplicationException(ioe);
-		}
-	}
+            return new IndexedResourceBundle(locale, resources);
+        } catch (IOException ioe) {
+            throw new ApplicationException(ioe);
+        }
+    }
 
-	public static IndexedResourceBundle getBundleFromPropertyFile(
-			String locale, InputStream in) throws IOException {
-		Vector resourcesVector = new Vector();
-		ByteArrayOutputStream out = null;
+    public static IndexedResourceBundle getBundleFromPropertyFile(
+            String locale, InputStream in) throws IOException {
+        Vector resourcesVector = new Vector();
+        ByteArrayOutputStream out = null;
 
-		try {
-			out = new ByteArrayOutputStream();
+        try {
+            out = new ByteArrayOutputStream();
 
-			int c;
-			int index = 0;
+            int c;
+            int index = 0;
 
-			while ((c = in.read()) != -1) {
-				if (c == '\n' || c == '\r') {
-					byte[] bytes = out.toByteArray();
-					String s = new String(bytes, "UTF-8");
-					int i = s.indexOf('=');
+            while ((c = in.read()) != -1) {
+                if (c == '\n' || c == '\r') {
+                    byte[] bytes = out.toByteArray();
+                    String s = new String(bytes, "UTF-8");
+                    int i = s.indexOf('=');
 
-					if (i != -1) {
-						if (s.substring(0, i).equals(String.valueOf(index))) {
-							resourcesVector.addElement(s.substring(i + 1));
+                    if (i != -1) {
+                        if (s.substring(0, i).equals(String.valueOf(index))) {
+                            resourcesVector.addElement(s.substring(i + 1));
 
-							index++;
-						} else {
-							// FIXME - Throw an exception.
-						}
-					}
+                            index++;
+                        } else {
+                            // FIXME - Throw an exception.
+                        }
+                    }
 
-					out.reset();
-				}
-				// ^ is new line symbol
-				else if (c == '^') {
-					out.write('\n');
-				} else {
-					out.write(c);
-				}
-			}
-		} finally {
-			if (out != null) {
-				out.close();
-			}
+                    out.reset();
+                }
+                // ^ is new line symbol
+                else if (c == '^') {
+                    out.write('\n');
+                } else {
+                    out.write(c);
+                }
+            }
+        } finally {
+            if (out != null) {
+                out.close();
+            }
 
-			if (in != null) {
-				in.close();
-			}
-		}
+            if (in != null) {
+                in.close();
+            }
+        }
 
-		String[] resources = new String[resourcesVector.size()];
+        String[] resources = new String[resourcesVector.size()];
 
-		resourcesVector.copyInto(resources);
+        resourcesVector.copyInto(resources);
 
-		return new IndexedResourceBundle(locale, resources);
-	}
+        return new IndexedResourceBundle(locale, resources);
+    }
 
-	public String toString() {
-		StringBuffer buffer = new StringBuffer();
+    public String toString() {
+        StringBuffer buffer = new StringBuffer();
 
-		buffer.append("Contents of resource bundle: ").append(locale).append(
-				"\n");
+        buffer.append("Contents of resource bundle: ").append(locale).append(
+                "\n");
 
-		for (int i = 0; i != resources.length; i++) {
-			buffer.append(i);
-			buffer.append('=');
-			buffer.append(resources[i]);
-			buffer.append('\n');
-		}
+        for (int i = 0; i != resources.length; i++) {
+            buffer.append(i);
+            buffer.append('=');
+            buffer.append(resources[i]);
+            buffer.append('\n');
+        }
 
-		return buffer.toString();
-	}
+        return buffer.toString();
+    }
 
 }
