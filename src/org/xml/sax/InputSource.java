@@ -158,7 +158,6 @@ public class InputSource {
      * 
      * @param publicId
      *            The public identifier as a string.
-     * @uml.property name="publicId"
      * @see #getPublicId
      * @see org.xml.sax.Locator#getPublicId
      * @see org.xml.sax.SAXParseException#getPublicId
@@ -171,7 +170,6 @@ public class InputSource {
      * Get the public identifier for this input source.
      * 
      * @return The public identifier, or null if none was supplied.
-     * @uml.property name="publicId"
      * @see #setPublicId
      */
     public String getPublicId() {
@@ -199,7 +197,6 @@ public class InputSource {
      * 
      * @param systemId
      *            The system identifier as a string.
-     * @uml.property name="systemId"
      * @see #setEncoding
      * @see #getSystemId
      * @see org.xml.sax.Locator#getSystemId
@@ -220,7 +217,6 @@ public class InputSource {
      * </p>
      * 
      * @return The system identifier.
-     * @uml.property name="systemId"
      * @see #setSystemId
      * @see #getEncoding
      */
@@ -242,7 +238,6 @@ public class InputSource {
      * 
      * @param byteStream
      *            A byte stream containing an XML document or other entity.
-     * @uml.property name="byteStream"
      * @see #setEncoding
      * @see #getByteStream
      * @see #getEncoding
@@ -260,7 +255,6 @@ public class InputSource {
      * </p>
      * 
      * @return The byte stream, or null if none was supplied.
-     * @uml.property name="byteStream"
      * @see #getEncoding
      * @see #setByteStream
      */
@@ -281,7 +275,6 @@ public class InputSource {
      * 
      * @param encoding
      *            A string describing the character encoding.
-     * @uml.property name="encoding"
      * @see #setSystemId
      * @see #setByteStream
      * @see #getEncoding
@@ -294,7 +287,6 @@ public class InputSource {
      * Get the character encoding for a byte stream or URI.
      * 
      * @return The encoding, or null if none was supplied.
-     * @uml.property name="encoding"
      * @see #setByteStream
      * @see #getSystemId
      * @see #getByteStream
@@ -314,7 +306,6 @@ public class InputSource {
      * @param characterStream
      *            The character stream containing the XML document or other
      *            entity.
-     * @uml.property name="characterStream"
      * @see #getCharacterStream
      * @see java.io.Reader
      */
@@ -326,7 +317,6 @@ public class InputSource {
      * Get the character stream for this input source.
      * 
      * @return The character stream, or null if none was supplied.
-     * @uml.property name="characterStream"
      * @see #setCharacterStream
      */
     public Reader getCharacterStream() {
@@ -337,10 +327,20 @@ public class InputSource {
     // Internal state.
     // ////////////////////////////////////////////////////////////////////
 
+    /**
+     */
     private String publicId;
+    /**
+     */
     private String systemId;
+    /**
+     */
     private InputStream byteStream;
+    /**
+     */
     private String encoding = "UTF-8";
+    /**
+     */
     private Reader characterStream;
 
 }

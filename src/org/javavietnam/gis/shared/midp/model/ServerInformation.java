@@ -46,14 +46,19 @@ import java.util.Vector;
  */
 public class ServerInformation extends Vector {
 
+    /**
+     */
     private String name;
+    /**
+     */
     private Vector getMapFormats = new Vector();
+    /**
+     */
     private String getMapURL;
 
     /**
      * @param name
      *            The name to set.
-     * @uml.property name="name"
      */
     public void setName(String name) {
         this.name = name;
@@ -63,7 +68,6 @@ public class ServerInformation extends Vector {
      * Setzt die URL des WMS, an die eine GetMap-Anfrage gestellt werden kann
      * 
      * @param url
-     * @uml.property name="getMapURL"
      */
     public void setGetMapURL(String url) {
         this.getMapURL = url;
@@ -73,7 +77,6 @@ public class ServerInformation extends Vector {
      * Liefert die URL des WMS, an die eine GetMap-Anfrage gestellt werden kann
      * 
      * @return
-     * @uml.property name="getMapURL"
      */
     public String getGetMapURL() {
         return this.getMapURL;
@@ -88,7 +91,6 @@ public class ServerInformation extends Vector {
      * eine Map liefern kann
      * 
      * @return
-     * @uml.property name="getMapFormats"
      */
     public Vector getGetMapFormats() {
         return this.getMapFormats;
@@ -108,7 +110,6 @@ public class ServerInformation extends Vector {
      * Liefert den Namen des Servers
      * 
      * @return
-     * @uml.property name="name"
      */
     public String getName() {
         return name;

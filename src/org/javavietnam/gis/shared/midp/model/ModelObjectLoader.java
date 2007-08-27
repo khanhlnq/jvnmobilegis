@@ -83,6 +83,7 @@
 package org.javavietnam.gis.shared.midp.model;
 
 /**
+ * @author khanhlnq
  */
 public abstract class ModelObjectLoader {
 
@@ -95,7 +96,6 @@ public abstract class ModelObjectLoader {
 
     /**
      * @return Returns the instance.
-     * @uml.property name="instance"
      */
     public static ModelObjectLoader getInstance() {
         return instance;

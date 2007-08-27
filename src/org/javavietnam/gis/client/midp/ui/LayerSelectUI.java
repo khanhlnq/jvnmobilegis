@@ -41,6 +41,7 @@ package org.javavietnam.gis.client.midp.ui;
 
 import java.util.Vector;
 
+import javax.microedition.lcdui.Choice;
 import javax.microedition.lcdui.ChoiceGroup;
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.CommandListener;
@@ -59,6 +60,8 @@ class LayerSelectUI extends Form implements CommandListener {
     private Command confirmCommand;
     private ChoiceGroup choiceLayer;
     private ChoiceGroup choiceAskNextTime;
+    /**
+     */
     private boolean askNextTime = true;
 
     public LayerSelectUI(UIController uiController) {
@@ -69,9 +72,9 @@ class LayerSelectUI extends Form implements CommandListener {
         askNextTimeArr[1] = uiController.getString(UIConstants.NO);
         choiceLayer = new ChoiceGroup(uiController
                 .getString(UIConstants.CHOOSE_LAYER_FOR_INFO),
-                ChoiceGroup.EXCLUSIVE);
+                Choice.EXCLUSIVE);
         choiceAskNextTime = new ChoiceGroup(uiController
-                .getString(UIConstants.ASK_NEXT_TIME), ChoiceGroup.EXCLUSIVE,
+                .getString(UIConstants.ASK_NEXT_TIME), Choice.EXCLUSIVE,
                 askNextTimeArr, null);
         choiceAskNextTime.setSelectedIndex(0, true);
         append(choiceLayer);
@@ -110,7 +113,6 @@ class LayerSelectUI extends Form implements CommandListener {
 
     /**
      * @return Returns the askNextTime.
-     * @uml.property name="askNextTime"
      */
     public boolean isAskNextTime() {
         return askNextTime;

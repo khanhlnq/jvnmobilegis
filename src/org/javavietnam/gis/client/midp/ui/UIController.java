@@ -107,6 +107,7 @@ import org.javavietnam.gis.shared.midp.model.SearchFeatureParameter;
 import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
 
 /**
+ * @author khanhlnq
  */
 public class UIController {
 
@@ -128,6 +129,8 @@ public class UIController {
 
     private static final String[] iconPaths = { "/icons/JVNMobileGIS.png" };
     private MIDlet midlet;
+    /**
+     */
     private Display display;
     private IndexedResourceBundle resourceBundle;
     private ModelFacade model;
@@ -164,7 +167,6 @@ public class UIController {
 
     /**
      * @return Returns the display.
-     * @uml.property name="display"
      */
     private Display getDisplay() {
         return display;
@@ -180,7 +182,6 @@ public class UIController {
 
     /**
      * @return the model
-     * @uml.property name="model"
      */
     public ModelFacade getModel() {
         return model;
@@ -722,6 +723,9 @@ public class UIController {
         return model.getCapabilitiesWMS(serverURL);
     }
 
+    /**
+     * @return
+     */
     public Credentials getCredentials() {
         return credentials;
     }

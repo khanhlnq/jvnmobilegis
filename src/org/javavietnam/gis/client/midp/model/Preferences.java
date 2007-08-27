@@ -89,11 +89,16 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 /**
+ * @author khanhlnq
  */
 public class Preferences {
 
     private String locale = "";
+    /**
+     */
     private String wmsServerURL = "";
+    /**
+     */
     private String webGISURL = "";
 
     // private String findPathLayer = "";
@@ -148,7 +153,6 @@ public class Preferences {
 
     /**
      * @return the wmsServerURL
-     * @uml.property name="wmsServerURL"
      */
     public String getWmsServerURL() {
         return wmsServerURL;
@@ -157,7 +161,6 @@ public class Preferences {
     /**
      * @param wmsServerURL
      *            the wmsServerURL to set
-     * @uml.property name="wmsServerURL"
      */
     public void setWmsServerURL(String wmsServerURL) {
         this.wmsServerURL = wmsServerURL;
@@ -165,7 +168,6 @@ public class Preferences {
 
     /**
      * @return the webGISURL
-     * @uml.property name="webGISURL"
      */
     public String getWebGISURL() {
         return webGISURL;
@@ -174,7 +176,6 @@ public class Preferences {
     /**
      * @param webGISURL
      *            the webGISURL to set
-     * @uml.property name="webGISURL"
      */
     public void setWebGISURL(String webGISURL) {
         this.webGISURL = webGISURL;

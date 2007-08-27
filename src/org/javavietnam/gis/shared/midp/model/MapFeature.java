@@ -46,9 +46,13 @@ import henson.midp.Float;
  */
 public class MapFeature {
 
+    /**
+     */
     private String id;
     private Float x;
     private Float y;
+    /**
+     */
     private String name;
 
     /**
@@ -60,7 +64,6 @@ public class MapFeature {
 
     /**
      * @return the id
-     * @uml.property name="id"
      */
     public String getId() {
         return id;
@@ -69,7 +72,6 @@ public class MapFeature {
     /**
      * @param id
      *            the id to set
-     * @uml.property name="id"
      */
     public void setId(String id) {
         this.id = id;
@@ -77,7 +79,6 @@ public class MapFeature {
 
     /**
      * @return the x
-     * @uml.property name="x"
      */
     public Float getX() {
         return x;
@@ -86,7 +87,6 @@ public class MapFeature {
     /**
      * @param x
      *            the x to set
-     * @uml.property name="x"
      */
     public void setX(Float x) {
         this.x = x;
@@ -94,7 +94,6 @@ public class MapFeature {
 
     /**
      * @return the y
-     * @uml.property name="y"
      */
     public Float getY() {
         return y;
@@ -103,7 +102,6 @@ public class MapFeature {
     /**
      * @param y
      *            the y to set
-     * @uml.property name="y"
      */
     public void setY(Float y) {
         this.y = y;
@@ -111,7 +109,6 @@ public class MapFeature {
 
     /**
      * @return the name
-     * @uml.property name="name"
      */
     public String getName() {
         return name;
@@ -120,7 +117,6 @@ public class MapFeature {
     /**
      * @param name
      *            the name to set
-     * @uml.property name="name"
      */
     public void setName(String name) {
         this.name = name;

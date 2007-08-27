@@ -89,10 +89,13 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 /**
+ * @author khanhlnq
  */
 public class ModelException extends Exception {
 
     private static final byte CAUSE_GENERAL = 0;
+    /**
+     */
     private int causeCode = CAUSE_GENERAL;
 
     private ModelException(int causeCode) {
@@ -102,7 +105,6 @@ public class ModelException extends Exception {
 
     /**
      * @return Returns the causeCode.
-     * @uml.property name="causeCode"
      */
     public int getCauseCode() {
         return causeCode;

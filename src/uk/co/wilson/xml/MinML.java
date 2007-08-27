@@ -88,6 +88,7 @@ import uk.org.xml.sax.DocumentHandler;
 import uk.org.xml.sax.Parser;
 
 /**
+ * @author khanhlnq
  */
 public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
 
@@ -570,7 +571,6 @@ public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
     /**
      * @param handler
      *            the documentHandler to set
-     * @uml.property name="documentHandler"
      */
     public void setDocumentHandler(final org.xml.sax.DocumentHandler handler) {
         this.documentHandler = (handler == null) ? this : handler;
@@ -590,7 +590,6 @@ public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
     /**
      * @param handler
      *            The errorHandler to set.
-     * @uml.property name="errorHandler"
      */
     public void setErrorHandler(final ErrorHandler handler) {
         this.errorHandler = (handler == null) ? this : handler;
@@ -656,7 +655,6 @@ public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
 
     /**
      * @return Returns the lineNumber.
-     * @uml.property name="lineNumber"
      */
     public int getLineNumber() {
         return this.lineNumber;
@@ -664,7 +662,6 @@ public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
 
     /**
      * @return Returns the columnNumber.
-     * @uml.property name="columnNumber"
      */
     public int getColumnNumber() {
         return this.columnNumber;
@@ -677,6 +674,7 @@ public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
     }
 
     /**
+     * @author khanhlnq
      */
     private class MinMLBuffer extends Writer {
 
@@ -725,7 +723,6 @@ public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
 
         /**
          * @return Returns the writer.
-         * @uml.property name="writer"
          */
         public Writer getWriter() {
             return writer;
@@ -802,6 +799,8 @@ public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
         private char[] chars = new char[MinML.this.initialBufferSize];
         private final Reader in;
         private int count = 0;
+        /**
+         */
         private Writer writer = this;
         private boolean flushed = false;
         private boolean written = false;
@@ -811,7 +810,11 @@ public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
     private org.xml.sax.DocumentHandler documentHandler = this;
     private ErrorHandler errorHandler = this;
     private final Stack tags = new Stack();
+    /**
+     */
     private int lineNumber = 1;
+    /**
+     */
     private int columnNumber = 0;
     private final int initialBufferSize;
     private final int bufferIncrement;

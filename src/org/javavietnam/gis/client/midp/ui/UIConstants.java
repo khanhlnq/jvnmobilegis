@@ -42,6 +42,7 @@ package org.javavietnam.gis.client.midp.ui;
 import henson.midp.Float;
 
 /**
+ * @author khanhlnq
  */
 final class UIConstants {
 
@@ -51,7 +52,7 @@ final class UIConstants {
     // Unit of these values is pixel
     // Scale = 20%
     public static final Float SCALE = new Float(20).Div(new Float(100));
-    public static final Float BEST_SCALE = new Float((long) 30000);
+    public static final Float BEST_SCALE = new Float(30000);
     public static final int CURSOR_MOVEMENT = 5;
 
     public static final byte ICON_IDX_SPLASH = 0;

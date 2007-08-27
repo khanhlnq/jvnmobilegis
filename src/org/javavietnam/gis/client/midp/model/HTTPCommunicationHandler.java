@@ -99,9 +99,14 @@ import java.io.UnsupportedEncodingException;
 import java.util.Vector;
 import javax.microedition.pki.CertificateException;
 
+/**
+ * @author khanhlnq
+ */
 public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 
     // store the last valid credentials
+    /**
+     */
     private String wwwAuthenticate = null;
     private String credentials = null;
 
@@ -652,10 +657,16 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         }
     }
 
+    /**
+     * @return
+     */
     public String getWwwAuthenticate() {
         return wwwAuthenticate;
     }
 
+    /**
+     * @param credentials
+     */
     public void setCredentials(String credentials) {
         this.credentials = credentials;
     }

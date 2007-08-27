@@ -52,6 +52,9 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Vector;
 
+/**
+ * @author khanhlnq
+ */
 public class SearchFeatureResultParser extends MinML {
 
     private InputStream inputStream;
@@ -62,6 +65,8 @@ public class SearchFeatureResultParser extends MinML {
 
     private boolean bookmarkIsParent;
 
+    /**
+     */
     private int numResult = 0;
 
     private StringBuffer thisText = new StringBuffer();
@@ -170,7 +175,6 @@ public class SearchFeatureResultParser extends MinML {
 
     /**
      * @return Returns the notice.
-     * @uml.property name="numResult"
      */
     public int getNumResult() {
         return numResult;

@@ -90,6 +90,7 @@ import org.javavietnam.gis.shared.midp.ApplicationException;
 import javax.microedition.midlet.MIDlet;
 
 /**
+ * @author khanhlnq
  */
 public class JVNMobileGISMIDlet extends MIDlet {
 

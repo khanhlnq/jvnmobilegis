@@ -102,8 +102,8 @@ public class HttpUtils {
         for (int c = '0', i = 52; c <= '9'; c++, i++) {
             alphabet[i] = (char) c;
         }
-        alphabet[62] = (char) '+';
-        alphabet[63] = (char) '/';
+        alphabet[62] = '+';
+        alphabet[63] = '/';
     }
 
     private HttpUtils() {
@@ -126,7 +126,7 @@ public class HttpUtils {
         int size = url.length();
 
         for (int i = 0; i < size; i++) {
-            int current = (int) url.charAt(i);
+            int current = url.charAt(i);
             // print non changed chars as normal
             if ((current >= 'a' && current <= 'z')
                     || (current >= 'A' && current <= 'Z')
@@ -148,8 +148,8 @@ public class HttpUtils {
                 byte[] array = buffer.toByteArray();
                 for (int j = 0; j < array.length; j++) {
                     byte currentByte = array[j];
-                    int low = (int) (currentByte & 0x0F);
-                    int high = (int) ((currentByte & 0xF0) >> 4);
+                    int low = (currentByte & 0x0F);
+                    int high = ((currentByte & 0xF0) >> 4);
 
                     result.append('%');
                     result.append(hexdigits[high]);
@@ -176,9 +176,9 @@ public class HttpUtils {
         // first write complete groups of 3 chars
         int i;
         for (i = 0; i < completeGroupChars; i += 3) {
-            int group = ((((int) str.charAt(i)) & 0xFF) << 16)
-                    | ((((int) str.charAt(i + 1)) & 0xFF) << 8)
-                    | (((int) str.charAt(i + 2)) & 0xFF);
+            int group = (((str.charAt(i)) & 0xFF) << 16)
+                    | (((str.charAt(i + 1)) & 0xFF) << 8)
+                    | ((str.charAt(i + 2)) & 0xFF);
 
             buf.append(alphabet[(group >> 18) & 63]);
             buf.append(alphabet[(group >> 12) & 63]);
@@ -187,14 +187,14 @@ public class HttpUtils {
         }
 
         if (extraChars == 2) {
-            int group = ((((int) str.charAt(i)) & 0xFF) << 16)
-                    | ((((int) str.charAt(i + 1)) & 0xFF) << 8);
+            int group = (((str.charAt(i)) & 0xFF) << 16)
+                    | (((str.charAt(i + 1)) & 0xFF) << 8);
             buf.append(alphabet[(group >> 18) & 63]);
             buf.append(alphabet[(group >> 12) & 63]);
             buf.append(alphabet[(group >> 6) & 63]);
             buf.append('=');
         } else if (extraChars == 1) {
-            int group = (((int) str.charAt(i)) & 0xFF) << 16;
+            int group = ((str.charAt(i)) & 0xFF) << 16;
             buf.append(alphabet[(group >> 18) & 63]);
             buf.append(alphabet[(group >> 12) & 63]);
             buf.append('=');
