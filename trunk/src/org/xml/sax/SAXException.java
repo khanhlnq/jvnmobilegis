@@ -122,7 +122,6 @@ public class SAXException extends Exception {
      * </p>
      * 
      * @return The error or warning message.
-     * @uml.property name="message"
      * @see org.xml.sax.Parser#setLocale
      */
     public String getMessage() {
@@ -137,7 +136,6 @@ public class SAXException extends Exception {
      * Return the embedded exception, if any.
      * 
      * @return The embedded exception, or null if there is none.
-     * @uml.property name="exception"
      */
     public Exception getException() {
         return exception;
@@ -156,7 +154,11 @@ public class SAXException extends Exception {
     // Internal state.
     // ////////////////////////////////////////////////////////////////////
 
+    /**
+     */
     private String message;
+    /**
+     */
     private Exception exception;
 
 }

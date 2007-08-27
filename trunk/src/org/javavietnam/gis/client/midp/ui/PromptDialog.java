@@ -79,6 +79,9 @@ import javax.microedition.lcdui.Form;
 import javax.microedition.lcdui.StringItem;
 import javax.microedition.lcdui.TextField;
 
+/**
+ * @author khanhlnq
+ */
 public class PromptDialog extends Form implements CommandListener {
 
     private UIController uiController;

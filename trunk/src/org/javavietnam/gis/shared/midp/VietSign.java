@@ -41,6 +41,7 @@ package org.javavietnam.gis.shared.midp;
 
 import javax.microedition.lcdui.Alert;
 import javax.microedition.lcdui.AlertType;
+import javax.microedition.lcdui.Choice;
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.CommandListener;
 import javax.microedition.lcdui.Display;
@@ -111,7 +112,7 @@ public class VietSign implements CommandListener, ItemCommandListener {
     private void initList(String signString) {
         listSign = null;
         listSign = new List("B\u1ecf d\u1ea5u ti\u1ebfng Vi\u1ec7t",
-                List.IMPLICIT);
+                Choice.IMPLICIT);
         listSign
                 .setTicker(new Ticker(
                         "B\u1ea1n h\u00e3y ch\u1ecdn k\u00fd t\u1ef1 c\u00f3 d\u1ea5u ph\u00f9 h\u1ee3p"));

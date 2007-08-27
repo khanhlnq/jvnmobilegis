@@ -89,6 +89,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 /**
+ * @author khanhlnq
  */
 public class IndexEntry {
 
@@ -97,11 +98,23 @@ public class IndexEntry {
     public static final int MODE_ANY = -1;
     public static final int MODE_PERSISTING = 0;
     private static final int MODE_CACHING = 1;
+    /**
+     */
     private int type;
+    /**
+     */
     private String key;
+    /**
+     */
     private long expirationDate;
+    /**
+     */
     private boolean marked;
+    /**
+     */
     private int recordId;
+    /**
+     */
     private int mode = MODE_CACHING;
 
     public IndexEntry(int recordId, int type, String key) {
@@ -122,7 +135,6 @@ public class IndexEntry {
 
     /**
      * @return the type
-     * @uml.property name="type"
      */
     public int getType() {
         return type;
@@ -130,7 +142,6 @@ public class IndexEntry {
 
     /**
      * @return the key
-     * @uml.property name="key"
      */
     public String getKey() {
         return key;
@@ -138,7 +149,6 @@ public class IndexEntry {
 
     /**
      * @return the expirationDate
-     * @uml.property name="expirationDate"
      */
     public long getExpirationDate() {
         return expirationDate;
@@ -147,7 +157,6 @@ public class IndexEntry {
     /**
      * @param expirationDate
      *            the expirationDate to set
-     * @uml.property name="expirationDate"
      */
     public void setExpirationDate(long expirationDate) {
         this.expirationDate = expirationDate;
@@ -155,7 +164,6 @@ public class IndexEntry {
 
     /**
      * @return the marked
-     * @uml.property name="marked"
      */
     public boolean isMarked() {
         return marked;
@@ -164,7 +172,6 @@ public class IndexEntry {
     /**
      * @param marked
      *            the marked to set
-     * @uml.property name="marked"
      */
     public void setMarked(boolean marked) {
         this.marked = marked;
@@ -172,7 +179,6 @@ public class IndexEntry {
 
     /**
      * @return the recordId
-     * @uml.property name="recordId"
      */
     public int getRecordId() {
         return recordId;
@@ -180,7 +186,6 @@ public class IndexEntry {
 
     /**
      * @return the mode
-     * @uml.property name="mode"
      */
     public int getMode() {
         return mode;

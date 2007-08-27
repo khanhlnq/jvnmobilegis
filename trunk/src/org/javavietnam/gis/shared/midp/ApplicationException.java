@@ -83,11 +83,16 @@
 package org.javavietnam.gis.shared.midp;
 
 /**
+ * @author khanhlnq
  */
 public class ApplicationException extends Exception {
 
     private static IndexedResourceBundle bundle;
+    /**
+     */
     private int code = -1;
+    /**
+     */
     private Exception exception = null;
 
     public static void setResourceBundle(IndexedResourceBundle bundle) {
@@ -120,7 +125,6 @@ public class ApplicationException extends Exception {
 
     /**
      * @return Returns the code.
-     * @uml.property name="code"
      */
     public int getCode() {
         return code;
@@ -128,7 +132,6 @@ public class ApplicationException extends Exception {
 
     /**
      * @return Returns the exception.
-     * @uml.property name="exception"
      */
     public Exception getException() {
         return exception;

@@ -190,7 +190,6 @@ public class SAXParseException extends SAXException {
      * 
      * @return A string containing the public identifier, or null if none is
      *         available.
-     * @uml.property name="publicId"
      * @see org.xml.sax.Locator#getPublicId
      */
     public String getPublicId() {
@@ -205,7 +204,6 @@ public class SAXParseException extends SAXException {
      * 
      * @return A string containing the system identifier, or null if none is
      *         available.
-     * @uml.property name="systemId"
      * @see org.xml.sax.Locator#getSystemId
      */
     public String getSystemId() {
@@ -217,7 +215,6 @@ public class SAXParseException extends SAXException {
      * 
      * @return An integer representing the line number, or -1 if none is
      *         available.
-     * @uml.property name="lineNumber"
      * @see org.xml.sax.Locator#getLineNumber
      */
     public int getLineNumber() {
@@ -232,7 +229,6 @@ public class SAXParseException extends SAXException {
      * 
      * @return An integer representing the column number, or -1 if none is
      *         available.
-     * @uml.property name="columnNumber"
      * @see org.xml.sax.Locator#getColumnNumber
      */
     public int getColumnNumber() {
@@ -243,9 +239,17 @@ public class SAXParseException extends SAXException {
     // Internal state.
     // ////////////////////////////////////////////////////////////////////
 
+    /**
+     */
     private String publicId;
+    /**
+     */
     private String systemId;
+    /**
+     */
     private int lineNumber;
+    /**
+     */
     private int columnNumber;
 
 }

@@ -42,6 +42,7 @@ package org.javavietnam.gis.client.midp.ui;
 import org.javavietnam.gis.shared.midp.SearchFeatureResultParser;
 import org.javavietnam.gis.shared.midp.model.MapFeature;
 
+import javax.microedition.lcdui.Choice;
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.CommandListener;
 import javax.microedition.lcdui.Displayable;
@@ -60,12 +61,14 @@ class SearchFeatureResultUI extends List implements CommandListener {
 
     private Vector features;
 
+    /**
+     */
     private int numResult = 0;
 
     public SearchFeatureResultUI(UIController uiController) {
         super(uiController
                 .getString(UIConstants.SEARCH_FEATURE_RESULT_UI_TITLE),
-                List.IMPLICIT);
+                Choice.IMPLICIT);
         this.uiController = uiController;
 
         backCommand = new Command(uiController.getString(UIConstants.BACK),
@@ -125,7 +128,6 @@ class SearchFeatureResultUI extends List implements CommandListener {
 
     /**
      * @return the numResult
-     * @uml.property name="numResult"
      */
     public int getNumResult() {
         return numResult;

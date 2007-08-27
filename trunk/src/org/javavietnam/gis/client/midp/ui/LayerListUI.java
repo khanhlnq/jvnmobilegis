@@ -42,6 +42,7 @@ package org.javavietnam.gis.client.midp.ui;
 import org.javavietnam.gis.shared.midp.model.LayerInformation;
 import org.javavietnam.gis.shared.midp.model.TreeNode;
 
+import javax.microedition.lcdui.Choice;
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.CommandListener;
 import javax.microedition.lcdui.Displayable;
@@ -49,6 +50,7 @@ import javax.microedition.lcdui.List;
 import java.util.Vector;
 
 /**
+ * @author khanhlnq
  */
 class LayerListUI extends List implements CommandListener {
 
@@ -56,11 +58,13 @@ class LayerListUI extends List implements CommandListener {
     private Command backCommand;
     private Command getMapCommand;
 
+    /**
+     */
     private Vector layerList;
 
     public LayerListUI(UIController uiController) {
         super(uiController.getString(UIConstants.LAYER_LIST_TITLE),
-                List.MULTIPLE);
+                Choice.MULTIPLE);
         this.uiController = uiController;
         setLayerList(new Vector());
 
@@ -103,7 +107,6 @@ class LayerListUI extends List implements CommandListener {
 
     /**
      * @return Returns the layerList.
-     * @uml.property name="layerList"
      */
     public Vector getLayerList() {
         return layerList;
@@ -112,7 +115,6 @@ class LayerListUI extends List implements CommandListener {
     /**
      * @param layerList
      *            The layerList to set.
-     * @uml.property name="layerList"
      */
     private void setLayerList(Vector layerList) {
         this.layerList = layerList;

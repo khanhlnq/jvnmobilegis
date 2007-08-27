@@ -95,11 +95,14 @@ import java.io.InputStream;
 import java.util.Vector;
 
 /**
+ * @author khanhlnq
  */
 public class ModelFacade {
 
     private static final String BASE_NAME_ERROR_RESOURCES = "ErrorResources";
     private static final String L10N_ROOT_DIR = "/l10n/";
+    /**
+     */
     private String locale;
     private static final int[] errorMessageCodeMap = new int[] {
             ErrorMessageCodes.ERROR_GENERAL,
@@ -146,8 +149,6 @@ public class ModelFacade {
      * @param locale
      *            The locale to set.
      * @throws org.javavietnam.gis.shared.midp.ApplicationException
-     * 
-     * @uml.property name="locale"
      */
     public void setLocale(String locale) throws ApplicationException {
         IndexedResourceBundle errorBundle;
@@ -162,7 +163,6 @@ public class ModelFacade {
 
     /**
      * @return the locale
-     * @uml.property name="locale"
      */
     public String getLocale() {
         return locale;

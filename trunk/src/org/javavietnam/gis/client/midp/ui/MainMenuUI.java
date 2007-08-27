@@ -82,12 +82,14 @@
 
 package org.javavietnam.gis.client.midp.ui;
 
+import javax.microedition.lcdui.Choice;
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.CommandListener;
 import javax.microedition.lcdui.Displayable;
 import javax.microedition.lcdui.List;
 
 /**
+ * @author khanhlnq
  */
 class MainMenuUI extends List implements CommandListener {
 
@@ -96,7 +98,7 @@ class MainMenuUI extends List implements CommandListener {
 
     public MainMenuUI(UIController uiController) {
         super(uiController.getString(UIConstants.MOBILEGIS_CLIENT),
-                List.IMPLICIT);
+                Choice.IMPLICIT);
         try {
             this.uiController = uiController;
 
