@@ -753,8 +753,8 @@ public class UIController {
                     .getPassword()).getBytes();
             byte[] encodedCredentialsBA = Base64.encode(credentialsBA);
             credentials.setCredentials(new String(encodedCredentialsBA));
-            System.out.println("************ Calculated credentials:"
-                    + credentials.getCredentials());
+            // System.out.println("************ Calculated credentials:"
+            // + credentials.getCredentials());
             try {
                 // Set credentials for HTTPS
                 model.setCredentials(credentials.getCredentials());
