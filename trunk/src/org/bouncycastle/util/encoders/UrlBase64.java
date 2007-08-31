@@ -34,7 +34,7 @@
  *
  * @version: 1.0
  * @author: Khanh Le
- * @Date Created: 22 Jun 2007
+ * @Date Created: 31 Aug 2007
  */
 
 package org.bouncycastle.util.encoders;
