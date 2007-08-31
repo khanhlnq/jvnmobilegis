@@ -88,6 +88,8 @@ class LayerListUI extends List implements CommandListener {
             // treeNode.getClass().getName() + ". Element class name:
             // " +
             // treeNode.elementAt(i).getClass().getName());
+            // FIXME: ClassCastException here. Must improve CapabilitiesParser
+            // handling
             LayerInformation layerInfo = ((TreeNode) treeNode.elementAt(i))
                     .getLayerInformation();
             layerList.addElement(layerInfo);
