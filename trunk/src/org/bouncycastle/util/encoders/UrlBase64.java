@@ -1,3 +1,42 @@
+/*
+ * $Id: UIController.java 79 2007-08-31 06:56:15Z khanh.lnq $
+ * $URL: https://jvnmobilegis.googlecode.com/svn/trunk/src/org/javavietnam/gis/client/midp/ui/UIController.java $
+ * $Author: khanh.lnq $
+ * $Revision: 79 $
+ * $Date: 2007-08-31 13:56:15 +0700 (Fri, 31 Aug 2007) $
+ *
+ * ====================================================================
+ *
+ * Copyright (C) 2006-2007 by JVNGIS
+ *
+ * All copyright notices regarding JVNMobileGIS MUST remain
+ * intact in the Java codes and resource files.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ * Support can be obtained from project homepage at:
+ * http://jvnmobilegis.googlecode.com/
+ *
+ * Correspondence and Marketing Questions can be sent to:
+ * khanh.lnq AT gmail.com
+ *
+ * @version: 1.0
+ * @author: Khanh Le
+ * @Date Created: 22 Jun 2007
+ */
+
 package org.bouncycastle.util.encoders;
 
 import java.io.ByteArrayOutputStream;
@@ -5,125 +44,101 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * Convert binary data to and from UrlBase64 encoding.  This is identical to
- * Base64 encoding, except that the padding character is "." and the other 
+ * Convert binary data to and from UrlBase64 encoding. This is identical to
+ * Base64 encoding, except that the padding character is "." and the other
  * non-alphanumeric characters are "-" and "_" instead of "+" and "/".
  * <p>
  * The purpose of UrlBase64 encoding is to provide a compact encoding of binary
  * data that is safe for use as an URL parameter. Base64 encoding does not
- * produce encoded values that are safe for use in URLs, since "/" can be 
- * interpreted as a path delimiter; "+" is the encoded form of a space; and
- * "=" is used to separate a name from the corresponding value in an URL 
- * parameter.
+ * produce encoded values that are safe for use in URLs, since "/" can be
+ * interpreted as a path delimiter; "+" is the encoded form of a space; and "="
+ * is used to separate a name from the corresponding value in an URL parameter.
  */
-public class UrlBase64
-{
+public class UrlBase64 {
     private static final Encoder encoder = new UrlBase64Encoder();
-    
+
     /**
      * Encode the input data producing a URL safe base 64 encoded byte array.
-     *
+     * 
      * @return a byte array containing the URL safe base 64 encoded data.
      */
-    public static byte[] encode(
-        byte[]    data)
-    {
-        ByteArrayOutputStream    bOut = new ByteArrayOutputStream();
-        
-        try
-        {
+    public static byte[] encode(byte[] data) {
+        ByteArrayOutputStream bOut = new ByteArrayOutputStream();
+
+        try {
             encoder.encode(data, 0, data.length, bOut);
+        } catch (IOException e) {
+            throw new RuntimeException(
+                    "exception encoding URL safe base64 string: " + e);
         }
-        catch (IOException e)
-        {
-            throw new RuntimeException("exception encoding URL safe base64 string: " + e);
-        }
-        
+
         return bOut.toByteArray();
     }
 
     /**
      * Encode the byte data writing it to the given output stream.
-     *
+     * 
      * @return the number of bytes produced.
      */
-    public static int encode(
-        byte[]                data,
-        OutputStream    out)
-        throws IOException
-    {
+    public static int encode(byte[] data, OutputStream out) throws IOException {
         return encoder.encode(data, 0, data.length, out);
     }
-    
+
     /**
-     * Decode the URL safe base 64 encoded input data - white space will be ignored.
-     *
+     * Decode the URL safe base 64 encoded input data - white space will be
+     * ignored.
+     * 
      * @return a byte array representing the decoded data.
      */
-    public static byte[] decode(
-        byte[]    data)
-    {
-        ByteArrayOutputStream    bOut = new ByteArrayOutputStream();
-        
-        try
-        {
+    public static byte[] decode(byte[] data) {
+        ByteArrayOutputStream bOut = new ByteArrayOutputStream();
+
+        try {
             encoder.decode(data, 0, data.length, bOut);
+        } catch (IOException e) {
+            throw new RuntimeException(
+                    "exception decoding URL safe base64 string: " + e);
         }
-        catch (IOException e)
-        {
-            throw new RuntimeException("exception decoding URL safe base64 string: " + e);
-        }
-        
+
         return bOut.toByteArray();
     }
-    
+
     /**
-     * decode the URL safe base 64 encoded byte data writing it to the given output stream,
-     * whitespace characters will be ignored.
-     *
+     * decode the URL safe base 64 encoded byte data writing it to the given
+     * output stream, whitespace characters will be ignored.
+     * 
      * @return the number of bytes produced.
      */
-    public static int decode(
-        byte[]                data,
-        OutputStream    out)
-        throws IOException
-    {
+    public static int decode(byte[] data, OutputStream out) throws IOException {
         return encoder.decode(data, 0, data.length, out);
     }
-    
+
     /**
-     * decode the URL safe base 64 encoded String data - whitespace will be ignored.
-     *
+     * decode the URL safe base 64 encoded String data - whitespace will be
+     * ignored.
+     * 
      * @return a byte array representing the decoded data.
      */
-    public static byte[] decode(
-        String    data)
-    {
-        ByteArrayOutputStream    bOut = new ByteArrayOutputStream();
-        
-        try
-        {
+    public static byte[] decode(String data) {
+        ByteArrayOutputStream bOut = new ByteArrayOutputStream();
+
+        try {
             encoder.decode(data, bOut);
+        } catch (IOException e) {
+            throw new RuntimeException(
+                    "exception decoding URL safe base64 string: " + e);
         }
-        catch (IOException e)
-        {
-            throw new RuntimeException("exception decoding URL safe base64 string: " + e);
-        }
-        
+
         return bOut.toByteArray();
     }
-    
+
     /**
-     * Decode the URL safe base 64 encoded String data writing it to the given output stream,
-     * whitespace characters will be ignored.
-     *
+     * Decode the URL safe base 64 encoded String data writing it to the given
+     * output stream, whitespace characters will be ignored.
+     * 
      * @return the number of bytes produced.
      */
-    public static int decode(
-        String                data,
-        OutputStream    out)
-        throws IOException
-    {
+    public static int decode(String data, OutputStream out) throws IOException {
         return encoder.decode(data, out);
     }
 }
