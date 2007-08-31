@@ -93,6 +93,7 @@ import javax.microedition.lcdui.Displayable;
 import javax.microedition.lcdui.Image;
 import javax.microedition.midlet.MIDlet;
 
+import org.bouncycastle.util.encoders.Base64;
 import org.javavietnam.gis.client.midp.JVNMobileGISMIDlet;
 import org.javavietnam.gis.client.midp.model.ErrorMessageCodes;
 import org.javavietnam.gis.client.midp.model.ModelFacade;
@@ -124,7 +125,6 @@ public class UIController {
         public static final byte EVENT_ID_SEARCHFEATURE = 7;
         public static final byte EVENT_ID_VIEWFEATURE = 8;
         public static final byte EVENT_ID_CHECKUPDATE = 9;
-        public static final byte EVENT_ID_CAL_CREDENTIALS = 10;
     }
 
     private static final String[] iconPaths = { "/icons/JVNMobileGIS.png" };
@@ -609,23 +609,6 @@ public class UIController {
 
                     break;
                 }
-                case EventIds.EVENT_ID_CAL_CREDENTIALS: {
-                    progressObserverUI.updateProgress();
-                    // Calculate the credentials
-                    credentials
-                            .setCredentials(org.javavietnam.gis.client.midp.util.HttpUtils
-                                    .base64Encode(credentials.getUsername()
-                                            + ":" + credentials.getUsername()));
-                    // System.out.println("************ Calculated credentials:"
-                    // + credentials.getCredentials());
-                    // Set credentials for HTTPS
-                    model.setCredentials(credentials.getCredentials());
-                    // showInfoAlert("Calculated credentials: " +
-                    // credentials.getCredentials(), mapServerUI);
-                    display.setCurrent(mapServerUI);
-
-                    break;
-                }
                 } // for switch - case
             } catch (ApplicationException ae) {
                 ae.printStackTrace();
@@ -766,9 +749,20 @@ public class UIController {
             credentials.setUsername(promptDialog.getUsername());
             credentials.setPassword(promptDialog.getPassword());
             // Calculate the credentials
-            runWithProgress(new EventDispatcher(
-                    EventIds.EVENT_ID_CAL_CREDENTIALS, mapServerUI),
-                    getString(UIConstants.CALCULATING_CREDENTIALS), true);
+            byte[] credentialsBA = (credentials.getUsername() + ":" + credentials
+                    .getPassword()).getBytes();
+            byte[] encodedCredentialsBA = Base64.encode(credentialsBA);
+            credentials.setCredentials(new String(encodedCredentialsBA));
+            System.out.println("************ Calculated credentials:"
+                    + credentials.getCredentials());
+            try {
+                // Set credentials for HTTPS
+                model.setCredentials(credentials.getCredentials());
+            } catch (ApplicationException e) {
+                e.printStackTrace();
+                showErrorAlert(e, mainMenuUI);
+            }
+            display.setCurrent(mapServerUI);
         }
     }
 }
