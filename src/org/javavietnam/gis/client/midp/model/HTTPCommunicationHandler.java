@@ -92,10 +92,7 @@ import java.util.Vector;
 
 import javax.microedition.io.Connector;
 import javax.microedition.io.HttpConnection;
-import javax.microedition.io.HttpsConnection;
-import javax.microedition.io.SecurityInfo;
 import javax.microedition.lcdui.Image;
-import javax.microedition.pki.Certificate;
 import javax.microedition.pki.CertificateException;
 
 import org.javavietnam.gis.shared.midp.ApplicationException;
@@ -578,17 +575,19 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
                     connection.setRequestProperty("Authorization", "Basic "
                             + credentials);
                 }
-                connection.setRequestMethod(HttpConnection.POST);
+                // connection.setRequestMethod(HttpConnection.POST);
+                connection.setRequestMethod(HttpConnection.GET);
 
-                SecurityInfo si = ((HttpsConnection) connection)
-                        .getSecurityInfo();
-                Certificate c = si.getServerCertificate();
-                String subject = c.getSubject();
-                String cipherSuite = si.getCipherSuite();
-
-                System.out.println("Server certificate subject: \n" + subject);
-
-                System.out.println("Server Cipher Suite: \n" + cipherSuite);
+                // SecurityInfo si = ((HttpsConnection) connection)
+                // .getSecurityInfo();
+                // Certificate c = si.getServerCertificate();
+                // String subject = c.getSubject();
+                // String cipherSuite = si.getCipherSuite();
+                //
+                // System.out.println("Server certificate subject: \n" +
+                // subject);
+                //
+                // System.out.println("Server Cipher Suite: \n" + cipherSuite);
             } else {
                 connection.setRequestMethod(HttpConnection.GET);
             }
@@ -623,8 +622,8 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
                 // missing credentials when server requires
                 // them, or credentials sent but invalid
                 wwwAuthenticate = connection.getHeaderField("WWW-Authenticate");
-                // System.out.println("*********** WWW-Authenticate: " +
-                // wwwAuthenticate);
+                // System.out.println("*********** WWW-Authenticate: "
+                // + wwwAuthenticate);
                 // closeConnection(connection, inputStream);
                 throw new ApplicationException(
                         ErrorMessageCodes.ERROR_UNAUTHORIZED);
