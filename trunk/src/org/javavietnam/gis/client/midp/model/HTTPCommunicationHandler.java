@@ -83,21 +83,26 @@
 package org.javavietnam.gis.client.midp.model;
 
 import henson.midp.Float;
-import org.javavietnam.gis.shared.midp.ApplicationException;
-import org.javavietnam.gis.shared.midp.model.LayerInformation;
-import org.javavietnam.gis.shared.midp.model.ModelException;
-import org.javavietnam.gis.shared.midp.model.SearchFeatureParameter;
-import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
 
-import javax.microedition.io.Connector;
-import javax.microedition.io.HttpConnection;
-import javax.microedition.lcdui.Image;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Vector;
+
+import javax.microedition.io.Connector;
+import javax.microedition.io.HttpConnection;
+import javax.microedition.io.HttpsConnection;
+import javax.microedition.io.SecurityInfo;
+import javax.microedition.lcdui.Image;
+import javax.microedition.pki.Certificate;
 import javax.microedition.pki.CertificateException;
+
+import org.javavietnam.gis.shared.midp.ApplicationException;
+import org.javavietnam.gis.shared.midp.model.LayerInformation;
+import org.javavietnam.gis.shared.midp.model.ModelException;
+import org.javavietnam.gis.shared.midp.model.SearchFeatureParameter;
+import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
 
 /**
  * @author khanhlnq
@@ -105,8 +110,7 @@ import javax.microedition.pki.CertificateException;
 public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 
     // store the last valid credentials
-    /**
-     */
+
     private String wwwAuthenticate = null;
     private String credentials = null;
 
@@ -576,13 +580,15 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
                 }
                 connection.setRequestMethod(HttpConnection.POST);
 
-                // SecurityInfo si = ((HttpsConnection)
-                // connection).getSecurityInfo();
-                // Certificate c = si.getServerCertificate();
-                // String subject = c.getSubject();
+                SecurityInfo si = ((HttpsConnection) connection)
+                        .getSecurityInfo();
+                Certificate c = si.getServerCertificate();
+                String subject = c.getSubject();
+                String cipherSuite = si.getCipherSuite();
 
-                // System.out.println("Server certificate subject: \n" +
-                // subject);
+                System.out.println("Server certificate subject: \n" + subject);
+
+                System.out.println("Server Cipher Suite: \n" + cipherSuite);
             } else {
                 connection.setRequestMethod(HttpConnection.GET);
             }
