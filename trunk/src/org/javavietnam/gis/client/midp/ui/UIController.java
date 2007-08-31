@@ -579,8 +579,7 @@ public class UIController {
                                 getString(UIConstants.GET_CAPABILITIES_WMS_ERROR),
                                 mainMenuUI);
                     } else {
-                        layerListUI.init((Vector) constructedDataTree
-                                .elementAt(0));
+                        layerListUI.init((Vector) constructedDataTree);
 
                         display.setCurrent(layerListUI);
                     }

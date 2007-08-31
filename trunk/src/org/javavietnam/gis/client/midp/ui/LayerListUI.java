@@ -48,6 +48,7 @@ import javax.microedition.lcdui.Displayable;
 import javax.microedition.lcdui.List;
 
 import org.javavietnam.gis.shared.midp.model.LayerInformation;
+import org.javavietnam.gis.shared.midp.model.TreeNode;
 
 /**
  * @author khanhlnq
@@ -84,17 +85,11 @@ class LayerListUI extends List implements CommandListener {
         setTitle(treeNode + "");
         layerList.removeAllElements();
         for (int i = 0; i < treeNode.size(); i++) {
-            System.out.println("**** treeNode class name: "
-                    + treeNode.getClass().getName() + ". Element class name: "
-                    + treeNode.elementAt(i).getClass().getName());
-
-            // FIXME: ClassCastException here. Must improve CapabilitiesParser
-            // handling
-
-            // LayerInformation layerInfo = ((TreeNode) treeNode.elementAt(i))
-            // .getLayerInformation();
-            // layerList.addElement(layerInfo);
-            // append(layerInfo.getField("name"), null);
+            Object nodeElement = treeNode.elementAt(i);
+            LayerInformation layerInfo = ((TreeNode) nodeElement)
+                    .getLayerInformation();
+            layerList.addElement(layerInfo);
+            append(layerInfo.getField("title"), null);
         }
     }
 
