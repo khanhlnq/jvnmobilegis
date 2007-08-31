@@ -574,9 +574,8 @@ public class MapViewUI extends GameCanvas implements CommandListener,
 
             g.setFont(smallFont);
             g.setColor(0x0000FF);
-            g.drawString(uiController.getString(UIConstants.SCALE_STR) + " 1/"
-                    + floatToString(getCurrentScale(), 3), 0, getHeight(),
-                    Graphics.BOTTOM | Graphics.LEFT);
+            g.drawString("1/" + floatToString(getCurrentScale(), 3), 0,
+                    getHeight(), Graphics.BOTTOM | Graphics.LEFT);
             int[] cursors = { getCursorX(), getCursorY() };
             Float[] real = transformFromView(cursors);
             g.drawString("lon:" + floatToString(real[0], 3) + " lat:"

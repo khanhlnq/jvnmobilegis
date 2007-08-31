@@ -64,6 +64,7 @@ public class CapabilitiesParser extends MinML {
 
     private ServerInformation server;
     private Vector currPath;
+    private Vector finalPath = null;
     private boolean layerIsParent;
     private boolean getMapIsParent;
     private boolean serviceIsParent;
@@ -90,6 +91,7 @@ public class CapabilitiesParser extends MinML {
      * @return
      */
     public Vector constructDataTree() {
+        finalPath = null;
         try {
             parse(new InputSource(input));
         } catch (Exception e) {
@@ -99,7 +101,6 @@ public class CapabilitiesParser extends MinML {
         }
 
         return (Vector) currPath.elementAt(0);
-        // return (Vector)currPath;
     }
 
     public void startDocument() {
@@ -110,8 +111,16 @@ public class CapabilitiesParser extends MinML {
     }
 
     public void endDocument() {
+        finalPath = new Vector();
+
         if (((Vector) currPath.elementAt(0)).size() > 0)
             eliminateInnerNodes((Vector) currPath.elementAt(0));
+
+        Vector firstNode = ((Vector) currPath.elementAt(0));
+        firstNode.removeAllElements();
+        for (int i = 0; i < finalPath.size(); i++) {
+            firstNode.addElement(finalPath.elementAt(i));
+        }
     }
 
     private void eliminateInnerNodes(Vector node) {
@@ -120,8 +129,8 @@ public class CapabilitiesParser extends MinML {
             if (currChild.size() > 0)
                 eliminateInnerNodes(currChild);
             else
-                node.setElementAt(
-                        new TreeNode(currChild.getLayerInformation()), i);
+                finalPath.addElement(new TreeNode(currChild
+                        .getLayerInformation()));
         }
 
     }
