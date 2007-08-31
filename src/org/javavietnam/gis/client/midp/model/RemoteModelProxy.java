@@ -169,6 +169,6 @@ class RemoteModelProxy extends ModelObjectLoader {
     }
 
     public void setCredentials(String credentials) throws ApplicationException {
-        setCredentials(credentials);
+        requestHandlerChain.setCredentials(credentials);
     }
 }
