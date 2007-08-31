@@ -39,15 +39,15 @@
 
 package org.javavietnam.gis.client.midp.ui;
 
-import org.javavietnam.gis.shared.midp.model.LayerInformation;
-import org.javavietnam.gis.shared.midp.model.TreeNode;
+import java.util.Vector;
 
 import javax.microedition.lcdui.Choice;
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.CommandListener;
 import javax.microedition.lcdui.Displayable;
 import javax.microedition.lcdui.List;
-import java.util.Vector;
+
+import org.javavietnam.gis.shared.midp.model.LayerInformation;
 
 /**
  * @author khanhlnq
@@ -84,16 +84,17 @@ class LayerListUI extends List implements CommandListener {
         setTitle(treeNode + "");
         layerList.removeAllElements();
         for (int i = 0; i < treeNode.size(); i++) {
-            // System.out.println("**** treeNode class name: " +
-            // treeNode.getClass().getName() + ". Element class name:
-            // " +
-            // treeNode.elementAt(i).getClass().getName());
+            System.out.println("**** treeNode class name: "
+                    + treeNode.getClass().getName() + ". Element class name: "
+                    + treeNode.elementAt(i).getClass().getName());
+
             // FIXME: ClassCastException here. Must improve CapabilitiesParser
             // handling
-            LayerInformation layerInfo = ((TreeNode) treeNode.elementAt(i))
-                    .getLayerInformation();
-            layerList.addElement(layerInfo);
-            append(layerInfo.getField("name"), null);
+
+            // LayerInformation layerInfo = ((TreeNode) treeNode.elementAt(i))
+            // .getLayerInformation();
+            // layerList.addElement(layerInfo);
+            // append(layerInfo.getField("name"), null);
         }
     }
 
