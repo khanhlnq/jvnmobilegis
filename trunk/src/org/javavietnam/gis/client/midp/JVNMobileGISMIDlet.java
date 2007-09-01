@@ -82,12 +82,12 @@
 
 package org.javavietnam.gis.client.midp;
 
+import javax.microedition.midlet.MIDlet;
+
 import org.javavietnam.gis.client.midp.model.ModelFacade;
 import org.javavietnam.gis.client.midp.model.Preferences;
 import org.javavietnam.gis.client.midp.ui.UIController;
 import org.javavietnam.gis.shared.midp.ApplicationException;
-
-import javax.microedition.midlet.MIDlet;
 
 /**
  * @author khanhlnq
@@ -102,6 +102,7 @@ public class JVNMobileGISMIDlet extends MIDlet {
     public static final String PROPERTY_MIDLET_VERSION = "MIDlet-Version";
 
     private ModelFacade model;
+    UIController controller;
 
     protected void startApp() {
         try {
@@ -122,12 +123,15 @@ public class JVNMobileGISMIDlet extends MIDlet {
                 model.setPreferences(preferences);
             }
 
-            UIController controller = new UIController(this, model);
+            controller = new UIController(this, model);
 
             controller.init();
         } catch (ApplicationException ae) {
             System.err.println(ae.getException() + "/" + ae.getMessage() + "/"
                     + ae.getCode());
+        } catch (Exception e) {
+            e.printStackTrace();
+            controller.showErrorAlert(e);
         }
     }
 

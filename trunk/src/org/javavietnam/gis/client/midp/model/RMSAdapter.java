@@ -145,6 +145,17 @@ class RMSAdapter {
         } catch (RecordStoreException rse) {
             rse.printStackTrace();
 
+            // FIXME: Find a better way to handle this
+            // try to delete all RecordStores
+            String[] listRecordStores = RecordStore.listRecordStores();
+            try {
+                for (int i = 0; i < listRecordStores.length; i++) {
+                    RecordStore.deleteRecordStore(listRecordStores[i]);
+                }
+            } catch (RecordStoreException re) {
+                throw new ApplicationException(re);
+            }
+
             throw new ApplicationException(rse);
         }
     }
