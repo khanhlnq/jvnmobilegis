@@ -1,7 +1,8 @@
 MIDlet-1: JVNMobileGIS,/icons/JVNMobileGIS_icon.png,org.javavietnam.gis.client.midp.JVNMobileGISMIDlet
 MIDlet-Description: A mobile map viewer, developed by JVNGIS team
+MIDlet-Icon: /home/khanhlnq/projects/_remote/googlecode/jvnmobilegis/trunk/res/icons/JVNMobileGIS_icon.png
 MIDlet-Info-URL: http://jvnmobilegis.googlecode.com/
-MIDlet-Jar-Size: 112385
+MIDlet-Jar-Size: 77055
 MIDlet-Jar-URL: JVNMobileGIS.jar
 MIDlet-Name: JVNMobileGIS
 MIDlet-Permissions: javax.microedition.io.Connector.http, javax.microedition.io.Connector.https
