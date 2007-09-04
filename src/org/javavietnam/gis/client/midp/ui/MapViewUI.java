@@ -108,6 +108,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
     private Command resetCommand;
     private Command recenterCommand;
     // private Command findPathCommand;
+    private Command getFeatureInfoCommand;
     private Command searchFeatureCommand;
     private Command helpCommand;
 
@@ -174,11 +175,13 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         // findPathCommand = new
         // Command(uiController.getString(UIConstants.FIND_PATH_CMD),
         // Command.SCREEN, 5);
+        getFeatureInfoCommand = new Command(uiController
+                .getString(UIConstants.GET_FEATURE_INFO), Command.SCREEN, 6);
         searchFeatureCommand = new Command(uiController
                 .getString(UIConstants.SEARCH_FEATURE_UI_TITLE),
-                Command.SCREEN, 6);
-        helpCommand = new Command(uiController.getString(UIConstants.HELP_CMD),
                 Command.SCREEN, 7);
+        helpCommand = new Command(uiController.getString(UIConstants.HELP_CMD),
+                Command.SCREEN, 8);
 
         addCommand(zoomInCommand);
         addCommand(zoomOutCommand);
@@ -187,6 +190,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         addCommand(backCommand);
         addCommand(refreshCommand);
         // addCommand(findPathCommand);
+        addCommand(getFeatureInfoCommand);
         addCommand(searchFeatureCommand);
         addCommand(helpCommand);
 
@@ -418,6 +422,11 @@ public class MapViewUI extends GameCanvas implements CommandListener,
     }
 
     private void zoomIn() {
+        // Recenter at cursor first
+        int[] cursors = { getCursorX(), getCursorY() };
+        reCenter(cursors);
+
+        // then zoom in
         Float oldScale = getBoxWidth().Div(getBoxHeight());
         Float oldWidth = getBoxWidth();
         Float oldHeight = getBoxHeight();
@@ -430,6 +439,11 @@ public class MapViewUI extends GameCanvas implements CommandListener,
     }
 
     private void zoomOut() {
+        // Recenter at cursor first
+        int[] cursors = { getCursorX(), getCursorY() };
+        reCenter(cursors);
+
+        // then zoom out
         Float oldScale = getBoxWidth().Div(getBoxHeight());
         Float oldWidth = getBoxWidth();
         Float oldHeight = getBoxHeight();
@@ -781,7 +795,9 @@ public class MapViewUI extends GameCanvas implements CommandListener,
              * else if (command == findPathCommand) { isViewPath = false;
              * isViewFeature = false; uiController.findPathRequested(); }
              */
-        else if (command == searchFeatureCommand) {
+        else if (command == getFeatureInfoCommand) {
+            uiController.selectInfoLayerRequested();
+        } else if (command == searchFeatureCommand) {
             if (isViewFeature) {
                 uiController.searchResultUIRequested();
             } else {

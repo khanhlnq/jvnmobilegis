@@ -137,6 +137,7 @@ final class UIConstants {
     public static final int MUST_GIVE_USER_PWD = 76;
     public static final int ENTER_LOGIN_INFO = 77;
     public static final int OK = 78;
+    public static final int GET_FEATURE_INFO = 79;
 
     private UIConstants() {
     }
