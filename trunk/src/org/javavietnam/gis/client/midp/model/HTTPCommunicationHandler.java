@@ -594,9 +594,16 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
     private String readStringContent(HttpConnection connection)
             throws ApplicationException {
         InputStream inputStream = null;
+        boolean isUTF8 = false;
         try {
             if (connection.getResponseCode() == HttpConnection.HTTP_NO_CONTENT) {
                 return "";
+            }
+
+            if ("UTF-8".equals(connection.getEncoding())
+                    || "UTF-8".equals(connection
+                            .getHeaderField("Content-Encoding"))) {
+                isUTF8 = true;
             }
 
             updateProgress();
@@ -607,20 +614,24 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 
             inputStream = openConnectionInputStream(connection);
             updateProgress();
-            long length = connection.getLength();
+            // long length = connection.getLength();
 
             int ch;
-            int i = 0;
+            // int i = 0;
             while ((ch = inputStream.read()) != -1) {
                 resultBuf.append((char) ch);
-                i++;
-                if (i > (length / 5)) {
-                    updateProgress();
-                    i = 0;
-                }
+                // i++;
+                // if (i > (length / 5)) {
+                // updateProgress();
+                // i = 0;
+                // }
             }
 
-            return toUTF8(resultBuf.toString());
+            if (isUTF8) {
+                return toUTF8(resultBuf.toString());
+            } else {
+                return resultBuf.toString().trim();
+            }
         } catch (IOException ioe) {
             ioe.printStackTrace();
             throw new ApplicationException(
