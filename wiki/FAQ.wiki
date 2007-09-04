@@ -23,7 +23,7 @@ Yes, you can. Please download executable package, extract and run JVNMobileGIS.e
 ===What the executable package is for?===
 It's for demo purpose only. Users can run it without any installation in case of he/she doesn't have mobile device or he/she wants to test before install.
 
-===I see "no trusted certificate store give" error when getCapabilities from HTTPS?===
+===I see "no trusted certificate store give" error when getCapabilities from HTTPS===
 The executable emulator doesn't support HTTPS, SSL. You can try another normal HTTP server.
 
 ===How to uninstall?=== 
@@ -52,5 +52,4 @@ Please read [http://jvnmobilegis.googlecode.com/svn/trunk/README_DEVELOPERS.txt 
 
 === Can I develop this project in Linux? ===
 Of course you can. I'm developing it in Ubuntu now
-
 
