@@ -4,6 +4,9 @@
 - HTTPS, SSL support
 - Pre-define Landgate WMS data
 - Display "title" in layer list
+- Zoom features now is pointer centric
+- Add GetFeatureInfo menu to MapView
+- New package location http://jvnmobilegis.googlecode.com/svn/tags/release
 
 1.0.0:
 - Support CLDC 1.0 for low-end Java phones.
