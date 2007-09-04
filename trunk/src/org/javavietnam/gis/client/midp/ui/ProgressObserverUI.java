@@ -98,8 +98,8 @@ public class ProgressObserverUI extends Form implements ProgressObserver,
         CommandListener {
 
     // private UIController uiController;
-    private static final int GAUGE_MAX = 8;
-    private static final int GAUGE_LEVELS = 4;
+    private static final int GAUGE_MAX = 10;
+    private static final int GAUGE_LEVELS = 2;
     private int current = 0;
     private Gauge gauge;
     private StringItem note;

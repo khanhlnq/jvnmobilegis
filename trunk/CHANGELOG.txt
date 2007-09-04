@@ -1,9 +1,9 @@
 1.0.1:
 - Fullscreen display
 - Friendly HTTP error message
-- HTTPS support
+- HTTPS, SSL support
 - Pre-define Landgate WMS data
-- Some minor enhancements
+- Display "title" in layer list
 
 1.0.0:
 - Support CLDC 1.0 for low-end Java phones.
@@ -18,4 +18,4 @@
 - Search Feature in current map view
 - Alert when new version is availabe
 - Support touch screen devices (e.g. Pocket PC, UIQ,...). You can drag map on the screen.
-- Pre-defined some popular server to save your input time. 
+- Pre-defined some popular server to save your input time.

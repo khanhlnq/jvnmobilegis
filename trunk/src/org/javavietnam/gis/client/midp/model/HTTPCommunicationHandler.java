@@ -265,9 +265,8 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
     public String searchFeature(SearchFeatureParameter searchParam)
             throws ModelException, ApplicationException {
         HttpConnection connection = null;
-        InputStream inputStream = null;
 
-        StringBuffer resultBuf = new StringBuffer();
+        String results = new String("");
 
         String webGISURL = searchParam.getWebGISURL();
         StringBuffer url = new StringBuffer(webGISURL);
@@ -292,43 +291,27 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 
             updateProgress();
 
-            int responseCode = connection.getResponseCode();
-
-            if (responseCode == HttpConnection.HTTP_NO_CONTENT) {
-                return "";
-            }
-
-            inputStream = openConnectionInputStream(connection);
-
-            updateProgress();
-
-            int ch;
-            while ((ch = inputStream.read()) != -1) {
-                resultBuf.append((char) ch);
-            }
+            results = readStringContent(connection);
         } catch (IOException ioe) {
             System.out.println();
             ioe.printStackTrace();
             throw new ApplicationException(
                     ErrorMessageCodes.ERROR_CANNOT_CONNECT);
-        } finally {
-            closeConnection(connection, inputStream);
         }
 
-        return toUTF8(resultBuf.toString());
+        return results;
     }
 
     public String getFeatureInfo(WMSRequestParameter requestParam,
             Vector layerList, String infoLayer) throws ModelException,
             ApplicationException {
         HttpConnection connection = null;
-        InputStream inputStream = null;
 
         // Try to free-up memory first
         System.gc();
         updateProgress();
 
-        StringBuffer resultBuf = new StringBuffer();
+        String results = new String("");
 
         String wmsUrl = requestParam.getGetMapURL();
         StringBuffer url = new StringBuffer(wmsUrl);
@@ -371,19 +354,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         // "http://localhost:8080/geoserver/wms?&request=FindPath&service=wms&styles=&LAYERS=jvn:roads_topo&spoint=105.94586,10.78163&epoint=105.94065,10.79906&bbox=105.93026,10.75845,105.95795,10.80074&SRS=EPSG:4326&width=240&height=367&format=text/xml&version=1.1.1";
         try {
             connection = openGETConnection(wmsUrl);
-
-            // System.out.println("******** Reading stream: ");
-            updateProgress();
-
-            inputStream = openConnectionInputStream(connection);
-
-            updateProgress();
-
-            int ch;
-            while ((ch = inputStream.read()) != -1) {
-                resultBuf.append((char) ch);
-                System.out.print((char) ch);
-            }
+            results = readStringContent(connection);
         } catch (IOException ioe) {
             // int ch;
             // try {
@@ -397,44 +368,29 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
             ioe.printStackTrace();
             throw new ApplicationException(
                     ErrorMessageCodes.ERROR_CANNOT_CONNECT);
-        } finally {
-            closeConnection(connection, inputStream);
         }
 
-        return toUTF8(resultBuf.toString());
+        return results;
     }
 
     public String checkUpdate(String updateURL) throws ModelException,
             ApplicationException {
         HttpConnection connection = null;
-        InputStream inputStream = null;
 
-        StringBuffer resultBuf = new StringBuffer();
+        String results = new String("");
 
         try {
             connection = openGETConnection(updateURL);
 
-            updateProgress();
-
-            inputStream = openConnectionInputStream(connection);
-
-            updateProgress();
-
-            int ch;
-            while ((ch = inputStream.read()) != -1) {
-                resultBuf.append((char) ch);
-                System.out.print((char) ch);
-            }
+            results = readStringContent(connection);
         } catch (IOException ioe) {
             System.out.println();
             ioe.printStackTrace();
             throw new ApplicationException(
                     ErrorMessageCodes.ERROR_CANNOT_CONNECT);
-        } finally {
-            closeConnection(connection, inputStream);
         }
 
-        return toUTF8(resultBuf.toString());
+        return results;
     }
 
     /*
@@ -484,27 +440,17 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
     public String getCapabilitiesWMS(String serviceURL) throws ModelException,
             ApplicationException {
         HttpConnection connection;
-        InputStream inputStream;
 
         // Try to free-up memory first
         System.gc();
         updateProgress();
 
-        StringBuffer resultBuf = new StringBuffer();
+        String results = new String("");
 
         try {
             connection = openGETConnection(serviceURL);
 
-            updateProgress();
-
-            inputStream = openConnectionInputStream(connection);
-
-            int ch;
-            while ((ch = inputStream.read()) != -1) {
-                resultBuf.append((char) ch);
-            }
-
-            return resultBuf.toString();
+            results = readStringContent(connection);
         } catch (IOException ioe) {
             ioe.printStackTrace();
             throw new ApplicationException(
@@ -514,6 +460,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         // finally {
         // closeGETConnection(connection, inputStream);
         // }
+        return results;
     }
 
     private String replace(String source, char oldChar, String dest) {
@@ -601,8 +548,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
     }
 
     private InputStream openConnectionInputStream(HttpConnection connection)
-            throws IOException, CertificateException, ModelException,
-            ApplicationException {
+            throws IOException, CertificateException, ApplicationException {
         InputStream inputStream = null;
         int responseCode = connection.getResponseCode();
         try {
@@ -643,6 +589,45 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         } // finally {
         // closeConnection(connection, inputStream);
         // }
+    }
+
+    private String readStringContent(HttpConnection connection)
+            throws ApplicationException {
+        InputStream inputStream = null;
+        try {
+            if (connection.getResponseCode() == HttpConnection.HTTP_NO_CONTENT) {
+                return "";
+            }
+
+            updateProgress();
+            // Try to free-up memory first
+            System.gc();
+
+            StringBuffer resultBuf = new StringBuffer();
+
+            inputStream = openConnectionInputStream(connection);
+            updateProgress();
+            long length = connection.getLength();
+
+            int ch;
+            int i = 0;
+            while ((ch = inputStream.read()) != -1) {
+                resultBuf.append((char) ch);
+                i++;
+                if (i > (length / 5)) {
+                    updateProgress();
+                    i = 0;
+                }
+            }
+
+            return toUTF8(resultBuf.toString());
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            throw new ApplicationException(
+                    ErrorMessageCodes.ERROR_CANNOT_CONNECT);
+        } finally {
+            closeConnection(connection, inputStream);
+        }
     }
 
     private void closeConnection(HttpConnection connection,

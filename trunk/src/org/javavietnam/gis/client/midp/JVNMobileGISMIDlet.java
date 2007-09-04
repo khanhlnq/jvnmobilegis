@@ -127,11 +127,14 @@ public class JVNMobileGISMIDlet extends MIDlet {
 
             controller.init();
         } catch (ApplicationException ae) {
+            ae.printStackTrace();
             System.err.println(ae.getException() + "/" + ae.getMessage() + "/"
                     + ae.getCode());
+            throw new RuntimeException(ae.toString() + " \n" + ae.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
-            controller.showErrorAlert(e);
+            System.err.println(e + "/" + e.getMessage());
+            throw new RuntimeException(e.toString() + " \n" + e.getMessage());
         }
     }
 

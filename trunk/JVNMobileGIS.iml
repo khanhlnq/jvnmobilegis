@@ -45,7 +45,7 @@
     <manifest useUserManifest="true" path="$MODULE_DIR$/bin/MANIFEST.MF" />
     <userDefinedOptions>
       <option module.settings.user.defined.key="MobileGIS-Locale" module.settings.user.defined.value="en-US" />
-      <option module.settings.user.defined.key="Update-URL" module.settings.user.defined.value="http://jvnmobilegis.googlecode.com/svn/trunk/JVNMobileGISCurrentVersion.txt" />
+      <option module.settings.user.defined.key="Update-URL" module.settings.user.defined.value="http://jvnmobilegis.googlecode.com/svn/tags/release/JVNMobileGISCurrentVersion.txt" />
       <option module.settings.user.defined.key="WMS-Server-URL" module.settings.user.defined.value="http://jvnmobilegis.googlecode.com/svn/trunk/docs/servers/CIREN_WMS_GetCapabilities_short.xml" />
       <option module.settings.user.defined.key="MIDlet-Permissions" module.settings.user.defined.value="javax.microedition.io.Connector.http, javax.microedition.io.Connector.https" />
       <option module.settings.user.defined.key="WebGIS-URL" module.settings.user.defined.value="http://www2.hcm.ciren.gov.vn/jvnwebgis" />
