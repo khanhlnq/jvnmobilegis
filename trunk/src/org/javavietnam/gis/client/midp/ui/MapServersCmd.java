@@ -45,10 +45,8 @@ import javax.microedition.lcdui.ItemCommandListener;
 import javax.microedition.lcdui.TextField;
 
 /**
- * This class use to add pre-defined WMS mapserver to TextField. It's just a
- * temporary solution. Will find a better way in future.
- * 
- * @author khanhlnq
+ * This class use to add pre-defined WMS mapserver to TextField. It's just a temporary solution. Will find a better way in future.
+ * @author     khanhlnq
  */
 public class MapServersCmd implements ItemCommandListener {
 

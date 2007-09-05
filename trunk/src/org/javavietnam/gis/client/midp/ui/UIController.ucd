@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="UIController" size="3023,2913" id="org.javavietnam.gis.client.midp.ui" metadata="uml2-1.0" initialized="true" zoom="0.5" scrolledX="511" scrolledY="1013" tag="1000" key="32303037303533312D31303030204A564E4D6F62696C654749532F6B68616E686C6E71">
+  <children xsi:type="editmodel:ClassEditModel" name="HTTPCommunicationHandler" location="165,2850" size="251,43" id="org.javavietnam.gis.client.midp.model/HTTPCommunicationHandler" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.model/HTTPCommunicationHandler-Standard::Call->org.javavietnam.gis.shared.midp.model/LayerInformation*org.javavietnam.gis.client.midp.model/HTTPCommunicationHandler-Soyatec::Import->org.javavietnam.gis.shared.midp.model/LayerInformation" source="//@children.0" target="//@children.4" targetEnd="//@children.0/@sourceConnections.0/@children.2" label="//@children.0/@sourceConnections.0/@children.0" sourceEnd="//@children.0/@sourceConnections.0/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Import»" size="80,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="251,11" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,31"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.model/HTTPCommunicationHandler-Standard::Call->org.javavietnam.gis.shared.midp.model/WMSRequestParameter*org.javavietnam.gis.client.midp.model/HTTPCommunicationHandler-Soyatec::Import->org.javavietnam.gis.shared.midp.model/WMSRequestParameter" source="//@children.0" target="//@children.6" targetEnd="//@children.0/@sourceConnections.1/@children.2" label="//@children.0/@sourceConnections.1/@children.0" sourceEnd="//@children.0/@sourceConnections.1/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Import»" size="80,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="169,0" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="67,56"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.model/HTTPCommunicationHandler-Standard::Call->org.javavietnam.gis.shared.midp.model/ServerInformation" source="//@children.0" target="//@children.26" targetEnd="//@children.0/@sourceConnections.2/@children.2" label="//@children.0/@sourceConnections.2/@children.0" sourceEnd="//@children.0/@sourceConnections.2/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call»" size="35,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="205,0" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="41,43"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.model/HTTPCommunicationHandler-Standard::Send->org.javavietnam.gis.shared.midp/ApplicationException*org.javavietnam.gis.client.midp.model/HTTPCommunicationHandler-Standard::Instantiate->org.javavietnam.gis.shared.midp/ApplicationException*org.javavietnam.gis.client.midp.model/HTTPCommunicationHandler-Soyatec::Import->org.javavietnam.gis.shared.midp/ApplicationException" source="//@children.0" target="//@children.10" targetEnd="//@children.0/@sourceConnections.3/@children.2" label="//@children.0/@sourceConnections.3/@children.0" sourceEnd="//@children.0/@sourceConnections.3/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Send, Instantiate, Import»" size="156,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="213,0" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="37,43"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.model/HTTPCommunicationHandler-Standard::Call->org.javavietnam.gis.shared.midp.model/SearchFeatureParameter*org.javavietnam.gis.client.midp.model/HTTPCommunicationHandler-Soyatec::Import->org.javavietnam.gis.shared.midp.model/SearchFeatureParameter" source="//@children.0" target="//@children.17" targetEnd="//@children.0/@sourceConnections.4/@children.2" label="//@children.0/@sourceConnections.4/@children.0" sourceEnd="//@children.0/@sourceConnections.4/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Import»" size="80,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="147,0" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="96,56"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.19/@sourceConnections.3" name="Base64" location="2805,1708" size="198,43" id="org.bouncycastle.util.encoders/Base64" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.19/@sourceConnections.8" name="SearchFeatureUI" location="1948,2033" size="162,30" id="org.javavietnam.gis.client.midp.ui/SearchFeatureUI" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/SearchFeatureUI-Standard::Call->org.javavietnam.gis.shared.midp/VietSign" source="//@children.2" target="//@children.8" targetEnd="//@children.2/@sourceConnections.0/@children.2" label="//@children.2/@sourceConnections.0/@children.0" sourceEnd="//@children.2/@sourceConnections.0/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call»" size="35,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="93,0" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="87,43"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/SearchFeatureUI-Standard::Call->org.javavietnam.gis.client.midp.ui/UIController*org.javavietnam.gis.client.midp.ui/SearchFeatureUI-Soyatec::Access->org.javavietnam.gis.client.midp.ui/UIController*org.javavietnam.gis.client.midp.ui/SearchFeatureUI-Soyatec::Import->org.javavietnam.gis.client.midp.ui/UIController" source="//@children.2" target="//@children.19" targetEnd="//@children.2/@sourceConnections.1/@children.2" label="//@children.2/@sourceConnections.1/@children.0" sourceEnd="//@children.2/@sourceConnections.1/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Access, Import»" size="128,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="46,18" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="304,667"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/SearchFeatureUI-Soyatec::Implement->org.javavietnam.gis.shared.midp.model/SearchFeatureParameter" source="//@children.2" target="//@children.17" targetEnd="//@children.2/@sourceConnections.2/@children.2" label="//@children.2/@sourceConnections.2/@children.0" sourceEnd="//@children.2/@sourceConnections.2/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Implement»" size="74,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,21" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="250,19"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.19/@sourceConnections.16" name="PreferencesUI" location="1751,544" size="145,30" id="org.javavietnam.gis.client.midp.ui/PreferencesUI" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/PreferencesUI-Standard::Call->org.javavietnam.gis.client.midp.ui/MapServersCmd" source="//@children.3" target="//@children.9" targetEnd="//@children.3/@sourceConnections.0/@children.2" label="//@children.3/@sourceConnections.0/@children.0" sourceEnd="//@children.3/@sourceConnections.0/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call»" size="35,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="87,0" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="66,30"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/PreferencesUI-Standard::Call->org.javavietnam.gis.client.midp.model/Preferences*org.javavietnam.gis.client.midp.ui/PreferencesUI-Soyatec::Import->org.javavietnam.gis.client.midp.model/Preferences" source="//@children.3" target="//@children.15" targetEnd="//@children.3/@sourceConnections.1/@children.2" label="//@children.3/@sourceConnections.1/@children.0" sourceEnd="//@children.3/@sourceConnections.1/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Import»" size="80,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="17,30" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="197,0"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/PreferencesUI-Standard::Call->org.javavietnam.gis.client.midp.ui/UIController*org.javavietnam.gis.client.midp.ui/PreferencesUI-Soyatec::Access->org.javavietnam.gis.client.midp.ui/UIController*org.javavietnam.gis.client.midp.ui/PreferencesUI-Soyatec::Import->org.javavietnam.gis.client.midp.ui/UIController" source="//@children.3" target="//@children.19" targetEnd="//@children.3/@sourceConnections.2/@children.2" label="//@children.3/@sourceConnections.2/@children.0" sourceEnd="//@children.3/@sourceConnections.2/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Access, Import»" size="128,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="46,30" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="296,0"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.19/@sourceConnections.2 //@children.11/@sourceConnections.0 //@children.16/@sourceConnections.0 //@children.0/@sourceConnections.0" name="LayerInformation" location="1353,2758" size="250,43" id="org.javavietnam.gis.shared.midp.model/LayerInformation" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.shared.midp.model/LayerInformation-Soyatec::Import->org.javavietnam.gis.shared.midp.model/ServerInformation" source="//@children.4" target="//@children.26" targetEnd="//@children.4/@sourceConnections.0/@children.2" label="//@children.4/@sourceConnections.0/@children.0" sourceEnd="//@children.4/@sourceConnections.0/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Import»" size="51,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="250,42"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.19/@sourceConnections.12" name="Credentials" location="1068,69" size="250,43" id="org.javavietnam.gis.shared.midp.model/Credentials" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3"/>
+  </children>
+  <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.19/@sourceConnections.20 //@children.18/@sourceConnections.1 //@children.25/@sourceConnections.1 //@children.0/@sourceConnections.1" name="WMSRequestParameter" location="1206,2343" size="250,56" id="org.javavietnam.gis.shared.midp.model/WMSRequestParameter" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.19/@sourceConnections.1" name="SearchFeatureResultUI" location="94,919" size="208,30" id="org.javavietnam.gis.client.midp.ui/SearchFeatureResultUI" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/SearchFeatureResultUI-Standard::Call->org.javavietnam.gis.client.midp.ui/UIController*org.javavietnam.gis.client.midp.ui/SearchFeatureResultUI-Soyatec::Import->org.javavietnam.gis.client.midp.ui/UIController" source="//@children.7" target="//@children.19" targetEnd="//@children.7/@sourceConnections.0/@children.2" label="//@children.7/@sourceConnections.0/@children.0" sourceEnd="//@children.7/@sourceConnections.0/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Import»" size="80,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="147,30" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,366"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.19/@sourceConnections.21 //@children.2/@sourceConnections.0" name="VietSign" location="2396,1434" size="211,43" id="org.javavietnam.gis.shared.midp/VietSign" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.19/@sourceConnections.19 //@children.22/@sourceConnections.0 //@children.3/@sourceConnections.0" name="MapServersCmd" location="2123,154" size="163,30" id="org.javavietnam.gis.client.midp.ui/MapServersCmd" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/MapServersCmd-Standard::Call->org.javavietnam.gis.client.midp.ui/UIController*org.javavietnam.gis.client.midp.ui/MapServersCmd-Soyatec::Import->org.javavietnam.gis.client.midp.ui/UIController" source="//@children.9" target="//@children.19" targetEnd="//@children.9/@sourceConnections.0/@children.2" label="//@children.9/@sourceConnections.0/@children.0" sourceEnd="//@children.9/@sourceConnections.0/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Import»" size="80,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="56,30" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="299,0"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.19/@sourceConnections.14 //@children.21/@sourceConnections.0 //@children.15/@sourceConnections.0 //@children.18/@sourceConnections.4 //@children.13/@sourceConnections.3 //@children.0/@sourceConnections.3" name="ApplicationException" location="341,1479" size="211,43" id="org.javavietnam.gis.shared.midp/ApplicationException" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.shared.midp/ApplicationException-Standard::Call->org.javavietnam.gis.shared.midp/IndexedResourceBundle*org.javavietnam.gis.shared.midp/ApplicationException-Soyatec::Import->org.javavietnam.gis.shared.midp/IndexedResourceBundle" source="//@children.10" target="//@children.21" targetEnd="//@children.10/@sourceConnections.0/@children.2" label="//@children.10/@sourceConnections.0/@children.0" sourceEnd="//@children.10/@sourceConnections.0/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Import»" size="80,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="92,0" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="83,43"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.19/@sourceConnections.11" name="LayerListUI" location="2213,2511" size="122,30" id="org.javavietnam.gis.client.midp.ui/LayerListUI" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/LayerListUI-Standard::Call->org.javavietnam.gis.shared.midp.model/LayerInformation*org.javavietnam.gis.client.midp.ui/LayerListUI-Soyatec::Import->org.javavietnam.gis.shared.midp.model/LayerInformation" source="//@children.11" target="//@children.4" targetEnd="//@children.11/@sourceConnections.0/@children.2" label="//@children.11/@sourceConnections.0/@children.0" sourceEnd="//@children.11/@sourceConnections.0/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Import»" size="80,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="14,30" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="191,0"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/LayerListUI-Standard::Call->org.javavietnam.gis.client.midp.ui/UIController*org.javavietnam.gis.client.midp.ui/LayerListUI-Soyatec::Import->org.javavietnam.gis.client.midp.ui/UIController" source="//@children.11" target="//@children.19" targetEnd="//@children.11/@sourceConnections.1/@children.2" label="//@children.11/@sourceConnections.1/@children.0" sourceEnd="//@children.11/@sourceConnections.1/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Import»" size="80,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="26,0" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="304,662"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.19/@sourceConnections.15" name="HelpUI" location="50,1687" size="90,30" id="org.javavietnam.gis.client.midp.ui/HelpUI" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/HelpUI-Standard::Call->org.javavietnam.gis.client.midp.ui/UIController*org.javavietnam.gis.client.midp.ui/HelpUI-Soyatec::Import->org.javavietnam.gis.client.midp.ui/UIController" source="//@children.12" target="//@children.19" targetEnd="//@children.12/@sourceConnections.0/@children.2" label="//@children.12/@sourceConnections.0/@children.0" sourceEnd="//@children.12/@sourceConnections.0/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Import»" size="80,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="85,0" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,282"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="JVNMobileGISMIDlet" location="389,746" size="201,43" id="org.javavietnam.gis.client.midp/JVNMobileGISMIDlet" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp/JVNMobileGISMIDlet-Standard::Call->org.javavietnam.gis.client.midp.model/Preferences*org.javavietnam.gis.client.midp/JVNMobileGISMIDlet-Soyatec::Import->org.javavietnam.gis.client.midp.model/Preferences" source="//@children.13" target="//@children.15" targetEnd="//@children.13/@sourceConnections.0/@children.2" label="//@children.13/@sourceConnections.0/@children.0" sourceEnd="//@children.13/@sourceConnections.0/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Import»" size="80,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="201,6" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,35"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp/JVNMobileGISMIDlet-Standard::Call->org.javavietnam.gis.client.midp.model/ModelFacade*org.javavietnam.gis.client.midp/JVNMobileGISMIDlet-Standard::Instantiate->org.javavietnam.gis.client.midp.model/ModelFacade*org.javavietnam.gis.client.midp/JVNMobileGISMIDlet-Soyatec::Import->org.javavietnam.gis.client.midp.model/ModelFacade" source="//@children.13" target="//@children.18" targetEnd="//@children.13/@sourceConnections.1/@children.2" label="//@children.13/@sourceConnections.1/@children.0" sourceEnd="//@children.13/@sourceConnections.1/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Instantiate, Call, Import»" size="148,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="118,43" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="103,0"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp/JVNMobileGISMIDlet-Standard::Call->org.javavietnam.gis.client.midp.ui/UIController*org.javavietnam.gis.client.midp/JVNMobileGISMIDlet-Standard::Instantiate->org.javavietnam.gis.client.midp.ui/UIController*org.javavietnam.gis.client.midp/JVNMobileGISMIDlet-Soyatec::Import->org.javavietnam.gis.client.midp.ui/UIController" source="//@children.13" target="//@children.19" targetEnd="//@children.13/@sourceConnections.2/@children.2" label="//@children.13/@sourceConnections.2/@children.0" sourceEnd="//@children.13/@sourceConnections.2/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Instantiate, Call, Import»" size="148,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="123,43" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,339"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp/JVNMobileGISMIDlet-Standard::Call->org.javavietnam.gis.shared.midp/ApplicationException*org.javavietnam.gis.client.midp/JVNMobileGISMIDlet-Soyatec::Import->org.javavietnam.gis.shared.midp/ApplicationException" source="//@children.13" target="//@children.10" targetEnd="//@children.13/@sourceConnections.3/@children.2" label="//@children.13/@sourceConnections.3/@children.0" sourceEnd="//@children.13/@sourceConnections.3/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Import»" size="80,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="81,43" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="129,0"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.19/@sourceConnections.0" name="MainMenuUI" location="2350,519" size="131,30" id="org.javavietnam.gis.client.midp.ui/MainMenuUI" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/MainMenuUI-Standard::Call->org.javavietnam.gis.client.midp.ui/UIController*org.javavietnam.gis.client.midp.ui/MainMenuUI-Soyatec::Import->org.javavietnam.gis.client.midp.ui/UIController" source="//@children.14" target="//@children.19" targetEnd="//@children.14/@sourceConnections.0/@children.2" label="//@children.14/@sourceConnections.0/@children.0" sourceEnd="//@children.14/@sourceConnections.0/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Import»" size="80,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="37,30" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="304,196"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.19/@sourceConnections.13 //@children.3/@sourceConnections.1 //@children.18/@sourceConnections.0 //@children.13/@sourceConnections.0" name="Preferences" location="1048,717" size="240,43" id="org.javavietnam.gis.client.midp.model/Preferences" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.model/Preferences-Standard::Send->org.javavietnam.gis.shared.midp/ApplicationException*org.javavietnam.gis.client.midp.model/Preferences-Standard::Instantiate->org.javavietnam.gis.shared.midp/ApplicationException*org.javavietnam.gis.client.midp.model/Preferences-Soyatec::Import->org.javavietnam.gis.shared.midp/ApplicationException" source="//@children.15" target="//@children.10" targetEnd="//@children.15/@sourceConnections.0/@children.2" label="//@children.15/@sourceConnections.0/@children.0" sourceEnd="//@children.15/@sourceConnections.0/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Send, Instantiate, Import»" size="156,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="99,43" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="125,0"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.19/@sourceConnections.22" name="LayerSelectUI" location="505,2201" size="141,30" id="org.javavietnam.gis.client.midp.ui/LayerSelectUI" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/LayerSelectUI-Standard::Call->org.javavietnam.gis.shared.midp.model/LayerInformation" source="//@children.16" target="//@children.4" targetEnd="//@children.16/@sourceConnections.0/@children.2" label="//@children.16/@sourceConnections.0/@children.0" sourceEnd="//@children.16/@sourceConnections.0/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call»" size="35,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="94,30" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="91,0"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/LayerSelectUI-Standard::Call->org.javavietnam.gis.client.midp.ui/UIController*org.javavietnam.gis.client.midp.ui/LayerSelectUI-Soyatec::Import->org.javavietnam.gis.client.midp.ui/UIController" source="//@children.16" target="//@children.19" targetEnd="//@children.16/@sourceConnections.1/@children.2" label="//@children.16/@sourceConnections.1/@children.0" sourceEnd="//@children.16/@sourceConnections.1/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Import»" size="80,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="109,4" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,795"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3"/>
+  </children>
+  <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.19/@sourceConnections.18 //@children.2/@sourceConnections.2 //@children.18/@sourceConnections.3 //@children.0/@sourceConnections.4" name="SearchFeatureParameter" location="949,2092" size="250,56" id="org.javavietnam.gis.shared.midp.model/SearchFeatureParameter" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.19/@sourceConnections.17 //@children.13/@sourceConnections.1" name="ModelFacade" location="866,1366" size="240,43" id="org.javavietnam.gis.client.midp.model/ModelFacade" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.model/ModelFacade-Soyatec::Import->org.javavietnam.gis.client.midp.model/Preferences" source="//@children.18" target="//@children.15" targetEnd="//@children.18/@sourceConnections.0/@children.2" label="//@children.18/@sourceConnections.0/@children.0" sourceEnd="//@children.18/@sourceConnections.0/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Import»" size="51,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="210,0" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="28,43"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.model/ModelFacade-Soyatec::Import->org.javavietnam.gis.shared.midp.model/WMSRequestParameter" source="//@children.18" target="//@children.6" targetEnd="//@children.18/@sourceConnections.1/@children.2" label="//@children.18/@sourceConnections.1/@children.0" sourceEnd="//@children.18/@sourceConnections.1/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Import»" size="51,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="128,43" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="115,0"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.model/ModelFacade-Standard::Call->org.javavietnam.gis.shared.midp/IndexedResourceBundle*org.javavietnam.gis.client.midp.model/ModelFacade-Soyatec::Import->org.javavietnam.gis.shared.midp/IndexedResourceBundle" source="//@children.18" target="//@children.21" targetEnd="//@children.18/@sourceConnections.2/@children.2" label="//@children.18/@sourceConnections.2/@children.0" sourceEnd="//@children.18/@sourceConnections.2/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Import»" size="80,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="219,43"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.model/ModelFacade-Soyatec::Import->org.javavietnam.gis.shared.midp.model/SearchFeatureParameter" source="//@children.18" target="//@children.17" targetEnd="//@children.18/@sourceConnections.3/@children.2" label="//@children.18/@sourceConnections.3/@children.0" sourceEnd="//@children.18/@sourceConnections.3/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Import»" size="51,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="161,43" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="78,0"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.model/ModelFacade-Standard::Call->org.javavietnam.gis.shared.midp/ApplicationException*org.javavietnam.gis.client.midp.model/ModelFacade-Standard::Send->org.javavietnam.gis.shared.midp/ApplicationException*org.javavietnam.gis.client.midp.model/ModelFacade-Standard::Instantiate->org.javavietnam.gis.shared.midp/ApplicationException*org.javavietnam.gis.client.midp.model/ModelFacade-Soyatec::Import->org.javavietnam.gis.shared.midp/ApplicationException" source="//@children.18" target="//@children.10" targetEnd="//@children.18/@sourceConnections.4/@children.2" label="//@children.18/@sourceConnections.4/@children.0" sourceEnd="//@children.18/@sourceConnections.4/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Send, Instantiate, Call, Import»" size="185,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="15,43" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="205,0"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.14/@sourceConnections.0 //@children.7/@sourceConnections.0 //@children.22/@sourceConnections.1 //@children.24/@sourceConnections.0 //@children.2/@sourceConnections.1 //@children.23/@sourceConnections.0 //@children.20/@sourceConnections.0 //@children.11/@sourceConnections.1 //@children.12/@sourceConnections.0 //@children.3/@sourceConnections.2 //@children.9/@sourceConnections.0 //@children.16/@sourceConnections.1 //@children.25/@sourceConnections.0 //@children.13/@sourceConnections.2" name="UIController" location="1501,1400" size="304,970" id="org.javavietnam.gis.client.midp.ui/UIController" runTimeClassModel="org.javavietnam.gis.client.midp.ui.UIController.EventIds,org.javavietnam.gis.client.midp.ui.UIController.EventDispatcher">
+    <children xsi:type="editmodel:CompartmentEditModel" size="281,306">
+      <children xsi:type="editmodel:AttributeEditModel" name="midlet" id="org.javavietnam.gis.client.midp.ui/UIController#midlet"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="display" id="org.javavietnam.gis.client.midp.ui/UIController#display"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="resourceBundle" id="org.javavietnam.gis.client.midp.ui/UIController#resourceBundle"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="model" id="org.javavietnam.gis.client.midp.ui/UIController#model"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="vietSign" id="org.javavietnam.gis.client.midp.ui/UIController#vietSign"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="mainMenuCommand" id="org.javavietnam.gis.client.midp.ui/UIController#mainMenuCommand"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="exitCommand" id="org.javavietnam.gis.client.midp.ui/UIController#exitCommand"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="mainMenuUI" id="org.javavietnam.gis.client.midp.ui/UIController#mainMenuUI"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="preferencesUI" id="org.javavietnam.gis.client.midp.ui/UIController#preferencesUI"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="mapServerUI" id="org.javavietnam.gis.client.midp.ui/UIController#mapServerUI"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="mapViewUI" id="org.javavietnam.gis.client.midp.ui/UIController#mapViewUI"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="searchFeatureUI" id="org.javavietnam.gis.client.midp.ui/UIController#searchFeatureUI"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="searchFeatureResultUI" id="org.javavietnam.gis.client.midp.ui/UIController#searchFeatureResultUI"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="featureInfoUI" id="org.javavietnam.gis.client.midp.ui/UIController#featureInfoUI"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="layerListUI" id="org.javavietnam.gis.client.midp.ui/UIController#layerListUI"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="progressObserverUI" id="org.javavietnam.gis.client.midp.ui/UIController#progressObserverUI"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="promptDialog" id="org.javavietnam.gis.client.midp.ui/UIController#promptDialog"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="186,540">
+      <children xsi:type="editmodel:MethodEditModel" name="UIController" id="org.javavietnam.gis.client.midp.ui/UIController#UIController(Ljavax.microedition.midlet.MIDlet;Lorg.javavietnam.gis.client.midp.model.ModelFacade;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getString" id="org.javavietnam.gis.client.midp.ui/UIController#getString(I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getMIDlet" id="org.javavietnam.gis.client.midp.ui/UIController#getMIDlet()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getModel" id="org.javavietnam.gis.client.midp.ui/UIController#getModel()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="init" id="org.javavietnam.gis.client.midp.ui/UIController#init()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="destroy" id="org.javavietnam.gis.client.midp.ui/UIController#destroy()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="commandAction" id="org.javavietnam.gis.client.midp.ui/UIController#commandAction(Ljavax.microedition.lcdui.Command;Ljavax.microedition.lcdui.Displayable;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="showErrorAlert" id="org.javavietnam.gis.client.midp.ui/UIController#showErrorAlert(Ljava.lang.Exception;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="showInfoAlert" id="org.javavietnam.gis.client.midp.ui/UIController#showInfoAlert(Ljava.lang.String;Ljavax.microedition.lcdui.Displayable;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="runWithProgress" id="org.javavietnam.gis.client.midp.ui/UIController#runWithProgress(Ljava.lang.Thread;Ljava.lang.String;Z)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="mainMenuRequested" id="org.javavietnam.gis.client.midp.ui/UIController#mainMenuRequested()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="preferencesUIRequested" id="org.javavietnam.gis.client.midp.ui/UIController#preferencesUIRequested()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="savePreferencesRequested" id="org.javavietnam.gis.client.midp.ui/UIController#savePreferencesRequested()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="checkUpdateRequested" id="org.javavietnam.gis.client.midp.ui/UIController#checkUpdateRequested()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="mapServerRequested" id="org.javavietnam.gis.client.midp.ui/UIController#mapServerRequested()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="layerListRequested" id="org.javavietnam.gis.client.midp.ui/UIController#layerListRequested()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="viewMapRequested" id="org.javavietnam.gis.client.midp.ui/UIController#viewMapRequested()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="helpRequested" id="org.javavietnam.gis.client.midp.ui/UIController#helpRequested()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getMapRequested" id="org.javavietnam.gis.client.midp.ui/UIController#getMapRequested()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getFeatureInfoRequested" id="org.javavietnam.gis.client.midp.ui/UIController#getFeatureInfoRequested()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="searchFeatureRequested" id="org.javavietnam.gis.client.midp.ui/UIController#searchFeatureRequested()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="viewFeatureRequested" id="org.javavietnam.gis.client.midp.ui/UIController#viewFeatureRequested()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="updateMapRequested" id="org.javavietnam.gis.client.midp.ui/UIController#updateMapRequested()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getCapabilitiesRequested" id="org.javavietnam.gis.client.midp.ui/UIController#getCapabilitiesRequested()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="exitRequested" id="org.javavietnam.gis.client.midp.ui/UIController#exitRequested()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="setCommands" id="org.javavietnam.gis.client.midp.ui/UIController#setCommands(Ljavax.microedition.lcdui.Displayable;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getImage" id="org.javavietnam.gis.client.midp.ui/UIController#getImage(B)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getCredentials" id="org.javavietnam.gis.client.midp.ui/UIController#getCredentials()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="promtForCredentials" id="org.javavietnam.gis.client.midp.ui/UIController#promtForCredentials(Ljava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="calculateCredentials" id="org.javavietnam.gis.client.midp.ui/UIController#calculateCredentials()"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="163,64">
+      <children xsi:type="editmodel:ClassEditModel" name="EventIds" size="105,30" id="org.javavietnam.gis.client.midp.ui/UIController$EventIds" runTimeClassModel="">
+        <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+        <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+        <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+        <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3"/>
+      </children>
+      <children xsi:type="editmodel:ClassEditModel" name="EventDispatcher" size="163,30" id="org.javavietnam.gis.client.midp.ui/UIController$EventDispatcher" runTimeClassModel="">
+        <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+        <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+        <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+        <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3"/>
+      </children>
+    </children>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/UIController-Standard::Instantiate->org.javavietnam.gis.client.midp.ui/MainMenuUI*org.javavietnam.gis.client.midp.ui/UIController-Soyatec::Import->org.javavietnam.gis.client.midp.ui/MainMenuUI" source="//@children.19" target="//@children.14" targetEnd="//@children.19/@sourceConnections.0/@children.2" label="//@children.19/@sourceConnections.0/@children.0" sourceEnd="//@children.19/@sourceConnections.0/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Instantiate, Import»" size="119,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="304,216" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="57,30"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/UIController-Standard::Instantiate->org.javavietnam.gis.client.midp.ui/SearchFeatureResultUI*org.javavietnam.gis.client.midp.ui/UIController-Soyatec::Import->org.javavietnam.gis.client.midp.ui/SearchFeatureResultUI" source="//@children.19" target="//@children.7" targetEnd="//@children.19/@sourceConnections.1/@children.2" label="//@children.19/@sourceConnections.1/@children.0" sourceEnd="//@children.19/@sourceConnections.1/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Instantiate, Import»" size="119,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,386" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="127,30"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/UIController-Standard::Call->org.javavietnam.gis.shared.midp.model/LayerInformation*org.javavietnam.gis.client.midp.ui/UIController-Soyatec::Import->org.javavietnam.gis.shared.midp.model/LayerInformation" source="//@children.19" target="//@children.4" targetEnd="//@children.19/@sourceConnections.2/@children.2" label="//@children.19/@sourceConnections.2/@children.0" sourceEnd="//@children.19/@sourceConnections.2/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Import»" size="80,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="50,970" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="198,0"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/UIController-Standard::Call->org.bouncycastle.util.encoders/Base64" source="//@children.19" target="//@children.1" targetEnd="//@children.19/@sourceConnections.3/@children.2" label="//@children.19/@sourceConnections.3/@children.0" sourceEnd="//@children.19/@sourceConnections.3/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call»" size="35,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="304,329" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,21"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/UIController-Standard::Call->org.javavietnam.gis.shared.midp.model/ServerInformation" source="//@children.19" target="//@children.26" targetEnd="//@children.19/@sourceConnections.4/@children.2" label="//@children.19/@sourceConnections.4/@children.0" sourceEnd="//@children.19/@sourceConnections.4/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call»" size="35,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,665" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="143,0"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/UIController-Standard::Call->org.javavietnam.gis.client.midp.ui/MapServerUI*org.javavietnam.gis.client.midp.ui/UIController-Standard::Instantiate->org.javavietnam.gis.client.midp.ui/MapServerUI*org.javavietnam.gis.client.midp.ui/UIController-Soyatec::Import->org.javavietnam.gis.client.midp.ui/MapServerUI" source="//@children.19" target="//@children.22" targetEnd="//@children.19/@sourceConnections.5/@children.2" label="//@children.19/@sourceConnections.5/@children.0" sourceEnd="//@children.19/@sourceConnections.5/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Instantiate, Call, Import»" size="148,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="94,0" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="67,30"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/UIController-Standard::Call->org.javavietnam.gis.shared.midp/IndexedResourceBundle*org.javavietnam.gis.client.midp.ui/UIController-Soyatec::Import->org.javavietnam.gis.shared.midp/IndexedResourceBundle" source="//@children.19" target="//@children.21" targetEnd="//@children.19/@sourceConnections.6/@children.2" label="//@children.19/@sourceConnections.6/@children.0" sourceEnd="//@children.19/@sourceConnections.6/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Import»" size="80,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,262" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="125,43"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/UIController-Standard::Call->org.javavietnam.gis.client.midp.ui/ProgressObserverUI*org.javavietnam.gis.client.midp.ui/UIController-Standard::Instantiate->org.javavietnam.gis.client.midp.ui/ProgressObserverUI*org.javavietnam.gis.client.midp.ui/UIController-Soyatec::Import->org.javavietnam.gis.client.midp.ui/ProgressObserverUI" source="//@children.19" target="//@children.24" targetEnd="//@children.19/@sourceConnections.7/@children.2" label="//@children.19/@sourceConnections.7/@children.0" sourceEnd="//@children.19/@sourceConnections.7/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Instantiate, Call, Import»" size="148,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="304,330" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="79,30"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/UIController-Standard::Call->org.javavietnam.gis.client.midp.ui/SearchFeatureUI*org.javavietnam.gis.client.midp.ui/UIController-Standard::Instantiate->org.javavietnam.gis.client.midp.ui/SearchFeatureUI*org.javavietnam.gis.client.midp.ui/UIController-Soyatec::Import->org.javavietnam.gis.client.midp.ui/SearchFeatureUI" source="//@children.19" target="//@children.2" targetEnd="//@children.19/@sourceConnections.8/@children.2" label="//@children.19/@sourceConnections.8/@children.0" sourceEnd="//@children.19/@sourceConnections.8/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Instantiate, Call, Import»" size="148,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="304,647" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="46,14"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/UIController-Standard::Instantiate->org.javavietnam.gis.client.midp.ui/FeatureInfoUI*org.javavietnam.gis.client.midp.ui/UIController-Soyatec::Import->org.javavietnam.gis.client.midp.ui/FeatureInfoUI" source="//@children.19" target="//@children.23" targetEnd="//@children.19/@sourceConnections.9/@children.2" label="//@children.19/@sourceConnections.9/@children.0" sourceEnd="//@children.19/@sourceConnections.9/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Instantiate, Import»" size="119,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="304,399" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="43,30"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/UIController-Standard::Call->org.javavietnam.gis.client.midp.ui/PromptDialog*org.javavietnam.gis.client.midp.ui/UIController-Standard::Instantiate->org.javavietnam.gis.client.midp.ui/PromptDialog*org.javavietnam.gis.client.midp.ui/UIController-Soyatec::Import->org.javavietnam.gis.client.midp.ui/PromptDialog" source="//@children.19" target="//@children.20" targetEnd="//@children.19/@sourceConnections.10/@children.2" label="//@children.19/@sourceConnections.10/@children.0" sourceEnd="//@children.19/@sourceConnections.10/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Instantiate, Call, Import»" size="148,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="304,746" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="12,14"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/UIController-Standard::Call->org.javavietnam.gis.client.midp.ui/LayerListUI*org.javavietnam.gis.client.midp.ui/UIController-Standard::Instantiate->org.javavietnam.gis.client.midp.ui/LayerListUI*org.javavietnam.gis.client.midp.ui/UIController-Soyatec::Import->org.javavietnam.gis.client.midp.ui/LayerListUI" source="//@children.19" target="//@children.11" targetEnd="//@children.19/@sourceConnections.11/@children.2" label="//@children.19/@sourceConnections.11/@children.0" sourceEnd="//@children.19/@sourceConnections.11/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Instantiate, Call, Import»" size="148,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="304,642" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="46,0"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/UIController-Standard::Call->org.javavietnam.gis.shared.midp.model/Credentials*org.javavietnam.gis.client.midp.ui/UIController-Standard::Instantiate->org.javavietnam.gis.shared.midp.model/Credentials*org.javavietnam.gis.client.midp.ui/UIController-Soyatec::Import->org.javavietnam.gis.shared.midp.model/Credentials" source="//@children.19" target="//@children.5" targetEnd="//@children.19/@sourceConnections.12/@children.2" label="//@children.19/@sourceConnections.12/@children.0" sourceEnd="//@children.19/@sourceConnections.12/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Instantiate, Call, Import»" size="148,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="28,0" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="131,43"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/UIController-Standard::Call->org.javavietnam.gis.client.midp.model/Preferences*org.javavietnam.gis.client.midp.ui/UIController-Soyatec::Import->org.javavietnam.gis.client.midp.model/Preferences" source="//@children.19" target="//@children.15" targetEnd="//@children.19/@sourceConnections.13/@children.2" label="//@children.19/@sourceConnections.13/@children.0" sourceEnd="//@children.19/@sourceConnections.13/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Import»" size="80,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,126" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="129,43"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/UIController-Standard::Call->org.javavietnam.gis.shared.midp/ApplicationException*org.javavietnam.gis.client.midp.ui/UIController-Standard::Send->org.javavietnam.gis.shared.midp/ApplicationException*org.javavietnam.gis.client.midp.ui/UIController-Standard::Instantiate->org.javavietnam.gis.shared.midp/ApplicationException*org.javavietnam.gis.client.midp.ui/UIController-Soyatec::Import->org.javavietnam.gis.shared.midp/ApplicationException" source="//@children.19" target="//@children.10" targetEnd="//@children.19/@sourceConnections.14/@children.2" label="//@children.19/@sourceConnections.14/@children.0" sourceEnd="//@children.19/@sourceConnections.14/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Send, Instantiate, Call, Import»" size="185,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,100" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="174,21"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/UIController-Standard::Instantiate->org.javavietnam.gis.client.midp.ui/HelpUI*org.javavietnam.gis.client.midp.ui/UIController-Soyatec::Import->org.javavietnam.gis.client.midp.ui/HelpUI" source="//@children.19" target="//@children.12" targetEnd="//@children.19/@sourceConnections.15/@children.2" label="//@children.19/@sourceConnections.15/@children.0" sourceEnd="//@children.19/@sourceConnections.15/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Instantiate, Import»" size="119,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,302" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="90,15"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/UIController-Standard::Call->org.javavietnam.gis.client.midp.ui/PreferencesUI*org.javavietnam.gis.client.midp.ui/UIController-Standard::Instantiate->org.javavietnam.gis.client.midp.ui/PreferencesUI*org.javavietnam.gis.client.midp.ui/UIController-Soyatec::Import->org.javavietnam.gis.client.midp.ui/PreferencesUI" source="//@children.19" target="//@children.3" targetEnd="//@children.19/@sourceConnections.16/@children.2" label="//@children.19/@sourceConnections.16/@children.0" sourceEnd="//@children.19/@sourceConnections.16/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Instantiate, Call, Import»" size="148,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="276,0" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="26,30"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/UIController-Standard::Call->org.javavietnam.gis.client.midp.model/ModelFacade*org.javavietnam.gis.client.midp.ui/UIController-Soyatec::Import->org.javavietnam.gis.client.midp.model/ModelFacade" source="//@children.19" target="//@children.18" targetEnd="//@children.19/@sourceConnections.17/@children.2" label="//@children.19/@sourceConnections.17/@children.0" sourceEnd="//@children.19/@sourceConnections.17/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Import»" size="80,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,4" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="149,38"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/UIController-Soyatec::Import->org.javavietnam.gis.shared.midp.model/SearchFeatureParameter" source="//@children.19" target="//@children.17" targetEnd="//@children.19/@sourceConnections.18/@children.2" label="//@children.19/@sourceConnections.18/@children.0" sourceEnd="//@children.19/@sourceConnections.18/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Import»" size="51,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,719" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="194,27"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/UIController-Standard::Instantiate->org.javavietnam.gis.client.midp.ui/MapServersCmd*org.javavietnam.gis.client.midp.ui/UIController-Soyatec::Import->org.javavietnam.gis.client.midp.ui/MapServersCmd" source="//@children.19" target="//@children.9" targetEnd="//@children.19/@sourceConnections.19/@children.2" label="//@children.19/@sourceConnections.19/@children.0" sourceEnd="//@children.19/@sourceConnections.19/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Instantiate, Import»" size="119,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="304,12" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="76,30"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/UIController-Soyatec::Import->org.javavietnam.gis.shared.midp.model/WMSRequestParameter" source="//@children.19" target="//@children.6" targetEnd="//@children.19/@sourceConnections.20/@children.2" label="//@children.19/@sourceConnections.20/@children.0" sourceEnd="//@children.19/@sourceConnections.20/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Import»" size="51,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,956" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="144,13"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/UIController-Standard::Instantiate->org.javavietnam.gis.shared.midp/VietSign*org.javavietnam.gis.client.midp.ui/UIController-Soyatec::Import->org.javavietnam.gis.shared.midp/VietSign" source="//@children.19" target="//@children.8" targetEnd="//@children.19/@sourceConnections.21/@children.2" label="//@children.19/@sourceConnections.21/@children.0" sourceEnd="//@children.19/@sourceConnections.21/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Instantiate, Import»" size="119,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="304,55" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="62,21"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/UIController-Standard::Call->org.javavietnam.gis.client.midp.ui/LayerSelectUI*org.javavietnam.gis.client.midp.ui/UIController-Standard::Instantiate->org.javavietnam.gis.client.midp.ui/LayerSelectUI*org.javavietnam.gis.client.midp.ui/UIController-Soyatec::Import->org.javavietnam.gis.client.midp.ui/LayerSelectUI" source="//@children.19" target="//@children.16" targetEnd="//@children.19/@sourceConnections.22/@children.2" label="//@children.19/@sourceConnections.22/@children.0" sourceEnd="//@children.19/@sourceConnections.22/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Instantiate, Call, Import»" size="148,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,815" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="119,14"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/UIController-Standard::Call->org.javavietnam.gis.client.midp.ui/MapViewUI*org.javavietnam.gis.client.midp.ui/UIController-Standard::Instantiate->org.javavietnam.gis.client.midp.ui/MapViewUI*org.javavietnam.gis.client.midp.ui/UIController-Soyatec::Import->org.javavietnam.gis.client.midp.ui/MapViewUI" source="//@children.19" target="//@children.25" targetEnd="//@children.19/@sourceConnections.23/@children.2" label="//@children.19/@sourceConnections.23/@children.0" sourceEnd="//@children.19/@sourceConnections.23/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Instantiate, Call, Import»" size="148,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="304,903" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="56,0"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.19/@sourceConnections.10" name="PromptDialog" location="2630,2132" size="144,30" id="org.javavietnam.gis.client.midp.ui/PromptDialog" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/PromptDialog-Standard::Call->org.javavietnam.gis.client.midp.ui/UIController*org.javavietnam.gis.client.midp.ui/PromptDialog-Soyatec::Import->org.javavietnam.gis.client.midp.ui/UIController" source="//@children.20" target="//@children.19" targetEnd="//@children.20/@sourceConnections.0/@children.2" label="//@children.20/@sourceConnections.0/@children.0" sourceEnd="//@children.20/@sourceConnections.0/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Import»" size="80,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="12,18" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="304,766"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.19/@sourceConnections.6 //@children.10/@sourceConnections.0 //@children.18/@sourceConnections.2" name="IndexedResourceBundle" location="647,552" size="220,43" id="org.javavietnam.gis.shared.midp/IndexedResourceBundle" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.shared.midp/IndexedResourceBundle-Standard::Send->org.javavietnam.gis.shared.midp/ApplicationException*org.javavietnam.gis.shared.midp/IndexedResourceBundle-Standard::Instantiate->org.javavietnam.gis.shared.midp/ApplicationException*org.javavietnam.gis.shared.midp/IndexedResourceBundle-Soyatec::Import->org.javavietnam.gis.shared.midp/ApplicationException" source="//@children.21" target="//@children.10" targetEnd="//@children.21/@sourceConnections.0/@children.2" label="//@children.21/@sourceConnections.0/@children.0" sourceEnd="//@children.21/@sourceConnections.0/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Send, Instantiate, Import»" size="156,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="103,43" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="112,0"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.19/@sourceConnections.5" name="MapServerUI" location="1528,50" size="135,30" id="org.javavietnam.gis.client.midp.ui/MapServerUI" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/MapServerUI-Standard::Call->org.javavietnam.gis.client.midp.ui/MapServersCmd" source="//@children.22" target="//@children.9" targetEnd="//@children.22/@sourceConnections.0/@children.2" label="//@children.22/@sourceConnections.0/@children.0" sourceEnd="//@children.22/@sourceConnections.0/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call»" size="35,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="135,27" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="0,1"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/MapServerUI-Standard::Call->org.javavietnam.gis.client.midp.ui/UIController*org.javavietnam.gis.client.midp.ui/MapServerUI-Soyatec::Access->org.javavietnam.gis.client.midp.ui/UIController*org.javavietnam.gis.client.midp.ui/MapServerUI-Soyatec::Import->org.javavietnam.gis.client.midp.ui/UIController" source="//@children.22" target="//@children.19" targetEnd="//@children.22/@sourceConnections.1/@children.2" label="//@children.22/@sourceConnections.1/@children.0" sourceEnd="//@children.22/@sourceConnections.1/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Access, Import»" size="128,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="87,30" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="114,0"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.19/@sourceConnections.9" name="FeatureInfoUI" location="2810,1176" size="140,30" id="org.javavietnam.gis.client.midp.ui/FeatureInfoUI" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/FeatureInfoUI-Standard::Call->org.javavietnam.gis.client.midp.ui/UIController*org.javavietnam.gis.client.midp.ui/FeatureInfoUI-Soyatec::Import->org.javavietnam.gis.client.midp.ui/UIController" source="//@children.23" target="//@children.19" targetEnd="//@children.23/@sourceConnections.0/@children.2" label="//@children.23/@sourceConnections.0/@children.0" sourceEnd="//@children.23/@sourceConnections.0/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Import»" size="80,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="23,30" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="304,379"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.19/@sourceConnections.7" name="ProgressObserverUI" location="2610,796" size="189,30" id="org.javavietnam.gis.client.midp.ui/ProgressObserverUI" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/ProgressObserverUI-Standard::Call->org.javavietnam.gis.client.midp.ui/UIController*org.javavietnam.gis.client.midp.ui/ProgressObserverUI-Soyatec::Import->org.javavietnam.gis.client.midp.ui/UIController" source="//@children.24" target="//@children.19" targetEnd="//@children.24/@sourceConnections.0/@children.2" label="//@children.24/@sourceConnections.0/@children.0" sourceEnd="//@children.24/@sourceConnections.0/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Import»" size="80,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="59,30" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="304,310"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.19/@sourceConnections.23" name="MapViewUI" location="1892,2695" size="123,30" id="org.javavietnam.gis.client.midp.ui/MapViewUI" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/MapViewUI-Standard::Call->org.javavietnam.gis.client.midp.ui/UIController*org.javavietnam.gis.client.midp.ui/MapViewUI-Soyatec::Import->org.javavietnam.gis.client.midp.ui/UIController" source="//@children.25" target="//@children.19" targetEnd="//@children.25/@sourceConnections.0/@children.2" label="//@children.25/@sourceConnections.0/@children.0" sourceEnd="//@children.25/@sourceConnections.0/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Call, Import»" size="80,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="36,0" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="304,923"/>
+    </sourceConnections>
+    <sourceConnections xsi:type="editmodel:DependencyEditModel" autoLocated="true" id="org.javavietnam.gis.client.midp.ui/MapViewUI-Soyatec::Implement->org.javavietnam.gis.shared.midp.model/WMSRequestParameter" source="//@children.25" target="//@children.6" targetEnd="//@children.25/@sourceConnections.1/@children.2" label="//@children.25/@sourceConnections.1/@children.0" sourceEnd="//@children.25/@sourceConnections.1/@children.1" connectionRouterKind="Manual">
+      <children xsi:type="editmodel:WireLabelEditModel" name="«Implement»" size="74,13" anchorKind="MiddlePart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="33,0" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="176,56"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.19/@sourceConnections.4 //@children.4/@sourceConnections.0 //@children.0/@sourceConnections.2" name="ServerInformation" location="846,2671" size="250,43" id="org.javavietnam.gis.shared.midp.model/ServerInformation" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3"/>
+  </children>
+  <diagramOptions xsi:type="options:ClassDiagramOptions" interactive="false" properties="open=org.javavietnam.gis.client.midp.ui/UIController;wireOptions=4;Product=eUML2;displayOptions=1"/>
+  <boardSetting snapToGeometry="true" gridEnabled="true" gridSpacing="15,15" gridOrigin="0,0" rulerUnit="pixel" gridVisibility="false">
+    <leftRuler/>
+    <topRuler/>
+  </boardSetting>
+  <classDiagramPreferences xsi:type="editmodel:UMLClassDiagramPreference" showPopupBars="true" showConnectionHandles="true" attributeSorter="Natural" methodSorter="Natural" showClassStereotype="true" showPackageStereotype="true" showDependencyStereotype="true" showInterfaceStereotype="true" innerClassSorter="Natural" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3"/>
+</editmodel:ClassDiagramEditModel>

@@ -86,7 +86,7 @@ import org.javavietnam.gis.client.midp.util.ProgressObserver;
 import org.javavietnam.gis.shared.midp.ApplicationException;
 
 /**
- * @author khanhlnq
+ * @author     khanhlnq
  */
 class LocalModel {
 
@@ -102,8 +102,8 @@ class LocalModel {
     }
 
     /**
-     * @param progressObserver
-     *            the progressObserver to set
+     * @param progressObserver    the progressObserver to set
+     * @uml.property  name="progressObserver"
      */
     public void setProgressObserver(ProgressObserver progressObserver) {
         LocalModel.progressObserver = progressObserver;
@@ -124,8 +124,9 @@ class LocalModel {
      * attributes/properties of this instance
      */
     /**
-     * @return the preferences
+     * @return    the preferences
      * @throws org.javavietnam.gis.shared.midp.ApplicationException
+     * @uml.property  name="preferences"
      */
     public Preferences getPreferences() throws ApplicationException {
         if (preferences == null) {
@@ -153,9 +154,9 @@ class LocalModel {
 
     // public void setPreferences() throws ApplicationException {
     /**
-     * @param preferences
-     *            the preferences to set
+     * @param preferences    the preferences to set
      * @throws org.javavietnam.gis.shared.midp.ApplicationException
+     * @uml.property  name="preferences"
      */
     public void setPreferences(Preferences preferences)
             throws ApplicationException {

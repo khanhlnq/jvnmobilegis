@@ -90,7 +90,7 @@ import org.javavietnam.gis.client.midp.ui.UIController;
 import org.javavietnam.gis.shared.midp.ApplicationException;
 
 /**
- * @author khanhlnq
+ * @author     khanhlnq
  */
 public class JVNMobileGISMIDlet extends MIDlet {
 

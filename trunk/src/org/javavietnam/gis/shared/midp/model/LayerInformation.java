@@ -52,6 +52,8 @@ public class LayerInformation {
     private ServerInformation server;
     private LayerInformation parent;
     /**
+     * @uml.property  name="latLonBoundingBox"
+     * @uml.associationEnd  multiplicity="(0 -1)"
      */
     private Float[] latLonBoundingBox;
 
@@ -101,8 +103,8 @@ public class LayerInformation {
 
     /**
      * Gibt die den Bereich in dem dieser Layer verf�gbar ist
-     * 
-     * @return floatArray mit { minx, miny, maxx, maxy }
+     * @return    floatArray mit { minx, miny, maxx, maxy }
+     * @uml.property  name="latLonBoundingBox"
      */
     public Float[] getLatLonBoundingBox() {
         if (latLonBoundingBox == null && parent != null)
