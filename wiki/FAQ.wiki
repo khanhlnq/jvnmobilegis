@@ -21,7 +21,7 @@ Yes, you can. Please download executable package, extract and run JVNMobileGIS.e
  * Via PC installation: Connect your phone to your computer through cable, bluetooth, IR or Wifi. Copy the JVNMobileGIS.jar file to your phone, open it and install.
 
 ===What the executable package is for?===
-It's for demo purpose only. Users can run it without any installation in case of he/she doesn't have mobile device or he/she wants to test before install.
+It's for demo on PC purpose only. Users can run it without any installation in case of he/she doesn't have mobile device or he/she wants to test before install.
 
 ===I see "no trusted certificate store give" error when getCapabilities from HTTPS. I'm using executable package===
 The executable emulator doesn't support HTTPS, SSL. You can try another normal HTTP server.
