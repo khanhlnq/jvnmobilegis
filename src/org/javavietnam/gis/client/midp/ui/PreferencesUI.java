@@ -50,7 +50,7 @@ import javax.microedition.lcdui.TextField;
 import org.javavietnam.gis.client.midp.model.Preferences;
 
 /**
- * @author Khanh
+ * @author     Khanh
  */
 class PreferencesUI extends Form implements CommandListener {
 

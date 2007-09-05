@@ -46,7 +46,7 @@ import javax.microedition.lcdui.Form;
 import javax.microedition.lcdui.TextField;
 
 /**
- * @author Khanh
+ * @author     Khanh
  */
 class MapServerUI extends Form implements CommandListener {
 

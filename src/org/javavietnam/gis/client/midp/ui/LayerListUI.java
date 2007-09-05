@@ -51,7 +51,7 @@ import org.javavietnam.gis.shared.midp.model.LayerInformation;
 import org.javavietnam.gis.shared.midp.model.TreeNode;
 
 /**
- * @author khanhlnq
+ * @author     khanhlnq
  */
 class LayerListUI extends List implements CommandListener {
 
@@ -60,6 +60,7 @@ class LayerListUI extends List implements CommandListener {
     private Command getMapCommand;
 
     /**
+     * @uml.property  name="layerList"
      */
     private Vector layerList;
 
@@ -104,15 +105,16 @@ class LayerListUI extends List implements CommandListener {
     }
 
     /**
-     * @return Returns the layerList.
+     * @return    Returns the layerList.
+     * @uml.property  name="layerList"
      */
     public Vector getLayerList() {
         return layerList;
     }
 
     /**
-     * @param layerList
-     *            The layerList to set.
+     * @param layerList    The layerList to set.
+     * @uml.property  name="layerList"
      */
     private void setLayerList(Vector layerList) {
         this.layerList = layerList;

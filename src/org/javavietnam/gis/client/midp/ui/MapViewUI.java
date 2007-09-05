@@ -96,7 +96,7 @@ import org.javavietnam.gis.shared.midp.model.MapFeature;
 import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
 
 /**
- * @author khanhlnq
+ * @author     khanhlnq
  */
 public class MapViewUI extends GameCanvas implements CommandListener,
         WMSRequestParameter {
@@ -117,9 +117,11 @@ public class MapViewUI extends GameCanvas implements CommandListener,
             Font.STYLE_ITALIC, Font.SIZE_SMALL);
 
     /**
+     * @uml.property  name="cursorX"
      */
     private int cursorX;
     /**
+     * @uml.property  name="cursorY"
      */
     private int cursorY;
     // private boolean startPointSelected = false;
@@ -142,9 +144,12 @@ public class MapViewUI extends GameCanvas implements CommandListener,
     // private boolean isViewPath = false;
     private boolean isViewFeature = false;
     /**
+     * @uml.property  name="boundingBox"
+     * @uml.associationEnd  multiplicity="(0 -1)"
      */
     private Float[] boundingBox = new Float[4];
     /**
+     * @uml.property  name="getMapURL"
      */
     private String getMapURL = "";
     private Image wmsImg;
@@ -228,8 +233,8 @@ public class MapViewUI extends GameCanvas implements CommandListener,
     }
 
     /**
-     * @param latLonBoundingBox
-     *            the boundingBox to set
+     * @param latLonBoundingBox    the boundingBox to set
+     * @uml.property  name="boundingBox"
      */
     public void setBoundingBox(Float[] latLonBoundingBox) {
         System.arraycopy(latLonBoundingBox, 0, boundingBox, 0, 4);
@@ -254,7 +259,8 @@ public class MapViewUI extends GameCanvas implements CommandListener,
     }
 
     /**
-     * @return the boundingBox
+     * @return    the boundingBox
+     * @uml.property  name="boundingBox"
      */
     public Float[] getBoundingBox() {
         return boundingBox;
@@ -310,7 +316,8 @@ public class MapViewUI extends GameCanvas implements CommandListener,
     }
 
     /**
-     * @return Returns the getMapURL.
+     * @return    Returns the getMapURL.
+     * @uml.property  name="getMapURL"
      */
     public String getGetMapURL() {
         return getMapURL;
@@ -822,14 +829,16 @@ public class MapViewUI extends GameCanvas implements CommandListener,
     }
 
     /**
-     * @return Returns the cursorX.
+     * @return    Returns the cursorX.
+     * @uml.property  name="cursorX"
      */
     private int getCursorX() {
         return cursorX;
     }
 
     /**
-     * @return Returns the cursorY.
+     * @return    Returns the cursorY.
+     * @uml.property  name="cursorY"
      */
     private int getCursorY() {
         return cursorY;

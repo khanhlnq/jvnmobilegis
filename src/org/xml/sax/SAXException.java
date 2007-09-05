@@ -43,26 +43,10 @@
 package org.xml.sax;
 
 /**
- * Encapsulate a general SAX error or warning.
- * <p>
- * This class can contain basic error or warning information from either the XML
- * parser or the application: a parser writer or application writer can subclass
- * it to provide additional functionality. SAX handlers may throw this exception
- * or any exception subclassed from it.
- * </p>
- * <p>
- * If the application needs to pass through other types of exceptions, it must
- * wrap those exceptions in a SAXException or an exception derived from a
- * SAXException.
- * </p>
- * <p>
- * If the parser or application needs to include information about a specific
- * location in an XML document, it should use the SAXParseException subclass.
- * </p>
- * 
- * @author David Megginson (ak117@freenet.carleton.ca)
- * @version 1.0
- * @see org.xml.sax.SAXParseException
+ * Encapsulate a general SAX error or warning. <p> This class can contain basic error or warning information from either the XML parser or the application: a parser writer or application writer can subclass it to provide additional functionality. SAX handlers may throw this exception or any exception subclassed from it. </p> <p> If the application needs to pass through other types of exceptions, it must wrap those exceptions in a SAXException or an exception derived from a SAXException. </p> <p> If the parser or application needs to include information about a specific location in an XML document, it should use the SAXParseException subclass. </p>
+ * @author    David Megginson (ak117@freenet.carleton.ca)
+ * @version    1.0
+ * @see  org.xml.sax.SAXParseException
  */
 public class SAXException extends Exception {
 
@@ -114,15 +98,10 @@ public class SAXException extends Exception {
     }
 
     /**
-     * Return a detail message for this exception.
-     * <p>
-     * If there is a embedded exception, and if the SAXException has no detail
-     * message of its own, this method will return the detail message from the
-     * embedded exception.
-     * </p>
-     * 
-     * @return The error or warning message.
-     * @see org.xml.sax.Parser#setLocale
+     * Return a detail message for this exception. <p> If there is a embedded exception, and if the SAXException has no detail message of its own, this method will return the detail message from the embedded exception. </p>
+     * @return    The error or warning message.
+     * @see  org.xml.sax.Parser#setLocale
+     * @uml.property  name="message"
      */
     public String getMessage() {
         if (message == null && exception != null) {
@@ -134,8 +113,8 @@ public class SAXException extends Exception {
 
     /**
      * Return the embedded exception, if any.
-     * 
-     * @return The embedded exception, or null if there is none.
+     * @return    The embedded exception, or null if there is none.
+     * @uml.property  name="exception"
      */
     public Exception getException() {
         return exception;
@@ -155,9 +134,11 @@ public class SAXException extends Exception {
     // ////////////////////////////////////////////////////////////////////
 
     /**
+     * @uml.property  name="message"
      */
     private String message;
     /**
+     * @uml.property  name="exception"
      */
     private Exception exception;
 

@@ -40,16 +40,19 @@
 package org.javavietnam.gis.shared.midp.model;
 
 /**
- * @author khanhlnq
+ * @author    khanhlnq
  */
 public class Credentials {
     /**
+     * @uml.property  name="credentials"
      */
     protected String credentials = null;
     /**
+     * @uml.property  name="username"
      */
     protected String username = null;
     /**
+     * @uml.property  name="password"
      */
     protected String password = null;
 
@@ -62,13 +65,15 @@ public class Credentials {
 
     /**
      * @return
+     * @uml.property  name="credentials"
      */
     public String getCredentials() {
         return credentials;
     }
 
     /**
-     * @param credentials
+     * @param  credentials
+     * @uml.property  name="credentials"
      */
     public void setCredentials(String credentials) {
         this.credentials = credentials;
@@ -76,13 +81,15 @@ public class Credentials {
 
     /**
      * @return
+     * @uml.property  name="password"
      */
     public String getPassword() {
         return password;
     }
 
     /**
-     * @param password
+     * @param  password
+     * @uml.property  name="password"
      */
     public void setPassword(String password) {
         this.password = password;
@@ -90,13 +97,15 @@ public class Credentials {
 
     /**
      * @return
+     * @uml.property  name="username"
      */
     public String getUsername() {
         return username;
     }
 
     /**
-     * @param username
+     * @param  username
+     * @uml.property  name="username"
      */
     public void setUsername(String username) {
         this.username = username;

@@ -102,12 +102,15 @@ import org.javavietnam.gis.shared.midp.model.SearchFeatureParameter;
 import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
 
 /**
- * @author khanhlnq
+ * @author    khanhlnq
  */
 public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 
     // store the last valid credentials
 
+    /**
+     * @uml.property  name="wwwAuthenticate"
+     */
     private String wwwAuthenticate = null;
     private String credentials = null;
 
@@ -660,13 +663,15 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 
     /**
      * @return
+     * @uml.property  name="wwwAuthenticate"
      */
     public String getWwwAuthenticate() {
         return wwwAuthenticate;
     }
 
     /**
-     * @param credentials
+     * @param  credentials
+     * @uml.property  name="credentials"
      */
     public void setCredentials(String credentials) {
         this.credentials = credentials;

@@ -50,7 +50,7 @@ import javax.microedition.lcdui.List;
 import java.util.Vector;
 
 /**
- * @author Khanh
+ * @author     Khanh
  */
 class SearchFeatureResultUI extends List implements CommandListener {
 
@@ -62,6 +62,7 @@ class SearchFeatureResultUI extends List implements CommandListener {
     private Vector features;
 
     /**
+     * @uml.property  name="numResult"
      */
     private int numResult = 0;
 
@@ -127,7 +128,8 @@ class SearchFeatureResultUI extends List implements CommandListener {
     }
 
     /**
-     * @return the numResult
+     * @return    the numResult
+     * @uml.property  name="numResult"
      */
     public int getNumResult() {
         return numResult;

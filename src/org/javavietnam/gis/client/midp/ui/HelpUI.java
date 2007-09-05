@@ -46,7 +46,7 @@ import javax.microedition.lcdui.Form;
 import javax.microedition.lcdui.StringItem;
 
 /**
- * @author khanhlnq
+ * @author     khanhlnq
  */
 class HelpUI extends Form implements CommandListener {
 

@@ -51,7 +51,7 @@ import javax.microedition.lcdui.Form;
 import org.javavietnam.gis.shared.midp.model.LayerInformation;
 
 /**
- * @author Khanh
+ * @author     Khanh
  */
 class LayerSelectUI extends Form implements CommandListener {
 
@@ -61,6 +61,7 @@ class LayerSelectUI extends Form implements CommandListener {
     private ChoiceGroup choiceLayer;
     private ChoiceGroup choiceAskNextTime;
     /**
+     * @uml.property  name="askNextTime"
      */
     private boolean askNextTime = true;
 
@@ -112,7 +113,8 @@ class LayerSelectUI extends Form implements CommandListener {
     }
 
     /**
-     * @return Returns the askNextTime.
+     * @return    Returns the askNextTime.
+     * @uml.property  name="askNextTime"
      */
     public boolean isAskNextTime() {
         return askNextTime;
