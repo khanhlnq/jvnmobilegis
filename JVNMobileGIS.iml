@@ -32,7 +32,7 @@
     <setting name="MIDlet-1" module.settings.user.defined.value="JVNMobileGIS, /icons/JVNMobileGIS_icon.png, org.javavietnam.gis.client.midp.JVNMobileGISMIDlet" />
     <setting name="MIDlet-Description" module.settings.user.defined.value="A mobile map viewer, developed by JVNGIS team" />
     <setting name="MIDlet-Icon" module.settings.user.defined.value="$MODULE_DIR$/res/icons/JVNMobileGIS_icon.png" />
-    <setting name="MIDlet-Info-URL" module.settings.user.defined.value="http://jvnmobilegis.googlecode.com/" />
+    <setting name="MIDlet-Info-URL" module.settings.user.defined.value="http://code.google.com/p/jvnmobilegis/" />
     <setting name="MIDlet-Jar-Size" module.settings.user.defined.value="112982" />
     <setting name="MIDlet-Jar-URL" module.settings.user.defined.value="JVNMobileGIS.jar" />
     <setting name="MIDlet-Name" module.settings.user.defined.value="JVNMobileGIS" />

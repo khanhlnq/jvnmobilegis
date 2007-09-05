@@ -1,9 +1,9 @@
 /*
- * $Id: UIController.java 79 2007-08-31 06:56:15Z khanh.lnq $
- * $URL: https://jvnmobilegis.googlecode.com/svn/trunk/src/org/javavietnam/gis/client/midp/ui/UIController.java $
- * $Author: khanh.lnq $
- * $Revision: 79 $
- * $Date: 2007-08-31 13:56:15 +0700 (Fri, 31 Aug 2007) $
+ * $Id$
+ * $URL$
+ * $Author$
+ * $Revision$
+ * $Date$
  *
  * ====================================================================
  *
@@ -27,7 +27,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  * Support can be obtained from project homepage at:
- * http://jvnmobilegis.googlecode.com/
+ * http://code.google.com/p/jvnmobilegis/
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq AT gmail.com

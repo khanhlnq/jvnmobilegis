@@ -32,7 +32,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  * Support can be obtained from project homepage at:
- * http://jvnmobilegis.googlecode.com/
+ * http://code.google.com/p/jvnmobilegis/
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq AT gmail.com
