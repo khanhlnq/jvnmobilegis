@@ -1,15 +1,16 @@
-1.0.1:
+v1.0.1:
 - Fullscreen display
 - Friendly HTTP error message
 - HTTPS, SSL support
-- Pre-define Landgate WMS data
-- Display "title" in layer list
+- Pre-defined Landgate WMS data
+- Display "title" in layer list instead of layer "name"
 - Zoom features now is pointer centric
 - Add GetFeatureInfo menu to MapView
-- Enhance Unicode manipulating
-- New released packages location http://jvnmobilegis.googlecode.com/svn/tags/release
+- Enhanced Unicode manipulating
+- New released packages location at http://code.google.com/p/jvnmobilegis/svn/tags/release
+- Some minor changes
 
-1.0.0:
+v1.0.0:
 - Support CLDC 1.0 for low-end Java phones.
 - Get data from any OGC WMS compliant server on the Internet.
 - Select layer in remote server's layer list.
