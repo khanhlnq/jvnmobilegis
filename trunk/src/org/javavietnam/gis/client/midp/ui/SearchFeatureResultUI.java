@@ -84,10 +84,7 @@ class SearchFeatureResultUI extends List implements CommandListener {
     }
 
     public void init(String result) {
-        // deleteAll();
-        for (int i = size() - 1; i >= 0; i--) {
-            delete(i);
-        }
+        deleteAll();
         features = null;
         features = new Vector();
         numResult = 0;

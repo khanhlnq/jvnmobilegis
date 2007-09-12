@@ -91,10 +91,7 @@ class LayerSelectUI extends Form implements CommandListener {
     }
 
     public void init(Vector layerList) {
-        // choiceLayer.deleteAll();
-        for (int i = choiceLayer.size() - 1; i >= 0; i--) {
-            choiceLayer.delete(i);
-        }
+        choiceLayer.deleteAll();
         for (int i = 0; i < layerList.size(); i++) {
             choiceLayer.append(((LayerInformation) layerList.elementAt(i))
                     .getField("name"), null);
