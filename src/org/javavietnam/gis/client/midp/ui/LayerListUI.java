@@ -82,10 +82,7 @@ class LayerListUI extends List implements CommandListener {
     }
 
     public void init(Vector treeNode) {
-        // deleteAll();
-        for (int i = size() - 1; i >= 0; i--) {
-            delete(i);
-        }
+        deleteAll();
         setTitle(treeNode + "");
         layerList.removeAllElements();
         for (int i = 0; i < treeNode.size(); i++) {
