@@ -89,7 +89,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 /**
- * @author    khanhlnq
+ * @author     khanhlnq
  */
 public class IndexEntry {
 
@@ -140,7 +140,7 @@ public class IndexEntry {
     }
 
     /**
-     * @return    the type
+     * @return     the type
      * @uml.property  name="type"
      */
     public int getType() {
@@ -148,7 +148,7 @@ public class IndexEntry {
     }
 
     /**
-     * @return    the key
+     * @return     the key
      * @uml.property  name="key"
      */
     public String getKey() {
@@ -156,7 +156,7 @@ public class IndexEntry {
     }
 
     /**
-     * @return    the expirationDate
+     * @return     the expirationDate
      * @uml.property  name="expirationDate"
      */
     public long getExpirationDate() {
@@ -164,7 +164,7 @@ public class IndexEntry {
     }
 
     /**
-     * @param expirationDate    the expirationDate to set
+     * @param expirationDate     the expirationDate to set
      * @uml.property  name="expirationDate"
      */
     public void setExpirationDate(long expirationDate) {
@@ -172,7 +172,7 @@ public class IndexEntry {
     }
 
     /**
-     * @return    the marked
+     * @return     the marked
      * @uml.property  name="marked"
      */
     public boolean isMarked() {
@@ -180,7 +180,7 @@ public class IndexEntry {
     }
 
     /**
-     * @param marked    the marked to set
+     * @param marked     the marked to set
      * @uml.property  name="marked"
      */
     public void setMarked(boolean marked) {
@@ -188,7 +188,7 @@ public class IndexEntry {
     }
 
     /**
-     * @return    the recordId
+     * @return     the recordId
      * @uml.property  name="recordId"
      */
     public int getRecordId() {
@@ -196,7 +196,7 @@ public class IndexEntry {
     }
 
     /**
-     * @return    the mode
+     * @return     the mode
      * @uml.property  name="mode"
      */
     public int getMode() {

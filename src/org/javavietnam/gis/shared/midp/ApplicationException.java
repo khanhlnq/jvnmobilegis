@@ -83,7 +83,7 @@
 package org.javavietnam.gis.shared.midp;
 
 /**
- * @author     khanhlnq
+ * @author       khanhlnq
  */
 public class ApplicationException extends Exception {
 
@@ -126,7 +126,7 @@ public class ApplicationException extends Exception {
     }
 
     /**
-     * @return    Returns the code.
+     * @return     Returns the code.
      * @uml.property  name="code"
      */
     public int getCode() {
@@ -134,7 +134,7 @@ public class ApplicationException extends Exception {
     }
 
     /**
-     * @return    Returns the exception.
+     * @return     Returns the exception.
      * @uml.property  name="exception"
      */
     public Exception getException() {

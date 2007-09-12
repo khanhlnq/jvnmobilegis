@@ -53,7 +53,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Vector;
 
 /**
- * @author    khanhlnq
+ * @author     khanhlnq
  */
 public class SearchFeatureResultParser extends MinML {
 
@@ -175,7 +175,7 @@ public class SearchFeatureResultParser extends MinML {
     }
 
     /**
-     * @return    Returns the notice.
+     * @return     Returns the notice.
      * @uml.property  name="numResult"
      */
     public int getNumResult() {

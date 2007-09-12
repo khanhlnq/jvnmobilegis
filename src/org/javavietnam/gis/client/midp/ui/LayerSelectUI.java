@@ -51,17 +51,17 @@ import javax.microedition.lcdui.Form;
 import org.javavietnam.gis.shared.midp.model.LayerInformation;
 
 /**
- * @author     Khanh
+ * @author Khanh
  */
 class LayerSelectUI extends Form implements CommandListener {
 
-    private UIController uiController;
-    private Command backCommand;
-    private Command confirmCommand;
-    private ChoiceGroup choiceLayer;
-    private ChoiceGroup choiceAskNextTime;
+    private final UIController uiController;
+    private final Command backCommand;
+    private final Command confirmCommand;
+    private final ChoiceGroup choiceLayer;
+    private final ChoiceGroup choiceAskNextTime;
     /**
-     * @uml.property  name="askNextTime"
+     * @uml.property name="askNextTime"
      */
     private boolean askNextTime = true;
 
@@ -72,8 +72,7 @@ class LayerSelectUI extends Form implements CommandListener {
         askNextTimeArr[0] = uiController.getString(UIConstants.YES);
         askNextTimeArr[1] = uiController.getString(UIConstants.NO);
         choiceLayer = new ChoiceGroup(uiController
-                .getString(UIConstants.CHOOSE_LAYER_FOR_INFO),
-                Choice.EXCLUSIVE);
+                .getString(UIConstants.CHOOSE_LAYER_FOR_INFO), Choice.EXCLUSIVE);
         choiceAskNextTime = new ChoiceGroup(uiController
                 .getString(UIConstants.ASK_NEXT_TIME), Choice.EXCLUSIVE,
                 askNextTimeArr, null);
@@ -92,7 +91,10 @@ class LayerSelectUI extends Form implements CommandListener {
     }
 
     public void init(Vector layerList) {
-        choiceLayer.deleteAll();
+        // choiceLayer.deleteAll();
+        for (int i = choiceLayer.size() - 1; i >= 0; i--) {
+            choiceLayer.delete(i);
+        }
         for (int i = 0; i < layerList.size(); i++) {
             choiceLayer.append(((LayerInformation) layerList.elementAt(i))
                     .getField("name"), null);
@@ -113,8 +115,8 @@ class LayerSelectUI extends Form implements CommandListener {
     }
 
     /**
-     * @return    Returns the askNextTime.
-     * @uml.property  name="askNextTime"
+     * @return Returns the askNextTime.
+     * @uml.property name="askNextTime"
      */
     public boolean isAskNextTime() {
         return askNextTime;

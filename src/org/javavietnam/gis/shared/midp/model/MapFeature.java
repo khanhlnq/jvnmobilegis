@@ -42,7 +42,7 @@ package org.javavietnam.gis.shared.midp.model;
 import henson.midp.Float;
 
 /**
- * @author     khanhlnq
+ * @author       khanhlnq
  */
 public class MapFeature {
 
@@ -65,7 +65,7 @@ public class MapFeature {
     }
 
     /**
-     * @return    the id
+     * @return     the id
      * @uml.property  name="id"
      */
     public String getId() {
@@ -73,7 +73,7 @@ public class MapFeature {
     }
 
     /**
-     * @param id    the id to set
+     * @param id     the id to set
      * @uml.property  name="id"
      */
     public void setId(String id) {
@@ -81,7 +81,7 @@ public class MapFeature {
     }
 
     /**
-     * @return    the x
+     * @return     the x
      * @uml.property  name="x"
      */
     public Float getX() {
@@ -89,7 +89,7 @@ public class MapFeature {
     }
 
     /**
-     * @param x    the x to set
+     * @param x     the x to set
      * @uml.property  name="x"
      */
     public void setX(Float x) {
@@ -97,7 +97,7 @@ public class MapFeature {
     }
 
     /**
-     * @return    the y
+     * @return     the y
      * @uml.property  name="y"
      */
     public Float getY() {
@@ -105,7 +105,7 @@ public class MapFeature {
     }
 
     /**
-     * @param y    the y to set
+     * @param y     the y to set
      * @uml.property  name="y"
      */
     public void setY(Float y) {
@@ -113,7 +113,7 @@ public class MapFeature {
     }
 
     /**
-     * @return    the name
+     * @return     the name
      * @uml.property  name="name"
      */
     public String getName() {
@@ -121,7 +121,7 @@ public class MapFeature {
     }
 
     /**
-     * @param name    the name to set
+     * @param name     the name to set
      * @uml.property  name="name"
      */
     public void setName(String name) {

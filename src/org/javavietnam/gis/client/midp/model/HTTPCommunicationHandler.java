@@ -102,7 +102,7 @@ import org.javavietnam.gis.shared.midp.model.SearchFeatureParameter;
 import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
 
 /**
- * @author    khanhlnq
+ * @author     khanhlnq
  */
 public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 

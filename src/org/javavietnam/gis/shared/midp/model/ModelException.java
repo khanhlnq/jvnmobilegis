@@ -89,7 +89,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 /**
- * @author    khanhlnq
+ * @author     khanhlnq
  */
 public class ModelException extends Exception {
 
@@ -105,7 +105,7 @@ public class ModelException extends Exception {
     }
 
     /**
-     * @return    Returns the causeCode.
+     * @return     Returns the causeCode.
      * @uml.property  name="causeCode"
      */
     public int getCauseCode() {

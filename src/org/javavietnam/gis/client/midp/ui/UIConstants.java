@@ -42,7 +42,7 @@ package org.javavietnam.gis.client.midp.ui;
 import henson.midp.Float;
 
 /**
- * @author     khanhlnq
+ * @author       khanhlnq
  */
 final class UIConstants {
 

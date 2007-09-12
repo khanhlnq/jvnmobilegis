@@ -88,7 +88,7 @@ import uk.org.xml.sax.DocumentHandler;
 import uk.org.xml.sax.Parser;
 
 /**
- * @author     khanhlnq
+ * @author       khanhlnq
  */
 public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
 
@@ -569,7 +569,7 @@ public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
     }
 
     /**
-     * @param handler    the documentHandler to set
+     * @param handler     the documentHandler to set
      * @uml.property  name="documentHandler"
      */
     public void setDocumentHandler(final org.xml.sax.DocumentHandler handler) {
@@ -588,7 +588,7 @@ public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
     }
 
     /**
-     * @param handler    The errorHandler to set.
+     * @param handler     The errorHandler to set.
      * @uml.property  name="errorHandler"
      */
     public void setErrorHandler(final ErrorHandler handler) {
@@ -654,7 +654,7 @@ public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
     }
 
     /**
-     * @return    Returns the lineNumber.
+     * @return     Returns the lineNumber.
      * @uml.property  name="lineNumber"
      */
     public int getLineNumber() {
@@ -662,7 +662,7 @@ public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
     }
 
     /**
-     * @return    Returns the columnNumber.
+     * @return     Returns the columnNumber.
      * @uml.property  name="columnNumber"
      */
     public int getColumnNumber() {
@@ -676,7 +676,7 @@ public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
     }
 
     /**
-     * @author    khanhlnq
+     * @author     khanhlnq
      */
     private class MinMLBuffer extends Writer {
 
@@ -724,7 +724,7 @@ public class MinML implements Parser, Locator, DocumentHandler, ErrorHandler {
         }
 
         /**
-         * @return    Returns the writer.
+         * @return     Returns the writer.
          * @uml.property  name="writer"
          */
         public Writer getWriter() {

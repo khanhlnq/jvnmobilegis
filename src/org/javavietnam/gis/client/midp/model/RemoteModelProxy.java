@@ -94,7 +94,7 @@ import javax.microedition.lcdui.Image;
 import java.util.Vector;
 
 /**
- * @author     khanhlnq
+ * @author       khanhlnq
  */
 class RemoteModelProxy extends ModelObjectLoader {
 

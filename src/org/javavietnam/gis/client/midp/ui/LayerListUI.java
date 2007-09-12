@@ -51,16 +51,16 @@ import org.javavietnam.gis.shared.midp.model.LayerInformation;
 import org.javavietnam.gis.shared.midp.model.TreeNode;
 
 /**
- * @author     khanhlnq
+ * @author khanhlnq
  */
 class LayerListUI extends List implements CommandListener {
 
-    private UIController uiController;
-    private Command backCommand;
-    private Command getMapCommand;
+    private final UIController uiController;
+    private final Command backCommand;
+    private final Command getMapCommand;
 
     /**
-     * @uml.property  name="layerList"
+     * @uml.property name="layerList"
      */
     private Vector layerList;
 
@@ -82,7 +82,10 @@ class LayerListUI extends List implements CommandListener {
     }
 
     public void init(Vector treeNode) {
-        deleteAll();
+        // deleteAll();
+        for (int i = size() - 1; i >= 0; i--) {
+            delete(i);
+        }
         setTitle(treeNode + "");
         layerList.removeAllElements();
         for (int i = 0; i < treeNode.size(); i++) {
@@ -105,16 +108,17 @@ class LayerListUI extends List implements CommandListener {
     }
 
     /**
-     * @return    Returns the layerList.
-     * @uml.property  name="layerList"
+     * @return Returns the layerList.
+     * @uml.property name="layerList"
      */
     public Vector getLayerList() {
         return layerList;
     }
 
     /**
-     * @param layerList    The layerList to set.
-     * @uml.property  name="layerList"
+     * @param layerList
+     *            The layerList to set.
+     * @uml.property name="layerList"
      */
     private void setLayerList(Vector layerList) {
         this.layerList = layerList;

@@ -90,7 +90,7 @@ import org.javavietnam.gis.client.midp.ui.UIController;
 import org.javavietnam.gis.shared.midp.ApplicationException;
 
 /**
- * @author     khanhlnq
+ * @author khanhlnq
  */
 public class JVNMobileGISMIDlet extends MIDlet {
 
@@ -114,10 +114,15 @@ public class JVNMobileGISMIDlet extends MIDlet {
                 model.setLocale(preferences.getDefaultLocale());
             } else {
                 // If start the first time. Get values for JAD file
-                preferences.setDefaultLocale(getAppProperty(PROPERTY_LOCALE));
                 preferences
-                        .setWmsServerURL(getAppProperty(PROPERTY_SERVICE_URL));
-                preferences.setWebGISURL(getAppProperty(PROPERTY_WEBGIS));
+                        .setDefaultLocale(null == getAppProperty(PROPERTY_LOCALE) ? "en-US"
+                                : getAppProperty(PROPERTY_LOCALE));
+                preferences
+                        .setWmsServerURL(null == getAppProperty(PROPERTY_SERVICE_URL) ? ""
+                                : getAppProperty(PROPERTY_SERVICE_URL));
+                preferences
+                        .setWebGISURL(null == getAppProperty(PROPERTY_WEBGIS) ? ""
+                                : getAppProperty(PROPERTY_WEBGIS));
                 // preferences.setFindPathLayer(getAppProperty(PROPERTY_FINDPATH_LAYER));
                 model.setLocale(preferences.getDefaultLocale());
                 model.setPreferences(preferences);

@@ -40,7 +40,7 @@
 package org.javavietnam.gis.shared.midp.model;
 
 /**
- * @author    khanhlnq
+ * @author     khanhlnq
  */
 public class Credentials {
     /**
