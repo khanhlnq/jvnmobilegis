@@ -80,7 +80,7 @@ import javax.microedition.lcdui.StringItem;
 import javax.microedition.lcdui.TextField;
 
 /**
- * @author     khanhlnq
+ * @author       khanhlnq
  */
 public class PromptDialog extends Form implements CommandListener {
 

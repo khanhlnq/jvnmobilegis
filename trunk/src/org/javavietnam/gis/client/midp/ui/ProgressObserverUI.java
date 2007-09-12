@@ -92,7 +92,7 @@ import javax.microedition.lcdui.StringItem;
 import org.javavietnam.gis.client.midp.util.ProgressObserver;
 
 /**
- * @author    khanhlnq
+ * @author     khanhlnq
  */
 public class ProgressObserverUI extends Form implements ProgressObserver,
         CommandListener {
@@ -140,7 +140,7 @@ public class ProgressObserverUI extends Form implements ProgressObserver,
     }
 
     /**
-     * @return    Returns the stoppable.
+     * @return     Returns the stoppable.
      * @uml.property  name="stoppable"
      */
     public boolean isStoppable() {
@@ -148,7 +148,7 @@ public class ProgressObserverUI extends Form implements ProgressObserver,
     }
 
     /**
-     * @param stoppable    The stoppable to set.
+     * @param stoppable     The stoppable to set.
      * @uml.property  name="stoppable"
      */
     public void setStoppable(boolean stoppable) {

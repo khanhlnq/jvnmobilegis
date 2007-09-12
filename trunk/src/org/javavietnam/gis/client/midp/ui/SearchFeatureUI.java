@@ -50,7 +50,7 @@ import javax.microedition.lcdui.TextField;
 import org.javavietnam.gis.shared.midp.model.SearchFeatureParameter;
 
 /**
- * @author     khanhlnq
+ * @author       khanhlnq
  */
 public class SearchFeatureUI extends Form implements CommandListener,
         SearchFeatureParameter {
@@ -120,7 +120,7 @@ public class SearchFeatureUI extends Form implements CommandListener,
     }
 
     /**
-     * @return    the boundingBox
+     * @return     the boundingBox
      * @uml.property  name="boundingBox"
      */
     public Float[] getBoundingBox() {
@@ -128,7 +128,7 @@ public class SearchFeatureUI extends Form implements CommandListener,
     }
 
     /**
-     * @return    the webGISURL
+     * @return     the webGISURL
      * @uml.property  name="webGISURL"
      */
     public String getWebGISURL() {
@@ -136,7 +136,7 @@ public class SearchFeatureUI extends Form implements CommandListener,
     }
 
     /**
-     * @return    the start
+     * @return     the start
      * @uml.property  name="start"
      */
     public int getStart() {
@@ -144,7 +144,7 @@ public class SearchFeatureUI extends Form implements CommandListener,
     }
 
     /**
-     * @param start    the start to set
+     * @param start     the start to set
      * @uml.property  name="start"
      */
     public void setStart(int start) {

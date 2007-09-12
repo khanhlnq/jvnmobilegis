@@ -46,7 +46,7 @@ import javax.microedition.lcdui.Form;
 import javax.microedition.lcdui.TextField;
 
 /**
- * @author     Khanh
+ * @author Khanh
  */
 class MapServerUI extends Form implements CommandListener {
 
@@ -63,7 +63,7 @@ class MapServerUI extends Form implements CommandListener {
                     .getString(UIConstants.GET_CAPABILITIES_TITLE), serviceURL,
                     255, TextField.URL);
 
-            uiController.mapServersCmd.addCommands(serverField);
+            uiController.mapServersCmd.addCommands(this);
 
             append(serverField);
 
@@ -92,6 +92,15 @@ class MapServerUI extends Form implements CommandListener {
     public void commandAction(Command command, Displayable displayable) {
         if (fetchCommand == command) {
             uiController.getCapabilitiesRequested();
+        } else if (uiController.mapServersCmd.mapServer01 == command) {
+            serverField.setString(uiController
+                    .getString(UIConstants.MAPSERVER_01_URL));
+        } else if (uiController.mapServersCmd.mapServer02 == command) {
+            serverField.setString(uiController
+                    .getString(UIConstants.MAPSERVER_02_URL));
+        } else if (uiController.mapServersCmd.mapServer03 == command) {
+            serverField.setString(uiController
+                    .getString(UIConstants.MAPSERVER_03_URL));
         } else {
             uiController.commandAction(command, displayable);
         }

@@ -50,7 +50,7 @@ import javax.microedition.lcdui.TextField;
 import org.javavietnam.gis.client.midp.model.Preferences;
 
 /**
- * @author     Khanh
+ * @author Khanh
  */
 class PreferencesUI extends Form implements CommandListener {
 
@@ -80,8 +80,6 @@ class PreferencesUI extends Form implements CommandListener {
             // findPathLayerField = new
             // TextField(uiController.getString(UIConstants.FINDPATH_LAYER), "",
             // 255, TextField.URL);
-
-            uiController.mapServersCmd.addCommands(serverField);
 
             append(languageChoice);
             append(serverField);

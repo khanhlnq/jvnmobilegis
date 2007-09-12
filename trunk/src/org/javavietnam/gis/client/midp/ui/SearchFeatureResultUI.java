@@ -50,19 +50,19 @@ import javax.microedition.lcdui.List;
 import java.util.Vector;
 
 /**
- * @author     Khanh
+ * @author Khanh
  */
 class SearchFeatureResultUI extends List implements CommandListener {
 
-    private UIController uiController;
-    private Command backCommand;
-    private Command viewOnMapCommand;
-    private Command nextCommand;
+    private final UIController uiController;
+    private final Command backCommand;
+    private final Command viewOnMapCommand;
+    private final Command nextCommand;
 
     private Vector features;
 
     /**
-     * @uml.property  name="numResult"
+     * @uml.property name="numResult"
      */
     private int numResult = 0;
 
@@ -84,7 +84,10 @@ class SearchFeatureResultUI extends List implements CommandListener {
     }
 
     public void init(String result) {
-        deleteAll();
+        // deleteAll();
+        for (int i = size() - 1; i >= 0; i--) {
+            delete(i);
+        }
         features = null;
         features = new Vector();
         numResult = 0;
@@ -128,8 +131,8 @@ class SearchFeatureResultUI extends List implements CommandListener {
     }
 
     /**
-     * @return    the numResult
-     * @uml.property  name="numResult"
+     * @return the numResult
+     * @uml.property name="numResult"
      */
     public int getNumResult() {
         return numResult;

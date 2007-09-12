@@ -41,8 +41,8 @@ package henson.midp;
 
 /**
  * <p> Title: Class for float-point calculations in J2ME applications (MIDP 1.0/CLDC 1.0 where float or double types are not available) </p> <p> Description: It makes float-point calculations via integer numbers </p> <p> Copyright: Nikolay Klimchuk Copyright (c) 2002-2005 </p> <p> Company: UNTEH </p> <p> License: Free for use only for non-commercial purpose </p> <p> If you want to use all or part of this class for commercial applications then take into account these conditions: </p> <p> 1. I need a one copy of your product which includes my class with license key and so on </p> <p> 2. Please append my copyright information henson.midp.Float (C) by Nikolay Klimchuk on �About� screen of your product </p> <p> 3. If you have web site please append link <a href=�http://henson.newmail.ru�>Nikolay Klimchuk</a> on the page with description of your product </p> <p> That's all, thank you! </p>
- * @author     Nikolay Klimchuk http://henson.newmail.ru
- * @version     1.01
+ * @author       Nikolay Klimchuk http://henson.newmail.ru
+ * @version       1.01
  */
 
 public class Float {

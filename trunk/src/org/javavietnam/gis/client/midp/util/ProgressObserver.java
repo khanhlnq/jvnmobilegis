@@ -83,7 +83,7 @@
 package org.javavietnam.gis.client.midp.util;
 
 /**
- * @author     khanhlnq
+ * @author       khanhlnq
  */
 public interface ProgressObserver {
 

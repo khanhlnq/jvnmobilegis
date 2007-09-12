@@ -108,7 +108,7 @@ import org.javavietnam.gis.shared.midp.model.SearchFeatureParameter;
 import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
 
 /**
- * @author     khanhlnq
+ * @author khanhlnq
  */
 public class UIController {
 
@@ -128,16 +128,16 @@ public class UIController {
     }
 
     private static final String[] iconPaths = { "/icons/JVNMobileGIS.png" };
-    private MIDlet midlet;
+    private final MIDlet midlet;
     /**
-     * @uml.property  name="display"
+     * @uml.property name="display"
      */
-    private Display display;
+    private final Display display;
     private IndexedResourceBundle resourceBundle;
-    private ModelFacade model;
+    private final ModelFacade model;
     public VietSign vietSign;
     public MapServersCmd mapServersCmd;
-    private Image[] icons = new Image[iconPaths.length];
+    private final Image[] icons = new Image[iconPaths.length];
     private Command mainMenuCommand;
     private Command exitCommand;
     private Command aboutCommand;
@@ -156,7 +156,7 @@ public class UIController {
     private ProgressObserverUI progressObserverUI;
     private PromptDialog promptDialog;
 
-    private Credentials credentials;
+    private final Credentials credentials;
 
     public UIController(MIDlet midlet, ModelFacade model) {
         this.credentials = new Credentials();
@@ -167,8 +167,8 @@ public class UIController {
     }
 
     /**
-     * @return    Returns the display.
-     * @uml.property  name="display"
+     * @return Returns the display.
+     * @uml.property name="display"
      */
     private Display getDisplay() {
         return display;
@@ -183,8 +183,8 @@ public class UIController {
     }
 
     /**
-     * @return    the model
-     * @uml.property  name="model"
+     * @return the model
+     * @uml.property name="model"
      */
     public ModelFacade getModel() {
         return model;
@@ -234,8 +234,10 @@ public class UIController {
                 null,
                 getString(UIConstants.MOBILEGIS_CLIENT)
                         + " version "
-                        + midlet
-                                .getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION)
+                        + (null == midlet
+                                .getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION) ? ""
+                                : midlet
+                                        .getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION))
                         + " \n" + getString(UIConstants.COPYRIGHT),
                 icons[UIConstants.ICON_IDX_SPLASH], null);
         alert.setTimeout(UIConstants.SPLASH_TIMEOUT);
@@ -253,8 +255,10 @@ public class UIController {
                     getString(UIConstants.ABOUT),
                     getString(UIConstants.MOBILEGIS_CLIENT)
                             + " version "
-                            + midlet
-                                    .getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION)
+                            + (null == midlet
+                                    .getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION) ? ""
+                                    : midlet
+                                            .getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION))
                             + " \n" + getString(UIConstants.COPYRIGHT), display
                             .getCurrent());
         } else if (command == exitCommand) {
@@ -481,8 +485,8 @@ public class UIController {
 
     class EventDispatcher extends Thread {
 
-        private int taskId;
-        private Displayable fallbackUI;
+        private final int taskId;
+        private final Displayable fallbackUI;
 
         EventDispatcher(int taskId, Displayable fallbackUI) {
             this.taskId = taskId;
@@ -582,7 +586,7 @@ public class UIController {
                                 getString(UIConstants.GET_CAPABILITIES_WMS_ERROR),
                                 mainMenuUI);
                     } else {
-                        layerListUI.init((Vector) constructedDataTree);
+                        layerListUI.init(constructedDataTree);
 
                         display.setCurrent(layerListUI);
                     }
@@ -709,7 +713,7 @@ public class UIController {
 
     /**
      * @return
-     * @uml.property  name="credentials"
+     * @uml.property name="credentials"
      */
     public Credentials getCredentials() {
         return credentials;

@@ -92,7 +92,7 @@ import javax.microedition.lcdui.Image;
 import java.util.Vector;
 
 /**
- * @author     khanhlnq
+ * @author       khanhlnq
  */
 abstract public class RemoteModelRequestHandler implements RequestHandler {
 
@@ -107,7 +107,7 @@ abstract public class RemoteModelRequestHandler implements RequestHandler {
     }
 
     /**
-     * @return    Returns the nextHandler.
+     * @return     Returns the nextHandler.
      * @uml.property  name="nextHandler"
      */
     public RequestHandler getNextHandler() {
@@ -129,7 +129,7 @@ abstract public class RemoteModelRequestHandler implements RequestHandler {
     }
 
     /**
-     * @param progressObserver    The progressObserver to set.
+     * @param progressObserver     The progressObserver to set.
      * @uml.property  name="progressObserver"
      */
     public static void setProgressObserver(ProgressObserver progressObserver) {

@@ -40,21 +40,21 @@
 package org.javavietnam.gis.client.midp.ui;
 
 import javax.microedition.lcdui.Command;
-import javax.microedition.lcdui.Item;
-import javax.microedition.lcdui.ItemCommandListener;
-import javax.microedition.lcdui.TextField;
+import javax.microedition.lcdui.Form;
 
 /**
- * This class use to add pre-defined WMS mapserver to TextField. It's just a temporary solution. Will find a better way in future.
- * @author     khanhlnq
+ * This class use to add pre-defined WMS mapserver to TextField. It's just a
+ * temporary solution. Will find a better way in future.
+ * 
+ * @author khanhlnq
  */
-public class MapServersCmd implements ItemCommandListener {
+public class MapServersCmd {
 
-    private UIController uiController;
+    private final UIController uiController;
 
-    private final Command mapServer01;
-    private final Command mapServer02;
-    private final Command mapServer03;
+    public final Command mapServer01;
+    public final Command mapServer02;
+    public final Command mapServer03;
 
     /**
      * Creates a new instance of MapServersCmd
@@ -75,28 +75,9 @@ public class MapServersCmd implements ItemCommandListener {
                 Command.SCREEN, 5);
     }
 
-    public void addCommands(TextField item) {
-        item.addCommand(mapServer01);
-        item.addCommand(mapServer02);
-        item.addCommand(mapServer03);
-
-        item.setItemCommandListener(this);
+    public void addCommands(Form form) {
+        form.addCommand(mapServer01);
+        form.addCommand(mapServer02);
+        form.addCommand(mapServer03);
     }
-
-    public void commandAction(Command command, Item item) {
-        if (item instanceof TextField) {
-            TextField text = (TextField) item;
-            if (mapServer01 == command) {
-                text.setString(uiController
-                        .getString(UIConstants.MAPSERVER_01_URL));
-            } else if (mapServer02 == command) {
-                text.setString(uiController
-                        .getString(UIConstants.MAPSERVER_02_URL));
-            } else if (mapServer03 == command) {
-                text.setString(uiController
-                        .getString(UIConstants.MAPSERVER_03_URL));
-            }
-        }
-    }
-
 }

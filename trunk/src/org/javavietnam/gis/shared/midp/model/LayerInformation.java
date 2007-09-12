@@ -103,7 +103,7 @@ public class LayerInformation {
 
     /**
      * Gibt die den Bereich in dem dieser Layer verf�gbar ist
-     * @return    floatArray mit { minx, miny, maxx, maxy }
+     * @return     floatArray mit { minx, miny, maxx, maxy }
      * @uml.property  name="latLonBoundingBox"
      */
     public Float[] getLatLonBoundingBox() {

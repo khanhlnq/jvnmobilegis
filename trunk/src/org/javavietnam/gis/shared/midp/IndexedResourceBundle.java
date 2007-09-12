@@ -47,7 +47,7 @@ import java.io.InputStream;
 import java.util.Vector;
 
 /**
- * @author    khanhlnq
+ * @author     khanhlnq
  */
 public class IndexedResourceBundle {
 
@@ -70,7 +70,7 @@ public class IndexedResourceBundle {
     }
 
     /**
-     * @return    Returns the locale.
+     * @return     Returns the locale.
      * @uml.property  name="locale"
      */
     public String getLocale() {

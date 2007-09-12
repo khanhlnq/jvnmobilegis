@@ -95,7 +95,7 @@ import java.io.InputStream;
 import java.util.Vector;
 
 /**
- * @author     khanhlnq
+ * @author       khanhlnq
  */
 public class ModelFacade {
 
@@ -147,7 +147,7 @@ public class ModelFacade {
     }
 
     /**
-     * @param locale    The locale to set.
+     * @param locale     The locale to set.
      * @throws org.javavietnam.gis.shared.midp.ApplicationException
      * @uml.property  name="locale"
      */
@@ -163,7 +163,7 @@ public class ModelFacade {
     }
 
     /**
-     * @return    the locale
+     * @return     the locale
      * @uml.property  name="locale"
      */
     public String getLocale() {

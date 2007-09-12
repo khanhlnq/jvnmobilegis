@@ -44,7 +44,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * @author     khanhlnq
+ * @author       khanhlnq
  */
 public class Base64 {
     private static final Encoder encoder = new Base64Encoder();

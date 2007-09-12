@@ -60,7 +60,7 @@ public class ServerInformation extends Vector {
     private String getMapURL;
 
     /**
-     * @param name    The name to set.
+     * @param name     The name to set.
      * @uml.property  name="name"
      */
     public void setName(String name) {
