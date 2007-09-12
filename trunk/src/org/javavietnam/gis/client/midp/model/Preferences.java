@@ -89,17 +89,17 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 /**
- * @author     khanhlnq
+ * @author khanhlnq
  */
 public class Preferences {
 
-    private String locale = "";
+    private String locale = "en-US";
     /**
-     * @uml.property  name="wmsServerURL"
+     * @uml.property name="wmsServerURL"
      */
     private String wmsServerURL = "";
     /**
-     * @uml.property  name="webGISURL"
+     * @uml.property name="webGISURL"
      */
     private String webGISURL = "";
 
@@ -154,32 +154,34 @@ public class Preferences {
     }
 
     /**
-     * @return     the wmsServerURL
-     * @uml.property  name="wmsServerURL"
+     * @return the wmsServerURL
+     * @uml.property name="wmsServerURL"
      */
     public String getWmsServerURL() {
         return wmsServerURL;
     }
 
     /**
-     * @param wmsServerURL     the wmsServerURL to set
-     * @uml.property  name="wmsServerURL"
+     * @param wmsServerURL
+     *            the wmsServerURL to set
+     * @uml.property name="wmsServerURL"
      */
     public void setWmsServerURL(String wmsServerURL) {
         this.wmsServerURL = wmsServerURL;
     }
 
     /**
-     * @return     the webGISURL
-     * @uml.property  name="webGISURL"
+     * @return the webGISURL
+     * @uml.property name="webGISURL"
      */
     public String getWebGISURL() {
         return webGISURL;
     }
 
     /**
-     * @param webGISURL     the webGISURL to set
-     * @uml.property  name="webGISURL"
+     * @param webGISURL
+     *            the webGISURL to set
+     * @uml.property name="webGISURL"
      */
     public void setWebGISURL(String webGISURL) {
         this.webGISURL = webGISURL;
