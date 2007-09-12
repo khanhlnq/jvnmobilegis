@@ -115,7 +115,8 @@ public class JVNMobileGISMIDlet extends MIDlet {
             } else {
                 // If start the first time. Get values for JAD file
                 preferences
-                        .setDefaultLocale(null == getAppProperty(PROPERTY_LOCALE) ? "en-US"
+                        .setDefaultLocale(null == getAppProperty(PROPERTY_LOCALE) ? preferences
+                                .getDefaultLocale()
                                 : getAppProperty(PROPERTY_LOCALE));
                 preferences
                         .setWmsServerURL(null == getAppProperty(PROPERTY_SERVICE_URL) ? ""
