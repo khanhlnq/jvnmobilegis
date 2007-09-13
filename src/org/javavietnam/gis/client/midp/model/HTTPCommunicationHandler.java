@@ -102,14 +102,14 @@ import org.javavietnam.gis.shared.midp.model.SearchFeatureParameter;
 import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
 
 /**
- * @author     khanhlnq
+ * @author khanhlnq
  */
 public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 
     // store the last valid credentials
 
     /**
-     * @uml.property  name="wwwAuthenticate"
+     * @uml.property name="wwwAuthenticate"
      */
     private String wwwAuthenticate = null;
     private String credentials = null;
@@ -389,8 +389,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         } catch (IOException ioe) {
             System.out.println();
             ioe.printStackTrace();
-            throw new ApplicationException(
-                    ErrorMessageCodes.ERROR_CANNOT_CONNECT);
+            throw new ApplicationException(ioe);
         }
 
         return results;
@@ -436,8 +435,8 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
      * while ((ch = inputStream.read()) != -1) { baos.write(ch); } path =
      * Image.createImage(baos.toByteArray(), 0, baos.size()); } catch
      * (IOException ioe) { System.out.println(); ioe.printStackTrace(); throw
-     * new ApplicationException(ErrorMessageCodes.ERROR_CANNOT_CONNECT); }
-     * finally { closeConnection(connection, inputStream); } return path; }
+     * new ApplicationException(ioe); } finally { closeConnection(connection,
+     * inputStream); } return path; }
      */
 
     public String getCapabilitiesWMS(String serviceURL) throws ModelException,
@@ -456,8 +455,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
             results = readStringContent(connection);
         } catch (IOException ioe) {
             ioe.printStackTrace();
-            throw new ApplicationException(
-                    ErrorMessageCodes.ERROR_CANNOT_CONNECT);
+            throw new ApplicationException(ioe);
         }
         // Do not close input stream now
         // finally {
@@ -581,7 +579,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
                 // System.out.println(" ******* Response Code = " +
                 // responseCode);
                 // throw new
-                // ApplicationException(ErrorMessageCodes.ERROR_CANNOT_CONNECT);
+                // ApplicationException(ioe);
                 throw new ApplicationException("HTTP_"
                         + String.valueOf(responseCode) + ": " + reponseMessage);
             }
@@ -637,8 +635,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
             }
         } catch (IOException ioe) {
             ioe.printStackTrace();
-            throw new ApplicationException(
-                    ErrorMessageCodes.ERROR_CANNOT_CONNECT);
+            throw new ApplicationException(ioe);
         } finally {
             closeConnection(connection, inputStream);
         }
@@ -663,15 +660,15 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 
     /**
      * @return
-     * @uml.property  name="wwwAuthenticate"
+     * @uml.property name="wwwAuthenticate"
      */
     public String getWwwAuthenticate() {
         return wwwAuthenticate;
     }
 
     /**
-     * @param  credentials
-     * @uml.property  name="credentials"
+     * @param credentials
+     * @uml.property name="credentials"
      */
     public void setCredentials(String credentials) {
         this.credentials = credentials;
