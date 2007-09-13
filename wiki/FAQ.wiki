@@ -23,7 +23,7 @@ Yes, you can. Please download executable package, extract and run JVNMobileGIS.e
 ===What the executable package is for?===
 It's for demo on Windows PC purpose only. Users can run it without any installation in case of he/she doesn't have mobile device or he/she wants to test before install.
 
-===I see "no trusted certificate store give" error when getCapabilities from HTTPS. I'm using executable package===
+===I see "no trusted certificate store given" error when getCapabilities from HTTPS. I'm using executable package===
 The executable emulator has problem with HTTPS, SSL. You can try another normal HTTP server or try in real device.
 
 ===How to uninstall?=== 
