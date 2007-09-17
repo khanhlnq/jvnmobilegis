@@ -96,32 +96,32 @@ import org.javavietnam.gis.shared.midp.model.MapFeature;
 import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
 
 /**
- * @author       khanhlnq
+ * @author khanhlnq
  */
 public class MapViewUI extends GameCanvas implements CommandListener,
         WMSRequestParameter {
 
-    private UIController uiController;
-    private Command backCommand;
-    private Command zoomInCommand;
-    private Command zoomOutCommand;
-    private Command resetCommand;
-    private Command recenterCommand;
+    private final UIController uiController;
+    private final Command backCommand;
+    private final Command zoomInCommand;
+    private final Command zoomOutCommand;
+    private final Command resetCommand;
+    private final Command recenterCommand;
     // private Command findPathCommand;
-    private Command getFeatureInfoCommand;
-    private Command searchFeatureCommand;
-    private Command helpCommand;
+    private final Command getFeatureInfoCommand;
+    private final Command searchFeatureCommand;
+    private final Command helpCommand;
 
-    private Command refreshCommand;
-    private Font smallFont = Font.getFont(Font.FACE_PROPORTIONAL,
+    private final Command refreshCommand;
+    private final Font smallFont = Font.getFont(Font.FACE_PROPORTIONAL,
             Font.STYLE_ITALIC, Font.SIZE_SMALL);
 
     /**
-     * @uml.property  name="cursorX"
+     * @uml.property name="cursorX"
      */
     private int cursorX;
     /**
-     * @uml.property  name="cursorY"
+     * @uml.property name="cursorY"
      */
     private int cursorY;
     // private boolean startPointSelected = false;
@@ -144,20 +144,25 @@ public class MapViewUI extends GameCanvas implements CommandListener,
     // private boolean isViewPath = false;
     private boolean isViewFeature = false;
     /**
-     * @uml.property  name="boundingBox"
-     * @uml.associationEnd  multiplicity="(0 -1)"
+     * @uml.property name="boundingBox"
+     * @uml.associationEnd multiplicity="(0 -1)"
      */
-    private Float[] boundingBox = new Float[4];
+    private final Float[] boundingBox = new Float[4];
     /**
-     * @uml.property  name="getMapURL"
+     * @uml.property name="getMapURL"
      */
     private String getMapURL = "";
     private Image wmsImg;
-    private int cursorSize;
+    private final int cursorSize;
 
     public MapViewUI(UIController uiController, boolean suppressKeyEvents) {
         super(suppressKeyEvents);
-        this.setFullScreenMode(true);
+        // Only set FullScreen for Nokia devices
+        if ((System.getProperty("microedition.platform").toLowerCase())
+                .indexOf("nokia") >= 0) {
+            this.setFullScreenMode(true);
+        }
+
         this.uiController = uiController;
 
         cursorX = getWidth() / 2;
@@ -233,8 +238,9 @@ public class MapViewUI extends GameCanvas implements CommandListener,
     }
 
     /**
-     * @param latLonBoundingBox     the boundingBox to set
-     * @uml.property  name="boundingBox"
+     * @param latLonBoundingBox
+     *            the boundingBox to set
+     * @uml.property name="boundingBox"
      */
     public void setBoundingBox(Float[] latLonBoundingBox) {
         System.arraycopy(latLonBoundingBox, 0, boundingBox, 0, 4);
@@ -259,8 +265,8 @@ public class MapViewUI extends GameCanvas implements CommandListener,
     }
 
     /**
-     * @return     the boundingBox
-     * @uml.property  name="boundingBox"
+     * @return the boundingBox
+     * @uml.property name="boundingBox"
      */
     public Float[] getBoundingBox() {
         return boundingBox;
@@ -316,8 +322,8 @@ public class MapViewUI extends GameCanvas implements CommandListener,
     }
 
     /**
-     * @return     Returns the getMapURL.
-     * @uml.property  name="getMapURL"
+     * @return Returns the getMapURL.
+     * @uml.property name="getMapURL"
      */
     public String getGetMapURL() {
         return getMapURL;
@@ -799,9 +805,9 @@ public class MapViewUI extends GameCanvas implements CommandListener,
             isViewFeature = false;
             uiController.layerListRequested();
         } /*
-             * else if (command == findPathCommand) { isViewPath = false;
-             * isViewFeature = false; uiController.findPathRequested(); }
-             */
+         * else if (command == findPathCommand) { isViewPath = false;
+         * isViewFeature = false; uiController.findPathRequested(); }
+         */
         else if (command == getFeatureInfoCommand) {
             uiController.selectInfoLayerRequested();
         } else if (command == searchFeatureCommand) {
@@ -829,16 +835,16 @@ public class MapViewUI extends GameCanvas implements CommandListener,
     }
 
     /**
-     * @return     Returns the cursorX.
-     * @uml.property  name="cursorX"
+     * @return Returns the cursorX.
+     * @uml.property name="cursorX"
      */
     private int getCursorX() {
         return cursorX;
     }
 
     /**
-     * @return     Returns the cursorY.
-     * @uml.property  name="cursorY"
+     * @return Returns the cursorY.
+     * @uml.property name="cursorY"
      */
     private int getCursorY() {
         return cursorY;
