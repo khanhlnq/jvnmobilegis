@@ -1,3 +1,7 @@
+v1.0.2:
+- Hotfix NullPointerException which cause crashing when launch JVNMobileGIS
+- Use configurations from resource bundle, not from JAD file
+
 v1.0.1:
 - Fullscreen display
 - Friendly HTTP error message
