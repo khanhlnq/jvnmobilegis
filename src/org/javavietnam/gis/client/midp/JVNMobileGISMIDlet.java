@@ -86,6 +86,7 @@ import javax.microedition.midlet.MIDlet;
 
 import org.javavietnam.gis.client.midp.model.ModelFacade;
 import org.javavietnam.gis.client.midp.model.Preferences;
+import org.javavietnam.gis.client.midp.ui.UIConstants;
 import org.javavietnam.gis.client.midp.ui.UIController;
 import org.javavietnam.gis.shared.midp.ApplicationException;
 
@@ -94,44 +95,54 @@ import org.javavietnam.gis.shared.midp.ApplicationException;
  */
 public class JVNMobileGISMIDlet extends MIDlet {
 
-    private static final String PROPERTY_SERVICE_URL = "WMS-Server-URL";
-    private static final String PROPERTY_LOCALE = "MobileGIS-Locale";
-    private static final String PROPERTY_WEBGIS = "WebGIS-URL";
+    // private static final String PROPERTY_SERVICE_URL = "WMS-Server-URL";
+    // private static final String PROPERTY_LOCALE = "MobileGIS-Locale";
+    // private static final String PROPERTY_WEBGIS = "WebGIS-URL";
     // private static final String PROPERTY_FINDPATH_LAYER = "Find-Path-Layer";
-    public static final String PROPERTY_UPDATE_URL = "Update-URL";
+    // public static final String PROPERTY_UPDATE_URL = "Update-URL";
     public static final String PROPERTY_MIDLET_VERSION = "MIDlet-Version";
 
     private ModelFacade model;
     UIController controller;
 
     protected void startApp() {
+        boolean firstRun = false;
         try {
             model = new ModelFacade();
 
             Preferences preferences = model.getPreferences();
-            // If not start the first time.
-            if (!"".equals(preferences.getDefaultLocale())) {
-                model.setLocale(preferences.getDefaultLocale());
+
+            if (null != preferences) {
+                if (null != preferences.getDefaultLocale()
+                        && !"".equals(preferences.getDefaultLocale())) {
+                    model.setLocale(preferences.getDefaultLocale());
+                } else {
+                    firstRun = true;
+                    preferences.setDefaultLocale("en-US");
+                }
             } else {
-                // If start the first time. Get values for JAD file
-                preferences
-                        .setDefaultLocale(null == getAppProperty(PROPERTY_LOCALE) ? preferences
-                                .getDefaultLocale()
-                                : getAppProperty(PROPERTY_LOCALE));
-                preferences
-                        .setWmsServerURL(null == getAppProperty(PROPERTY_SERVICE_URL) ? ""
-                                : getAppProperty(PROPERTY_SERVICE_URL));
-                preferences
-                        .setWebGISURL(null == getAppProperty(PROPERTY_WEBGIS) ? ""
-                                : getAppProperty(PROPERTY_WEBGIS));
+                firstRun = true;
+                preferences = new Preferences();
+                preferences.setDefaultLocale("en-US");
+            }
+
+            // Set locale to read resource bundle
+            model.setLocale(preferences.getDefaultLocale());
+
+            controller = new UIController(this, model);
+            controller.init();
+
+            if (firstRun) {
+                preferences.setDefaultLocale("en-US");
+                preferences.setWmsServerURL(controller
+                        .getString(UIConstants.CONF_WMS_SERVER_URL));
+                preferences.setWebGISURL(controller
+                        .getString(UIConstants.CONF_WEBGIS_URL));
                 // preferences.setFindPathLayer(getAppProperty(PROPERTY_FINDPATH_LAYER));
                 model.setLocale(preferences.getDefaultLocale());
                 model.setPreferences(preferences);
             }
 
-            controller = new UIController(this, model);
-
-            controller.init();
         } catch (ApplicationException ae) {
             ae.printStackTrace();
             System.err.println(ae.getException() + "/" + ae.getMessage() + "/"

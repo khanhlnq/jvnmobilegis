@@ -93,7 +93,7 @@ import java.io.IOException;
  */
 public class Preferences {
 
-    private String locale = "en-US";
+    private String locale = "";
     /**
      * @uml.property name="wmsServerURL"
      */

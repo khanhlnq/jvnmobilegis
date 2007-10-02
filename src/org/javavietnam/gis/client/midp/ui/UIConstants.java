@@ -42,9 +42,9 @@ package org.javavietnam.gis.client.midp.ui;
 import henson.midp.Float;
 
 /**
- * @author       khanhlnq
+ * @author khanhlnq
  */
-final class UIConstants {
+public final class UIConstants {
 
     // Contants value used among the app
     public static final int SPLASH_TIMEOUT = 2000;
@@ -138,6 +138,9 @@ final class UIConstants {
     public static final int ENTER_LOGIN_INFO = 77;
     public static final int OK = 78;
     public static final int GET_FEATURE_INFO = 79;
+    public static final int CONF_WEBGIS_URL = 80;
+    public static final int CONF_UPDATE_URL = 81;
+    public static final int CONF_WMS_SERVER_URL = 82;
 
     private UIConstants() {
     }

@@ -595,9 +595,7 @@ public class UIController {
                 }
                 case EventIds.EVENT_ID_CHECKUPDATE: {
                     String currentVersion = checkUpdate(
-                            midlet
-                                    .getAppProperty(JVNMobileGISMIDlet.PROPERTY_UPDATE_URL))
-                            .trim();
+                            getString(UIConstants.CONF_UPDATE_URL)).trim();
                     String oldVersion = midlet
                             .getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION);
                     // System.out.println("****** Current Version = " +
