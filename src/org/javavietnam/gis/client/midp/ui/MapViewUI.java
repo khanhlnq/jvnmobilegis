@@ -158,9 +158,13 @@ public class MapViewUI extends GameCanvas implements CommandListener,
     public MapViewUI(UIController uiController, boolean suppressKeyEvents) {
         super(suppressKeyEvents);
         // Only set FullScreen for Nokia devices
-        if ((System.getProperty("microedition.platform").toLowerCase())
-                .indexOf("nokia") >= 0) {
-            this.setFullScreenMode(true);
+        try {
+            String platform = System.getProperty("microedition.platform").toLowerCase().trim();
+            if ((platform != null) && (platform.indexOf("nokia") >= 0)) {
+                this.setFullScreenMode(true);
+            }
+        } catch (Exception e) {
+            // Do nothing
         }
 
         this.uiController = uiController;
