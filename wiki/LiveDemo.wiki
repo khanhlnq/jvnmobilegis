@@ -1,0 +1,11 @@
+#summary Live demo of JVNMobileGIS on PC
+
+= Introduction =
+
+You can run JVNMobileGIS on your PC using [http://mpowerplayer.com/ mpowerplayer]. Please make sure you have Java Runtime Environment installed.
+
+
+= Details =
+Below is the link to launch live demo of JVNMobileGIS, please accept any warnings because *mpowerplayer* and *JVNMobileGIS* are trusted sources :)
+
+http://webstart.mpowerplayer.com/jvnmobilegis.googlecode.com/svn/JVNMobileGIS.jad
