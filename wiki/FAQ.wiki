@@ -17,7 +17,7 @@ This is an online application. Your phone must be able to connect to Internet vi
 Yes, you can. Please download executable package, extract and run JVNMobileGIS.exe (virus-free guarantee, because I'm using Ubuntu)
 
 ===How to install this application?===
- * Over the air installation: You can enter this URL http://jvnmobilegis.googlecode.com/svn/tags/release/bin/JVNMobileGIS.jad to your phone browser (I know it's long, will deploy it to a different server if possible)
+ * Over the air installation: You can enter this URL http://jvnmobilegis.googlecode.com/svn/JVNMobileGIS.jad to your phone browser (I know it's long, will deploy it to a different server if possible)
  * Via PC installation: Connect your phone to your computer through cable, bluetooth, IR or Wifi. Copy the JVNMobileGIS.jar file to your phone, open it and install.
 
 ===What the executable package is for?===
