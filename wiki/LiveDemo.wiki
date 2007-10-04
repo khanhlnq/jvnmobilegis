@@ -2,7 +2,7 @@
 
 = Introduction =
 
-You can run JVNMobileGIS on your PC using [http://mpowerplayer.com/ mpowerplayer]. Please make sure you have Java Runtime Environment installed.
+You can run JVNMobileGIS on your PC using Java Webstart of [http://mpowerplayer.com/ mpowerplayer]. Please make sure you have Java Runtime Environment installed.
 
 
 = Details =
