@@ -82,11 +82,11 @@
 
 package org.javavietnam.gis.client.midp.model;
 
-import org.javavietnam.gis.shared.midp.ApplicationException;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+
+import org.javavietnam.gis.shared.midp.ApplicationException;
 
 /**
  * @author khanhlnq

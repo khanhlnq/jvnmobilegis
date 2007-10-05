@@ -92,7 +92,7 @@ import javax.microedition.lcdui.StringItem;
 import org.javavietnam.gis.client.midp.util.ProgressObserver;
 
 /**
- * @author     khanhlnq
+ * @author khanhlnq
  */
 public class ProgressObserverUI extends Form implements ProgressObserver,
         CommandListener {
@@ -105,11 +105,11 @@ public class ProgressObserverUI extends Form implements ProgressObserver,
     private StringItem note;
     private Command stopCommand;
     /**
-     * @uml.property  name="stoppable"
+     * @uml.property name="stoppable"
      */
     private boolean stoppable;
     /**
-     * @uml.property  name="stopped"
+     * @uml.property name="stopped"
      */
     private boolean stopped;
 
@@ -140,16 +140,17 @@ public class ProgressObserverUI extends Form implements ProgressObserver,
     }
 
     /**
-     * @return     Returns the stoppable.
-     * @uml.property  name="stoppable"
+     * @return Returns the stoppable.
+     * @uml.property name="stoppable"
      */
     public boolean isStoppable() {
         return stoppable;
     }
 
     /**
-     * @param stoppable     The stoppable to set.
-     * @uml.property  name="stoppable"
+     * @param stoppable
+     *            The stoppable to set.
+     * @uml.property name="stoppable"
      */
     public void setStoppable(boolean stoppable) {
         this.stoppable = stoppable;
@@ -162,8 +163,10 @@ public class ProgressObserverUI extends Form implements ProgressObserver,
     }
 
     /**
-     * Indicates whether the user has stopped the progress. This message should be called before calling update.
-     * @uml.property  name="stopped"
+     * Indicates whether the user has stopped the progress. This message should
+     * be called before calling update.
+     * 
+     * @uml.property name="stopped"
      */
     public boolean isStopped() {
         return stopped;

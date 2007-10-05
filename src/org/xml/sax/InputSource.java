@@ -46,13 +46,37 @@ import java.io.InputStream;
 import java.io.Reader;
 
 /**
- * A single input source for an XML entity. <p> This class allows a SAX application to encapsulate information about an input source in a single object, which may include a public identifier, a system identifier, a byte stream (possibly with a specified encoding), and/or a character stream. </p> <p> There are two places that the application will deliver this input source to the parser: as the argument to the Parser.parse method, or as the return value of the EntityResolver.resolveEntity method. </p> <p> The SAX parser will use the InputSource object to determine how to read XML input. If there is a character stream available, the parser will read that stream directly; if not, the parser will use a byte stream, if available; if neither a character stream nor a byte stream is available, the parser will attempt to open a URI connection to the resource identified by the system identifier. </p> <p> An InputSource object belongs to the application: the SAX parser shall never modify it in any way (it may modify a copy if necessary). </p>
- * @author     David Megginson (ak117@freenet.carleton.ca)
- * @version     1.0
+ * A single input source for an XML entity.
+ * <p>
+ * This class allows a SAX application to encapsulate information about an input
+ * source in a single object, which may include a public identifier, a system
+ * identifier, a byte stream (possibly with a specified encoding), and/or a
+ * character stream.
+ * </p>
+ * <p>
+ * There are two places that the application will deliver this input source to
+ * the parser: as the argument to the Parser.parse method, or as the return
+ * value of the EntityResolver.resolveEntity method.
+ * </p>
+ * <p>
+ * The SAX parser will use the InputSource object to determine how to read XML
+ * input. If there is a character stream available, the parser will read that
+ * stream directly; if not, the parser will use a byte stream, if available; if
+ * neither a character stream nor a byte stream is available, the parser will
+ * attempt to open a URI connection to the resource identified by the system
+ * identifier.
+ * </p>
+ * <p>
+ * An InputSource object belongs to the application: the SAX parser shall never
+ * modify it in any way (it may modify a copy if necessary).
+ * </p>
+ * 
+ * @author David Megginson (ak117@freenet.carleton.ca)
+ * @version 1.0
  * @see org.xml.sax.Parser#parse
  * @see org.xml.sax.EntityResolver#resolveEntity
  * @see java.io.InputStream
- * @see  java.io.Reader
+ * @see java.io.Reader
  */
 public class InputSource {
 
@@ -126,12 +150,18 @@ public class InputSource {
     }
 
     /**
-     * Set the public identifier for this input source. <p> The public identifier is always optional: if the application writer includes one, it will be provided as part of the location information. </p>
-     * @param publicId     The public identifier as a string.
+     * Set the public identifier for this input source.
+     * <p>
+     * The public identifier is always optional: if the application writer
+     * includes one, it will be provided as part of the location information.
+     * </p>
+     * 
+     * @param publicId
+     *            The public identifier as a string.
      * @see #getPublicId
      * @see org.xml.sax.Locator#getPublicId
-     * @see  org.xml.sax.SAXParseException#getPublicId
-     * @uml.property  name="publicId"
+     * @see org.xml.sax.SAXParseException#getPublicId
+     * @uml.property name="publicId"
      */
     public void setPublicId(String publicId) {
         this.publicId = publicId;
@@ -139,69 +169,122 @@ public class InputSource {
 
     /**
      * Get the public identifier for this input source.
-     * @return     The public identifier, or null if none was supplied.
-     * @see  #setPublicId
-     * @uml.property  name="publicId"
+     * 
+     * @return The public identifier, or null if none was supplied.
+     * @see #setPublicId
+     * @uml.property name="publicId"
      */
     public String getPublicId() {
         return publicId;
     }
 
     /**
-     * Set the system identifier for this input source. <p> The system identifier is optional if there is a byte stream or a character stream, but it is still useful to provide one, since the application can use it to resolve relative URIs and can include it in error messages and warnings (the parser will attempt to open a connection to the URI only if there is no byte stream or character stream specified). </p> <p> If the application knows the character encoding of the object pointed to by the system identifier, it can register the encoding using the setEncoding method. </p> <p> If the system ID is a URL, it must be fully resolved. </p>
-     * @param systemId     The system identifier as a string.
+     * Set the system identifier for this input source.
+     * <p>
+     * The system identifier is optional if there is a byte stream or a
+     * character stream, but it is still useful to provide one, since the
+     * application can use it to resolve relative URIs and can include it in
+     * error messages and warnings (the parser will attempt to open a connection
+     * to the URI only if there is no byte stream or character stream
+     * specified).
+     * </p>
+     * <p>
+     * If the application knows the character encoding of the object pointed to
+     * by the system identifier, it can register the encoding using the
+     * setEncoding method.
+     * </p>
+     * <p>
+     * If the system ID is a URL, it must be fully resolved.
+     * </p>
+     * 
+     * @param systemId
+     *            The system identifier as a string.
      * @see #setEncoding
      * @see #getSystemId
      * @see org.xml.sax.Locator#getSystemId
-     * @see  org.xml.sax.SAXParseException#getSystemId
-     * @uml.property  name="systemId"
+     * @see org.xml.sax.SAXParseException#getSystemId
+     * @uml.property name="systemId"
      */
     private void setSystemId(String systemId) {
         this.systemId = systemId;
     }
 
     /**
-     * Get the system identifier for this input source. <p> The getEncoding method will return the character encoding of the object pointed to, or null if unknown. </p> <p> If the system ID is a URL, it will be fully resolved. </p>
-     * @return     The system identifier.
+     * Get the system identifier for this input source.
+     * <p>
+     * The getEncoding method will return the character encoding of the object
+     * pointed to, or null if unknown.
+     * </p>
+     * <p>
+     * If the system ID is a URL, it will be fully resolved.
+     * </p>
+     * 
+     * @return The system identifier.
      * @see #setSystemId
-     * @see  #getEncoding
-     * @uml.property  name="systemId"
+     * @see #getEncoding
+     * @uml.property name="systemId"
      */
     public String getSystemId() {
         return systemId;
     }
 
     /**
-     * Set the byte stream for this input source. <p> The SAX parser will ignore this if there is also a character stream specified, but it will use a byte stream in preference to opening a URI connection itself. </p> <p> If the application knows the character encoding of the byte stream, it should set it with the setEncoding method. </p>
-     * @param byteStream     A byte stream containing an XML document or other entity.
+     * Set the byte stream for this input source.
+     * <p>
+     * The SAX parser will ignore this if there is also a character stream
+     * specified, but it will use a byte stream in preference to opening a URI
+     * connection itself.
+     * </p>
+     * <p>
+     * If the application knows the character encoding of the byte stream, it
+     * should set it with the setEncoding method.
+     * </p>
+     * 
+     * @param byteStream
+     *            A byte stream containing an XML document or other entity.
      * @see #setEncoding
      * @see #getByteStream
      * @see #getEncoding
-     * @see  java.io.InputStream
-     * @uml.property  name="byteStream"
+     * @see java.io.InputStream
+     * @uml.property name="byteStream"
      */
     private void setByteStream(InputStream byteStream) {
         this.byteStream = byteStream;
     }
 
     /**
-     * Get the byte stream for this input source. <p> The getEncoding method will return the character encoding for this byte stream, or null if unknown. </p>
-     * @return     The byte stream, or null if none was supplied.
+     * Get the byte stream for this input source.
+     * <p>
+     * The getEncoding method will return the character encoding for this byte
+     * stream, or null if unknown.
+     * </p>
+     * 
+     * @return The byte stream, or null if none was supplied.
      * @see #getEncoding
-     * @see  #setByteStream
-     * @uml.property  name="byteStream"
+     * @see #setByteStream
+     * @uml.property name="byteStream"
      */
     public InputStream getByteStream() {
         return byteStream;
     }
 
     /**
-     * Set the character encoding, if known. <p> The encoding must be a string acceptable for an XML encoding declaration (see section 4.3.3 of the XML 1.0 recommendation). </p> <p> This method has no effect when the application provides a character stream. </p>
-     * @param encoding     A string describing the character encoding.
+     * Set the character encoding, if known.
+     * <p>
+     * The encoding must be a string acceptable for an XML encoding declaration
+     * (see section 4.3.3 of the XML 1.0 recommendation).
+     * </p>
+     * <p>
+     * This method has no effect when the application provides a character
+     * stream.
+     * </p>
+     * 
+     * @param encoding
+     *            A string describing the character encoding.
      * @see #setSystemId
      * @see #setByteStream
-     * @see  #getEncoding
-     * @uml.property  name="encoding"
+     * @see #getEncoding
+     * @uml.property name="encoding"
      */
     public void setEncoding(String encoding) {
         this.encoding = encoding;
@@ -209,22 +292,31 @@ public class InputSource {
 
     /**
      * Get the character encoding for a byte stream or URI.
-     * @return     The encoding, or null if none was supplied.
+     * 
+     * @return The encoding, or null if none was supplied.
      * @see #setByteStream
      * @see #getSystemId
-     * @see  #getByteStream
-     * @uml.property  name="encoding"
+     * @see #getByteStream
+     * @uml.property name="encoding"
      */
     public String getEncoding() {
         return encoding;
     }
 
     /**
-     * Set the character stream for this input source. <p> If there is a character stream specified, the SAX parser will ignore any byte stream and will not attempt to open a URI connection to the system identifier. </p>
-     * @param characterStream     The character stream containing the XML document or other  entity.
+     * Set the character stream for this input source.
+     * <p>
+     * If there is a character stream specified, the SAX parser will ignore any
+     * byte stream and will not attempt to open a URI connection to the system
+     * identifier.
+     * </p>
+     * 
+     * @param characterStream
+     *            The character stream containing the XML document or other
+     *            entity.
      * @see #getCharacterStream
-     * @see  java.io.Reader
-     * @uml.property  name="characterStream"
+     * @see java.io.Reader
+     * @uml.property name="characterStream"
      */
     private void setCharacterStream(Reader characterStream) {
         this.characterStream = characterStream;
@@ -232,9 +324,10 @@ public class InputSource {
 
     /**
      * Get the character stream for this input source.
-     * @return     The character stream, or null if none was supplied.
-     * @see  #setCharacterStream
-     * @uml.property  name="characterStream"
+     * 
+     * @return The character stream, or null if none was supplied.
+     * @see #setCharacterStream
+     * @uml.property name="characterStream"
      */
     public Reader getCharacterStream() {
         return characterStream;
@@ -245,23 +338,23 @@ public class InputSource {
     // ////////////////////////////////////////////////////////////////////
 
     /**
-     * @uml.property  name="publicId"
+     * @uml.property name="publicId"
      */
     private String publicId;
     /**
-     * @uml.property  name="systemId"
+     * @uml.property name="systemId"
      */
     private String systemId;
     /**
-     * @uml.property  name="byteStream"
+     * @uml.property name="byteStream"
      */
     private InputStream byteStream;
     /**
-     * @uml.property  name="encoding"
+     * @uml.property name="encoding"
      */
     private String encoding = "UTF-8";
     /**
-     * @uml.property  name="characterStream"
+     * @uml.property name="characterStream"
      */
     private Reader characterStream;
 

@@ -82,6 +82,12 @@
 
 package org.javavietnam.gis.client.midp.model;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Vector;
+
+import javax.microedition.lcdui.Image;
+
 import org.javavietnam.gis.client.midp.util.ProgressObserver;
 import org.javavietnam.gis.shared.midp.ApplicationException;
 import org.javavietnam.gis.shared.midp.IndexedResourceBundle;
@@ -89,20 +95,15 @@ import org.javavietnam.gis.shared.midp.model.ModelException;
 import org.javavietnam.gis.shared.midp.model.SearchFeatureParameter;
 import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
 
-import javax.microedition.lcdui.Image;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Vector;
-
 /**
- * @author       khanhlnq
+ * @author khanhlnq
  */
 public class ModelFacade {
 
     private static final String BASE_NAME_ERROR_RESOURCES = "ErrorResources";
     private static final String L10N_ROOT_DIR = "/l10n/";
     /**
-     * @uml.property  name="locale"
+     * @uml.property name="locale"
      */
     private String locale;
     private static final int[] errorMessageCodeMap = new int[] {
@@ -147,9 +148,10 @@ public class ModelFacade {
     }
 
     /**
-     * @param locale     The locale to set.
+     * @param locale
+     *            The locale to set.
      * @throws org.javavietnam.gis.shared.midp.ApplicationException
-     * @uml.property  name="locale"
+     * @uml.property name="locale"
      */
     public void setLocale(String locale) throws ApplicationException {
         IndexedResourceBundle errorBundle;
@@ -163,8 +165,8 @@ public class ModelFacade {
     }
 
     /**
-     * @return     the locale
-     * @uml.property  name="locale"
+     * @return the locale
+     * @uml.property name="locale"
      */
     public String getLocale() {
         return locale;

@@ -39,15 +39,16 @@
 
 package org.javavietnam.gis.client.midp.ui;
 
-import org.javavietnam.gis.shared.midp.SearchFeatureResultParser;
-import org.javavietnam.gis.shared.midp.model.MapFeature;
+import java.util.Vector;
 
 import javax.microedition.lcdui.Choice;
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.CommandListener;
 import javax.microedition.lcdui.Displayable;
 import javax.microedition.lcdui.List;
-import java.util.Vector;
+
+import org.javavietnam.gis.shared.midp.SearchFeatureResultParser;
+import org.javavietnam.gis.shared.midp.model.MapFeature;
 
 /**
  * @author Khanh

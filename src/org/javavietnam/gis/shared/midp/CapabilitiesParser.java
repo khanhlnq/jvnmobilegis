@@ -40,6 +40,12 @@
 package org.javavietnam.gis.shared.midp;
 
 import henson.midp.Float;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.util.Vector;
+
 import org.javavietnam.gis.shared.midp.model.InnerTreeNode;
 import org.javavietnam.gis.shared.midp.model.LayerInformation;
 import org.javavietnam.gis.shared.midp.model.ServerInformation;
@@ -48,12 +54,8 @@ import org.xml.sax.AttributeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
-import uk.co.wilson.xml.MinML;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.util.Vector;
+import uk.co.wilson.xml.MinML;
 
 /**
  * Klasse zu Parsen eines XML-Streams von einer GetCapabilities Anfrage.
