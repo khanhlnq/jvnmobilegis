@@ -82,17 +82,18 @@
 
 package org.javavietnam.gis.client.midp.model;
 
+import java.util.Vector;
+
+import javax.microedition.lcdui.Image;
+
 import org.javavietnam.gis.client.midp.util.ProgressObserver;
 import org.javavietnam.gis.shared.midp.ApplicationException;
 import org.javavietnam.gis.shared.midp.model.ModelException;
 import org.javavietnam.gis.shared.midp.model.SearchFeatureParameter;
 import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
 
-import javax.microedition.lcdui.Image;
-import java.util.Vector;
-
 /**
- * @author       khanhlnq
+ * @author khanhlnq
  */
 abstract public class RemoteModelRequestHandler implements RequestHandler {
 
@@ -107,8 +108,8 @@ abstract public class RemoteModelRequestHandler implements RequestHandler {
     }
 
     /**
-     * @return     Returns the nextHandler.
-     * @uml.property  name="nextHandler"
+     * @return Returns the nextHandler.
+     * @uml.property name="nextHandler"
      */
     public RequestHandler getNextHandler() {
         return nextHandler;
@@ -129,8 +130,9 @@ abstract public class RemoteModelRequestHandler implements RequestHandler {
     }
 
     /**
-     * @param progressObserver     The progressObserver to set.
-     * @uml.property  name="progressObserver"
+     * @param progressObserver
+     *            The progressObserver to set.
+     * @uml.property name="progressObserver"
      */
     public static void setProgressObserver(ProgressObserver progressObserver) {
         RemoteModelRequestHandler.progressObserver = progressObserver;

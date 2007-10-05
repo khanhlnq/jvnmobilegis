@@ -83,17 +83,17 @@
 package org.javavietnam.gis.shared.midp;
 
 /**
- * @author       khanhlnq
+ * @author khanhlnq
  */
 public class ApplicationException extends Exception {
 
     private static IndexedResourceBundle bundle;
     /**
-     * @uml.property  name="code"
+     * @uml.property name="code"
      */
     private int code = -1;
     /**
-     * @uml.property  name="exception"
+     * @uml.property name="exception"
      */
     private Exception exception = null;
 
@@ -126,16 +126,16 @@ public class ApplicationException extends Exception {
     }
 
     /**
-     * @return     Returns the code.
-     * @uml.property  name="code"
+     * @return Returns the code.
+     * @uml.property name="code"
      */
     public int getCode() {
         return code;
     }
 
     /**
-     * @return     Returns the exception.
-     * @uml.property  name="exception"
+     * @return Returns the exception.
+     * @uml.property name="exception"
      */
     public Exception getException() {
         return exception;

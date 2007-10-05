@@ -89,7 +89,7 @@ import javax.microedition.lcdui.Displayable;
 import javax.microedition.lcdui.List;
 
 /**
- * @author       khanhlnq
+ * @author khanhlnq
  */
 class MainMenuUI extends List implements CommandListener {
 

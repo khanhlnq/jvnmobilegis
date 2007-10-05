@@ -767,7 +767,8 @@ public class UIController {
                 e.printStackTrace();
                 showErrorAlert(e, mainMenuUI);
             }
-            display.setCurrent(mapServerUI);
+            // After saving credentials, get server's capabilities
+            getCapabilitiesRequested();
         }
     }
 }

@@ -40,20 +40,22 @@
 package org.javavietnam.gis.shared.midp;
 
 import henson.midp.Float;
-import org.javavietnam.gis.shared.midp.model.MapFeature;
-import org.xml.sax.AttributeList;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
-import uk.co.wilson.xml.MinML;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Vector;
 
+import org.javavietnam.gis.shared.midp.model.MapFeature;
+import org.xml.sax.AttributeList;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
+
+import uk.co.wilson.xml.MinML;
+
 /**
- * @author     khanhlnq
+ * @author khanhlnq
  */
 public class SearchFeatureResultParser extends MinML {
 
@@ -66,7 +68,7 @@ public class SearchFeatureResultParser extends MinML {
     private boolean bookmarkIsParent;
 
     /**
-     * @uml.property  name="numResult"
+     * @uml.property name="numResult"
      */
     private int numResult = 0;
 
@@ -175,8 +177,8 @@ public class SearchFeatureResultParser extends MinML {
     }
 
     /**
-     * @return     Returns the notice.
-     * @uml.property  name="numResult"
+     * @return Returns the notice.
+     * @uml.property name="numResult"
      */
     public int getNumResult() {
         return numResult;

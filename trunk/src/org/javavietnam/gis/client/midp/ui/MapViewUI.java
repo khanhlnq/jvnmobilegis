@@ -160,7 +160,8 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         // Only set FullScreen for Nokia devices
         try {
             String platform = System.getProperty("microedition.platform");
-            if ((platform != null) && (platform.toLowerCase().trim().indexOf("nokia") >= 0)) {
+            if ((platform != null)
+                    && (platform.toLowerCase().trim().indexOf("nokia") >= 0)) {
                 this.setFullScreenMode(true);
             }
         } catch (Exception e) {
@@ -809,9 +810,9 @@ public class MapViewUI extends GameCanvas implements CommandListener,
             isViewFeature = false;
             uiController.layerListRequested();
         } /*
-         * else if (command == findPathCommand) { isViewPath = false;
-         * isViewFeature = false; uiController.findPathRequested(); }
-         */
+             * else if (command == findPathCommand) { isViewPath = false;
+             * isViewFeature = false; uiController.findPathRequested(); }
+             */
         else if (command == getFeatureInfoCommand) {
             uiController.selectInfoLayerRequested();
         } else if (command == searchFeatureCommand) {

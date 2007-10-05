@@ -82,20 +82,20 @@
 
 package org.javavietnam.gis.shared.midp.model;
 
-import org.javavietnam.gis.shared.midp.ApplicationException;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import org.javavietnam.gis.shared.midp.ApplicationException;
+
 /**
- * @author     khanhlnq
+ * @author khanhlnq
  */
 public class ModelException extends Exception {
 
     private static final byte CAUSE_GENERAL = 0;
     /**
-     * @uml.property  name="causeCode"
+     * @uml.property name="causeCode"
      */
     private int causeCode = CAUSE_GENERAL;
 
@@ -105,8 +105,8 @@ public class ModelException extends Exception {
     }
 
     /**
-     * @return     Returns the causeCode.
-     * @uml.property  name="causeCode"
+     * @return Returns the causeCode.
+     * @uml.property name="causeCode"
      */
     public int getCauseCode() {
         return causeCode;

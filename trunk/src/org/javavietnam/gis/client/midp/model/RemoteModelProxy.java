@@ -82,6 +82,10 @@
 
 package org.javavietnam.gis.client.midp.model;
 
+import java.util.Vector;
+
+import javax.microedition.lcdui.Image;
+
 import org.javavietnam.gis.client.midp.util.ProgressObserver;
 import org.javavietnam.gis.shared.midp.ApplicationException;
 import org.javavietnam.gis.shared.midp.CapabilitiesParser;
@@ -90,11 +94,8 @@ import org.javavietnam.gis.shared.midp.model.ModelObjectLoader;
 import org.javavietnam.gis.shared.midp.model.SearchFeatureParameter;
 import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
 
-import javax.microedition.lcdui.Image;
-import java.util.Vector;
-
 /**
- * @author       khanhlnq
+ * @author khanhlnq
  */
 class RemoteModelProxy extends ModelObjectLoader {
 
