@@ -31,7 +31,7 @@
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq AT gmail.com
- * 
+ *
  * @version: 1.0
  * @author: Khanh Le
  * @Date Created: 22 Jun 2007
@@ -158,7 +158,7 @@ public class Float {
     /**
      * Limit of value
      */
-    private long maxLimit = Long.MAX_VALUE / 100;
+    private final long maxLimit = Long.MAX_VALUE / 100;
 
     //
     /**

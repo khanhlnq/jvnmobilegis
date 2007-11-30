@@ -74,7 +74,7 @@
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq AT gmail.com
- * 
+ *
  * @version: 1.0
  * @author: Khanh Le
  * @Date Created: 22 Jun 2007
@@ -112,15 +112,15 @@ public class ModelFacade {
             ErrorMessageCodes.NO_SELECTED_LAYER,
             ErrorMessageCodes.NO_SELECTED_POINT };
 
-    private RemoteModelProxy remoteModel;
+    private final RemoteModelProxy remoteModel;
 
-    private LocalModel localModel;
+    private final LocalModel localModel;
 
     public ModelFacade(String locale) throws ApplicationException {
         localModel = new LocalModel();
         remoteModel = new RemoteModelProxy();
 
-        setLocale(locale);
+        this.setLocale(locale);
 
     }
 

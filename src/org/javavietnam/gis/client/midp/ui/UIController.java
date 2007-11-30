@@ -334,7 +334,7 @@ public class UIController {
                 preferences.setDefaultLocale("vi");
                 break;
             case 2:
-            	preferences.setDefaultLocale("nl-NL");
+                preferences.setDefaultLocale("nl-NL");
             default:
                 break;
             }

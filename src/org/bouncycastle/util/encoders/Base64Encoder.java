@@ -72,7 +72,7 @@ public class Base64Encoder implements Encoder {
     }
 
     public Base64Encoder() {
-        initialiseDecodingTable();
+        this.initialiseDecodingTable();
     }
 
     /**
