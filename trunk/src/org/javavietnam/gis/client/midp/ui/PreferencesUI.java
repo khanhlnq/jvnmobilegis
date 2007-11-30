@@ -104,6 +104,8 @@ class PreferencesUI extends Form implements CommandListener {
             languageChoice.setSelectedIndex(0, true);
         } else if ("vi".equals(preferences.getDefaultLocale())) {
             languageChoice.setSelectedIndex(1, true);
+        } else if ("nl-NL".equals(preferences.getDefaultLocale())) {
+            languageChoice.setSelectedIndex(2, true);
         }
 
         serverField.setString(preferences.getWmsServerURL());
