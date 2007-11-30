@@ -31,7 +31,7 @@
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq AT gmail.com
- * 
+ *
  * @version: 1.0
  * @author: Khanh Le
  * @Date Created: 22 Jun 2007
@@ -67,7 +67,7 @@ class PreferencesUI extends Form implements CommandListener {
             this.uiController = uiController;
 
             String[] languages = { uiController.getString(UIConstants.ENGLISH),
-                    uiController.getString(UIConstants.VIETNAMESE) };
+                    uiController.getString(UIConstants.VIETNAMESE), uiController.getString(UIConstants.DUTCH) };
 
             languageChoice = new ChoiceGroup(uiController
                     .getString(UIConstants.LANGUAGE), Choice.POPUP, languages,

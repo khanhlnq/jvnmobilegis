@@ -31,7 +31,7 @@
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq AT gmail.com
- * 
+ *
  * @version: 1.0
  * @author: Khanh Le
  * @Date Created: 22 Jun 2007
@@ -141,6 +141,7 @@ public final class UIConstants {
     public static final int CONF_WEBGIS_URL = 80;
     public static final int CONF_UPDATE_URL = 81;
     public static final int CONF_WMS_SERVER_URL = 82;
+    public static final int DUTCH = 83;
 
     private UIConstants() {
     }
