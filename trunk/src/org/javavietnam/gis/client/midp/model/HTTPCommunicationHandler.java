@@ -269,7 +269,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
             throws ModelException, ApplicationException {
         HttpConnection connection = null;
 
-        String results = new String("");
+        String results;
 
         String webGISURL = searchParam.getWebGISURL();
         StringBuffer url = new StringBuffer(webGISURL);
@@ -314,7 +314,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         System.gc();
         updateProgress();
 
-        String results = new String("");
+        String results;
 
         String wmsUrl = requestParam.getGetMapURL();
         StringBuffer url = new StringBuffer(wmsUrl);
@@ -380,7 +380,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
             ApplicationException {
         HttpConnection connection = null;
 
-        String results = new String("");
+        String results;
 
         try {
             connection = openGETConnection(updateURL);
@@ -447,7 +447,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         System.gc();
         updateProgress();
 
-        String results = new String("");
+        String results;
 
         try {
             connection = openGETConnection(serviceURL);
