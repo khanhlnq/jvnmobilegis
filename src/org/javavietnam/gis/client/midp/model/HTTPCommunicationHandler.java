@@ -214,7 +214,8 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
             System.out.println();
             ioe.printStackTrace();
             throw new ApplicationException(
-                    ErrorMessageCodes.ERROR_CANNOT_CONNECT, ioe.getMessage());
+                    ErrorMessageCodes.ERROR_CANNOT_CONNECT, ioe.toString()
+                            + ": " + ioe.getMessage());
         } finally {
             closeConnection(connection, inputStream);
         }
@@ -299,7 +300,8 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
             System.out.println();
             ioe.printStackTrace();
             throw new ApplicationException(
-                    ErrorMessageCodes.ERROR_CANNOT_CONNECT, ioe.getMessage());
+                    ErrorMessageCodes.ERROR_CANNOT_CONNECT, ioe.toString()
+                            + ": " + ioe.getMessage());
         }
 
         return results;
@@ -370,7 +372,8 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
             System.out.println();
             ioe.printStackTrace();
             throw new ApplicationException(
-                    ErrorMessageCodes.ERROR_CANNOT_CONNECT, ioe.getMessage());
+                    ErrorMessageCodes.ERROR_CANNOT_CONNECT, ioe.toString()
+                            + ": " + ioe.getMessage());
         }
 
         return results;
