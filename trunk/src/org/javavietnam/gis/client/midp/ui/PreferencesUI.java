@@ -47,6 +47,7 @@ import javax.microedition.lcdui.Displayable;
 import javax.microedition.lcdui.Form;
 import javax.microedition.lcdui.TextField;
 
+import org.javavietnam.gis.client.midp.model.MessageCodes;
 import org.javavietnam.gis.client.midp.model.Preferences;
 
 /**
@@ -131,7 +132,8 @@ class PreferencesUI extends Form implements CommandListener {
 
     public void commandAction(Command command, Displayable displayable) {
         if (saveCommand == command) {
-            uiController.savePreferencesRequested();
+        	uiController.confirm(MessageCodes.CONFIRM_SAVE_PREFERENCES, this);
+//            uiController.savePreferencesRequested();
         } else {
             uiController.commandAction(command, displayable);
         }

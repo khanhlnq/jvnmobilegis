@@ -100,17 +100,17 @@ import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
  */
 public class ModelFacade {
 
-    private static final String BASE_NAME_ERROR_RESOURCES = "ErrorResources";
+    private static final String BASE_NAME_MESSAGE_RESOURCES = "MessageResources";
     private static final String L10N_ROOT_DIR = "/l10n/";
     /**
      * @uml.property name="locale"
      */
     private String locale;
     private static final int[] errorMessageCodeMap = new int[] {
-            ErrorMessageCodes.ERROR_GENERAL,
-            ErrorMessageCodes.ERROR_CANNOT_CONNECT,
-            ErrorMessageCodes.NO_SELECTED_LAYER,
-            ErrorMessageCodes.NO_SELECTED_POINT };
+            MessageCodes.ERROR_GENERAL,
+            MessageCodes.ERROR_CANNOT_CONNECT,
+            MessageCodes.NO_SELECTED_LAYER,
+            MessageCodes.NO_SELECTED_POINT };
 
     private final RemoteModelProxy remoteModel;
 
@@ -158,7 +158,7 @@ public class ModelFacade {
 
         this.locale = locale;
 
-        errorBundle = getResourceBundle(BASE_NAME_ERROR_RESOURCES);
+        errorBundle = getResourceBundle(BASE_NAME_MESSAGE_RESOURCES);
 
         ApplicationException.setResourceBundle(errorBundle);
 

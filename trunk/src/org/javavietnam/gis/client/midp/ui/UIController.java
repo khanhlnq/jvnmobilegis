@@ -95,7 +95,7 @@ import javax.microedition.midlet.MIDlet;
 
 import org.bouncycastle.util.encoders.Base64;
 import org.javavietnam.gis.client.midp.JVNMobileGISMIDlet;
-import org.javavietnam.gis.client.midp.model.ErrorMessageCodes;
+import org.javavietnam.gis.client.midp.model.MessageCodes;
 import org.javavietnam.gis.client.midp.model.ModelFacade;
 import org.javavietnam.gis.client.midp.model.Preferences;
 import org.javavietnam.gis.shared.midp.ApplicationException;
@@ -113,6 +113,7 @@ import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
 public class UIController {
 
     private static final String BASE_NAME_UI_RESOURCES = "UIResources2";
+    private static final String BASE_NAME_MESSAGE_RESOURCES = "MessageResources";
 
     public static class EventIds {
 
@@ -129,11 +130,14 @@ public class UIController {
 
     private static final String[] iconPaths = { "/icons/JVNMobileGIS.png" };
     private final MIDlet midlet;
+    private int messageId;
     /**
      * @uml.property name="display"
      */
     private final Display display;
+    private Displayable previousDisplay;
     private IndexedResourceBundle resourceBundle;
+    private IndexedResourceBundle messageBundle;
     private final ModelFacade model;
     public VietSign vietSign;
     public MapServersCmd mapServersCmd;
@@ -155,6 +159,7 @@ public class UIController {
     private LayerListUI layerListUI;
     private ProgressObserverUI progressObserverUI;
     private PromptDialog promptDialog;
+    private ConfirmDialogUI confirmDialogUI;
 
     private final Credentials credentials;
 
@@ -178,6 +183,10 @@ public class UIController {
         return resourceBundle.getString(uiConstant);
     }
 
+    public String getMessage(int messageId) {
+    	return messageBundle.getString(messageId);
+    }
+
     public MIDlet getMIDlet() {
         return midlet;
     }
@@ -192,6 +201,7 @@ public class UIController {
 
     public void init() throws ApplicationException {
         resourceBundle = model.getResourceBundle(BASE_NAME_UI_RESOURCES);
+        messageBundle = model.getResourceBundle(BASE_NAME_MESSAGE_RESOURCES);
 
         createCommands();
         // setCommands(mapViewUI);
@@ -216,6 +226,7 @@ public class UIController {
         searchFeatureResultUI = new SearchFeatureResultUI(this);
         layerSelectUI = new LayerSelectUI(this);
         featureInfoUI = new FeatureInfoUI(this);
+        confirmDialogUI = new ConfirmDialogUI(this);
         if (mapViewUI.hasPointerEvents() && mapViewUI.hasPointerMotionEvents()) {
             helpUI = new HelpUI(this, true);
         } else {
@@ -618,15 +629,15 @@ public class UIController {
                 } // for switch - case
             } catch (ApplicationException ae) {
                 ae.printStackTrace();
-                if (ae.getCode() == ErrorMessageCodes.ERROR_OPERATION_INTERRUPTED) {
+                if (ae.getCode() == MessageCodes.ERROR_OPERATION_INTERRUPTED) {
                     display.setCurrent(fallbackUI);
-                } else if (ae.getCode() == ErrorMessageCodes.ERROR_CANNOT_CONNECT) {
+                } else if (ae.getCode() == MessageCodes.ERROR_CANNOT_CONNECT) {
                     showErrorAlert(ae, fallbackUI);
-                } else if (ae.getCode() == ErrorMessageCodes.NO_SELECTED_LAYER) {
+                } else if (ae.getCode() == MessageCodes.NO_SELECTED_LAYER) {
                     showErrorAlert(ae, fallbackUI);
-                } else if (ae.getCode() == ErrorMessageCodes.NO_SELECTED_POINT) {
+                } else if (ae.getCode() == MessageCodes.NO_SELECTED_POINT) {
                     showErrorAlert(ae, fallbackUI);
-                } else if (ae.getCode() == ErrorMessageCodes.ERROR_UNAUTHORIZED) {
+                } else if (ae.getCode() == MessageCodes.ERROR_UNAUTHORIZED) {
                     try {
                         promtForCredentials(model.getWwwAuthenticate());
                     } catch (Exception ex) {
@@ -724,12 +735,12 @@ public class UIController {
             java.lang.String realm = null;
             if (challenge == null) {
                 throw new ApplicationException(
-                        ErrorMessageCodes.MISSING_CHALLENGE);
+                        MessageCodes.MISSING_CHALLENGE);
             }
             challenge = challenge.trim();
             if (!challenge.trim().toLowerCase().startsWith("basic")) {
                 throw new ApplicationException(
-                        ErrorMessageCodes.AUTH_SCHEME_NOT_BASIC);
+                        MessageCodes.AUTH_SCHEME_NOT_BASIC);
             }
             int length = challenge.length();
             // we don't check for extra double quotes...
@@ -737,7 +748,7 @@ public class UIController {
                     || (!challenge.substring(5, 13).equals(" realm=\""))
                     || (challenge.charAt(length - 1) != '\"')) {
                 throw new ApplicationException(
-                        ErrorMessageCodes.AUTH_REALM_SYNTAX_ERROR);
+                        MessageCodes.AUTH_REALM_SYNTAX_ERROR);
             }
             realm = challenge.substring(13, length - 1);
 
@@ -772,5 +783,29 @@ public class UIController {
             // After saving credentials, get server's capabilities
             getCapabilitiesRequested();
         }
+    }
+
+    public void confirm(int messageId, Displayable d){
+    	this.messageId = messageId;
+    	confirmDialogUI.showConfirm(messageId);
+    	previousDisplay = d;
+    	display.setCurrent(confirmDialogUI);
+    }
+
+    public void confirmAction(int messageId, boolean accepted) {
+    	switch (messageId) {
+		case MessageCodes.CONFIRM_SAVE_PREFERENCES:
+			if(accepted) {
+	    		this.savePreferencesRequested();
+	    	} else {
+	    		display.setCurrent(previousDisplay);
+	    	}
+			break;
+
+		default:
+			break;
+		}
+
+
     }
 }
