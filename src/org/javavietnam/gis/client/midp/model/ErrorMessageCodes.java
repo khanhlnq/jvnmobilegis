@@ -84,6 +84,7 @@ package org.javavietnam.gis.client.midp.model;
 
 public final class ErrorMessageCodes {
 
+    // Error messages
     public static final int ERROR_GENERAL = 0;
     public static final int ERROR_CANNOT_CONNECT = 1;
     public static final int NO_SELECTED_LAYER = 2;
@@ -96,7 +97,7 @@ public final class ErrorMessageCodes {
 
     public static final int ERROR_BROKEN_HANDLER_CHAIN = 50;
     public static final int ERROR_OPERATION_INTERRUPTED = 52;
-
+    
     // private ErrorMessageCodes() {
     // }
 
