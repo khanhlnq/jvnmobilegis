@@ -133,7 +133,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         updateProgress();
 
         if (0 == layerList.size()) {
-            throw new ApplicationException(ErrorMessageCodes.NO_SELECTED_LAYER);
+            throw new ApplicationException(MessageCodes.NO_SELECTED_LAYER);
         }
         LayerInformation layerInfo = (LayerInformation) layerList.elementAt(0);
 
@@ -214,8 +214,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
             System.out.println();
             ioe.printStackTrace();
             throw new ApplicationException(
-                    ErrorMessageCodes.ERROR_CANNOT_CONNECT, ioe.toString()
-                            + ": " + ioe.getMessage());
+                    MessageCodes.ERROR_CANNOT_CONNECT, ioe.getMessage());
         } finally {
             closeConnection(connection, inputStream);
         }
@@ -270,7 +269,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
             throws ModelException, ApplicationException {
         HttpConnection connection = null;
 
-        String results;
+        String results = new String("");
 
         String webGISURL = searchParam.getWebGISURL();
         StringBuffer url = new StringBuffer(webGISURL);
@@ -300,8 +299,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
             System.out.println();
             ioe.printStackTrace();
             throw new ApplicationException(
-                    ErrorMessageCodes.ERROR_CANNOT_CONNECT, ioe.toString()
-                            + ": " + ioe.getMessage());
+                    MessageCodes.ERROR_CANNOT_CONNECT, ioe.getMessage());
         }
 
         return results;
@@ -316,7 +314,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         System.gc();
         updateProgress();
 
-        String results;
+        String results = new String("");
 
         String wmsUrl = requestParam.getGetMapURL();
         StringBuffer url = new StringBuffer(wmsUrl);
@@ -372,8 +370,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
             System.out.println();
             ioe.printStackTrace();
             throw new ApplicationException(
-                    ErrorMessageCodes.ERROR_CANNOT_CONNECT, ioe.toString()
-                            + ": " + ioe.getMessage());
+                    MessageCodes.ERROR_CANNOT_CONNECT, ioe.getMessage());
         }
 
         return results;
@@ -383,7 +380,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
             ApplicationException {
         HttpConnection connection = null;
 
-        String results;
+        String results = new String("");
 
         try {
             connection = openGETConnection(updateURL);
@@ -450,7 +447,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         System.gc();
         updateProgress();
 
-        String results;
+        String results = new String("");
 
         try {
             connection = openGETConnection(serviceURL);
@@ -564,7 +561,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 
                 if (null == inputStream) {
                     throw new ApplicationException(
-                            ErrorMessageCodes.ERROR_CANNOT_CONNECT);
+                            MessageCodes.ERROR_CANNOT_CONNECT);
                 }
 
                 return inputStream;
@@ -576,7 +573,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
                 // + wwwAuthenticate);
                 // closeConnection(connection, inputStream);
                 throw new ApplicationException(
-                        ErrorMessageCodes.ERROR_UNAUTHORIZED);
+                        MessageCodes.ERROR_UNAUTHORIZED);
                 // open again, this time with credentials
             } else {
                 // System.out.println(" ******* Response Code = " +
@@ -587,7 +584,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
                         + String.valueOf(responseCode) + ": " + reponseMessage);
             }
         } catch (CertificateException certe) {
-            throw new ApplicationException(ErrorMessageCodes.ERROR_CERTIFICATE);
+            throw new ApplicationException(MessageCodes.ERROR_CERTIFICATE);
         } catch (IOException ioe) {
             throw ioe;
         } // finally {

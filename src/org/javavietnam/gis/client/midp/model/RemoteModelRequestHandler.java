@@ -147,7 +147,7 @@ abstract public class RemoteModelRequestHandler implements RequestHandler {
             }
 
             throw new ApplicationException(
-                    ErrorMessageCodes.ERROR_OPERATION_INTERRUPTED);
+                    MessageCodes.ERROR_OPERATION_INTERRUPTED);
         }
     }
 
@@ -158,7 +158,7 @@ abstract public class RemoteModelRequestHandler implements RequestHandler {
         }
 
         throw new ApplicationException(
-                ErrorMessageCodes.ERROR_BROKEN_HANDLER_CHAIN);
+                MessageCodes.ERROR_BROKEN_HANDLER_CHAIN);
     }
 
     public Image getMapWMS(WMSRequestParameter requestParam, Vector layerList)
