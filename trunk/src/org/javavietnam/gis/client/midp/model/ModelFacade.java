@@ -154,13 +154,13 @@ public class ModelFacade {
      * @uml.property name="locale"
      */
     public void setLocale(String locale) throws ApplicationException {
-        IndexedResourceBundle errorBundle;
+        IndexedResourceBundle messageBundle;
 
         this.locale = locale;
 
-        errorBundle = getResourceBundle(BASE_NAME_MESSAGE_RESOURCES);
+        messageBundle = getResourceBundle(BASE_NAME_MESSAGE_RESOURCES);
 
-        ApplicationException.setResourceBundle(errorBundle);
+        ApplicationException.setResourceBundle(messageBundle);
 
     }
 
