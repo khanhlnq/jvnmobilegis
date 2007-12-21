@@ -101,6 +101,8 @@ import org.javavietnam.gis.shared.midp.model.ModelException;
 import org.javavietnam.gis.shared.midp.model.SearchFeatureParameter;
 import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
 
+import com.tinyline.util.GZIPInputStream;
+
 /**
  * @author khanhlnq
  */
@@ -517,6 +519,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 
             connection.setRequestProperty("User-Agent", System
                     .getProperty("microedition.profiles"));
+            connection.setRequestProperty("Accept-Encoding", "gzip");
 
             if (0 == serverURL.indexOf("https://")) {
                 if (null != credentials && !"".equals(credentials)) {
@@ -562,6 +565,11 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
                 if (null == inputStream) {
                     throw new ApplicationException(
                             MessageCodes.ERROR_CANNOT_CONNECT);
+                }                                              
+                
+                if ((connection.getEncoding() != null) && (connection.getHeaderField("Content-Encoding").indexOf("gzip") != -1)) {
+                	System.out.println(":::: server support gzip");
+                	inputStream = new GZIPInputStream(inputStream);                	
                 }
 
                 return inputStream;
