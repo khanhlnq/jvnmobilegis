@@ -133,9 +133,6 @@ public class UIController {
      * @uml.property name="display"
      */
     private final Display display;
-    // FIXME: Don't need this. We should know exactly the screen to go after
-    // Yes/No answer
-    private Displayable previousDisplay;
     private IndexedResourceBundle resourceBundle;
     private IndexedResourceBundle messageBundle;
     private final ModelFacade model;
@@ -742,12 +739,9 @@ public class UIController {
         }
     }
 
-    // FIXME: Remove 'd' parameter, change to 
-    // confirm(int messageId)
-    public void confirm(int messageId, Displayable d) {
+    public void confirm(int messageId) {
         this.messageId = messageId;
         confirmDialogUI.showConfirm(messageId);
-        previousDisplay = d;
         display.setCurrent(confirmDialogUI);
     }
 
@@ -757,7 +751,7 @@ public class UIController {
                 if (accepted) {
                     this.savePreferencesRequested();
                 } else {
-                    display.setCurrent(previousDisplay);
+                    display.setCurrent(preferencesUI);
                 }
                 break;
 
