@@ -1,9 +1,9 @@
 /*
- * $Id$
- * $URL$
- * $Author$
- * $Revision$
- * $Date$
+ * $Id: ConfirmDialogUI.java 159 2007-12-21 03:49:02Z khanh.lnq $
+ * $URL: https://jvnmobilegis.googlecode.com/svn/trunk/src/org/javavietnam/gis/client/midp/ui/ConfirmDialogUI.java $
+ * $Author: khanh.lnq $
+ * $Revision: 159 $
+ * $Date: 2007-12-21 10:49:02 +0700 (Fri, 21 Dec 2007) $
  *
  * ====================================================================
  *
@@ -31,10 +31,10 @@
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq AT gmail.com
- *
+ * FIXME Binh: Change author and date information
  * @version: 1.0
- * @author: Binh Pham
- * @Date Created: 20 Dec 2007
+ * @author: Khanh Le
+ * @Date Created: 17 Aug 2007
  */
 
 package org.javavietnam.gis.client.midp.ui;
@@ -45,6 +45,7 @@ import javax.microedition.lcdui.Displayable;
 import javax.microedition.lcdui.Form;
 import javax.microedition.lcdui.StringItem;
 
+// FIXME Binh: Format codes and organize import
 import org.javavietnam.gis.client.midp.model.MessageCodes;
 import org.javavietnam.gis.client.midp.model.ModelFacade;
 import org.javavietnam.gis.shared.midp.ApplicationException;
@@ -56,6 +57,7 @@ public class ConfirmDialogUI extends Form implements CommandListener {
 	private StringItem messageItem;
 	private Command yesCommand;
 	private Command noCommand;
+    // FIXME Binh: Remove unsused variables
 	private static final String BASE_NAME_MESSAGE_RESOURCES = "MessageResources";
 	private ModelFacade model;
 
@@ -64,6 +66,7 @@ public class ConfirmDialogUI extends Form implements CommandListener {
 		this.uiController = uiController;
 		messageItem = new StringItem(this.uiController.getString(UIConstants.NOTICE) + ": ", "");
 		append(messageItem);
+        // FIXME Binh: Change priority of Yes, No commands to 0
 		yesCommand = new Command(this.uiController.getString(UIConstants.YES), Command.OK, 1);
 		addCommand(yesCommand);
 		noCommand = new Command(this.uiController.getString(UIConstants.NO), Command.CANCEL, 1);
@@ -77,7 +80,6 @@ public class ConfirmDialogUI extends Form implements CommandListener {
 	}
 
 	public void commandAction(Command c, Displayable d) {
-		// TODO Auto-generated method stub
 		if(c == yesCommand) {
 			this.uiController.confirmAction(messageId, true);
 		}
