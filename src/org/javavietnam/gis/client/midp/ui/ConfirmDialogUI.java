@@ -1,9 +1,9 @@
 /*
- * $Id: PromptDialog.java 140 2007-10-05 07:17:58Z khanhlnq $
- * $URL: https://jvnmobilegis.googlecode.com/svn/trunk/src/org/javavietnam/gis/client/midp/ui/PromptDialog.java $
- * $Author: khanhlnq $
- * $Revision: 140 $
- * $Date: 2007-10-05 14:17:58 +0700 (Fri, 05 Oct 2007) $
+ * $Id$
+ * $URL$
+ * $Author$
+ * $Revision$
+ * $Date$
  *
  * ====================================================================
  *
@@ -33,8 +33,8 @@
  * khanh.lnq AT gmail.com
  *
  * @version: 1.0
- * @author: Khanh Le
- * @Date Created: 17 Aug 2007
+ * @author: Binh Pham
+ * @Date Created: 20 Dec 2007
  */
 
 package org.javavietnam.gis.client.midp.ui;
