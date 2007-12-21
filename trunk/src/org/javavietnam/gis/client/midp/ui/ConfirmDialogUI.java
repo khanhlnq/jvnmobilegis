@@ -62,7 +62,7 @@ public class ConfirmDialogUI extends Form implements CommandListener {
 	public ConfirmDialogUI(UIController uiController) {
 		super("");
 		this.uiController = uiController;
-		messageItem = new StringItem("Message: ", "");
+		messageItem = new StringItem(this.uiController.getString(UIConstants.NOTICE) + ": ", "");
 		append(messageItem);
 		yesCommand = new Command(this.uiController.getString(UIConstants.YES), Command.OK, 1);
 		addCommand(yesCommand);
