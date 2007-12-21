@@ -568,7 +568,8 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
                 }                                              
                 
                 if ((connection.getEncoding() != null) && (connection.getHeaderField("Content-Encoding").indexOf("gzip") != -1)) {
-                	System.out.println(":::: server support gzip");
+                	// FIXME VanAn: Remove System.out
+                    System.out.println(":::: server support gzip");
                 	inputStream = new GZIPInputStream(inputStream);                	
                 }
 
