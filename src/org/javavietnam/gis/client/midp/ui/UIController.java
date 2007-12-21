@@ -751,6 +751,8 @@ public class UIController {
                 if (accepted) {
                     this.savePreferencesRequested();
                 } else {
+                    // FIXME Binh: Return to main menu by mainMenuRequested()
+                    // not return to preferencesUI
                     display.setCurrent(preferencesUI);
                 }
                 break;
