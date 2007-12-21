@@ -132,8 +132,7 @@ class PreferencesUI extends Form implements CommandListener {
 
     public void commandAction(Command command, Displayable displayable) {
         if (saveCommand == command) {
-        	uiController.confirm(MessageCodes.CONFIRM_SAVE_PREFERENCES, this);
-//            uiController.savePreferencesRequested();
+        	uiController.confirm(MessageCodes.CONFIRM_SAVE_PREFERENCES);
         } else {
             uiController.commandAction(command, displayable);
         }
