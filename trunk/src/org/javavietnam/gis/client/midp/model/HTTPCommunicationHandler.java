@@ -115,6 +115,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
      */
     private String wwwAuthenticate = null;
     private String credentials = null;
+    private int totalData = 0;
 
     public HTTPCommunicationHandler(RemoteModelRequestHandler nextHandler) {
         super(nextHandler);
@@ -561,6 +562,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
             if (responseCode == HttpConnection.HTTP_OK
                     || responseCode == HttpConnection.HTTP_CREATED) {
                 inputStream = connection.openInputStream();
+                totalData += Integer.parseInt(connection.getRequestProperty("Content-length"));
 
                 if (null == inputStream) {
                     throw new ApplicationException(

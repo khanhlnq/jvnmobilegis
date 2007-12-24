@@ -128,7 +128,7 @@ public class UIController {
     }
     private static final String[] iconPaths = {"/icons/JVNMobileGIS_icon.png"};
     private final MIDlet midlet;
-    private int messageId;
+
     /**
      * @uml.property name="display"
      */
@@ -799,7 +799,6 @@ public class UIController {
     }
 
     public void confirm(int messageId) {
-        this.messageId = messageId;
         getConfirmDialogUI().showConfirm(messageId);
         display.setCurrent(getConfirmDialogUI());
     }
