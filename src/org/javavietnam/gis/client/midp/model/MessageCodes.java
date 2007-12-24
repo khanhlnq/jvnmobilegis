@@ -87,7 +87,7 @@ public final class MessageCodes {
     public static final int ERROR_GENERAL = 0;
     public static final int ERROR_CANNOT_CONNECT = 1;
     public static final int NO_SELECTED_LAYER = 2;
-    public static final int NO_SELECTED_POINT = 3;
+    // public static final int NO_SELECTED_POINT = 3;
     public static final int ERROR_UNAUTHORIZED = 4;
     public static final int MISSING_CHALLENGE = 5;
     public static final int AUTH_SCHEME_NOT_BASIC = 6;
