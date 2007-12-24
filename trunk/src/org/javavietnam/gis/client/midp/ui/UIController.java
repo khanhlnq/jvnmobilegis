@@ -122,11 +122,11 @@ public class UIController {
         // public static final byte EVENT_ID_FINDPATHWMS = 4;
         // public static final byte EVENT_ID_VIEWPATHWMS = 5;
         public static final byte EVENT_ID_GETFEATUREINFO = 6;
-        public static final byte EVENT_ID_SEARCHFEATURE = 7;
-        public static final byte EVENT_ID_VIEWFEATURE = 8;
+//        public static final byte EVENT_ID_SEARCHFEATURE = 7;
+//        public static final byte EVENT_ID_VIEWFEATURE = 8;
         public static final byte EVENT_ID_CHECKUPDATE = 9;
     }
-    private static final String[] iconPaths = {"/icons/JVNMobileGIS.png"};
+    private static final String[] iconPaths = {"/icons/JVNMobileGIS_icon.png"};
     private final MIDlet midlet;
     private int messageId;
     /**
@@ -148,8 +148,8 @@ public class UIController {
     private MapServerUI mapServerUI;
     private MapViewUI mapViewUI;
     // private FindPathUI findPathUI;
-    private SearchFeatureUI searchFeatureUI;
-    private SearchFeatureResultUI searchFeatureResultUI;
+//    private SearchFeatureUI searchFeatureUI;
+//    private SearchFeatureResultUI searchFeatureResultUI;
     private LayerSelectUI layerSelectUI;
     private FeatureInfoUI featureInfoUI;
     private HelpUI helpUI;
@@ -207,22 +207,11 @@ public class UIController {
 
         progressObserverUI = new ProgressObserverUI(this);
 
-        model.setProgressObserver(progressObserverUI);
+        model.setProgressObserver(getProgressObserverUI());
 
         mapServersCmd = new MapServersCmd(this);
 
-        mainMenuUI = new MainMenuUI(this);
-        mapServerUI = new MapServerUI(this, model.getPreferences().getWmsServerURL());
-        preferencesUI = new PreferencesUI(this);
-        mapViewUI = new MapViewUI(this, false);
-        layerListUI = new LayerListUI(this);
-        // findPathUI = new FindPathUI(this);
-        searchFeatureUI = new SearchFeatureUI(this);
-        searchFeatureResultUI = new SearchFeatureResultUI(this);
-        layerSelectUI = new LayerSelectUI(this);
-        featureInfoUI = new FeatureInfoUI(this);
-        confirmDialogUI = new ConfirmDialogUI(this);
-        if (mapViewUI.hasPointerEvents() && mapViewUI.hasPointerMotionEvents()) {
+        if (getMapViewUI().hasPointerEvents() && getMapViewUI().hasPointerMotionEvents()) {
             helpUI = new HelpUI(this, true);
         } else {
             helpUI = new HelpUI(this, false);
@@ -242,10 +231,94 @@ public class UIController {
             : midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION)) + " \n" + getString(UIConstants.COPYRIGHT),
             icons[UIConstants.ICON_IDX_SPLASH], null);
         alert.setTimeout(UIConstants.SPLASH_TIMEOUT);
-        display.setCurrent(alert, mainMenuUI);
+        display.setCurrent(alert, getMainMenuUI());
     }
 
     public void destroy() {
+    }
+
+    public MainMenuUI getMainMenuUI() {
+        if (mainMenuUI == null) {
+            mainMenuUI = new MainMenuUI(this);
+        }
+        return mainMenuUI;
+    }
+
+    public PreferencesUI getPreferencesUI() {
+        if (preferencesUI == null) {
+            preferencesUI = new PreferencesUI(this);
+        }
+        return preferencesUI;
+    }
+
+    public MapServerUI getMapServerUI() {
+        if (mapServerUI == null) {
+            try {
+                mapServerUI = new MapServerUI(this, model.getPreferences().getWmsServerURL());
+            } catch (ApplicationException ae) {
+                ae.printStackTrace();
+                showErrorAlert(ae, getMainMenuUI());
+            }
+        }
+        return mapServerUI;
+    }
+
+    public MapViewUI getMapViewUI() {
+        if (mapViewUI == null) {
+            mapViewUI = new MapViewUI(this, false);
+        }
+        return mapViewUI;
+    }
+
+//    public SearchFeatureUI getSearchFeatureUI() {
+//        return searchFeatureUI;
+//    }
+//
+//    public SearchFeatureResultUI getSearchFeatureResultUI() {
+//        return searchFeatureResultUI;
+//    }
+    public LayerSelectUI getLayerSelectUI() {
+        if (layerSelectUI == null) {
+            layerSelectUI = new LayerSelectUI(this);
+        }
+        return layerSelectUI;
+    }
+
+    public FeatureInfoUI getFeatureInfoUI() {
+        if (featureInfoUI == null) {
+            featureInfoUI = new FeatureInfoUI(this);
+        }
+        return featureInfoUI;
+    }
+
+    public HelpUI getHelpUI() {
+        return helpUI;
+    }
+
+    public LayerListUI getLayerListUI() {
+        if (layerListUI == null) {
+            layerListUI = new LayerListUI(this);
+        }
+        return layerListUI;
+    }
+
+    public void setLayerListUI(LayerListUI layerListUI) {
+        this.layerListUI = layerListUI;
+    }
+
+    public ProgressObserverUI getProgressObserverUI() {
+        return progressObserverUI;
+    }
+
+    public PromptDialog getPromptDialog() {
+        return promptDialog;
+    }
+
+    public ConfirmDialogUI getConfirmDialogUI() {
+        if (confirmDialogUI == null) {
+            confirmDialogUI = new ConfirmDialogUI(this);
+        }
+        return confirmDialogUI;
     }
 
     public void commandAction(Command command, Displayable displayable) {
@@ -262,7 +335,7 @@ public class UIController {
     }
 
     public void showErrorAlert(Exception e) {
-        showErrorAlert(new ApplicationException(e), mainMenuUI);
+        showErrorAlert(new ApplicationException(e), getMainMenuUI());
     }
 
     private void showErrorAlert(ApplicationException ae, Displayable d) {
@@ -298,29 +371,29 @@ public class UIController {
     }
 
     private void runWithProgress(Thread thread, String title, boolean stoppable) {
-        progressObserverUI.init(title, stoppable);
-        getDisplay().setCurrent(progressObserverUI);
+        getProgressObserverUI().init(title, stoppable);
+        getDisplay().setCurrent(getProgressObserverUI());
         thread.start();
     }
 
     public void mainMenuRequested() {
-        display.setCurrent(mainMenuUI);
+        display.setCurrent(getMainMenuUI());
     }
 
     public void preferencesUIRequested() {
         try {
-            preferencesUI.init(model.getPreferences());
+            getPreferencesUI().init(model.getPreferences());
         } catch (ApplicationException e) {
             e.printStackTrace();
             showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n" + e.getMessage());
         }
-        display.setCurrent(preferencesUI);
+        display.setCurrent(getPreferencesUI());
     }
 
     public void savePreferencesRequested() {
         try {
             Preferences preferences = model.getPreferences();
-            switch (preferencesUI.getSelectedLanguage()) {
+            switch (getPreferencesUI().getSelectedLanguage()) {
                 case 0:
                     preferences.setDefaultLocale("en-US");
                     break;
@@ -332,8 +405,8 @@ public class UIController {
                 default:
                     break;
             }
-            preferences.setWmsServerURL(preferencesUI.getServerURL());
-            preferences.setWebGISURL(preferencesUI.getWebGISURL());
+            preferences.setWmsServerURL(getPreferencesUI().getServerURL());
+            preferences.setWebGISURL(getPreferencesUI().getWebGISURL());
             // preferences.setFindPathLayer(preferencesUI.getFindPathLayer());
             model.setPreferences(preferences);
 
@@ -353,49 +426,46 @@ public class UIController {
     }
 
     public void checkUpdateRequested() {
-        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_CHECKUPDATE,
-            mainMenuUI), getString(UIConstants.PROCESSING), true);
+        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_CHECKUPDATE, getMainMenuUI()), getString(UIConstants.PROCESSING), true);
     }
 
     public void mapServerRequested() {
         try {
-            mapServerUI.setServerURL(model.getPreferences().getWmsServerURL());
+            getMapServerUI().setServerURL(model.getPreferences().getWmsServerURL());
         } catch (ApplicationException e) {
             e.printStackTrace();
             showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n" + e.getMessage());
         }
 
-        display.setCurrent(mapServerUI);
+        display.setCurrent(getMapServerUI());
     }
 
     public void layerListRequested() {
-        display.setCurrent(layerListUI);
+        display.setCurrent(getLayerListUI());
     }
 
     public void viewMapRequested() {
-        display.setCurrent(mapViewUI);
+        display.setCurrent(getMapViewUI());
     }
 
     /*
      * public void findPathResultRequested() { display.setCurrent(findPathUI); }
      */
     public void helpRequested() {
-        display.setCurrent(helpUI);
+        display.setCurrent(getHelpUI());
     }
 
     public void getMapRequested() {
-        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_GETMAPWMS,
-            layerListUI), getString(UIConstants.PROCESSING), true);
+        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_GETMAPWMS, getLayerListUI()), getString(UIConstants.PROCESSING), true);
     }
 
     public void getFeatureInfoRequested() {
-        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_GETFEATUREINFO,
-            mapViewUI), getString(UIConstants.PROCESSING), true);
+        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_GETFEATUREINFO, getMapViewUI()), getString(UIConstants.PROCESSING), true);
     }
 
     public void selectInfoLayerRequested() {
-        if (layerSelectUI.isAskNextTime()) {
-            display.setCurrent(layerSelectUI);
+        if (getLayerSelectUI().isAskNextTime()) {
+            display.setCurrent(getLayerSelectUI());
         } else {
             getFeatureInfoRequested();
         }
@@ -406,54 +476,49 @@ public class UIController {
      * EventDispatcher(EventIds.EVENT_ID_FINDPATHWMS, mapViewUI),
      * getString(UIConstants.PROCESSING), true); }
      */
-    public void searchFeatureRequested() {
-        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_SEARCHFEATURE,
-            searchFeatureUI), getString(UIConstants.PROCESSING), true);
-    }
-
-    public void searchFeatureRequested(int start) {
-        searchFeatureUI.setStart(start);
-        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_SEARCHFEATURE,
-            searchFeatureUI), getString(UIConstants.PROCESSING), true);
-    }
-
-    public void searchUIRequested() {
-        try {
-            // set new bounding box for search
-            searchFeatureUI.initParam(mapViewUI.getBoundingBox(), model.getPreferences().getWebGISURL());
-        } catch (ApplicationException e) {
-            e.printStackTrace();
-            showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n" + e.getMessage());
-        }
-
-        display.setCurrent(searchFeatureUI);
-    }
-
-    public void searchResultUIRequested() {
-        display.setCurrent(searchFeatureResultUI);
-    }
-
-    /*
-     * public void viewPathRequested() { mapViewUI.setIsViewPath(true);
-     * runWithProgress(new EventDispatcher(EventIds.EVENT_ID_VIEWPATHWMS,
-     * findPathUI), getString(UIConstants.PROCESSING), false); }
-     */
-    public void viewFeatureRequested() {
-        mapViewUI.setIsViewFeature(true);
-        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_VIEWFEATURE,
-            searchFeatureUI), getString(UIConstants.PROCESSING), false);
-    }
-
+//    public void searchFeatureRequested() {
+//        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_SEARCHFEATURE,getSearchFeatureUI()), getString(UIConstants.PROCESSING), true);
+//    }
+//
+//    public void searchFeatureRequested(int start) {
+//        getSearchFeatureUI().setStart(start);
+//        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_SEARCHFEATURE,getSearchFeatureUI()), getString(UIConstants.PROCESSING), true);
+//    }
+//
+//    public void searchUIRequested() {
+//        try {
+//            // set new bounding box for search
+//            getSearchFeatureUI().initParam(getMapViewUI().getBoundingBox(), model.getPreferences().getWebGISURL());
+//        } catch (ApplicationException e) {
+//            e.printStackTrace();
+//            showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n" + e.getMessage());
+//        }
+//
+//        display.setCurrent(getSearchFeatureUI());
+//    }
+//
+//    public void searchResultUIRequested() {
+//        display.setCurrent(getSearchFeatureResultUI());
+//    }
+//
+//    /*
+//     * public void viewPathRequested() { mapViewUI.setIsViewPath(true);
+//     * runWithProgress(new EventDispatcher(EventIds.EVENT_ID_VIEWPATHWMS,
+//     * findPathUI), getString(UIConstants.PROCESSING), false); }
+//     */
+//    public void viewFeatureRequested() {
+//        getMapViewUI().setIsViewFeature(true);
+//        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_VIEWFEATURE,getSearchFeatureUI()), getString(UIConstants.PROCESSING), false);
+//    }
     public void updateMapRequested() {
-        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_UPDATEMAPWMS,
-            mapViewUI), getString(UIConstants.PROCESSING), true);
+        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_UPDATEMAPWMS, getMapViewUI()), getString(UIConstants.PROCESSING), true);
     }
 
     public void getCapabilitiesRequested() {
         // Save new server URL
         try {
             Preferences preference = model.getPreferences();
-            preference.setWmsServerURL(mapServerUI.getServerURL());
+            preference.setWmsServerURL(getMapServerUI().getServerURL());
             model.setPreferences(preference);
         } catch (ApplicationException e) {
             e.printStackTrace();
@@ -461,7 +526,7 @@ public class UIController {
         }
 
         runWithProgress(new EventDispatcher(
-            EventIds.EVENT_ID_GETCAPABILITIESWMS, mapServerUI),
+            EventIds.EVENT_ID_GETCAPABILITIESWMS, getMapServerUI()),
             getString(UIConstants.PROCESSING), false);
     }
 
@@ -485,15 +550,14 @@ public class UIController {
             try {
                 switch (taskId) {
                     case EventIds.EVENT_ID_GETMAPWMS: {
-                        Image img = getMapWMS(mapViewUI, layerListUI.getSelectedLayerList());
+                        Image img = getMapWMS(getMapViewUI(), getLayerListUI().getSelectedLayerList());
 
                         if (img == null) {
                             showErrorAlert(
-                                getString(UIConstants.GET_MAP_WMS_ERROR),
-                                mainMenuUI);
+                                getString(UIConstants.GET_MAP_WMS_ERROR), getMainMenuUI());
                         } else {
-                            mapViewUI.init(img);
-                            display.setCurrent(mapViewUI);
+                            getMapViewUI().init(img);
+                            display.setCurrent(getMapViewUI());
                         }
 
                         break;
@@ -506,70 +570,67 @@ public class UIController {
                      * display.setCurrent(mapViewUI); } break; }
                      */
 
-                    case EventIds.EVENT_ID_VIEWFEATURE: {
-                        MapFeature feature = searchFeatureResultUI.getSelectedFeature();
-                        // Recenter map view to this feature
-                        mapViewUI.reCenterAtFeature(feature);
-
-                        // Update new map
-                        Image img = updateMapWMS(mapViewUI, layerListUI.getSelectedLayerList());
-
-                        if (img == null) {
-                            showErrorAlert(
-                                getString(UIConstants.GET_MAP_WMS_ERROR),
-                                mainMenuUI);
-                        } else {
-                            mapViewUI.init(img);
-                            display.setCurrent(mapViewUI);
-                        }
-
-                        break;
-                    }
-                    /*
-                     * case EventIds.EVENT_ID_FINDPATHWMS: { String result =
-                     * findPathWMS(mapViewUI); findPathUI.init(result);
-                     * display.setCurrent(findPathUI); break; }
-                     */
-
-                    case EventIds.EVENT_ID_SEARCHFEATURE: {
-                        String result = searchFeature(searchFeatureUI);
-                        searchFeatureResultUI.init(result);
-                        searchResultUIRequested();
-
-                        break;
-                    }
+//                    case EventIds.EVENT_ID_VIEWFEATURE: {
+//                        MapFeature feature = getSearchFeatureResultUI().getSelectedFeature();
+//                        // Recenter map view to this feature
+//                        getMapViewUI().reCenterAtFeature(feature);
+//
+//                        // Update new map
+//                        Image img = updateMapWMS( getMapViewUI(),getLayerListUI().getSelectedLayerList());
+//
+//                        if (img == null) {
+//                            showErrorAlert(
+//                                getString(UIConstants.GET_MAP_WMS_ERROR),getMainMenuUI());
+//                        } else {
+//                            getMapViewUI().init(img);
+//                            display.setCurrent(getMapViewUI());
+//                        }
+//
+//                        break;
+//                    }
+//                    /*
+//                     * case EventIds.EVENT_ID_FINDPATHWMS: { String result =
+//                     * findPathWMS(mapViewUI); findPathUI.init(result);
+//                     * display.setCurrent(findPathUI); break; }
+//                     */
+//
+//                    case EventIds.EVENT_ID_SEARCHFEATURE: {
+//                        String result = searchFeature(getSearchFeatureUI());
+//                        getSearchFeatureResultUI().init(result);
+//                        searchResultUIRequested();
+//
+//                        break;
+//                    }
                     case EventIds.EVENT_ID_GETFEATUREINFO: {
-                        String result = getFeatureInfo(mapViewUI, layerListUI.getSelectedLayerList(), layerSelectUI.getInfoLayerName());
-                        featureInfoUI.init(result);
-                        display.setCurrent(featureInfoUI);
+                        String result = getFeatureInfo(getMapViewUI(), getLayerListUI().getSelectedLayerList(), getLayerSelectUI().getInfoLayerName());
+                        getFeatureInfoUI().init(result);
+                        display.setCurrent(getFeatureInfoUI());
 
                         break;
                     }
                     case EventIds.EVENT_ID_UPDATEMAPWMS: {
-                        Image img = updateMapWMS(mapViewUI, layerListUI.getSelectedLayerList());
+                        Image img = updateMapWMS(getMapViewUI(), getLayerListUI().getSelectedLayerList());
 
                         if (img == null) {
                             showErrorAlert(
-                                getString(UIConstants.GET_MAP_WMS_ERROR),
-                                mainMenuUI);
+                                getString(UIConstants.GET_MAP_WMS_ERROR), getMainMenuUI());
                         } else {
-                            mapViewUI.init(img);
-                            display.setCurrent(mapViewUI);
+                            getMapViewUI().init(img);
+                            display.setCurrent(getMapViewUI());
                         }
 
                         break;
                     }
                     case EventIds.EVENT_ID_GETCAPABILITIESWMS: {
-                        Vector constructedDataTree = getCapabilitiesWMS(mapServerUI.getServerURL());
+                        Vector constructedDataTree = getCapabilitiesWMS(getMapServerUI().getServerURL());
 
                         if (constructedDataTree == null) {
                             showErrorAlert(
-                                getString(UIConstants.GET_CAPABILITIES_WMS_ERROR),
-                                mainMenuUI);
+                                getString(UIConstants.GET_CAPABILITIES_WMS_ERROR), getMainMenuUI());
                         } else {
-                            layerListUI.init(constructedDataTree);
+                            getLayerListUI().init(constructedDataTree);
 
-                            display.setCurrent(layerListUI);
+                            display.setCurrent(getLayerListUI());
                         }
 
                         break;
@@ -582,12 +643,10 @@ public class UIController {
                         // currentVersion + ". oldVersion = " +
                         // oldVersion);
                         if (null != currentVersion && currentVersion.compareTo(oldVersion) > 0) {
-                            showInfoAlert(getString(UIConstants.UPDATE_AVAILABE),
-                                mainMenuUI);
+                            showInfoAlert(getString(UIConstants.UPDATE_AVAILABE), getMainMenuUI());
                         } else {
                             showInfoAlert(
-                                getString(UIConstants.NO_UPDATE_AVAILABE),
-                                mainMenuUI);
+                                getString(UIConstants.NO_UPDATE_AVAILABE), getMainMenuUI());
                         }
 
                         break;
@@ -601,8 +660,8 @@ public class UIController {
                     showErrorAlert(ae, fallbackUI);
                 } else if (ae.getCode() == MessageCodes.NO_SELECTED_LAYER) {
                     showErrorAlert(ae, fallbackUI);
-                } else if (ae.getCode() == MessageCodes.NO_SELECTED_POINT) {
-                    showErrorAlert(ae, fallbackUI);
+//                } else if (ae.getCode() == MessageCodes.NO_SELECTED_POINT) {
+//                    showErrorAlert(ae, fallbackUI);
                 } else if (ae.getCode() == MessageCodes.ERROR_UNAUTHORIZED) {
                     try {
                         promtForCredentials(model.getWwwAuthenticate());
@@ -615,7 +674,7 @@ public class UIController {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n" + e.getMessage(), mainMenuUI);
+                showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n" + e.getMessage(), getMainMenuUI());
             }
         }
     }
@@ -641,10 +700,10 @@ public class UIController {
         throws ApplicationException {
         if (0 < layerList.size()) {
             LayerInformation layerInfo = (LayerInformation) layerList.elementAt(0);
-            mapViewUI.initParam(layerInfo.getLatLonBoundingBox(), layerInfo.getServerInformation().getGetMapURL(), layerInfo.getField("srs"));
+            getMapViewUI().initParam(layerInfo.getLatLonBoundingBox(), layerInfo.getServerInformation().getGetMapURL(), layerInfo.getField("srs"));
         }
         // Init layers for select layer UI
-        layerSelectUI.init(layerListUI.getSelectedLayerList());
+        getLayerSelectUI().init(getLayerListUI().getSelectedLayerList());
         return model.getMapWMS(requestParam, layerList);
     }
 
@@ -708,19 +767,19 @@ public class UIController {
             }
             realm = challenge.substring(13, length - 1);
 
-            promptDialog.setTitle(realm);
-            display.setCurrent(promptDialog);
+            getPromptDialog().setTitle(realm);
+            display.setCurrent(getPromptDialog());
         } catch (ApplicationException ex) {
             ex.printStackTrace();
         }
     }
 
     public void calculateCredentials() {
-        if ("".equals(promptDialog.getUsername()) || "".equals(promptDialog.getPassword())) {
+        if ("".equals(getPromptDialog().getUsername()) || "".equals(getPromptDialog().getPassword())) {
             showErrorAlert(getString(UIConstants.MUST_GIVE_USER_PWD));
         } else {
-            credentials.setUsername(promptDialog.getUsername());
-            credentials.setPassword(promptDialog.getPassword());
+            credentials.setUsername(getPromptDialog().getUsername());
+            credentials.setPassword(getPromptDialog().getPassword());
             // Calculate the credentials
             byte[] credentialsBA = (credentials.getUsername() + ":" + credentials.getPassword()).getBytes();
             byte[] encodedCredentialsBA = Base64.encode(credentialsBA);
@@ -732,7 +791,7 @@ public class UIController {
                 model.setCredentials(credentials.getCredentials());
             } catch (ApplicationException e) {
                 e.printStackTrace();
-                showErrorAlert(e, mainMenuUI);
+                showErrorAlert(e, getMainMenuUI());
             }
             // After saving credentials, get server's capabilities
             getCapabilitiesRequested();
@@ -741,8 +800,8 @@ public class UIController {
 
     public void confirm(int messageId) {
         this.messageId = messageId;
-        confirmDialogUI.showConfirm(messageId);
-        display.setCurrent(confirmDialogUI);
+        getConfirmDialogUI().showConfirm(messageId);
+        display.setCurrent(getConfirmDialogUI());
     }
 
     public void confirmAction(int messageId, boolean accepted) {
@@ -753,7 +812,7 @@ public class UIController {
                 } else {
                     // FIXME Binh: Return to main menu by mainMenuRequested()
                     // not return to preferencesUI
-                    display.setCurrent(preferencesUI);
+                    display.setCurrent(getPreferencesUI());
                 }
                 break;
 

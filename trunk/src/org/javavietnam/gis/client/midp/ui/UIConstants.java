@@ -1,4 +1,4 @@
-/*
+ /*
  * $Id$
  * $URL$
  * $Author$
@@ -36,7 +36,6 @@
  * @author: Khanh Le
  * @Date Created: 22 Jun 2007
  */
-
 package org.javavietnam.gis.client.midp.ui;
 
 import henson.midp.Float;
@@ -54,7 +53,6 @@ public final class UIConstants {
     public static final Float SCALE = new Float(20).Div(new Float(100));
     public static final Float BEST_SCALE = new Float(30000);
     public static final int CURSOR_MOVEMENT = 5;
-
     public static final byte ICON_IDX_SPLASH = 0;
     // Message constants
     public static final int MOBILEGIS_CLIENT = 0;
@@ -70,7 +68,6 @@ public final class UIConstants {
     public static final int CONFIRM = 10;
     public static final int DONE = 11;
     public static final int SAVE = 12;
-
     public static final int PROCESSING = 13;
     public static final int STOP = 14;
     public static final int VIEW_MAP_TITLE = 15;
@@ -109,12 +106,12 @@ public final class UIConstants {
     public static final int HELP_CMD = 48;
     public static final int SCALE_STR = 49;
     public static final int GET_CAPABILITIES_CMD = 50;
-    public static final int SEARCH_FEATURE_UI_TITLE = 51;
+    // public static final int SEARCH_FEATURE_UI_TITLE = 51;
     public static final int KEYWORD = 52;
-    public static final int SEARCH = 53;
-    public static final int SEARCH_FEATURE_RESULT_UI_TITLE = 54;
-    public static final int VIEW_ON_MAP = 55;
-    public static final int NO_FEATURE_FOUND = 56;
+//    public static final int SEARCH = 53;
+//    public static final int SEARCH_FEATURE_RESULT_UI_TITLE = 54;
+//    public static final int VIEW_ON_MAP = 55;
+//    public static final int NO_FEATURE_FOUND = 56;
     public static final int LANGUAGE = 57;
     public static final int ENGLISH = 58;
     public static final int VIETNAMESE = 59;
@@ -145,5 +142,4 @@ public final class UIConstants {
 
     private UIConstants() {
     }
-
 }

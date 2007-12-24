@@ -106,11 +106,14 @@ public class ModelFacade {
      * @uml.property name="locale"
      */
     private String locale;
+    // FIXME: What is errorMessageCodeMap for?
     private static final int[] errorMessageCodeMap = new int[] {
             MessageCodes.ERROR_GENERAL,
             MessageCodes.ERROR_CANNOT_CONNECT,
             MessageCodes.NO_SELECTED_LAYER,
-            MessageCodes.NO_SELECTED_POINT };
+            // MessageCodes.NO_SELECTED_POINT 
+            
+    };
 
     private final RemoteModelProxy remoteModel;
 
