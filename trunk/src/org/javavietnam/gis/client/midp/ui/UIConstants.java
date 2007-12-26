@@ -139,6 +139,7 @@ public final class UIConstants {
     public static final int CONF_UPDATE_URL = 81;
     public static final int CONF_WMS_SERVER_URL = 82;
     public static final int DUTCH = 83;
+    public static final int DOWNLOADED_DATA_SIZE = 84;
 
     private UIConstants() {
     }

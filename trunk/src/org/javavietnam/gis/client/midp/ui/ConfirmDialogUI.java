@@ -33,8 +33,7 @@
  * phamvubinh123 AT gmail.com
  * @version: 1.0
  * @author: Binh Pham
- * FIXME Binh: Change created date too
- * @Date Created: 17 Aug 2007
+ * @Date Created: 22 Dec 2007
  */
 
 package org.javavietnam.gis.client.midp.ui;

@@ -76,7 +76,7 @@ package henson.midp;
  * <p>
  * That's all, thank you!
  * </p>
- * 
+ *
  * @author Nikolay Klimchuk http://henson.newmail.ru
  * @version 1.01
  */
@@ -170,7 +170,7 @@ public class Float {
 
     /**
      * Create object and makes initialization with value
-     * 
+     *
      * @param value
      *            long - value
      */
@@ -181,7 +181,7 @@ public class Float {
 
     /**
      * Create object and makes initialization both mantissa and exponent
-     * 
+     *
      * @param value
      *            long - mantissa
      * @param e
@@ -197,7 +197,7 @@ public class Float {
 
     /**
      * Create object and makes initialization by other Float object
-     * 
+     *
      * @param value
      *            Float - source object
      */
@@ -211,7 +211,7 @@ public class Float {
 
     /**
      * Convert Float object to long number
-     * 
+     *
      * @return long - number
      */
     public long toLong() {
@@ -232,7 +232,7 @@ public class Float {
 
     /**
      * Convert Float object to string without exponent
-     * 
+     *
      * @return String - string
      */
     public String toShortString() {
@@ -243,7 +243,7 @@ public class Float {
         sb.append(m_Val);
         int len = (int) m_E;
         if (len > 0) {
-            for (int k = 0; k < len; k++)
+        	for (int k = 0; k < len; k++)
                 sb.append("0");
             len = 0;
         }
@@ -264,7 +264,7 @@ public class Float {
 
     /**
      * Check value of current Float object is NaN
-     * 
+     *
      * @return boolean - true-if NaN, false-if not
      */
     private boolean isError() {
@@ -331,7 +331,7 @@ public class Float {
     /**
      * Append value of argument to value of current Float object and return as
      * new Float object
-     * 
+     *
      * @param value
      *            Float - argument
      * @return Float - current+value
@@ -384,7 +384,7 @@ public class Float {
     /**
      * Subtract value of argument from value of current Float object and return
      * as new Float object
-     * 
+     *
      * @param value
      *            Float - argument
      * @return Float - current-value
@@ -398,7 +398,7 @@ public class Float {
     /**
      * Divide value of current Float object on argument and return as new Float
      * object
-     * 
+     *
      * @param value
      *            Float - argument
      * @return Float - current/value
@@ -410,7 +410,7 @@ public class Float {
     /**
      * Multiply value of current Float object on argument and return as new
      * Float object
-     * 
+     *
      * @param value
      *            Float - argument
      * @return Float - current*value
@@ -457,7 +457,7 @@ public class Float {
     /**
      * Divide value of current Float object on argument and return as new Float
      * object
-     * 
+     *
      * @param value
      *            Float - argument
      * @return Float - current/value
@@ -469,7 +469,7 @@ public class Float {
     /**
      * Divide value of current Float object on argument and return as new Float
      * object
-     * 
+     *
      * @param value
      *            Float - argument
      * @return Float - current/value
@@ -519,7 +519,7 @@ public class Float {
 
     /**
      * Is value of current Float object greater?
-     * 
+     *
      * @param x
      *            Float - argument
      * @return boolean - true-if current value is greater x, false-if not
@@ -555,7 +555,7 @@ public class Float {
 
     /**
      * Is value of current Float object less?
-     * 
+     *
      * @param x
      *            Float - argument
      * @return boolean - true-if current value is less x, false-if not
@@ -566,7 +566,7 @@ public class Float {
 
     /**
      * Is value of current Float object less?
-     * 
+     *
      * @param x
      *            Float - argument
      * @return boolean - true-if current value is less x, false-if not
@@ -602,7 +602,7 @@ public class Float {
 
     /**
      * Equal with current Float object?
-     * 
+     *
      * @param x
      *            Float - argument
      * @return boolean - true-if equal, false-if not
@@ -650,7 +650,7 @@ public class Float {
     /**
      * Reverse sign of value in current Float object and return as new Float
      * object
-     * 
+     *
      * @return Float - new Float object
      */
     private Float Neg() {
@@ -663,7 +663,7 @@ public class Float {
      * is zero, then the result is a zero with the same sign as the argument. A
      * result must be within 1 ulp of the correctly rounded result. Results must
      * be semi-monotonic
-     * 
+     *
      * @param x
      *            Float - an angle, in radians
      * @return Float - the sine of the argument
@@ -708,7 +708,7 @@ public class Float {
      * argument is NaN or an infinity, then the result is NaN. A result must be
      * within 1 ulp of the correctly rounded result. Results must be
      * semi-monotonic
-     * 
+     *
      * @param x
      *            Float - an angle, in radians
      * @return Float - the cosine of the argument
@@ -754,7 +754,7 @@ public class Float {
      * infinity. If the argument is positive zero or negative zero, then the
      * result is the same as the argument. Otherwise, the result is the double
      * value closest to the true mathematical square root of the argument value
-     * 
+     *
      * @param x
      *            Float - a value
      * @return Float - the positive square root of a. If the argument is NaN or
@@ -812,7 +812,7 @@ public class Float {
      * is zero, then the result is a zero with the same sign as the argument. A
      * result must be within 1 ulp of the correctly rounded result. Results must
      * be semi-monotonic
-     * 
+     *
      * @param x
      *            Float - an angle, in radians
      * @return Float - the tangent of the argument
@@ -827,7 +827,7 @@ public class Float {
     /**
      * Returns a new Float object initialized to the value represented by the
      * specified String
-     * 
+     *
      * @param str
      *            String - the string to be parsed
      * @param radix
@@ -911,7 +911,7 @@ public class Float {
      * Special case: If the argument is NaN or its absolute value is greater
      * than 1, then the result is NaN. A result must be within 1 ulp of the
      * correctly rounded result. Results must be semi-monotonic
-     * 
+     *
      * @param x
      *            Float - the value whose arc cosine is to be returned
      * @return Float - the arc cosine of the argument
@@ -929,7 +929,7 @@ public class Float {
      * than 1, then the result is NaN. If the argument is zero, then the result
      * is a zero with the same sign as the argument. A result must be within 1
      * ulp of the correctly rounded result. Results must be semi-monotonic
-     * 
+     *
      * @param x
      *            Float - the value whose arc sine is to be returned
      * @return Float - the arc sine of the argument
@@ -950,7 +950,7 @@ public class Float {
      * argument is zero, then the result is a zero with the same sign as the
      * argument. A result must be within 1 ulp of the correctly rounded result.
      * Results must be semi-monotonic
-     * 
+     *
      * @param x
      *            Float - the value whose arc tangent is to be returned
      * @return Float - the arc tangent of the argument
@@ -1032,7 +1032,7 @@ public class Float {
      * infinity, then the result is the double value closest to -3*pi/4. A
      * result must be within 2 ulps of the correctly rounded result. Results
      * must be semi-monotonic
-     * 
+     *
      * @param y
      *            Float - the ordinate coordinate
      * @param x
@@ -1078,7 +1078,7 @@ public class Float {
      * is negative infinity, then the result is positive zero. A result must be
      * within 1 ulp of the correctly rounded result. Results must be
      * semi-monotonic
-     * 
+     *
      * @param x
      *            Float - the exponent to raise e to
      * @return Float - the value e^x, where e is the base of the natural
@@ -1114,7 +1114,7 @@ public class Float {
     // x=40 diff=0.67%
     /**
      * Internal log subroutine
-     * 
+     *
      * @param x
      *            Float
      * @return Float
@@ -1160,7 +1160,7 @@ public class Float {
      * the argument is positive zero or negative zero, then the result is
      * negative infinity. A result must be within 1 ulp of the correctly rounded
      * result. Results must be semi-monotonic
-     * 
+     *
      * @param x
      *            Float - a number greater than 0.0
      * @return Float - the value ln(x), the natural logarithm of x
@@ -1259,7 +1259,7 @@ public class Float {
      * point of a one-argument method if and only if the result of applying the
      * method to the value is equal to the value.) A result must be within 1 ulp
      * of the correctly rounded result. Results must be semi-monotonic.
-     * 
+     *
      * @param x
      *            Float - the base
      * @param y
@@ -1308,7 +1308,7 @@ public class Float {
      * NaN or an infinity or positive zero or negative zero, then the result is
      * the same as the argument. If the argument value is less than zero but
      * greater than -1.0, then the result is negative zero
-     * 
+     *
      * @param x
      *            Float - a value
      * @return Float - the smallest (closest to negative infinity)
@@ -1344,7 +1344,7 @@ public class Float {
      * integer, then the result is the same as the argument. If the argument is
      * NaN or an infinity or positive zero or negative zero, then the result is
      * the same as the argument
-     * 
+     *
      * @param x
      *            Float - a value
      * @return Float - the largest (closest to positive infinity) floating-point
@@ -1380,7 +1380,7 @@ public class Float {
      * positive zero or negative zero, the result is positive zero. If the
      * argument is infinite, the result is positive infinity. If the argument is
      * NaN, the result is NaN
-     * 
+     *
      * @param x
      *            Float - the argument whose absolute value is to be determined
      * @return Float - the absolute value of the argument
@@ -1393,7 +1393,7 @@ public class Float {
 
     /**
      * Integer part of Float object
-     * 
+     *
      * @param x
      *            Float - source Float object
      * @return Float - result Float object
@@ -1418,7 +1418,7 @@ public class Float {
 
     /**
      * Fractional part of Float object
-     * 
+     *
      * @param x
      *            Float - source Float object
      * @return Float - result Float object
@@ -1431,7 +1431,7 @@ public class Float {
      * Converts an angle measured in degrees to an approximately equivalent
      * angle measured in radians. The conversion from degrees to radians is
      * generally inexact
-     * 
+     *
      * @param x
      *            Float - an angle, in degrees
      * @return Float - the measurement of the angle x in radians
@@ -1445,7 +1445,7 @@ public class Float {
      * angle measured in degrees. The conversion from radians to degrees is
      * generally inexact; users should not expect cos(toRadians(90.0)) to
      * exactly equal 0.0
-     * 
+     *
      * @param x
      *            Float - an angle, in radians
      * @return Float - the measurement of the angle angrad in degrees

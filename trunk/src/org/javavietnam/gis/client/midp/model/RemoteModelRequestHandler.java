@@ -74,7 +74,7 @@
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq AT gmail.com
- * 
+ *
  * @version: 1.0
  * @author: Khanh Le
  * @Date Created: 22 Jun 2007
@@ -102,6 +102,7 @@ abstract public class RemoteModelRequestHandler implements RequestHandler {
      */
     private RemoteModelRequestHandler nextHandler;
     private static ProgressObserver progressObserver;
+    private int totalData = 0;
 
     public RemoteModelRequestHandler(RemoteModelRequestHandler nextHandler) {
         this.nextHandler = nextHandler;
@@ -208,4 +209,10 @@ abstract public class RemoteModelRequestHandler implements RequestHandler {
     public void setCredentials(String credentials) throws ApplicationException {
         getRemoteModelRequestHandler().setCredentials(credentials);
     }
+
+	public String getTotalData() throws ApplicationException {
+		return getRemoteModelRequestHandler().getTotalData();
+	}
+
+
 }
