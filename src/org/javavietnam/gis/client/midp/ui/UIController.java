@@ -325,10 +325,14 @@ public class UIController {
         if (command == mainMenuCommand) {
             mainMenuRequested();
         } else if (command == aboutCommand) {
-            showInfoAlert(
-                getString(UIConstants.ABOUT),
-                getString(UIConstants.MOBILEGIS_CLIENT) + " version " + (null == midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION) ? ""
-                : midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION)) + " \n" + getString(UIConstants.COPYRIGHT), display.getCurrent());
+        	try {
+	            showInfoAlert(
+	                getString(UIConstants.ABOUT),
+	                getString(UIConstants.MOBILEGIS_CLIENT) + " version " + (null == midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION) ? ""
+	                : midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION)) + " \n" + getString(UIConstants.COPYRIGHT) + "\n" + getString(UIConstants.DOWNLOADED_DATA_SIZE) + ":\n" +
+	                model.getDownloadedDataSize(), display.getCurrent());
+        	} catch(ApplicationException ae) {
+        	}
         } else if (command == exitCommand) {
             exitRequested();
         }
@@ -809,9 +813,7 @@ public class UIController {
                 if (accepted) {
                     this.savePreferencesRequested();
                 } else {
-                    // FIXME Binh: Return to main menu by mainMenuRequested()
-                    // not return to preferencesUI
-                    display.setCurrent(getPreferencesUI());
+                    mainMenuRequested();
                 }
                 break;
 

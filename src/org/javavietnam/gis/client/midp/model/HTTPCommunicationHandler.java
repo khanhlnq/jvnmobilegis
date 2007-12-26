@@ -562,15 +562,15 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
             if (responseCode == HttpConnection.HTTP_OK
                     || responseCode == HttpConnection.HTTP_CREATED) {
                 inputStream = connection.openInputStream();
-                totalData += Integer.parseInt(connection.getRequestProperty("Content-length"));
+                totalData += Integer.parseInt(connection.getHeaderField("Content-Length"));
 
                 if (null == inputStream) {
                     throw new ApplicationException(
                             MessageCodes.ERROR_CANNOT_CONNECT);
-                }                                              
-                
+                }
+
                 if ((connection.getEncoding() != null) && (connection.getHeaderField("Content-Encoding").indexOf("gzip") != -1)) {
-                	inputStream = new GZIPInputStream(inputStream);                	
+                	inputStream = new GZIPInputStream(inputStream);
                 }
 
                 return inputStream;
@@ -682,5 +682,17 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
     public void setCredentials(String credentials) {
         this.credentials = credentials;
     }
+
+	/**
+	 * @return the totalData
+	 */
+	public String getTotalData() {
+		if(totalData > 1024) {
+			Float f = new Float(totalData);
+			f = f.Div(1024);
+			return f.toString().substring(0, f.toString().indexOf(".") + 3) + " KB" ;
+		}
+		return new Integer(totalData).toString() + " B";
+	}
 
 }

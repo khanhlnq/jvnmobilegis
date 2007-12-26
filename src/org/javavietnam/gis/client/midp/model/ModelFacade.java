@@ -111,8 +111,8 @@ public class ModelFacade {
             MessageCodes.ERROR_GENERAL,
             MessageCodes.ERROR_CANNOT_CONNECT,
             MessageCodes.NO_SELECTED_LAYER,
-            // MessageCodes.NO_SELECTED_POINT 
-            
+            // MessageCodes.NO_SELECTED_POINT
+
     };
 
     private final RemoteModelProxy remoteModel;
@@ -279,4 +279,7 @@ public class ModelFacade {
         remoteModel.setCredentials(credentials);
     }
 
+    public String getDownloadedDataSize() throws ApplicationException {
+    	return remoteModel.getDownloadedDataSize();
+    }
 }
