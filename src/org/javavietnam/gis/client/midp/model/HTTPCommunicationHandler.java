@@ -690,6 +690,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 		if(totalData > 1024) {
 			Float f = new Float(totalData);
 			f = f.Div(1024);
+            // FIXME Binh: Use Float.ceil/floor to round the value
 			return f.toString().substring(0, f.toString().indexOf(".") + 3) + " KB" ;
 		}
 		return new Integer(totalData).toString() + " B";
