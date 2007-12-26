@@ -1374,6 +1374,22 @@ public class Float {
     }
 
     /**
+     * @param x
+     *            Float - the base
+     * @param n
+     *            Float - the exponent to round
+     * @return Float - the rounded value
+     */
+    public static Float round(Float x, int n) {
+    	x = x.Mul(Float.pow(new Float(10), new Float(n))).Add(new Float(5, -1));
+    	x = x.Add(new Float(5, -1));
+    	x = Float.floor(x);
+    	x = x.Div(Float.pow(new Float(10), new Float(n)));
+
+    	return x;
+    }
+
+    /**
      * Returns the absolute value of a Float object. If the argument is not
      * negative, the argument is returned. If the argument is negative, the
      * negation of the argument is returned. Special cases: If the argument is

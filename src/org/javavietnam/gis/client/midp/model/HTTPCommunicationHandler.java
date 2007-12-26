@@ -562,7 +562,10 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
             if (responseCode == HttpConnection.HTTP_OK
                     || responseCode == HttpConnection.HTTP_CREATED) {
                 inputStream = connection.openInputStream();
-                totalData += Integer.parseInt(connection.getHeaderField("Content-Length"));
+                try {
+                	totalData += Integer.parseInt(connection.getHeaderField("Content-Length"));
+                }catch(NumberFormatException nfe) {
+                }
 
                 if (null == inputStream) {
                     throw new ApplicationException(
@@ -689,10 +692,11 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 	public String getTotalData() {
 		if(totalData > 1024) {
 			Float f = new Float(totalData);
-			f = f.Div(1024);
-            // FIXME Binh: Use Float.ceil/floor to round the value
-			return f.toString().substring(0, f.toString().indexOf(".") + 3) + " KB" ;
+			f = Float.round(f.Div(1024), 2);
+
+			return f.toString() + " KB" ;
 		}
+
 		return new Integer(totalData).toString() + " B";
 	}
 
