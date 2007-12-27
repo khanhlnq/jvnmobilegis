@@ -1380,6 +1380,10 @@ public class Float {
      *            Float - the exponent to round
      * @return Float - the rounded value
      */
+    // FIXME Binh: Refactor this method to
+    // Float round(Float val, int precision)
+    // precision is optional parameter
+    // similar to PHP round() method http://www.php.net/round
     public static Float round(Float x, int n) {
     	x = x.Mul(Float.pow(new Float(10), new Float(n))).Add(new Float(5, -1));
     	x = x.Add(new Float(5, -1));
