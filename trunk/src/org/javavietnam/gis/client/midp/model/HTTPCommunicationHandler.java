@@ -116,6 +116,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
     private String wwwAuthenticate = null;
     private String credentials = null;
     private int totalData = 0;
+    private int tmpSize = 0;
 
     public HTTPCommunicationHandler(RemoteModelRequestHandler nextHandler) {
         super(nextHandler);
@@ -189,18 +190,25 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
             if (!contentType.equals(requestParam.getImageFormat())) {
                 StringBuffer msgBuf = new StringBuffer();
                 int ch;
+                tmpSize = 0;
                 while ((ch = inputStream.read()) != -1) {
                     msgBuf.append((char) ch);
+                    tmpSize++;
                 }
+                totalData += tmpSize;
+
                 throw new ApplicationException(msgBuf.toString());
             }
 
             // Read input stream into byte[]
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             int ch;
+            tmpSize = 0;
             while ((ch = inputStream.read()) != -1) {
                 baos.write(ch);
+                tmpSize++;
             }
+            totalData += tmpSize;
 
             img = Image.createImage(baos.toByteArray(), 0, baos.size());
 
@@ -208,9 +216,13 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         } catch (IOException ioe) {
             int ch;
             try {
+            	tmpSize = 0;
                 while ((ch = inputStream.read()) != -1) {
                     System.out.print((char) ch);
+                    tmpSize++;
                 }
+                totalData += tmpSize;
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -562,10 +574,10 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
             if (responseCode == HttpConnection.HTTP_OK
                     || responseCode == HttpConnection.HTTP_CREATED) {
                 inputStream = connection.openInputStream();
-                try {
-                	totalData += Integer.parseInt(connection.getHeaderField("Content-Length"));
-                }catch(NumberFormatException nfe) {
-                }
+//                try {
+//                	totalData += Integer.parseInt(connection.getHeaderField("Content-Length"));
+//                }catch(NumberFormatException nfe) {
+//                }
 
                 if (null == inputStream) {
                     throw new ApplicationException(
@@ -631,14 +643,17 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 
             int ch;
             // int i = 0;
+            tmpSize = 0;
             while ((ch = inputStream.read()) != -1) {
                 resultBuf.append((char) ch);
+                tmpSize++;
                 // i++;
                 // if (i > (length / 5)) {
                 // updateProgress();
                 // i = 0;
                 // }
             }
+            totalData += tmpSize;
 
             if (isUTF8) {
                 return toUTF8(resultBuf.toString());
