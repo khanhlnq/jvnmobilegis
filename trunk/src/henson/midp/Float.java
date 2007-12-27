@@ -1376,19 +1376,30 @@ public class Float {
     /**
      * @param val
      *            Float - The value to round
-     * @param precision
-     *            int - The optional number of decimal digits to round to, defaults to 0
+     *            			with the optional number of decimal digits to round to is set default to 0
      * @return Float - The rounded value
      */
     public static Float round(Float val) {
     	return Float.round(val, 0);
     }
 
+    /**
+     * @param val
+     *            Float - The value to round
+     * @param precision
+     *            int - The optional number of decimal digits to round to, defaults to 0
+     * @return Float - The rounded value
+     */
     public static Float round(Float val, int precision) {
-    	val = val.Mul(Float.pow(new Float(10), new Float(precision)));
-    	val = val.Add(new Float(5, -1));
-    	val = Float.floor(val);
-    	val = val.Div(Float.pow(new Float(10), new Float(precision)));
+    	if (precision != 0) {
+	    	val = val.Mul(Float.pow(new Float(10), new Float(precision)));
+	    	val = val.Add(new Float(5, -1));
+	    	val = Float.floor(val);
+	    	val = val.Div(Float.pow(new Float(10), new Float(precision)));
+    	} else {
+    		val = val.Add(new Float(5, -1));
+	    	val = Float.floor(val);
+    	}
 
     	return val;
     }
