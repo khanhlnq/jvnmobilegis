@@ -329,7 +329,7 @@ public class UIController {
                     getString(UIConstants.ABOUT),
                     getString(UIConstants.MOBILEGIS_CLIENT) + " version " + (null == midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION) ? ""
                     : midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION)) + " \n" + getString(UIConstants.COPYRIGHT) + "\n" + getString(UIConstants.DOWNLOADED_DATA_SIZE) +
-                    model.getDownloadedDataSize(), display.getCurrent());
+                    ": " + model.getDownloadedDataSize(), display.getCurrent());
             } catch (ApplicationException ae) {
             }
         } else if (command == exitCommand) {
