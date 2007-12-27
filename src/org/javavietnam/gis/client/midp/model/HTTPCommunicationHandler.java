@@ -690,7 +690,8 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 	 * @return the totalData
 	 */
 	public String getTotalData() {
-		if(totalData > 1024) {
+		// FIXME Binh: >= 1024
+        if(totalData > 1024) {
 			Float f = new Float(totalData);
 			f = Float.round(f.Div(1024), 2);
 
