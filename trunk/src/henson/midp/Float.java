@@ -1374,23 +1374,23 @@ public class Float {
     }
 
     /**
-     * @param x
-     *            Float - the base
-     * @param n
-     *            Float - the exponent to round
-     * @return Float - the rounded value
+     * @param val
+     *            Float - The value to round
+     * @param precision
+     *            int - The optional number of decimal digits to round to, defaults to 0
+     * @return Float - The rounded value
      */
-    // FIXME Binh: Refactor this method to
-    // Float round(Float val, int precision)
-    // precision is optional parameter
-    // similar to PHP round() method http://www.php.net/round
-    public static Float round(Float x, int n) {
-    	x = x.Mul(Float.pow(new Float(10), new Float(n))).Add(new Float(5, -1));
-    	x = x.Add(new Float(5, -1));
-    	x = Float.floor(x);
-    	x = x.Div(Float.pow(new Float(10), new Float(n)));
+    public static Float round(Float val) {
+    	return Float.round(val, 0);
+    }
 
-    	return x;
+    public static Float round(Float val, int precision) {
+    	val = val.Mul(Float.pow(new Float(10), new Float(precision)));
+    	val = val.Add(new Float(5, -1));
+    	val = Float.floor(val);
+    	val = val.Div(Float.pow(new Float(10), new Float(precision)));
+
+    	return val;
     }
 
     /**
