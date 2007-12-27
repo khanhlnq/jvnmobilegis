@@ -128,7 +128,6 @@ public class UIController {
     }
     private static final String[] iconPaths = {"/icons/JVNMobileGIS_icon.png"};
     private final MIDlet midlet;
-
     /**
      * @uml.property name="display"
      */
@@ -325,14 +324,14 @@ public class UIController {
         if (command == mainMenuCommand) {
             mainMenuRequested();
         } else if (command == aboutCommand) {
-        	try {
-	            showInfoAlert(
-	                getString(UIConstants.ABOUT),
-	                getString(UIConstants.MOBILEGIS_CLIENT) + " version " + (null == midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION) ? ""
-	                : midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION)) + " \n" + getString(UIConstants.COPYRIGHT) + "\n" + getString(UIConstants.DOWNLOADED_DATA_SIZE) + ":\n" +
-	                model.getDownloadedDataSize(), display.getCurrent());
-        	} catch(ApplicationException ae) {
-        	}
+            try {
+                showInfoAlert(
+                    getString(UIConstants.ABOUT),
+                    getString(UIConstants.MOBILEGIS_CLIENT) + " version " + (null == midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION) ? ""
+                    : midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION)) + " \n" + getString(UIConstants.COPYRIGHT) + "\n" + getString(UIConstants.DOWNLOADED_DATA_SIZE) +
+                    model.getDownloadedDataSize(), display.getCurrent());
+            } catch (ApplicationException ae) {
+            }
         } else if (command == exitCommand) {
             exitRequested();
         }
