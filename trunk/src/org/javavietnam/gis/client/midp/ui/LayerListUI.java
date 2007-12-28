@@ -103,7 +103,7 @@ class LayerListUI extends List implements CommandListener {
         //} else if (command == getMapCommand) {
         //    uiController.getMapRequested();
         } else if (command == nextCommand) {
-            uiController.selectedLayerListRequested();
+            uiController.sortLayerListRequested();
         //} else {
         //   uiController.commandAction(command, displayable);
         }
