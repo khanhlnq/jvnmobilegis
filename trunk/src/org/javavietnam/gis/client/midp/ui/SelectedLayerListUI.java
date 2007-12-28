@@ -88,7 +88,7 @@ public class SelectedLayerListUI extends List implements CommandListener {
     }
 
     public void moveUp() {
-        // FIXME VanAn: The list should be circled
+        // FIXME VanAn: The list should be circled for Move Up & Move Down
         if (getSelectedIndex() > 0) {
             int selectedIndex = getSelectedIndex();
             Object selectedItem = selectedLayerList.elementAt(selectedIndex);
