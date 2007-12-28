@@ -142,6 +142,11 @@ public final class UIConstants {
     public static final int CONF_WMS_SERVER_URL = 82;
     public static final int DUTCH = 83;
     public static final int DOWNLOADED_DATA_SIZE = 84;
+    public static final int LAYER_SORT = 85;
+    public static final int MOVE_UP = 86;
+    public static final int MOVE_DOWN = 87;
+    public static final int MOVE_TOP = 88;
+    public static final int MOVE_BOTTOM = 89;
 
     private UIConstants() {
     }
