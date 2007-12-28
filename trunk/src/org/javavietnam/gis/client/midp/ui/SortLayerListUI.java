@@ -69,6 +69,7 @@ public class SortLayerListUI extends List implements CommandListener {
         this.uiController = uiController;
         this.sortLayerList = uiController.getSelectedLayerList();
         
+        // FIXME VanAn: Do we need to call init() here?
         init(sortLayerList);    
         
         getMapCommand = new Command(uiController.getString(UIConstants.GETMAP), Command.SCREEN, 0);        
@@ -78,6 +79,7 @@ public class SortLayerListUI extends List implements CommandListener {
         moveBottomCommand = new Command(uiController.getString(UIConstants.MOVE_TO_BOTTOM), Command.SCREEN, 4);
 
         addCommand(getMapCommand);
+        // FIXME: No need this condition
         if (sortLayerList.size() > 1) {
         	addCommand(moveTopCommand);
             addCommand(moveUpCommand);
@@ -130,6 +132,7 @@ public class SortLayerListUI extends List implements CommandListener {
             
             setSelectedIndex(selectedIndex - 1, true);
         } else {
+            // FIXME VanAn: Just call moveToBotom()
         	sortLayerList.removeElementAt(selectedIndex);
             delete(selectedIndex);
             
@@ -153,6 +156,7 @@ public class SortLayerListUI extends List implements CommandListener {
             
             setSelectedIndex(selectedIndex + 1, true);
         } else {
+            // FIXME VanAn: Just call moveToTop()
         	sortLayerList.removeElementAt(selectedIndex);
             delete(selectedIndex);
                     	                        

@@ -155,6 +155,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         // Only set FullScreen for Nokia devices
         try {
             String platform = System.getProperty("microedition.platform");
+            System.out.println("******* Platform: " + platform);
             if ((platform != null) && (platform.toLowerCase().trim().indexOf("nokia") >= 0)) {
                 this.setFullScreenMode(true);
             }
