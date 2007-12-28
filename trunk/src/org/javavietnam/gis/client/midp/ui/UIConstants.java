@@ -47,9 +47,18 @@ public final class UIConstants {
 
     // Contants value used among the app
     public static final int SPLASH_TIMEOUT = 2000;
-    
+
     // Icon index
     public static final byte ICON_IDX_SPLASH = 0;
+    public static final byte ICON_SERVER_UI_TITLE = 1;
+    public static final byte ICON_PREFERENCES = 2;
+    public static final byte ICON_CHECK_UPDATE = 3;
+    public static final byte ICON_ENGLAND_FLAG = 4;
+    public static final byte ICON_VIETNAM_FLAG = 5;
+    public static final byte ICON_DUTCH_FLAG = 6;
+    public static final byte ICON_ERROR_ALERT = 7;
+    public static final byte ICON_INFO_ALERT = 8;
+
 
     // Unit of these values is pixel
     // Scale = 20%
