@@ -476,6 +476,7 @@ public class UIController {
     }
     
     public void selectedLayerListRequested() {
+        // FIXME VanAn: Call SelectedLayerListUI.init() method here
         display.setCurrent(getSelectedLayerListUI());
     }
 
@@ -585,6 +586,7 @@ public class UIController {
             try {
                 switch (taskId) {
                     case EventIds.EVENT_ID_GETMAPWMS: {
+                        // FIXME: Should use ordered layer list from SelectedLayerListUI.getSelectedLayerList()
                         Image img = getMapWMS(getMapViewUI(), getLayerListUI().getSelectedLayerList());
 
                         if (img == null) {
@@ -738,6 +740,7 @@ public class UIController {
             getMapViewUI().initParam(layerInfo.getLatLonBoundingBox(), layerInfo.getServerInformation().getGetMapURL(), layerInfo.getField("srs"));
         }
         // Init layers for select layer UI
+        // FIXME VanAn: Should use ordered layer list from SelectedLayerListUI.getSelectedLayerList()
         getLayerSelectUI().init(getLayerListUI().getSelectedLayerList());
                 
         return model.getMapWMS(requestParam, getSelectedLayerListUI().getSelectedLayerList());

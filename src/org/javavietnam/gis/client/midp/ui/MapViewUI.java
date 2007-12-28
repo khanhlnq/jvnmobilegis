@@ -171,6 +171,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
 
         backCommand = new Command(uiController.getString(UIConstants.BACK),
             Command.BACK, 5);
+        // TODO VanAn: Add "Sort layers" menu to MapViewUI
         zoomInCommand = new Command(uiController.getString(UIConstants.ZOOM_IN_CMD), Command.SCREEN, 1);
         zoomOutCommand = new Command(uiController.getString(UIConstants.ZOOM_OUT_CMD), Command.SCREEN, 2);
         resetCommand = new Command(uiController.getString(UIConstants.RESET_VIEW_CMD), Command.SCREEN, 3);
