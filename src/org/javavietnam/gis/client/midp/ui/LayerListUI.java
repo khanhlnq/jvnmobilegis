@@ -57,7 +57,8 @@ class LayerListUI extends List implements CommandListener {
 
     private final UIController uiController;
     private final Command backCommand;
-    private final Command getMapCommand;
+    //private final Command getMapCommand;
+    private final Command nextCommand;
 
     /**
      * @uml.property name="layerList"
@@ -72,11 +73,13 @@ class LayerListUI extends List implements CommandListener {
 
         backCommand = new Command(uiController.getString(UIConstants.BACK),
                 Command.BACK, 5);
-        getMapCommand = new Command(uiController.getString(UIConstants.GETMAP),
-                Command.SCREEN, 0);
+        //getMapCommand = new Command(uiController.getString(UIConstants.GETMAP), Command.SCREEN, 0);
+        
+        nextCommand = new Command(uiController.getString(UIConstants.NEXT), Command.SCREEN, 0);
         addCommand(backCommand);
-        addCommand(getMapCommand);
-        uiController.setCommands(this);
+        //addCommand(getMapCommand);
+        addCommand(nextCommand);
+        //uiController.setCommands(this);
 
         setCommandListener(this);
     }
@@ -97,10 +100,12 @@ class LayerListUI extends List implements CommandListener {
     public void commandAction(Command command, Displayable displayable) {
         if (command == backCommand) {
             uiController.mapServerRequested();
-        } else if (command == getMapCommand) {
-            uiController.getMapRequested();
-        } else {
-            uiController.commandAction(command, displayable);
+        //} else if (command == getMapCommand) {
+        //    uiController.getMapRequested();
+        } else if (command == nextCommand) {
+            uiController.selectedLayerListRequested();
+        //} else {
+        //   uiController.commandAction(command, displayable);
         }
     }
 

@@ -787,7 +787,8 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         } else if (command == backCommand) {
             // isViewPath = false;
             isViewFeature = false;
-            uiController.layerListRequested();
+            //uiController.layerListRequested();
+            uiController.selectedLayerListRequested();
         } /*
          * else if (command == findPathCommand) { isViewPath = false;
          * isViewFeature = false; uiController.findPathRequested(); }

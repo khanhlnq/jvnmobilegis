@@ -102,7 +102,6 @@ import org.javavietnam.gis.shared.midp.IndexedResourceBundle;
 import org.javavietnam.gis.shared.midp.VietSign;
 import org.javavietnam.gis.shared.midp.model.Credentials;
 import org.javavietnam.gis.shared.midp.model.LayerInformation;
-import org.javavietnam.gis.shared.midp.model.MapFeature;
 import org.javavietnam.gis.shared.midp.model.SearchFeatureParameter;
 import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
 
@@ -153,6 +152,7 @@ public class UIController {
     private FeatureInfoUI featureInfoUI;
     private HelpUI helpUI;
     private LayerListUI layerListUI;
+    private SelectedLayerListUI selectedLayerListUI;    
     private ProgressObserverUI progressObserverUI;
     private PromptDialog promptDialog;
     private ConfirmDialogUI confirmDialogUI;
@@ -304,6 +304,24 @@ public class UIController {
     public void setLayerListUI(LayerListUI layerListUI) {
         this.layerListUI = layerListUI;
     }
+    
+    public SelectedLayerListUI getSelectedLayerListUI() {
+        if (selectedLayerListUI == null) {
+        	selectedLayerListUI = new SelectedLayerListUI(this);        	        	        	
+        }
+        return selectedLayerListUI;
+    }
+
+    public void setSelectedLayerListUI(SelectedLayerListUI selectedLayerListUI) {
+        this.selectedLayerListUI = selectedLayerListUI;
+    }
+        
+    /**
+	 * @return the selectedLayerList
+	 */
+	public Vector getSelectedLayerList() {
+		return getLayerListUI().getSelectedLayerList();
+	}
 
     public ProgressObserverUI getProgressObserverUI() {
         return progressObserverUI;
@@ -445,6 +463,10 @@ public class UIController {
 
     public void layerListRequested() {
         display.setCurrent(getLayerListUI());
+    }
+    
+    public void selectedLayerListRequested() {
+        display.setCurrent(getSelectedLayerListUI());
     }
 
     public void viewMapRequested() {
@@ -707,7 +729,9 @@ public class UIController {
         }
         // Init layers for select layer UI
         getLayerSelectUI().init(getLayerListUI().getSelectedLayerList());
-        return model.getMapWMS(requestParam, layerList);
+                
+        return model.getMapWMS(requestParam, getSelectedLayerListUI().getSelectedLayerList());
+        //return model.getMapWMS(requestParam, layerList);
     }
 
     /*
