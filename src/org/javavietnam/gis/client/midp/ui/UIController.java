@@ -125,7 +125,15 @@ public class UIController {
 //        public static final byte EVENT_ID_VIEWFEATURE = 8;
         public static final byte EVENT_ID_CHECKUPDATE = 9;
     }
-    private static final String[] iconPaths = {"/icons/JVNMobileGIS_icon.png"};
+    private static final String[] iconPaths = {"/icons/JVNMobileGIS_icon.png",
+    										    "/icons/map_server_icon.png",
+    										    "/icons/preferences_icon.png",
+    										    "/icons/check_update_icon.png",
+    										    "/icons/en.png",
+    										    "/icons/vn.png",
+    										    "/icons/nl.png",
+    										    "/icons/error_alert.png",
+    										    "/icons/info_alert.png"};
     private final MIDlet midlet;
     /**
      * @uml.property name="display"
@@ -221,6 +229,7 @@ public class UIController {
             try {
                 icons[i] = Image.createImage(iconPaths[i]);
             } catch (IOException ioe) {
+            	System.out.println("can not get image " + iconPaths[i]);
             }
         }
 
@@ -370,6 +379,7 @@ public class UIController {
     private void showErrorAlert(String message, Displayable d) {
         Alert alert = new Alert(getString(UIConstants.ERROR));
 
+        alert.setImage(getImage(UIConstants.ICON_ERROR_ALERT));
         alert.setType(AlertType.ERROR);
         alert.setTimeout(Alert.FOREVER);
         alert.setString(message);
@@ -384,7 +394,7 @@ public class UIController {
         Alert alert = new Alert(
             (title == null) ? getString(UIConstants.MOBILEGIS_CLIENT)
             : title);
-
+        alert.setImage(getImage(UIConstants.ICON_INFO_ALERT));
         alert.setType(AlertType.INFO);
         alert.setTimeout(Alert.FOREVER);
         alert.setString(message);

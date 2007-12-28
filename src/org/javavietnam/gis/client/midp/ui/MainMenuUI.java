@@ -74,7 +74,7 @@
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq AT gmail.com
- * 
+ *
  * @version: 1.0
  * @author: Khanh Le
  * @Date Created: 22 Jun 2007
@@ -102,9 +102,9 @@ class MainMenuUI extends List implements CommandListener {
         try {
             this.uiController = uiController;
 
-            append(uiController.getString(UIConstants.SERVER_UI_TITLE), null);
-            append(uiController.getString(UIConstants.PREFERENCES), null);
-            append(uiController.getString(UIConstants.CHECK_UPDATE), null);
+            append(uiController.getString(UIConstants.SERVER_UI_TITLE), uiController.getImage(UIConstants.ICON_SERVER_UI_TITLE));
+            append(uiController.getString(UIConstants.PREFERENCES), uiController.getImage(UIConstants.ICON_PREFERENCES));
+            append(uiController.getString(UIConstants.CHECK_UPDATE), uiController.getImage(UIConstants.ICON_CHECK_UPDATE));
             exitCommand = new Command(uiController.getString(UIConstants.EXIT),
                     Command.EXIT, 75);
 

@@ -45,6 +45,7 @@ import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.CommandListener;
 import javax.microedition.lcdui.Displayable;
 import javax.microedition.lcdui.Form;
+import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.TextField;
 
 import org.javavietnam.gis.client.midp.model.MessageCodes;
@@ -59,6 +60,7 @@ class PreferencesUI extends Form implements CommandListener {
     private ChoiceGroup languageChoice;
     private TextField serverField;
     private TextField webGISField;
+
     // private TextField findPathLayerField;
     private Command saveCommand;
 
@@ -70,9 +72,13 @@ class PreferencesUI extends Form implements CommandListener {
             String[] languages = { uiController.getString(UIConstants.ENGLISH),
                     uiController.getString(UIConstants.VIETNAMESE), uiController.getString(UIConstants.DUTCH) };
 
+            Image[] icons = {uiController.getImage(UIConstants.ICON_ENGLAND_FLAG),
+            		uiController.getImage(UIConstants.ICON_VIETNAM_FLAG),
+            		uiController.getImage(UIConstants.ICON_DUTCH_FLAG)};
+
             languageChoice = new ChoiceGroup(uiController
                     .getString(UIConstants.LANGUAGE), Choice.POPUP, languages,
-                    null);
+                    icons);
             serverField = new TextField(uiController
                     .getString(UIConstants.GET_CAPABILITIES_TITLE), "", 255,
                     TextField.URL);
