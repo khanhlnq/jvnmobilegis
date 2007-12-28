@@ -47,13 +47,15 @@ public final class UIConstants {
 
     // Contants value used among the app
     public static final int SPLASH_TIMEOUT = 2000;
+    
+    // Icon index
+    public static final byte ICON_IDX_SPLASH = 0;
 
     // Unit of these values is pixel
     // Scale = 20%
     public static final Float SCALE = new Float(20).Div(new Float(100));
     public static final Float BEST_SCALE = new Float(30000);
     public static final int CURSOR_MOVEMENT = 5;
-    public static final byte ICON_IDX_SPLASH = 0;
     // Message constants
     public static final int MOBILEGIS_CLIENT = 0;
     public static final int MY_SETTINGS_TITLE = 1;
