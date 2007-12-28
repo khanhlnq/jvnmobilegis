@@ -116,7 +116,6 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
     private String wwwAuthenticate = null;
     private String credentials = null;
     private int totalData = 0;
-    private int tmpSize = 0;
 
     public HTTPCommunicationHandler(RemoteModelRequestHandler nextHandler) {
         super(nextHandler);
@@ -190,12 +189,11 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
             if (!contentType.equals(requestParam.getImageFormat())) {
                 StringBuffer msgBuf = new StringBuffer();
                 int ch;
-                tmpSize = 0;
+
                 while ((ch = inputStream.read()) != -1) {
                     msgBuf.append((char) ch);
-                    tmpSize++;
+                    totalData++;
                 }
-                totalData += tmpSize;
 
                 throw new ApplicationException(msgBuf.toString());
             }
@@ -203,12 +201,10 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
             // Read input stream into byte[]
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             int ch;
-            tmpSize = 0;
             while ((ch = inputStream.read()) != -1) {
                 baos.write(ch);
-                tmpSize++;
+                totalData++;
             }
-            totalData += tmpSize;
 
             img = Image.createImage(baos.toByteArray(), 0, baos.size());
 
@@ -216,12 +212,10 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         } catch (IOException ioe) {
             int ch;
             try {
-            	tmpSize = 0;
                 while ((ch = inputStream.read()) != -1) {
                     System.out.print((char) ch);
-                    tmpSize++;
+                    totalData++;
                 }
-                totalData += tmpSize;
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -643,17 +637,15 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 
             int ch;
             // int i = 0;
-            tmpSize = 0;
             while ((ch = inputStream.read()) != -1) {
                 resultBuf.append((char) ch);
-                tmpSize++;
+                totalData++;
                 // i++;
                 // if (i > (length / 5)) {
                 // updateProgress();
                 // i = 0;
                 // }
             }
-            totalData += tmpSize;
 
             if (isUTF8) {
                 return toUTF8(resultBuf.toString());
@@ -705,8 +697,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 	 * @return the totalData
 	 */
 	public String getTotalData() {
-		// FIXME Binh: >= 1024
-        if(totalData > 1024) {
+        if(totalData >= 1024) {
 			Float f = new Float(totalData);
 			f = Float.round(f.Div(1024), 2);
 
