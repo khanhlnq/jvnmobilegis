@@ -129,11 +129,11 @@ public class UIController {
     										    "/icons/map_server_icon.png",
     										    "/icons/preferences_icon.png",
     										    "/icons/check_update_icon.png",
-    										    "/icons/en.png",
-    										    "/icons/vn.png",
-    										    "/icons/nl.png",
-    										    "/icons/error_alert.png",
-    										    "/icons/info_alert.png"};
+    										    "/icons/flags/en.png",
+    										    "/icons/flags/vn.png",
+    										    "/icons/flags/nl.png",
+    										    "/icons/error_alert_icon.png",
+    										    "/icons/info_alert_icon.png"};
     private final MIDlet midlet;
     /**
      * @uml.property name="display"
@@ -160,7 +160,7 @@ public class UIController {
     private FeatureInfoUI featureInfoUI;
     private HelpUI helpUI;
     private LayerListUI layerListUI;
-    private SelectedLayerListUI selectedLayerListUI;    
+    private SelectedLayerListUI selectedLayerListUI;
     private ProgressObserverUI progressObserverUI;
     private PromptDialog promptDialog;
     private ConfirmDialogUI confirmDialogUI;
@@ -313,10 +313,10 @@ public class UIController {
     public void setLayerListUI(LayerListUI layerListUI) {
         this.layerListUI = layerListUI;
     }
-    
+
     public SelectedLayerListUI getSelectedLayerListUI() {
         if (selectedLayerListUI == null) {
-        	selectedLayerListUI = new SelectedLayerListUI(this);        	        	        	
+        	selectedLayerListUI = new SelectedLayerListUI(this);
         }
         return selectedLayerListUI;
     }
@@ -324,7 +324,7 @@ public class UIController {
     public void setSelectedLayerListUI(SelectedLayerListUI selectedLayerListUI) {
         this.selectedLayerListUI = selectedLayerListUI;
     }
-        
+
     /**
 	 * @return the selectedLayerList
 	 */
@@ -474,7 +474,7 @@ public class UIController {
     public void layerListRequested() {
         display.setCurrent(getLayerListUI());
     }
-    
+
     public void selectedLayerListRequested() {
         // FIXME VanAn: Call SelectedLayerListUI.init() method here
         display.setCurrent(getSelectedLayerListUI());
@@ -742,7 +742,7 @@ public class UIController {
         // Init layers for select layer UI
         // FIXME VanAn: Should use ordered layer list from SelectedLayerListUI.getSelectedLayerList()
         getLayerSelectUI().init(getLayerListUI().getSelectedLayerList());
-                
+
         return model.getMapWMS(requestParam, getSelectedLayerListUI().getSelectedLayerList());
         //return model.getMapWMS(requestParam, layerList);
     }
