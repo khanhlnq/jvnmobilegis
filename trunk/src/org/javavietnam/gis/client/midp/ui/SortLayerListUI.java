@@ -93,6 +93,7 @@ public class SortLayerListUI extends List implements CommandListener {
     }
 
     public void init(Vector sortLayerList) {
+        // FIXME VanAn: Alert if no layer is selected
         this.sortLayerList = sortLayerList;
         deleteAll();
         for (int i = 0; i < sortLayerList.size(); i++) {
