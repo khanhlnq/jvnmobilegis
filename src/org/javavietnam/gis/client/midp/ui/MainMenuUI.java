@@ -105,6 +105,7 @@ class MainMenuUI extends List implements CommandListener {
             append(uiController.getString(UIConstants.SERVER_UI_TITLE), uiController.getImage(UIConstants.ICON_SERVER_UI_TITLE));
             append(uiController.getString(UIConstants.PREFERENCES), uiController.getImage(UIConstants.ICON_PREFERENCES));
             append(uiController.getString(UIConstants.CHECK_UPDATE), uiController.getImage(UIConstants.ICON_CHECK_UPDATE));
+            append(uiController.getString(UIConstants.ABOUT), uiController.getImage(UIConstants.ICON_INFO));
             exitCommand = new Command(uiController.getString(UIConstants.EXIT),
                     Command.EXIT, 75);
 
@@ -129,6 +130,9 @@ class MainMenuUI extends List implements CommandListener {
             } else if (label.equals(uiController
                     .getString(UIConstants.CHECK_UPDATE))) {
                 uiController.checkUpdateRequested();
+            } else if (label.equals(uiController
+                    .getString(UIConstants.ABOUT))) {
+                uiController.aboutRequested();
             }
         } else {
             if (command == exitCommand) {

@@ -56,9 +56,8 @@ public final class UIConstants {
     public static final byte ICON_ENGLAND_FLAG = 4;
     public static final byte ICON_VIETNAM_FLAG = 5;
     public static final byte ICON_DUTCH_FLAG = 6;
-    public static final byte ICON_ERROR_ALERT = 7;
-    public static final byte ICON_INFO_ALERT = 8;
-
+    public static final byte ICON_ERROR = 7;
+    public static final byte ICON_INFO = 8;
 
     // Unit of these values is pixel
     // Scale = 20%

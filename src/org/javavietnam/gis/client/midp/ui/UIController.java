@@ -352,18 +352,11 @@ public class UIController {
         if (command == mainMenuCommand) {
             mainMenuRequested();
         } else if (command == aboutCommand) {
-            try {
-                showInfoAlert(
-                    getString(UIConstants.ABOUT),
-                    getString(UIConstants.MOBILEGIS_CLIENT) + " version " + (null == midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION) ? ""
-                    : midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION)) + " \n" + getString(UIConstants.COPYRIGHT) + "\n" + getString(UIConstants.DOWNLOADED_DATA_SIZE) +
-                    ": " + model.getDownloadedDataSize(), display.getCurrent());
-            } catch (ApplicationException ae) {
-            }
+            aboutRequested();
         } else if (command == exitCommand) {
             exitRequested();
         }
-    }
+    } 
 
     public void showErrorAlert(Exception e) {
         showErrorAlert(new ApplicationException(e), getMainMenuUI());
@@ -380,7 +373,7 @@ public class UIController {
     private void showErrorAlert(String message, Displayable d) {
         Alert alert = new Alert(getString(UIConstants.ERROR));
 
-        alert.setImage(getImage(UIConstants.ICON_ERROR_ALERT));
+        alert.setImage(getImage(UIConstants.ICON_ERROR));
         alert.setType(AlertType.ERROR);
         alert.setTimeout(Alert.FOREVER);
         alert.setString(message);
@@ -395,7 +388,7 @@ public class UIController {
         Alert alert = new Alert(
             (title == null) ? getString(UIConstants.MOBILEGIS_CLIENT)
             : title);
-        alert.setImage(getImage(UIConstants.ICON_INFO_ALERT));
+        alert.setImage(getImage(UIConstants.ICON_INFO));
         alert.setType(AlertType.INFO);
         alert.setTimeout(Alert.FOREVER);
         alert.setString(message);
@@ -410,6 +403,17 @@ public class UIController {
 
     public void mainMenuRequested() {
         display.setCurrent(getMainMenuUI());
+    }
+    
+     public void aboutRequested() {
+        try {
+                showInfoAlert(
+                    getString(UIConstants.ABOUT),
+                    getString(UIConstants.MOBILEGIS_CLIENT) + " version " + (null == midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION) ? ""
+                    : midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION)) + " \n" + getString(UIConstants.COPYRIGHT) + " \n" + getString(UIConstants.DOWNLOADED_DATA_SIZE) +
+                    ": " + model.getDownloadedDataSize(), display.getCurrent());
+            } catch (ApplicationException ae) {
+            }
     }
 
     public void preferencesUIRequested() {

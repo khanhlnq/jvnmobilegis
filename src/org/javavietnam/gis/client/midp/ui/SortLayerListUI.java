@@ -68,43 +68,45 @@ public class SortLayerListUI extends List implements CommandListener {
 
         this.uiController = uiController;
         this.sortLayerList = uiController.getSelectedLayerList();
-        
+
         // FIXME VanAn: Do we need to call init() here?
         init(sortLayerList);    
-        
-        getMapCommand = new Command(uiController.getString(UIConstants.GETMAP), Command.SCREEN, 0);        
+
+        getMapCommand = new Command(uiController.getString(UIConstants.GETMAP), Command.SCREEN, 0);
         moveTopCommand = new Command(uiController.getString(UIConstants.MOVE_TO_TOP), Command.SCREEN, 1);
         moveUpCommand = new Command(uiController.getString(UIConstants.MOVE_UP), Command.SCREEN, 2);
-        moveDownCommand = new Command(uiController.getString(UIConstants.MOVE_DOWN), Command.SCREEN, 3);        
+        moveDownCommand = new Command(uiController.getString(UIConstants.MOVE_DOWN), Command.SCREEN, 3);
         moveBottomCommand = new Command(uiController.getString(UIConstants.MOVE_TO_BOTTOM), Command.SCREEN, 4);
 
         addCommand(getMapCommand);
-        // FIXME: No need this condition
+        // FIXME VanAn: No need this condition
         if (sortLayerList.size() > 1) {
-        	addCommand(moveTopCommand);
+            addCommand(moveTopCommand);
             addCommand(moveUpCommand);
-            addCommand(moveDownCommand);        
+            addCommand(moveDownCommand);
             addCommand(moveBottomCommand);
         }
-        
+
+        // FIXME VanAn: add uiController.setCommands(this) here
+
         setCommandListener(this);
     }
-    
+
     public void init(Vector sortLayerList) {
-    	this.sortLayerList = sortLayerList;
-    	deleteAll();    	
-    	for (int i = 0; i < sortLayerList.size(); i++) {
+        this.sortLayerList = sortLayerList;
+        deleteAll();
+        for (int i = 0; i < sortLayerList.size(); i++) {
             append(sortLayerList.elementAt(i).toString(), null);
         }
     }
-    
+
     /**
      * @return the sortLayerList
      */
     public Vector getSortLayerList() {
         return sortLayerList;
     }
-    
+
     public void moveToTop() {
         if (getSelectedIndex() > 0) {
             int selectedIndex = getSelectedIndex();
@@ -112,57 +114,57 @@ public class SortLayerListUI extends List implements CommandListener {
             Object selectedItem = sortLayerList.elementAt(selectedIndex);
             sortLayerList.removeElementAt(selectedIndex);
             delete(selectedIndex);
-            insert(0, selectedItem.toString(), null);                        
-            sortLayerList.insertElementAt(selectedItem, 0);           
-            
+            insert(0, selectedItem.toString(), null);
+            sortLayerList.insertElementAt(selectedItem, 0);
+
             setSelectedIndex(0, true);
         }
     }
-    
-    public void moveUp() {
-    	int selectedIndex = getSelectedIndex();
-    	Object selectedItem = sortLayerList.elementAt(selectedIndex);
 
-    	if (selectedIndex > 0) {
-    		sortLayerList.removeElementAt(selectedIndex);
+    public void moveUp() {
+        int selectedIndex = getSelectedIndex();
+        Object selectedItem = sortLayerList.elementAt(selectedIndex);
+
+        if (selectedIndex > 0) {
+            sortLayerList.removeElementAt(selectedIndex);
             delete(selectedIndex);
-            
-            insert(selectedIndex-1, selectedItem.toString(), null);                        
-            sortLayerList.insertElementAt(selectedItem, selectedIndex - 1);            
-            
+
+            insert(selectedIndex - 1, selectedItem.toString(), null);
+            sortLayerList.insertElementAt(selectedItem, selectedIndex - 1);
+
             setSelectedIndex(selectedIndex - 1, true);
         } else {
             // FIXME VanAn: Just call moveToBotom()
-        	sortLayerList.removeElementAt(selectedIndex);
+            sortLayerList.removeElementAt(selectedIndex);
             delete(selectedIndex);
-            
+
             sortLayerList.insertElementAt(selectedItem, sortLayerList.size());
-            insert(sortLayerList.size()-1, selectedItem.toString(), null);                        
-                        
-            setSelectedIndex(sortLayerList.size()-1, true);
+            insert(sortLayerList.size() - 1, selectedItem.toString(), null);
+
+            setSelectedIndex(sortLayerList.size() - 1, true);
         }
     }
 
-    public void moveDown() {    	
-    	int selectedIndex = getSelectedIndex();
+    public void moveDown() {
+        int selectedIndex = getSelectedIndex();
         Object selectedItem = sortLayerList.elementAt(selectedIndex);
 
-    	if (getSelectedIndex() < sortLayerList.size()-1) {
-    		sortLayerList.removeElementAt(selectedIndex);
+        if (getSelectedIndex() < sortLayerList.size() - 1) {
+            sortLayerList.removeElementAt(selectedIndex);
             delete(selectedIndex);
 
-            sortLayerList.insertElementAt(selectedItem, selectedIndex + 1);            
-            insert(selectedIndex+1, selectedItem.toString(), null);
-            
+            sortLayerList.insertElementAt(selectedItem, selectedIndex + 1);
+            insert(selectedIndex + 1, selectedItem.toString(), null);
+
             setSelectedIndex(selectedIndex + 1, true);
         } else {
             // FIXME VanAn: Just call moveToTop()
-        	sortLayerList.removeElementAt(selectedIndex);
+            sortLayerList.removeElementAt(selectedIndex);
             delete(selectedIndex);
-                    	                        
-            sortLayerList.insertElementAt(selectedItem, 0);            
+
+            sortLayerList.insertElementAt(selectedItem, 0);
             insert(0, selectedItem.toString(), null);
-            
+
             setSelectedIndex(0, true);
         }
     }
@@ -173,10 +175,10 @@ public class SortLayerListUI extends List implements CommandListener {
 
             Object selectedItem = sortLayerList.elementAt(selectedIndex);
             sortLayerList.removeElementAt(selectedIndex);
-            delete(selectedIndex);                                    
+            delete(selectedIndex);
             sortLayerList.insertElementAt(selectedItem, sortLayerList.size());
-            insert(sortLayerList.size()-1, selectedItem.toString(), null);
-            
+            insert(sortLayerList.size() - 1, selectedItem.toString(), null);
+
             setSelectedIndex(sortLayerList.size() - 1, true);
         }
     }
@@ -189,7 +191,7 @@ public class SortLayerListUI extends List implements CommandListener {
         } else if (command == moveUpCommand) {
             moveUp();
         } else if (command == moveDownCommand) {
-            moveDown();        
+            moveDown();
         } else if (command == moveBottomCommand) {
             moveToBottom();
         } else {
