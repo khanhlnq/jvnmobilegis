@@ -481,8 +481,12 @@ public class UIController {
     }
     
     public void sortLayerListRequested() {
-    	getSortLayerListUI().init(this.getSelectedLayerList());
-    	display.setCurrent(sortLayerListUI);    	
+    	try {
+			getSortLayerListUI().init(this.getSelectedLayerList());
+			display.setCurrent(sortLayerListUI);
+		} catch (ApplicationException ae) {
+			showErrorAlert(ae.getMessage(), layerListUI);						
+		}    	    	
     }
     
     public void backToSortLayerListUI() {

@@ -1,9 +1,9 @@
 /**
- * $Id: UIController.java 180 2007-12-27 08:58:48Z khanh.lnq $
- * $URL: https://jvnmobilegis.googlecode.com/svn/trunk/src/org/javavietnam/gis/client/midp/ui/UIController.java $
- * $Author: khanh.lnq $
- * $Revision: 180 $
- * $Date: 2007-12-27 15:58:48 +0700 (Thu, 27 Dec 2007) $
+ * $Id$
+ * $URL$
+ * $Author$
+ * $Revision$
+ * $Date$
  *
  * ====================================================================
  *
@@ -47,6 +47,8 @@ import javax.microedition.lcdui.Displayable;
 import javax.microedition.lcdui.List;
 import javax.microedition.lcdui.Ticker;
 
+import org.javavietnam.gis.shared.midp.ApplicationException;
+
 /**
  * @author anntv
  * 
@@ -68,10 +70,7 @@ public class SortLayerListUI extends List implements CommandListener {
 
         this.uiController = uiController;
         this.sortLayerList = uiController.getSelectedLayerList();
-
-        // FIXME VanAn: Do we need to call init() here?
-        init(sortLayerList);    
-
+        
         getMapCommand = new Command(uiController.getString(UIConstants.GETMAP), Command.SCREEN, 0);
         moveTopCommand = new Command(uiController.getString(UIConstants.MOVE_TO_TOP), Command.SCREEN, 1);
         moveUpCommand = new Command(uiController.getString(UIConstants.MOVE_UP), Command.SCREEN, 2);
@@ -79,26 +78,27 @@ public class SortLayerListUI extends List implements CommandListener {
         moveBottomCommand = new Command(uiController.getString(UIConstants.MOVE_TO_BOTTOM), Command.SCREEN, 4);
 
         addCommand(getMapCommand);
-        // FIXME VanAn: No need this condition
-        if (sortLayerList.size() > 1) {
-            addCommand(moveTopCommand);
-            addCommand(moveUpCommand);
-            addCommand(moveDownCommand);
-            addCommand(moveBottomCommand);
-        }
+        addCommand(moveTopCommand);
+        addCommand(moveUpCommand);
+        addCommand(moveDownCommand);
+        addCommand(moveBottomCommand);
 
-        // FIXME VanAn: add uiController.setCommands(this) here
+        uiController.setCommands(this);
 
         setCommandListener(this);
     }
 
-    public void init(Vector sortLayerList) {
-        // FIXME VanAn: Alert if no layer is selected
+    public void init(Vector sortLayerList) throws ApplicationException {
         this.sortLayerList = sortLayerList;
-        deleteAll();
-        for (int i = 0; i < sortLayerList.size(); i++) {
-            append(sortLayerList.elementAt(i).toString(), null);
+        
+        if (0 == sortLayerList.size()) {
+            throw new ApplicationException(uiController.getString(UIConstants.NO_SELECTED_LAYER));
         }
+               
+		deleteAll();
+		for (int i = 0; i < sortLayerList.size(); i++) {
+		    append(sortLayerList.elementAt(i).toString(), null);
+		}
     }
 
     /**
@@ -135,7 +135,7 @@ public class SortLayerListUI extends List implements CommandListener {
 
             setSelectedIndex(selectedIndex - 1, true);
         } else {
-            // FIXME VanAn: Just call moveToBotom()
+            // Can't call moveToBottom() because we have to check condition with moveToBottom()
             sortLayerList.removeElementAt(selectedIndex);
             delete(selectedIndex);
 
@@ -159,7 +159,7 @@ public class SortLayerListUI extends List implements CommandListener {
 
             setSelectedIndex(selectedIndex + 1, true);
         } else {
-            // FIXME VanAn: Just call moveToTop()
+            // Can't call moveToTop() because we have to check condition with moveToTop()  
             sortLayerList.removeElementAt(selectedIndex);
             delete(selectedIndex);
 
