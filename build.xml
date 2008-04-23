@@ -114,7 +114,7 @@
 	    </delete-->
 	</target>
 
-    <target name="build">
+    <target name="build" depends="clean">
 
         <!-- Copy a JAD file from the WTK's demo applications.
              Caution: Ant only copies this the first time. Also
@@ -140,7 +140,7 @@
                     jadfile="${dist.dir}/${midlet.name}.jad"
                     obfuscate="false"
                     preverify="true"
-                    autoversion="true"
+                    autoversion="false"
                     libclasspath="lib">
 
             <!-- Package our newly compiled classes and the
@@ -165,7 +165,10 @@
         <wtkmakeprc jadfile="${midlet.name}.jad"
                     prcfile="${midlet.name}.prc"/>
         -->
-    	
+
+    </target>
+    
+    <target name="run" depends="build"> 	
 		<!-- Start the MIDlet suite -->
     	        
     	<wtkrun jadfile="${dist.dir}/${midlet.name}.jad" device="DefaultColorPhone"/>
