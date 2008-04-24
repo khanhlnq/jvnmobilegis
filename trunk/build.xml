@@ -148,7 +148,7 @@
 
             <fileset dir="classes"/>
             <fileset dir="${midlet.home}/res"/>
-            <zipfileset src="lib/tinylinegzip.zip"/>
+            <zipfileset src="lib/tinylinegzip.jar"/>
 
             <!-- The packaging task takes care of not obfuscating
                  any main MIDlet classes ("entry points"), but since
