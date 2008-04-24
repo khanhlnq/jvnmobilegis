@@ -10,8 +10,8 @@
     <PROPERTY Name="Author">Khanh Le</PROPERTY>
     <PROPERTY Name="OpenFiles">
         <CLASS Type="TFiles">
-            <PROPERTY Name="CurrentIndex">3</PROPERTY>
-            <PROPERTY Name="LastFileName">D:\Projects\_remote\jvnmobilegis\trunk\src\org\javavietnam\gis\client\midp\ui\UIController.java</PROPERTY>
+            <PROPERTY Name="CurrentIndex">9</PROPERTY>
+            <PROPERTY Name="LastFileName">D:\Projects\_remote\jvnmobilegis\trunk\src\org\javavietnam\gis\client\midp\ui\SortLayerListUI.java</PROPERTY>
                 <CLASS Type="TFile">
                     <PROPERTY Name="ProjectID">{413952DE-2F30-4882-8762-2306B7B4154B}</PROPERTY>
                     <PROPERTY Name="CaretLeft">35</PROPERTY>
@@ -22,11 +22,11 @@
                 </CLASS>
                 <CLASS Type="TFile">
                     <PROPERTY Name="ProjectID">{413952DE-2F30-4882-8762-2306B7B4154B}</PROPERTY>
-                    <PROPERTY Name="CaretLeft">44</PROPERTY>
-                    <PROPERTY Name="CaretTop">488</PROPERTY>
+                    <PROPERTY Name="CaretLeft">34</PROPERTY>
+                    <PROPERTY Name="CaretTop">203</PROPERTY>
                     <PROPERTY Name="FileName">$(PROJECT)\src\org\javavietnam\gis\client\midp\model\HTTPCommunicationHandler.java</PROPERTY>
                     <PROPERTY Name="WindowLeft">1</PROPERTY>
-                    <PROPERTY Name="WindowTop">475</PROPERTY>
+                    <PROPERTY Name="WindowTop">179</PROPERTY>
                 </CLASS>
                 <CLASS Type="TFile">
                     <PROPERTY Name="ProjectID">{413952DE-2F30-4882-8762-2306B7B4154B}</PROPERTY>
@@ -59,6 +59,38 @@
                     <PROPERTY Name="FileName">$(PROJECT)\src\org\javavietnam\gis\client\midp\ui\SearchFeatureResultUI.java</PROPERTY>
                     <PROPERTY Name="WindowLeft">1</PROPERTY>
                     <PROPERTY Name="WindowTop">105</PROPERTY>
+                </CLASS>
+                <CLASS Type="TFile">
+                    <PROPERTY Name="ProjectID">{413952DE-2F30-4882-8762-2306B7B4154B}</PROPERTY>
+                    <PROPERTY Name="CaretLeft">61</PROPERTY>
+                    <PROPERTY Name="CaretTop">66</PROPERTY>
+                    <PROPERTY Name="FileName">$(PROJECT)\src\org\javavietnam\gis\client\midp\ui\ConfirmDialogUI.java</PROPERTY>
+                    <PROPERTY Name="WindowLeft">26</PROPERTY>
+                    <PROPERTY Name="WindowTop">47</PROPERTY>
+                </CLASS>
+                <CLASS Type="TFile">
+                    <PROPERTY Name="ProjectID">{413952DE-2F30-4882-8762-2306B7B4154B}</PROPERTY>
+                    <PROPERTY Name="CaretLeft">27</PROPERTY>
+                    <PROPERTY Name="CaretTop">70</PROPERTY>
+                    <PROPERTY Name="FileName">$(PROJECT)\src\org\javavietnam\gis\client\midp\ui\SortLayerListUI.java</PROPERTY>
+                    <PROPERTY Name="WindowLeft">1</PROPERTY>
+                    <PROPERTY Name="WindowTop">58</PROPERTY>
+                </CLASS>
+                <CLASS Type="TFile">
+                    <PROPERTY Name="ProjectID">{413952DE-2F30-4882-8762-2306B7B4154B}</PROPERTY>
+                    <PROPERTY Name="CaretLeft">8</PROPERTY>
+                    <PROPERTY Name="CaretTop">59</PROPERTY>
+                    <PROPERTY Name="FileName">$(PROJECT)\src\org\javavietnam\gis\client\midp\ui\LayerSelectUI.java</PROPERTY>
+                    <PROPERTY Name="WindowLeft">1</PROPERTY>
+                    <PROPERTY Name="WindowTop">53</PROPERTY>
+                </CLASS>
+                <CLASS Type="TFile">
+                    <PROPERTY Name="ProjectID">{413952DE-2F30-4882-8762-2306B7B4154B}</PROPERTY>
+                    <PROPERTY Name="CaretLeft">22</PROPERTY>
+                    <PROPERTY Name="CaretTop">74</PROPERTY>
+                    <PROPERTY Name="FileName">$(PROJECT)\src\org\javavietnam\gis\client\midp\ui\LayerListUI.java</PROPERTY>
+                    <PROPERTY Name="WindowLeft">1</PROPERTY>
+                    <PROPERTY Name="WindowTop">61</PROPERTY>
                 </CLASS>
         </CLASS>
     </PROPERTY>
