@@ -101,6 +101,7 @@ import org.javavietnam.gis.shared.midp.ApplicationException;
 import org.javavietnam.gis.shared.midp.IndexedResourceBundle;
 import org.javavietnam.gis.shared.midp.VietSign;
 import org.javavietnam.gis.shared.midp.model.Credentials;
+import org.javavietnam.gis.shared.midp.model.MapFeature;
 import org.javavietnam.gis.shared.midp.model.LayerInformation;
 import org.javavietnam.gis.shared.midp.model.SearchFeatureParameter;
 import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
@@ -121,8 +122,8 @@ public class UIController {
         // public static final byte EVENT_ID_FINDPATHWMS = 4;
         // public static final byte EVENT_ID_VIEWPATHWMS = 5;
         public static final byte EVENT_ID_GETFEATUREINFO = 6;
-//        public static final byte EVENT_ID_SEARCHFEATURE = 7;
-//        public static final byte EVENT_ID_VIEWFEATURE = 8;
+        public static final byte EVENT_ID_SEARCHFEATURE = 7;
+        public static final byte EVENT_ID_VIEWFEATURE = 8;
         public static final byte EVENT_ID_CHECKUPDATE = 9;
     }
     private static final String[] iconPaths = {"/icons/JVNMobileGIS_icon.png",
@@ -154,13 +155,13 @@ public class UIController {
     private MapServerUI mapServerUI;
     private MapViewUI mapViewUI;
     // private FindPathUI findPathUI;
-//    private SearchFeatureUI searchFeatureUI;
-//    private SearchFeatureResultUI searchFeatureResultUI;
+    private SearchFeatureUI searchFeatureUI;
+    private SearchFeatureResultUI searchFeatureResultUI;
     private LayerSelectUI layerSelectUI;
     private FeatureInfoUI featureInfoUI;
     private HelpUI helpUI;
     private LayerListUI layerListUI;
-    private SortLayerListUI sortLayerListUI;    
+    private SortLayerListUI sortLayerListUI;
     private ProgressObserverUI progressObserverUI;
     private PromptDialog promptDialog;
     private ConfirmDialogUI confirmDialogUI;
@@ -203,6 +204,7 @@ public class UIController {
     }
 
     public void init() throws ApplicationException {
+        deinitialize(true);
         resourceBundle = model.getResourceBundle(BASE_NAME_UI_RESOURCES);
         messageBundle = model.getResourceBundle(BASE_NAME_MESSAGE_RESOURCES);
 
@@ -212,18 +214,9 @@ public class UIController {
         // setCommands(layerListUI);
         // setCommands(mapServerUI);
 
-        progressObserverUI = new ProgressObserverUI(this);
-
         model.setProgressObserver(getProgressObserverUI());
 
         mapServersCmd = new MapServersCmd(this);
-
-        if (getMapViewUI().hasPointerEvents() && getMapViewUI().hasPointerMotionEvents()) {
-            helpUI = new HelpUI(this, true);
-        } else {
-            helpUI = new HelpUI(this, false);
-        }
-        promptDialog = new PromptDialog(this);
 
         for (int i = 0; i < iconPaths.length; i++) {
             try {
@@ -278,13 +271,19 @@ public class UIController {
         return mapViewUI;
     }
 
-//    public SearchFeatureUI getSearchFeatureUI() {
-//        return searchFeatureUI;
-//    }
-//
-//    public SearchFeatureResultUI getSearchFeatureResultUI() {
-//        return searchFeatureResultUI;
-//    }
+    public SearchFeatureUI getSearchFeatureUI() {
+        if (searchFeatureUI == null) {
+            searchFeatureUI = new SearchFeatureUI(this);
+        }
+        return searchFeatureUI;
+    }
+
+    public SearchFeatureResultUI getSearchFeatureResultUI() {
+        if (searchFeatureResultUI == null) {
+            searchFeatureResultUI = new SearchFeatureResultUI(this);
+        }
+        return searchFeatureResultUI;
+    }
     public LayerSelectUI getLayerSelectUI() {
         if (layerSelectUI == null) {
             layerSelectUI = new LayerSelectUI(this);
@@ -300,6 +299,13 @@ public class UIController {
     }
 
     public HelpUI getHelpUI() {
+        if (helpUI == null) {
+            if (getMapViewUI().hasPointerEvents() && getMapViewUI().hasPointerMotionEvents()) {
+                helpUI = new HelpUI(this, true);
+            } else {
+                helpUI = new HelpUI(this, false);
+            }
+        }
         return helpUI;
     }
 
@@ -313,19 +319,19 @@ public class UIController {
     public void setLayerListUI(LayerListUI layerListUI) {
         this.layerListUI = layerListUI;
     }
-    
-    public SortLayerListUI getSortLayerListUI() {        
+
+    public SortLayerListUI getSortLayerListUI() {
     	if (sortLayerListUI == null) {
     		sortLayerListUI = new SortLayerListUI(this);
-    	}   	
-    	
+    	}
+
         return sortLayerListUI;
     }
 
     public void setSortLayerListUI(SortLayerListUI sortLayerListUI) {
         this.sortLayerListUI = sortLayerListUI;
     }
-        
+
     /**
 	 * @return the selectedLayerList
 	 */
@@ -334,10 +340,16 @@ public class UIController {
 	}
 
     public ProgressObserverUI getProgressObserverUI() {
+        if (progressObserverUI == null) {
+            progressObserverUI = new ProgressObserverUI(this);
+        }
         return progressObserverUI;
     }
 
     public PromptDialog getPromptDialog() {
+        if (promptDialog == null) {
+            promptDialog = new PromptDialog(this);
+        }
         return promptDialog;
     }
 
@@ -356,7 +368,7 @@ public class UIController {
         } else if (command == exitCommand) {
             exitRequested();
         }
-    } 
+    }
 
     public void showErrorAlert(Exception e) {
         showErrorAlert(new ApplicationException(e), getMainMenuUI());
@@ -404,7 +416,7 @@ public class UIController {
     public void mainMenuRequested() {
         display.setCurrent(getMainMenuUI());
     }
-    
+
      public void aboutRequested() {
         try {
                 showInfoAlert(
@@ -479,20 +491,20 @@ public class UIController {
     public void layerListRequested() {
         display.setCurrent(getLayerListUI());
     }
-    
+
     public void sortLayerListRequested() {
     	try {
 			getSortLayerListUI().init(this.getSelectedLayerList());
 			display.setCurrent(sortLayerListUI);
 		} catch (ApplicationException ae) {
-			showErrorAlert(ae.getMessage(), layerListUI);						
-		}    	    	
+			showErrorAlert(ae.getMessage(), layerListUI);
+		}
     }
-    
+
     public void backToSortLayerListUI() {
-    	display.setCurrent(sortLayerListUI);    	
+    	display.setCurrent(sortLayerListUI);
     }
-    
+
     public void viewMapRequested() {
         display.setCurrent(getMapViewUI());
     }
@@ -525,40 +537,40 @@ public class UIController {
      * EventDispatcher(EventIds.EVENT_ID_FINDPATHWMS, mapViewUI),
      * getString(UIConstants.PROCESSING), true); }
      */
-//    public void searchFeatureRequested() {
-//        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_SEARCHFEATURE,getSearchFeatureUI()), getString(UIConstants.PROCESSING), true);
-//    }
+    public void searchFeatureRequested() {
+        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_SEARCHFEATURE,getSearchFeatureUI()), getString(UIConstants.PROCESSING), true);
+    }
+
+    public void searchFeatureRequested(int start) {
+        getSearchFeatureUI().setStart(start);
+        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_SEARCHFEATURE,getSearchFeatureUI()), getString(UIConstants.PROCESSING), true);
+    }
+
+    public void searchUIRequested() {
+        try {
+            // set new bounding box for search
+            getSearchFeatureUI().initParam(getMapViewUI().getBoundingBox(), model.getPreferences().getWebGISURL());
+        } catch (ApplicationException e) {
+            e.printStackTrace();
+            showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n" + e.getMessage());
+        }
+
+        display.setCurrent(getSearchFeatureUI());
+    }
+
+    public void searchResultUIRequested() {
+        display.setCurrent(getSearchFeatureResultUI());
+    }
+
+
+//     public void viewPathRequested() { mapViewUI.setIsViewPath(true);
+//     runWithProgress(new EventDispatcher(EventIds.EVENT_ID_VIEWPATHWMS,
+//     findPathUI), getString(UIConstants.PROCESSING), false); }
 //
-//    public void searchFeatureRequested(int start) {
-//        getSearchFeatureUI().setStart(start);
-//        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_SEARCHFEATURE,getSearchFeatureUI()), getString(UIConstants.PROCESSING), true);
-//    }
-//
-//    public void searchUIRequested() {
-//        try {
-//            // set new bounding box for search
-//            getSearchFeatureUI().initParam(getMapViewUI().getBoundingBox(), model.getPreferences().getWebGISURL());
-//        } catch (ApplicationException e) {
-//            e.printStackTrace();
-//            showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n" + e.getMessage());
-//        }
-//
-//        display.setCurrent(getSearchFeatureUI());
-//    }
-//
-//    public void searchResultUIRequested() {
-//        display.setCurrent(getSearchFeatureResultUI());
-//    }
-//
-//    /*
-//     * public void viewPathRequested() { mapViewUI.setIsViewPath(true);
-//     * runWithProgress(new EventDispatcher(EventIds.EVENT_ID_VIEWPATHWMS,
-//     * findPathUI), getString(UIConstants.PROCESSING), false); }
-//     */
-//    public void viewFeatureRequested() {
-//        getMapViewUI().setIsViewFeature(true);
-//        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_VIEWFEATURE,getSearchFeatureUI()), getString(UIConstants.PROCESSING), false);
-//    }
+    public void viewFeatureRequested() {
+        getMapViewUI().setIsViewFeature(true);
+        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_VIEWFEATURE,getSearchFeatureUI()), getString(UIConstants.PROCESSING), false);
+    }
     public void updateMapRequested() {
         runWithProgress(new EventDispatcher(EventIds.EVENT_ID_UPDATEMAPWMS, getMapViewUI()), getString(UIConstants.PROCESSING), true);
     }
@@ -620,37 +632,37 @@ public class UIController {
                      * display.setCurrent(mapViewUI); } break; }
                      */
 
-//                    case EventIds.EVENT_ID_VIEWFEATURE: {
-//                        MapFeature feature = getSearchFeatureResultUI().getSelectedFeature();
-//                        // Recenter map view to this feature
-//                        getMapViewUI().reCenterAtFeature(feature);
-//
-//                        // Update new map
-//                        Image img = updateMapWMS( getMapViewUI(),getLayerListUI().getSelectedLayerList());
-//
-//                        if (img == null) {
-//                            showErrorAlert(
-//                                getString(UIConstants.GET_MAP_WMS_ERROR),getMainMenuUI());
-//                        } else {
-//                            getMapViewUI().init(img);
-//                            display.setCurrent(getMapViewUI());
-//                        }
-//
-//                        break;
-//                    }
-//                    /*
-//                     * case EventIds.EVENT_ID_FINDPATHWMS: { String result =
-//                     * findPathWMS(mapViewUI); findPathUI.init(result);
-//                     * display.setCurrent(findPathUI); break; }
-//                     */
-//
-//                    case EventIds.EVENT_ID_SEARCHFEATURE: {
-//                        String result = searchFeature(getSearchFeatureUI());
-//                        getSearchFeatureResultUI().init(result);
-//                        searchResultUIRequested();
-//
-//                        break;
-//                    }
+                    case EventIds.EVENT_ID_VIEWFEATURE: {
+                        MapFeature feature = getSearchFeatureResultUI().getSelectedFeature();
+                        // Recenter map view to this feature
+                        getMapViewUI().reCenterAtFeature(feature);
+
+                        // Update new map
+                        Image img = updateMapWMS( getMapViewUI(),getLayerListUI().getSelectedLayerList());
+
+                        if (img == null) {
+                            showErrorAlert(
+                                getString(UIConstants.GET_MAP_WMS_ERROR),getMainMenuUI());
+                        } else {
+                            getMapViewUI().init(img);
+                            display.setCurrent(getMapViewUI());
+                        }
+
+                        break;
+                    }
+                    /*
+                     * case EventIds.EVENT_ID_FINDPATHWMS: { String result =
+                     * findPathWMS(mapViewUI); findPathUI.init(result);
+                     * display.setCurrent(findPathUI); break; }
+                     */
+
+                    case EventIds.EVENT_ID_SEARCHFEATURE: {
+                        String result = searchFeature(getSearchFeatureUI());
+                        getSearchFeatureResultUI().init(result);
+                        searchResultUIRequested();
+
+                        break;
+                    }
                     case EventIds.EVENT_ID_GETFEATUREINFO: {
                         String result = getFeatureInfo(getMapViewUI(), getLayerListUI().getSelectedLayerList(), getLayerSelectUI().getInfoLayerName());
                         getFeatureInfoUI().init(result);
@@ -867,7 +879,29 @@ public class UIController {
             default:
                 break;
         }
-
-
+    }
+    
+    void deinitialize(boolean all) {
+        if (all) {
+            mapServersCmd = null;
+            mainMenuCommand = null;
+            exitCommand = null;
+            aboutCommand = null;
+            mainMenuUI = null;
+            preferencesUI = null;
+            mapServerUI = null;
+            mapViewUI = null;
+            // findPathUI = null;
+            searchFeatureUI = null;
+            searchFeatureResultUI = null;
+            layerSelectUI = null;
+            featureInfoUI = null;
+            helpUI = null;
+            layerListUI = null;
+            sortLayerListUI = null;
+            progressObserverUI = null;
+            promptDialog = null;
+            confirmDialogUI = null;
+        }
     }
 }

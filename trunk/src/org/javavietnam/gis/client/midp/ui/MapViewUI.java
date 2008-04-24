@@ -108,7 +108,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
     private final Command recenterCommand;
     // private Command findPathCommand;
     private final Command getFeatureInfoCommand;
-    // private final Command searchFeatureCommand;
+    private final Command searchFeatureCommand;
     private final Command helpCommand;
     private final Command refreshCommand;
     private final Font smallFont = Font.getFont(Font.FACE_PROPORTIONAL,
@@ -181,9 +181,9 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         // Command(uiController.getString(UIConstants.FIND_PATH_CMD),
         // Command.SCREEN, 5);
         getFeatureInfoCommand = new Command(uiController.getString(UIConstants.GET_FEATURE_INFO), Command.SCREEN, 6);
-//        searchFeatureCommand = new Command(uiController
-//                .getString(UIConstants.SEARCH_FEATURE_UI_TITLE),
-//                Command.SCREEN, 7);
+        searchFeatureCommand = new Command(uiController
+                .getString(UIConstants.SEARCH_FEATURE_UI_TITLE),
+                Command.SCREEN, 7);
         helpCommand = new Command(uiController.getString(UIConstants.HELP_CMD),
             Command.SCREEN, 8);
 
@@ -195,7 +195,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         addCommand(refreshCommand);
         // addCommand(findPathCommand);
         addCommand(getFeatureInfoCommand);
-//        addCommand(searchFeatureCommand);
+        addCommand(searchFeatureCommand);
         addCommand(helpCommand);
 
         uiController.setCommands(this);
@@ -551,7 +551,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
      * cursorSize, oldCursors[1] - cursorSize, 2 * cursorSize, 2 * cursorSize); } //
      * Paint new points repaint(cursors[0] - cursorSize, cursors[1] -
      * cursorSize, 2 * cursorSize, 2 * cursorSize); }
-     * 
+     *
      * private void setEndPoint() { int[] cursors = {getCursorX(),
      * getCursorY()}; int[] oldCursors = transformFromReal(endPoint); endPoint =
      * transformFromView(cursors); endPointSelected = true; if (null !=
@@ -795,14 +795,14 @@ public class MapViewUI extends GameCanvas implements CommandListener,
          * isViewFeature = false; uiController.findPathRequested(); }
          */ else if (command == getFeatureInfoCommand) {
             uiController.selectInfoLayerRequested();
-        } //        else if (command == searchFeatureCommand) {
-        //            if (isViewFeature) {
-        //                uiController.searchResultUIRequested();
-        //            } else {
-        //                isViewFeature = false;
-        //                uiController.searchUIRequested();
-        //            }
-        //        } 
+        }         else if (command == searchFeatureCommand) {
+                    if (isViewFeature) {
+                        uiController.searchResultUIRequested();
+                    } else {
+                        isViewFeature = false;
+                        uiController.searchUIRequested();
+                    }
+                }
         else if (command == helpCommand) {
             uiController.helpRequested();
         } else {

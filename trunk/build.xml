@@ -80,30 +80,30 @@
             </target>
 
             -->
-    
+
     <!-- Define the Wireless Toolkit home directory. Needed by the tasks. -->
     <property name="wtk.home" value="c:\WTK2.5"/>
-    
+
     <property name="wtk.cldc.version" value="1.0"/>
     <property name="wtk.midp.version" value="2.0"/>
-    
+
     <!-- Define some additional properties for this project. Not required. -->
 
     <property name="midlet.name" value="JVNMobileGIS"/>
     <property name="midlet.home" value="."/>
     <property name="dist.dir" value="bin"/>
-    
+
     <path id="jvnmobilegis.classpath">
         <fileset dir="lib">
             <include name="**/*.jar"/>
             <include name="**/*.zip"/>
         </fileset>
     </path>
-    
+
     <!-- Define the tasks. -->
-	
+
     <taskdef resource="antenna.properties"/>
-	
+
 	<target name="clean">
 	    <delete failonerror="false" dir="classes"/>
         <delete failonerror="false" file="${midlet.home}/${midlet.name}.jad"/>
@@ -119,7 +119,7 @@
         <!-- Copy a JAD file from the WTK's demo applications.
              Caution: Ant only copies this the first time. Also
              make a directory to compile into. -->
-             
+
         <copy file="${midlet.home}/bin/${midlet.name}.jad" todir="."/>
         <mkdir dir="classes"/>
 
@@ -138,7 +138,7 @@
 
         <wtkpackage jarfile="${dist.dir}/${midlet.name}.jar"
                     jadfile="${dist.dir}/${midlet.name}.jad"
-                    obfuscate="false"
+                    obfuscate="true"
                     preverify="true"
                     autoversion="false"
                     libclasspath="lib">
@@ -149,16 +149,16 @@
             <fileset dir="classes"/>
             <fileset dir="${midlet.home}/res"/>
             <zipfileset src="lib/tinylinegzip.zip"/>
-            
+
             <!-- The packaging task takes care of not obfuscating
                  any main MIDlet classes ("entry points"), but since
                  this application loads some classes by name, these
                  classes need to be excluded from obfuscation, too. -->
 
             <preserve class="org.javavietnam.gis.client.midp.JVNMobileGISMIDlet"/>
-    			
+
         </wtkpackage>
-    		
+
         <!-- Convert the JAR file into a MIDP for PalmOS PRC file. -->
 
     	<!--
@@ -167,12 +167,12 @@
         -->
 
     </target>
-    
-    <target name="run" depends="build"> 	
+
+    <target name="run" depends="build">
 		<!-- Start the MIDlet suite -->
-    	        
+
     	<wtkrun jadfile="${dist.dir}/${midlet.name}.jad" device="DefaultColorPhone"/>
 
     </target>
-    
+
 </project>

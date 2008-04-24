@@ -74,7 +74,7 @@
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq AT gmail.com
- * 
+ *
  * @version: 1.0
  * @author: Khanh Le
  * @Date Created: 22 Jun 2007
@@ -131,7 +131,6 @@ public class JVNMobileGISMIDlet extends MIDlet {
 
             controller = new UIController(this, model);
             controller.init();
-
             if (firstRun) {
                 preferences.setDefaultLocale("en-US");
                 preferences.setWmsServerURL(controller
