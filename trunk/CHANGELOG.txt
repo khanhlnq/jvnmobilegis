@@ -1,3 +1,14 @@
+v1.0.3 RC1:
+- Layers sorting support
+- Support GZIP transfering (if web server supports)
+- Add Dutch language
+- Display total transfered data in About screen
+- Visual Tango icons for better apperance
+- Simple in-memory caching base on URL
+- Add Antenna build file
+- New logo (not final)
+- Other enhancements and bug fixes
+
 v1.0.2:
 - Hotfix NullPointerException which caused crashing in v1.0.1
 - Fix FullScreen hangup on PPC
