@@ -31,7 +31,7 @@
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq AT gmail.com
- * 
+ *
  * @version: 1.0
  * @author: An Nguyen
  * @Date Created: 27 Dec 2007
@@ -51,7 +51,7 @@ import org.javavietnam.gis.shared.midp.ApplicationException;
 
 /**
  * @author anntv
- * 
+ *
  */
 public class SortLayerListUI extends List implements CommandListener {
 
@@ -62,15 +62,17 @@ public class SortLayerListUI extends List implements CommandListener {
     private final Command moveBottomCommand;
     private final Command getMapCommand;
     private Vector sortLayerList;
+    private Ticker ticker;
 
     public SortLayerListUI(UIController uiController) {
         super(uiController.getString(UIConstants.LAYER_SORT), Choice.EXCLUSIVE);
 
-        setTicker(new Ticker(uiController.getString(UIConstants.SORT_LAYER_TICKER)));
+        ticker =  new Ticker(uiController.getString(UIConstants.SORT_LAYER_TICKER));
+        setTicker(ticker);
 
         this.uiController = uiController;
         this.sortLayerList = uiController.getSelectedLayerList();
-        
+
         getMapCommand = new Command(uiController.getString(UIConstants.GETMAP), Command.SCREEN, 0);
         moveTopCommand = new Command(uiController.getString(UIConstants.MOVE_TO_TOP), Command.SCREEN, 1);
         moveUpCommand = new Command(uiController.getString(UIConstants.MOVE_UP), Command.SCREEN, 2);
@@ -90,11 +92,11 @@ public class SortLayerListUI extends List implements CommandListener {
 
     public void init(Vector sortLayerList) throws ApplicationException {
         this.sortLayerList = sortLayerList;
-        
+
         if (0 == sortLayerList.size()) {
             throw new ApplicationException(uiController.getString(UIConstants.NO_SELECTED_LAYER));
         }
-               
+
 		deleteAll();
 		for (int i = 0; i < sortLayerList.size(); i++) {
 		    append(sortLayerList.elementAt(i).toString(), null);
@@ -159,7 +161,7 @@ public class SortLayerListUI extends List implements CommandListener {
 
             setSelectedIndex(selectedIndex + 1, true);
         } else {
-            // Can't call moveToTop() because we have to check condition with moveToTop()  
+            // Can't call moveToTop() because we have to check condition with moveToTop()
             sortLayerList.removeElementAt(selectedIndex);
             delete(selectedIndex);
 

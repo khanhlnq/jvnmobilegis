@@ -31,7 +31,7 @@
  *
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq AT gmail.com
- * 
+ *
  * @version: 1.0
  * @author: Khanh Le
  * @Date Created: 22 Jun 2007
@@ -46,6 +46,7 @@ import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.CommandListener;
 import javax.microedition.lcdui.Displayable;
 import javax.microedition.lcdui.List;
+import javax.microedition.lcdui.Ticker;
 
 import org.javavietnam.gis.shared.midp.model.LayerInformation;
 import org.javavietnam.gis.shared.midp.model.TreeNode;
@@ -59,6 +60,7 @@ class LayerListUI extends List implements CommandListener {
     private final Command backCommand;
     //private final Command getMapCommand;
     private final Command nextCommand;
+    private Ticker ticker;
 
     /**
      * @uml.property name="layerList"
@@ -68,13 +70,17 @@ class LayerListUI extends List implements CommandListener {
     public LayerListUI(UIController uiController) {
         super(uiController.getString(UIConstants.LAYER_LIST_TITLE),
                 Choice.MULTIPLE);
+
+        ticker =  new Ticker(uiController.getString(UIConstants.LAYER_LIST_TICKER));
+        setTicker(ticker);
+
         this.uiController = uiController;
         setLayerList(new Vector());
 
         backCommand = new Command(uiController.getString(UIConstants.BACK),
                 Command.BACK, 5);
         //getMapCommand = new Command(uiController.getString(UIConstants.GETMAP), Command.SCREEN, 0);
-        
+
         nextCommand = new Command(uiController.getString(UIConstants.NEXT), Command.SCREEN, 0);
         addCommand(backCommand);
         //addCommand(getMapCommand);

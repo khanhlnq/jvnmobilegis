@@ -10,86 +10,39 @@
     <PROPERTY Name="Author">Khanh Le</PROPERTY>
     <PROPERTY Name="OpenFiles">
         <CLASS Type="TFiles">
-            <PROPERTY Name="CurrentIndex">9</PROPERTY>
-            <PROPERTY Name="LastFileName">D:\Projects\_remote\jvnmobilegis\trunk\src\org\javavietnam\gis\client\midp\ui\UIController.java</PROPERTY>
+            <PROPERTY Name="CurrentIndex">3</PROPERTY>
+            <PROPERTY Name="LastFileName">D:\Projects\_remote\jvnmobilegis\trunk\src\org\javavietnam\gis\client\midp\ui\LayerListUI.java</PROPERTY>
                 <CLASS Type="TFile">
                     <PROPERTY Name="ProjectID">{413952DE-2F30-4882-8762-2306B7B4154B}</PROPERTY>
-                    <PROPERTY Name="CaretLeft">30</PROPERTY>
-                    <PROPERTY Name="CaretTop">131</PROPERTY>
-                    <PROPERTY Name="FileName">$(PROJECT)\src\org\javavietnam\gis\client\midp\JVNMobileGISMIDlet.java</PROPERTY>
+                    <PROPERTY Name="CaretLeft">75</PROPERTY>
+                    <PROPERTY Name="CaretTop">37</PROPERTY>
+                    <PROPERTY Name="FileName">$(PROJECT)\src\org\javavietnam\gis\client\midp\ui\LayerListUI.java</PROPERTY>
                     <PROPERTY Name="WindowLeft">1</PROPERTY>
-                    <PROPERTY Name="WindowTop">118</PROPERTY>
+                    <PROPERTY Name="WindowTop">28</PROPERTY>
                 </CLASS>
                 <CLASS Type="TFile">
                     <PROPERTY Name="ProjectID">{413952DE-2F30-4882-8762-2306B7B4154B}</PROPERTY>
-                    <PROPERTY Name="CaretLeft">1</PROPERTY>
-                    <PROPERTY Name="CaretTop">156</PROPERTY>
+                    <PROPERTY Name="CaretLeft">40</PROPERTY>
+                    <PROPERTY Name="CaretTop">48</PROPERTY>
+                    <PROPERTY Name="FileName">$(PROJECT)\src\org\javavietnam\gis\client\midp\ui\SortLayerListUI.java</PROPERTY>
+                    <PROPERTY Name="WindowLeft">1</PROPERTY>
+                    <PROPERTY Name="WindowTop">28</PROPERTY>
+                </CLASS>
+                <CLASS Type="TFile">
+                    <PROPERTY Name="ProjectID">{413952DE-2F30-4882-8762-2306B7B4154B}</PROPERTY>
+                    <PROPERTY Name="CaretLeft">33</PROPERTY>
+                    <PROPERTY Name="CaretTop">148</PROPERTY>
                     <PROPERTY Name="FileName">$(PROJECT)\src\org\javavietnam\gis\client\midp\ui\UIConstants.java</PROPERTY>
                     <PROPERTY Name="WindowLeft">1</PROPERTY>
-                    <PROPERTY Name="WindowTop">136</PROPERTY>
+                    <PROPERTY Name="WindowTop">137</PROPERTY>
                 </CLASS>
                 <CLASS Type="TFile">
                     <PROPERTY Name="ProjectID">{413952DE-2F30-4882-8762-2306B7B4154B}</PROPERTY>
-                    <PROPERTY Name="CaretLeft">55</PROPERTY>
-                    <PROPERTY Name="CaretTop">803</PROPERTY>
-                    <PROPERTY Name="FileName">$(PROJECT)\src\org\javavietnam\gis\client\midp\ui\MapViewUI.java</PROPERTY>
-                    <PROPERTY Name="WindowLeft">1</PROPERTY>
-                    <PROPERTY Name="WindowTop">790</PROPERTY>
-                </CLASS>
-                <CLASS Type="TFile">
-                    <PROPERTY Name="ProjectID">{413952DE-2F30-4882-8762-2306B7B4154B}</PROPERTY>
-                    <PROPERTY Name="CaretLeft">22</PROPERTY>
-                    <PROPERTY Name="CaretTop">889</PROPERTY>
-                    <PROPERTY Name="FileName">$(PROJECT)\src\org\javavietnam\gis\client\midp\ui\UIController.java</PROPERTY>
-                    <PROPERTY Name="WindowLeft">1</PROPERTY>
-                    <PROPERTY Name="WindowTop">882</PROPERTY>
-                </CLASS>
-                <CLASS Type="TFile">
-                    <PROPERTY Name="CaretLeft">1</PROPERTY>
-                    <PROPERTY Name="CaretTop">79</PROPERTY>
-                    <PROPERTY Name="FileName">$(PROJECT)\src\org\javavietnam\gis\client\midp\ui\SearchFeatureUI.java</PROPERTY>
-                    <PROPERTY Name="WindowLeft">1</PROPERTY>
-                    <PROPERTY Name="WindowTop">79</PROPERTY>
-                </CLASS>
-                <CLASS Type="TFile">
-                    <PROPERTY Name="ProjectID">{413952DE-2F30-4882-8762-2306B7B4154B}</PROPERTY>
-                    <PROPERTY Name="CaretLeft">51</PROPERTY>
-                    <PROPERTY Name="CaretTop">191</PROPERTY>
+                    <PROPERTY Name="CaretLeft">28</PROPERTY>
+                    <PROPERTY Name="CaretTop">179</PROPERTY>
                     <PROPERTY Name="FileName">$(PROJECT)\src\org\javavietnam\gis\client\midp\model\HTTPCommunicationHandler.java</PROPERTY>
                     <PROPERTY Name="WindowLeft">1</PROPERTY>
-                    <PROPERTY Name="WindowTop">186</PROPERTY>
-                </CLASS>
-                <CLASS Type="TFile">
-                    <PROPERTY Name="ProjectID">{413952DE-2F30-4882-8762-2306B7B4154B}</PROPERTY>
-                    <PROPERTY Name="CaretLeft">20</PROPERTY>
-                    <PROPERTY Name="CaretTop">62</PROPERTY>
-                    <PROPERTY Name="FileName">$(PROJECT)\src\org\javavietnam\gis\client\midp\ui\SearchFeatureResultUI.java</PROPERTY>
-                    <PROPERTY Name="WindowLeft">1</PROPERTY>
-                    <PROPERTY Name="WindowTop">53</PROPERTY>
-                </CLASS>
-                <CLASS Type="TFile">
-                    <PROPERTY Name="ProjectID">{413952DE-2F30-4882-8762-2306B7B4154B}</PROPERTY>
-                    <PROPERTY Name="CaretLeft">73</PROPERTY>
-                    <PROPERTY Name="CaretTop">147</PROPERTY>
-                    <PROPERTY Name="FileName">$(PROJECT)\src\org\javavietnam\gis\client\midp\ui\PreferencesUI.java</PROPERTY>
-                    <PROPERTY Name="WindowLeft">1</PROPERTY>
-                    <PROPERTY Name="WindowTop">122</PROPERTY>
-                </CLASS>
-                <CLASS Type="TFile">
-                    <PROPERTY Name="ProjectID">{413952DE-2F30-4882-8762-2306B7B4154B}</PROPERTY>
-                    <PROPERTY Name="CaretLeft">35</PROPERTY>
-                    <PROPERTY Name="CaretTop">74</PROPERTY>
-                    <PROPERTY Name="FileName">$(PROJECT)\src\org\javavietnam\gis\client\midp\ui\ConfirmDialogUI.java</PROPERTY>
-                    <PROPERTY Name="WindowLeft">1</PROPERTY>
-                    <PROPERTY Name="WindowTop">56</PROPERTY>
-                </CLASS>
-                <CLASS Type="TFile">
-                    <PROPERTY Name="ProjectID">{413952DE-2F30-4882-8762-2306B7B4154B}</PROPERTY>
-                    <PROPERTY Name="CaretLeft">31</PROPERTY>
-                    <PROPERTY Name="CaretTop">135</PROPERTY>
-                    <PROPERTY Name="FileName">$(PROJECT)\build.xml</PROPERTY>
-                    <PROPERTY Name="WindowLeft">1</PROPERTY>
-                    <PROPERTY Name="WindowTop">127</PROPERTY>
+                    <PROPERTY Name="WindowTop">163</PROPERTY>
                 </CLASS>
         </CLASS>
     </PROPERTY>
@@ -2174,7 +2127,7 @@
                                                         <CLASS Type="TFolder">
                                                             <PROPERTY Name="Name">model</PROPERTY>
                                                             <PROPERTY Name="Managed">0</PROPERTY>
-                                                            <PROPERTY Name="Expanded">0</PROPERTY>
+                                                            <PROPERTY Name="Expanded">1</PROPERTY>
                                                             <PROPERTY Name="CompileExtensions">gif,java,properties</PROPERTY>
                                                             <PROPERTY Name="Extensions">gif,java,properties</PROPERTY>
                                                             <PROPERTY Name="SmartFolder">0</PROPERTY>

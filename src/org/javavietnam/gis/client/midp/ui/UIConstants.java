@@ -157,6 +157,7 @@ public final class UIConstants {
     public static final int MOVE_TO_BOTTOM = 89;
     public static final int SORT_LAYER_TICKER = 90;
 	public static final int NO_SELECTED_LAYER = 91;
+	public static final int LAYER_LIST_TICKER = 92;
 
     private UIConstants() {
     }
