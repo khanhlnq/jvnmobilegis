@@ -116,12 +116,12 @@ public final class UIConstants {
     public static final int HELP_CMD = 48;
     public static final int SCALE_STR = 49;
     public static final int GET_CAPABILITIES_CMD = 50;
-    // public static final int SEARCH_FEATURE_UI_TITLE = 51;
+    public static final int SEARCH_FEATURE_UI_TITLE = 51;
     public static final int KEYWORD = 52;
-//    public static final int SEARCH = 53;
-//    public static final int SEARCH_FEATURE_RESULT_UI_TITLE = 54;
-//    public static final int VIEW_ON_MAP = 55;
-//    public static final int NO_FEATURE_FOUND = 56;
+    public static final int SEARCH = 53;
+    public static final int SEARCH_FEATURE_RESULT_UI_TITLE = 54;
+    public static final int VIEW_ON_MAP = 55;
+    public static final int NO_FEATURE_FOUND = 56;
     public static final int LANGUAGE = 57;
     public static final int ENGLISH = 58;
     public static final int VIETNAMESE = 59;

@@ -578,7 +578,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
                             MessageCodes.ERROR_CANNOT_CONNECT);
                 }
 
-                if ((connection.getEncoding() != null) && (connection.getHeaderField("Content-Encoding").indexOf("gzip") != -1)) {
+                if ((connection.getEncoding() != null) && (connection.getHeaderField("Content-Encoding").toLowerCase().indexOf("gzip") != -1)) {
                 	inputStream = new GZIPInputStream(inputStream);
                 }
 
