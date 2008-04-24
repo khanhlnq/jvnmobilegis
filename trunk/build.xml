@@ -138,7 +138,7 @@
 
         <wtkpackage jarfile="${dist.dir}/${midlet.name}.jar"
                     jadfile="${dist.dir}/${midlet.name}.jad"
-                    obfuscate="true"
+                    obfuscate="false"
                     preverify="true"
                     autoversion="false"
                     libclasspath="lib">

@@ -100,6 +100,14 @@ import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
 public class MapViewUI extends GameCanvas implements CommandListener,
     WMSRequestParameter {
 
+    private static final int NO_ACTION = 0;
+    private static final int MOVE_DOWN = 1;
+    private static final int MOVE_LEFT = 2;
+    private static final int MOVE_RIGHT = 3;
+    private static final int MOVE_UP = 4;
+    private static final int ZOOM_IN = 5;
+    private static final int ZOOM_OUT = 6;
+
     private final UIController uiController;
     private final Command backCommand;
     private final Command zoomInCommand;
@@ -142,7 +150,10 @@ public class MapViewUI extends GameCanvas implements CommandListener,
      * @uml.property name="boundingBox"
      * @uml.associationEnd multiplicity="(0 -1)"
      */
-    private final Float[] boundingBox = new Float[4];
+    private Float[] boundingBox = new Float[4];
+    private Float[] previousBoundingBox = new Float[4];
+
+    private int previousAction = NO_ACTION;
     /**
      * @uml.property name="getMapURL"
      */
@@ -198,6 +209,8 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         addCommand(searchFeatureCommand);
         addCommand(helpCommand);
 
+        previousAction = NO_ACTION;
+
         uiController.setCommands(this);
 
         setCommandListener(this);
@@ -205,6 +218,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
 
     public void init(Image img) {
         this.wmsImg = img;
+        repaint();
     }
 
     public void initParam(Float[] latLonBoundingBox, String getMapURL,
@@ -226,6 +240,8 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         // Note, the coordinate of map is decart coordinate
         boundingBox[0] = boundingBox[2].Sub(boxWidth);
         boundingBox[1] = boundingBox[3].Sub(boxHeight);
+
+        previousAction = NO_ACTION;
 
     // startPointSelected = false;
     // endPointSelected = false;
@@ -253,6 +269,8 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         // Note, the coordinate of map is decart coordinate
         boundingBox[0] = boundingBox[2].Sub(boxWidth);
         boundingBox[1] = boundingBox[3].Sub(boxHeight);
+
+        previousAction = NO_ACTION;
 
     // startPointSelected = false;
     // endPointSelected = false;
@@ -408,6 +426,8 @@ public class MapViewUI extends GameCanvas implements CommandListener,
 
     // Center at the specific point
     public void reCenterAtFeature(MapFeature feature) {
+        previousAction = NO_ACTION;
+
         // zoom to best scale first
         zoomToScale(UIConstants.BEST_SCALE);
         // Recenter to feature
@@ -423,40 +443,54 @@ public class MapViewUI extends GameCanvas implements CommandListener,
     }
 
     private void zoomIn() {
-        // Recenter at cursor first
-        int[] cursors = {getCursorX(), getCursorY()};
-        reCenter(cursors);
+        if (previousAction == ZOOM_OUT) {
+           restorePreviousAction(ZOOM_IN);
+        } else {
+            saveCurrentAction(ZOOM_IN);
 
-        // then zoom in
-        Float oldScale = getBoxWidth().Div(getBoxHeight());
-        Float oldWidth = getBoxWidth();
-        Float oldHeight = getBoxHeight();
+            // Recenter at cursor first
+            int[] cursors = {getCursorX(), getCursorY()};
+            reCenter(cursors);
 
-        boundingBox[0] = boundingBox[0].Add(UIConstants.SCALE.Mul(oldWidth));
-        boundingBox[1] = boundingBox[1].Add(UIConstants.SCALE.Mul(oldHeight));
-        boundingBox[2] = boundingBox[2].Sub(UIConstants.SCALE.Mul(oldWidth));
+            // then zoom in
+            Float oldScale = getBoxWidth().Div(getBoxHeight());
+            Float oldWidth = getBoxWidth();
+            Float oldHeight = getBoxHeight();
 
-        boundingBox[3] = boundingBox[1].Add(getBoxWidth().Div(oldScale));
+            boundingBox[0] = boundingBox[0].Add(UIConstants.SCALE.Mul(oldWidth));
+            boundingBox[1] = boundingBox[1].Add(UIConstants.SCALE.Mul(oldHeight));
+            boundingBox[2] = boundingBox[2].Sub(UIConstants.SCALE.Mul(oldWidth));
+
+            boundingBox[3] = boundingBox[1].Add(getBoxWidth().Div(oldScale));
+        }
     }
 
     private void zoomOut() {
-        // Recenter at cursor first
-        int[] cursors = {getCursorX(), getCursorY()};
-        reCenter(cursors);
+        if (previousAction == ZOOM_IN) {
+           restorePreviousAction(ZOOM_OUT);
+        } else {
+            saveCurrentAction(ZOOM_OUT);
 
-        // then zoom out
-        Float oldScale = getBoxWidth().Div(getBoxHeight());
-        Float oldWidth = getBoxWidth();
-        Float oldHeight = getBoxHeight();
+            // Recenter at cursor first
+            int[] cursors = {getCursorX(), getCursorY()};
+            reCenter(cursors);
 
-        boundingBox[0] = boundingBox[0].Sub(UIConstants.SCALE.Mul(oldWidth));
-        boundingBox[1] = boundingBox[1].Sub(UIConstants.SCALE.Mul(oldHeight));
-        boundingBox[2] = boundingBox[2].Add(UIConstants.SCALE.Mul(oldWidth));
+            // then zoom out
+            Float oldScale = getBoxWidth().Div(getBoxHeight());
+            Float oldWidth = getBoxWidth();
+            Float oldHeight = getBoxHeight();
 
-        boundingBox[3] = boundingBox[1].Add(getBoxWidth().Div(oldScale));
+            boundingBox[0] = boundingBox[0].Sub(UIConstants.SCALE.Mul(oldWidth));
+            boundingBox[1] = boundingBox[1].Sub(UIConstants.SCALE.Mul(oldHeight));
+            boundingBox[2] = boundingBox[2].Add(UIConstants.SCALE.Mul(oldWidth));
+
+            boundingBox[3] = boundingBox[1].Add(getBoxWidth().Div(oldScale));
+        }
     }
 
     private void zoomToScale(Float scale) {
+        previousAction = NO_ACTION;
+
         Float oldWidth = getBoxWidth();
         Float oldHeight = getBoxHeight();
 
@@ -469,32 +503,70 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         boundingBox[3] = boundingBox[3].Add((newHeight.Sub(oldHeight)).Div(2));
     }
 
-    private void moveUp() {
-        Float oldHeight = getBoxHeight();
+    private void restorePreviousAction(int currentAction) {
+        Float[] tmp = new Float[4];
+        System.arraycopy(previousBoundingBox, 0, tmp, 0, 4);
+        System.arraycopy(boundingBox, 0, previousBoundingBox, 0, 4);
+        System.arraycopy(tmp, 0, boundingBox, 0, 4);
 
-        boundingBox[1] = boundingBox[1].Add(UIConstants.SCALE.Mul(oldHeight));
-        boundingBox[3] = boundingBox[3].Add(UIConstants.SCALE.Mul(oldHeight));
+        previousAction = currentAction;
+    }
+
+    private void saveCurrentAction(int currentAction) {
+        System.arraycopy(boundingBox, 0, previousBoundingBox, 0, 4);
+        previousAction = currentAction;
+    }
+
+    private void moveUp() {
+        if (previousAction == MOVE_DOWN) {
+           restorePreviousAction(MOVE_UP);
+        } else {
+            saveCurrentAction(MOVE_UP);
+
+            Float oldHeight = getBoxHeight();
+
+            boundingBox[1] = boundingBox[1].Add(UIConstants.SCALE.Mul(oldHeight));
+            boundingBox[3] = boundingBox[3].Add(UIConstants.SCALE.Mul(oldHeight));
+        }
     }
 
     private void moveDown() {
-        Float oldHeight = getBoxHeight();
+        if (previousAction == MOVE_UP) {
+           restorePreviousAction(MOVE_DOWN);
+        } else {
+            saveCurrentAction(MOVE_DOWN);
 
-        boundingBox[1] = boundingBox[1].Sub(UIConstants.SCALE.Mul(oldHeight));
-        boundingBox[3] = boundingBox[3].Sub(UIConstants.SCALE.Mul(oldHeight));
+            Float oldHeight = getBoxHeight();
+
+            boundingBox[1] = boundingBox[1].Sub(UIConstants.SCALE.Mul(oldHeight));
+            boundingBox[3] = boundingBox[3].Sub(UIConstants.SCALE.Mul(oldHeight));
+        }
     }
 
     private void moveLeft() {
-        Float oldWidth = getBoxWidth();
+        if (previousAction == MOVE_RIGHT) {
+           restorePreviousAction(MOVE_LEFT);
+        } else {
+            saveCurrentAction(MOVE_LEFT);
 
-        boundingBox[0] = boundingBox[0].Sub(UIConstants.SCALE.Mul(oldWidth));
-        boundingBox[2] = boundingBox[2].Sub(UIConstants.SCALE.Mul(oldWidth));
+            Float oldWidth = getBoxWidth();
+
+            boundingBox[0] = boundingBox[0].Sub(UIConstants.SCALE.Mul(oldWidth));
+            boundingBox[2] = boundingBox[2].Sub(UIConstants.SCALE.Mul(oldWidth));
+        }
     }
 
     private void moveRight() {
-        Float oldWidth = getBoxWidth();
+        if (previousAction == MOVE_LEFT) {
+           restorePreviousAction(MOVE_RIGHT);
+        } else {
+            saveCurrentAction(MOVE_RIGHT);
 
-        boundingBox[0] = boundingBox[0].Add(UIConstants.SCALE.Mul(oldWidth));
-        boundingBox[2] = boundingBox[2].Add(UIConstants.SCALE.Mul(oldWidth));
+            Float oldWidth = getBoxWidth();
+
+            boundingBox[0] = boundingBox[0].Add(UIConstants.SCALE.Mul(oldWidth));
+            boundingBox[2] = boundingBox[2].Add(UIConstants.SCALE.Mul(oldWidth));
+        }
     }
 
     private void repaintCursor() {
@@ -646,6 +718,8 @@ public class MapViewUI extends GameCanvas implements CommandListener,
 
             // if distance is more than 1 pixel, then update map
             if (Math.abs(intDx) > 0 || Math.abs(intDy) > 0) {
+                previousAction = NO_ACTION;
+
                 int[] pointersStart = {pointerStartX, pointerStartY};
                 int[] pointersEnd = {pointerEndX, pointerEndY};
 
@@ -778,6 +852,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
             // isViewPath = false;
             uiController.getMapRequested();
         } else if (command == recenterCommand) {
+            previousAction = NO_ACTION;
             int[] cursors = {getCursorX(), getCursorY()};
             reCenter(cursors);
             // if (isViewPath) {

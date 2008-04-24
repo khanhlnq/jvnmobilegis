@@ -1,9 +1,9 @@
 /*
- * $Id: SearchFeatureResultUI.java 140 2007-10-05 07:17:58Z khanhlnq $
- * $URL: https://jvnmobilegis.googlecode.com/svn/trunk/src/org/javavietnam/gis/client/midp/ui/SearchFeatureResultUI.java $
- * $Author: khanhlnq $
- * $Revision: 140 $
- * $Date: 2007-10-05 14:17:58 +0700 (Fri, 05 Oct 2007) $
+ * $Id$
+ * $URL$
+ * $Author$
+ * $Revision$
+ * $Date$
  *
  * ====================================================================
  *

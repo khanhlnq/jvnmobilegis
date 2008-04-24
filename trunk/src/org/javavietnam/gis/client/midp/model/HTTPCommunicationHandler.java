@@ -95,6 +95,7 @@ import javax.microedition.io.HttpConnection;
 import javax.microedition.lcdui.Image;
 import javax.microedition.pki.CertificateException;
 
+import org.javavietnam.gis.shared.midp.SimpleCache;
 import org.javavietnam.gis.shared.midp.ApplicationException;
 import org.javavietnam.gis.shared.midp.model.LayerInformation;
 import org.javavietnam.gis.shared.midp.model.ModelException;
@@ -116,9 +117,11 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
     private String wwwAuthenticate = null;
     private String credentials = null;
     private int totalData = 0;
+    private SimpleCache internalCache;
 
     public HTTPCommunicationHandler(RemoteModelRequestHandler nextHandler) {
         super(nextHandler);
+        internalCache = new SimpleCache();
     }
 
     /**
@@ -175,57 +178,64 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 
         wmsUrl = url.toString();
 
-        try {
-            connection = openGETConnection(wmsUrl);
-
-            updateProgress();
-
-            inputStream = openConnectionInputStream(connection);
-
-            updateProgress();
-
-            // Check for content type
-            String contentType = connection.getHeaderField("content-type");
-            if (!contentType.equals(requestParam.getImageFormat())) {
-                StringBuffer msgBuf = new StringBuffer();
-                int ch;
-
-                while ((ch = inputStream.read()) != -1) {
-                    msgBuf.append((char) ch);
-                    totalData++;
-                }
-
-                throw new ApplicationException(msgBuf.toString());
-            }
-
-            // Read input stream into byte[]
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            int ch;
-            while ((ch = inputStream.read()) != -1) {
-                baos.write(ch);
-                totalData++;
-            }
-
-            img = Image.createImage(baos.toByteArray(), 0, baos.size());
-
-            updateProgress();
-        } catch (IOException ioe) {
-            int ch;
+        // Check if this URL was already cached
+        if (internalCache.containsKey(wmsUrl)) {
+           System.out.println("Pull data from cache for \n" + wmsUrl);
+           img = (Image)internalCache.get(wmsUrl);
+        } else {
             try {
+                connection = openGETConnection(wmsUrl);
+
+                updateProgress();
+
+                inputStream = openConnectionInputStream(connection);
+
+                updateProgress();
+
+                // Check for content type
+                String contentType = connection.getHeaderField("content-type");
+                if (!contentType.equals(requestParam.getImageFormat())) {
+                    StringBuffer msgBuf = new StringBuffer();
+                    int ch;
+
+                    while ((ch = inputStream.read()) != -1) {
+                        msgBuf.append((char) ch);
+                        totalData++;
+                    }
+
+                    throw new ApplicationException(msgBuf.toString());
+                }
+
+                // Read input stream into byte[]
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                int ch;
                 while ((ch = inputStream.read()) != -1) {
-                    System.out.print((char) ch);
+                    baos.write(ch);
                     totalData++;
                 }
 
-            } catch (IOException e) {
-                e.printStackTrace();
+                img = Image.createImage(baos.toByteArray(), 0, baos.size());
+                internalCache.put(wmsUrl, img);
+
+                updateProgress();
+            } catch (IOException ioe) {
+                int ch;
+                try {
+                    while ((ch = inputStream.read()) != -1) {
+                        System.out.print((char) ch);
+                        totalData++;
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println();
+                ioe.printStackTrace();
+                throw new ApplicationException(
+                        MessageCodes.ERROR_CANNOT_CONNECT, ioe.getMessage());
+            } finally {
+                closeConnection(connection, inputStream);
             }
-            System.out.println();
-            ioe.printStackTrace();
-            throw new ApplicationException(
-                    MessageCodes.ERROR_CANNOT_CONNECT, ioe.getMessage());
-        } finally {
-            closeConnection(connection, inputStream);
         }
 
         return img;
@@ -298,17 +308,25 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         // For testing only
         // webGISURL =
         // "http://khanhlnq:8080/jvnwebgis/searchfeatures?minx=617420&miny=1144670&maxx=752520&maxy=1238000&word=n&start=0";
-        try {
-            connection = openGETConnection(webGISURL);
+        if (internalCache.containsKey(webGISURL)) {
+            System.out.println("Pull data from cache \n" + webGISURL);
+           results = (String)internalCache.get(webGISURL);
+        } else {
+            try {
+                connection = openGETConnection(webGISURL);
 
-            updateProgress();
+                updateProgress();
 
-            results = readStringContent(connection);
-        } catch (IOException ioe) {
-            System.out.println();
-            ioe.printStackTrace();
-            throw new ApplicationException(
-                    MessageCodes.ERROR_CANNOT_CONNECT, ioe.getMessage());
+                results = readStringContent(connection);
+                internalCache.put(webGISURL, results);
+
+                updateProgress();
+            } catch (IOException ioe) {
+                System.out.println();
+                ioe.printStackTrace();
+                throw new ApplicationException(
+                        MessageCodes.ERROR_CANNOT_CONNECT, ioe.getMessage());
+            }
         }
 
         return results;
@@ -364,22 +382,30 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         wmsUrl = url.toString();
         // wmsUrl =
         // "http://localhost:8080/geoserver/wms?&request=FindPath&service=wms&styles=&LAYERS=jvn:roads_topo&spoint=105.94586,10.78163&epoint=105.94065,10.79906&bbox=105.93026,10.75845,105.95795,10.80074&SRS=EPSG:4326&width=240&height=367&format=text/xml&version=1.1.1";
-        try {
-            connection = openGETConnection(wmsUrl);
-            results = readStringContent(connection);
-        } catch (IOException ioe) {
-            // int ch;
-            // try {
-            // while ((ch = inputStream.read()) != -1) {
-            // System.out.print((char)ch);
-            // }
-            // } catch (IOException e) {
-            // e.printStackTrace();
-            // }
-            System.out.println();
-            ioe.printStackTrace();
-            throw new ApplicationException(
-                    MessageCodes.ERROR_CANNOT_CONNECT, ioe.getMessage());
+        if (internalCache.containsKey(wmsUrl)) {
+           System.out.println("Pull data from cache \n" + wmsUrl);
+           results = (String)internalCache.get(wmsUrl);
+        } else {
+
+            try {
+                connection = openGETConnection(wmsUrl);
+                results = readStringContent(connection);
+                internalCache.put(wmsUrl, results);
+                updateProgress();
+            } catch (IOException ioe) {
+                // int ch;
+                // try {
+                // while ((ch = inputStream.read()) != -1) {
+                // System.out.print((char)ch);
+                // }
+                // } catch (IOException e) {
+                // e.printStackTrace();
+                // }
+                System.out.println();
+                ioe.printStackTrace();
+                throw new ApplicationException(
+                        MessageCodes.ERROR_CANNOT_CONNECT, ioe.getMessage());
+            }
         }
 
         return results;
@@ -458,13 +484,20 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 
         String results = new String("");
 
-        try {
-            connection = openGETConnection(serviceURL);
+        if (internalCache.containsKey(serviceURL)) {
+            System.out.println("Pull data from cache \n" + serviceURL);
+           results = (String)internalCache.get(serviceURL);
+        } else {
 
-            results = readStringContent(connection);
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-            throw new ApplicationException(ioe);
+            try {
+                connection = openGETConnection(serviceURL);
+
+                results = readStringContent(connection);
+                internalCache.put(serviceURL, results);
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+                throw new ApplicationException(ioe);
+            }
         }
         // Do not close input stream now
         // finally {
