@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="380"
+   height="380"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.45.1"
+   sodipodi:docbase="D:\Projects\_remote\jvnmobilegis\trunk\docs\images"
+   sodipodi:docname="logo.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   version="1.0"
+   inkscape:export-filename="D:\Projects\_remote\jvnmobilegis\trunk\docs\images\logo.png"
+   inkscape:export-xdpi="5.6842103"
+   inkscape:export-ydpi="5.6842103">
+  <defs
+     id="defs4">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient15080">
+      <stop
+         style="stop-color:#fe8637;stop-opacity:1;"
+         offset="0"
+         id="stop15082" />
+      <stop
+         style="stop-color:#fe8637;stop-opacity:0;"
+         offset="1"
+         id="stop15084" />
+    </linearGradient>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3148">
+      <rect
+         style="fill:#0000ff;fill-opacity:0"
+         id="rect3150"
+         width="556.2486"
+         height="244.83528"
+         x="73.021049"
+         y="442.42166"
+         ry="77.316406" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath4139">
+      <rect
+         style="fill:#000000;fill-opacity:0;stroke:#000000;stroke-opacity:1"
+         id="rect4141"
+         width="635.71265"
+         height="481.07986"
+         x="57.987305"
+         y="401.61578"
+         rx="0"
+         ry="176.10957" />
+    </clipPath>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient15080"
+       id="linearGradient15086"
+       x1="381.16495"
+       y1="749.61829"
+       x2="381.16495"
+       y2="452.50443"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.2247376"
+     inkscape:cx="189.16139"
+     inkscape:cy="216.04077"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:window-width="1024"
+     inkscape:window-height="686"
+     inkscape:window-x="-4"
+     inkscape:window-y="-4"
+     height="380px"
+     width="380px" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>JVNMobileGIS logo</dc:title>
+        <dc:date>12-22-2007</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Khanh Le</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:publisher>
+          <cc:Agent>
+            <dc:title>JVNGIS</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>jvnmobilegis</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+        <dc:description>New JVNMobileGIS logo</dc:description>
+        <dc:contributor>
+          <cc:Agent>
+            <dc:title>Khanh Le</dc:title>
+          </cc:Agent>
+        </dc:contributor>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-98.728859,-266.24881)">
+    <rect
+       style="fill:#000000;fill-opacity:0;stroke:#fe8637;stroke-width:45.93033218;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4125"
+       width="502.55673"
+       height="586.3161"
+       x="124.56532"
+       y="107.59906"
+       ry="133.73405"
+       clip-path="url(#clipPath4139)"
+       transform="matrix(0.6931014,0,0,0.6155262,27.392459,19.37035)"
+       rx="116.40765"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       rx="116.40765"
+       transform="matrix(0.6931014,0,0,-0.6155262,27.392459,921.21296)"
+       clip-path="url(#clipPath4139)"
+       ry="133.73405"
+       y="107.59906"
+       x="124.56532"
+       height="586.3161"
+       width="502.55673"
+       id="use7144"
+       style="fill:#000000;fill-opacity:0;stroke:url(#linearGradient15086);stroke-width:45.93033218;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+  </g>
+</svg>
