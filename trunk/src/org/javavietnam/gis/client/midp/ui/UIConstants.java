@@ -158,6 +158,7 @@ public final class UIConstants {
     public static final int SORT_LAYER_TICKER = 90;
 	public static final int NO_SELECTED_LAYER = 91;
 	public static final int LAYER_LIST_TICKER = 92;
+	public static final int SAVE_TO_FILE = 93;
 
     private UIConstants() {
     }

@@ -82,14 +82,20 @@
 package org.javavietnam.gis.client.midp.ui;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Vector;
 
+import javax.microedition.io.Connector;
+import javax.microedition.io.file.FileConnection;
 import javax.microedition.lcdui.Alert;
 import javax.microedition.lcdui.AlertType;
+import javax.microedition.lcdui.ChoiceGroup;
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.Display;
 import javax.microedition.lcdui.Displayable;
 import javax.microedition.lcdui.Image;
+import javax.microedition.lcdui.List;
+import javax.microedition.lcdui.TextField;
 import javax.microedition.midlet.MIDlet;
 
 import org.bouncycastle.util.encoders.Base64;
@@ -125,6 +131,7 @@ public class UIController {
         public static final byte EVENT_ID_SEARCHFEATURE = 7;
         public static final byte EVENT_ID_VIEWFEATURE = 8;
         public static final byte EVENT_ID_CHECKUPDATE = 9;
+        public static final byte EVENT_ID_SAVETOFILE = 10;
     }
     private static final String[] iconPaths = {"/icons/JVNMobileGIS_icon.png",
     										    "/icons/map_server_icon.png",
@@ -165,6 +172,7 @@ public class UIController {
     private ProgressObserverUI progressObserverUI;
     private PromptDialog promptDialog;
     private ConfirmDialogUI confirmDialogUI;
+    private AccessFileUI accessFileUI;
     private final Credentials credentials;
 
     public UIController(MIDlet midlet, ModelFacade model) {
@@ -358,6 +366,13 @@ public class UIController {
             confirmDialogUI = new ConfirmDialogUI(this);
         }
         return confirmDialogUI;
+    }
+    
+    public AccessFileUI getAccessFileUI() {
+        if (accessFileUI == null) {
+        	accessFileUI = new AccessFileUI(this);
+        }
+        return accessFileUI;
     }
 
     public void commandAction(Command command, Displayable displayable) {
@@ -590,13 +605,126 @@ public class UIController {
             EventIds.EVENT_ID_GETCAPABILITIESWMS, getMapServerUI()),
             getString(UIConstants.PROCESSING), false);
     }
+    
+    public void browseFileSystemRequested() {
+		getAccessFileUI().showCurrDir(display);
+	}
+	
+	public void saveMapToFileRequested() {
+		runWithProgress(new EventDispatcher(EventIds.EVENT_ID_SAVETOFILE,
+				getMapServerUI()), getString(UIConstants.PROCESSING), false);
+	}
+	
+	// Public methods for Browsing File System
+	
+	public void viewFileOrDirRequested(Displayable d) {
+		List curr = (List)d;
+        final String currFileOrDir = curr.getString(curr.getSelectedIndex());
+        new Thread(new Runnable() {
+                public void run() {
+            		// Show directory
+                    if (currFileOrDir.endsWith(AccessFileUI.SEP_STR) || currFileOrDir.equals(AccessFileUI.UP_DIRECTORY)) {
+                        traverseDirectory(currFileOrDir);
+                    } else {
+                    // Show file contents
+                        showFile(currFileOrDir);
+                    }
+                }
+            }).start();
+	}
+	
+	public void viewPropertiesRequested(Displayable d) {
+		List curr = (List)d;
+        String currFile = curr.getString(curr.getSelectedIndex());
 
-    public void exitRequested() {
+        showProperties(currFile);
+	}
+	
+	public void createOKRequested(TextField nameInput, ChoiceGroup typeInput) {
+		String newName = nameInput.getString();
+
+        if ((newName == null) || newName.equals("")) {
+            Alert alert =
+                new Alert("Error!", "File Name is empty. Please provide file name", null,
+                    AlertType.ERROR);
+            alert.setTimeout(Alert.FOREVER);
+            display.setCurrent(alert);
+        } else {
+            // Create file in a separate thread and disable all commands
+            // except for "exit"
+            executeCreateFile(newName, typeInput.getSelectedIndex() != 0);
+            accessFileUI.removeCreatingCommand();
+            
+        }
+	}
+	
+	public void deleteFileOrFolderRequested(Displayable d) {
+		List curr = (List)d;
+        String currFile = curr.getString(curr.getSelectedIndex());
+        executeDelete(currFile);
+	}
+	
+	// Help methods for Browsing File System
+	
+	public void executeCreateFile(final String name, final boolean val) {
+        new Thread(new Runnable() {
+            public void run() {
+                createFile(name, val);
+            }
+        }).start();
+	}
+	
+	public void executeDelete(String currFile) {
+        final String file = currFile;
+        new Thread(new Runnable() {
+                public void run() {
+                    delete(file);
+                }
+            }).start();
+	}
+	
+	public void showCurrDir() {
+		accessFileUI.showCurrDir(display);
+	}
+	
+	public void delete(String currFile) {
+        accessFileUI.delete(currFile, display);
+	}
+
+	public void checkDeleteFolder(String folderName) {
+        accessFileUI.checkDeleteFolder(folderName, display);
+    }
+
+	public void traverseDirectory(String fileName) {
+        accessFileUI.traverseDirectory(fileName, display);
+    }
+
+	public void showFile(String fileName) {
+        accessFileUI.showFile(fileName, display);
+    }
+
+	public void deleteFile(String fileName) {
+        accessFileUI.deleteFile(fileName, display);
+    }
+
+	public void showProperties(String fileName) {
+        accessFileUI.showProperties(fileName, display);
+	}
+    
+	public void createFileOrDir() {
+        display.setCurrent(accessFileUI.createFileOrDir());
+    }
+
+	public void createFile(String newName, boolean isDirectory) {
+        accessFileUI.createFile(newName, isDirectory, display);
+    }
+
+	public void exitRequested() {
         System.out.println("Bye Bye");
         // FIXME - Not yet implemented.
         midlet.notifyDestroyed();
     }
-
+	
     class EventDispatcher extends Thread {
 
         private final int taskId;
@@ -697,6 +825,54 @@ public class UIController {
 
                         break;
                     }
+                    case EventIds.EVENT_ID_SAVETOFILE: {
+    					String FCOPversion = System
+    							.getProperty("microedition.io.file.FileConnection.version");
+
+    					if (FCOPversion != null) { //FCOP is available
+    						Image img = getMapWMS(getMapViewUI(), getLayerListUI()
+    								.getSelectedLayerList());
+    						int width = img.getWidth();
+    						int height = img.getHeight();
+    						int[] imgRgbData = new int[width * height];
+    						try {
+    							img.getRGB(imgRgbData, 0, width, 0, 0, width, height);
+    						} catch (Exception ex) {
+    							ex.printStackTrace();
+    							showErrorAlert(getString(UIConstants.UNKNOWN_ERROR)
+    									+ ":\n" + ex.getMessage());
+    						}
+    						
+    						String url = "file://localhost/" + accessFileUI.currDirName;
+    						FileConnection conn = null;
+    						OutputStream out = null;
+
+    						try {
+    							conn = (FileConnection) Connector.open(url);
+    							if (!conn.exists()) {
+    								out = conn.openOutputStream();
+    								for (int i = 0; i < imgRgbData.length; i++) {
+    									out.write(imgRgbData[i]);
+    								}
+    							}
+    						} catch (IOException ioEx) {
+    							ioEx.printStackTrace();
+    							showErrorAlert(getString(UIConstants.UNKNOWN_ERROR)
+    									+ ":\n" + ioEx.getMessage());
+    						} catch (SecurityException sEx) {
+    							sEx.printStackTrace();
+    							showErrorAlert(getString(UIConstants.UNKNOWN_ERROR)
+    									+ ":\n" + sEx.getMessage());
+    						} finally {
+    							out.close();
+    							conn.close();
+    						}
+    					} else {
+    						// FCOP not available
+    					}
+    					
+    					break;
+    				}
                     case EventIds.EVENT_ID_CHECKUPDATE: {
                         String currentVersion = checkUpdate(
                             getString(UIConstants.CONF_UPDATE_URL)).trim();

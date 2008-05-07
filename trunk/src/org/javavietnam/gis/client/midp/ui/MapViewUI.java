@@ -116,6 +116,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
     private final Command recenterCommand;
     // private Command findPathCommand;
     private final Command getFeatureInfoCommand;
+    private final Command saveToFileCommand;
     private final Command searchFeatureCommand;
     private final Command helpCommand;
     private final Command refreshCommand;
@@ -195,6 +196,9 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         searchFeatureCommand = new Command(uiController
                 .getString(UIConstants.SEARCH_FEATURE_UI_TITLE),
                 Command.SCREEN, 7);
+        saveToFileCommand = new Command(uiController
+                .getString(UIConstants.SEARCH_FEATURE_UI_TITLE),
+                Command.SCREEN, 7);
         helpCommand = new Command(uiController.getString(UIConstants.HELP_CMD),
             Command.SCREEN, 8);
 
@@ -207,6 +211,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         // addCommand(findPathCommand);
         addCommand(getFeatureInfoCommand);
         addCommand(searchFeatureCommand);
+        addCommand(saveToFileCommand);
         addCommand(helpCommand);
 
         previousAction = NO_ACTION;
@@ -878,7 +883,9 @@ public class MapViewUI extends GameCanvas implements CommandListener,
                         uiController.searchUIRequested();
                     }
                 }
-        else if (command == helpCommand) {
+        else if (command == saveToFileCommand) {
+        	
+        } else if (command == helpCommand) {
             uiController.helpRequested();
         } else {
             // isViewPath = false;
