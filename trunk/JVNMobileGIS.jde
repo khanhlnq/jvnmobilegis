@@ -107,7 +107,7 @@
                     <PROPERTY Name="SourcePath"></PROPERTY>
                 </CLASS>
                 <CLASS Type="TLibrary">
-                    <PROPERTY Name="ClassPath">$(PROJECT)\lib\tinylinegzip.zip</PROPERTY>
+                    <PROPERTY Name="ClassPath">$(PROJECT)\lib\tinylinegzip.jar</PROPERTY>
                     <PROPERTY Name="JavaDocPath"></PROPERTY>
                     <PROPERTY Name="ID">{C4B924C3-4DD3-4419-BB82-1F3DBAD22795}</PROPERTY>
                     <PROPERTY Name="LibraryName">tinylinegzip</PROPERTY>
