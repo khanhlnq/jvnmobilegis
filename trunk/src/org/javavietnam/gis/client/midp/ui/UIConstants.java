@@ -58,6 +58,8 @@ public final class UIConstants {
     public static final byte ICON_DUTCH_FLAG = 6;
     public static final byte ICON_ERROR = 7;
     public static final byte ICON_INFO = 8;
+    public static final byte ICON_DIR = 9;
+    public static final byte ICON_FILE = 10;
 
     // Unit of these values is pixel
     // Scale = 20%
@@ -159,6 +161,13 @@ public final class UIConstants {
 	public static final int NO_SELECTED_LAYER = 91;
 	public static final int LAYER_LIST_TICKER = 92;
 	public static final int SAVE_TO_FILE = 93;
+	public static final int FILE_SYSTEM = 94;
+	public static final int FILE_PROPERTIES = 95;
+	public static final int VIEW = 96;
+	public static final int PROPERTIES = 97;
+	public static final int NEW = 98;
+	public static final int DELETE = 99;
+	public static final int CREATE = 100;
 
     private UIConstants() {
     }

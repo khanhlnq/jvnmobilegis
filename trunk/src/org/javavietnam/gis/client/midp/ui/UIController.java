@@ -81,8 +81,13 @@
  */
 package org.javavietnam.gis.client.midp.ui;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Enumeration;
 import java.util.Vector;
 
 import javax.microedition.io.Connector;
@@ -103,6 +108,7 @@ import org.javavietnam.gis.client.midp.JVNMobileGISMIDlet;
 import org.javavietnam.gis.client.midp.model.MessageCodes;
 import org.javavietnam.gis.client.midp.model.ModelFacade;
 import org.javavietnam.gis.client.midp.model.Preferences;
+import org.javavietnam.gis.client.midp.util.IntByteArrayConverter;
 import org.javavietnam.gis.shared.midp.ApplicationException;
 import org.javavietnam.gis.shared.midp.IndexedResourceBundle;
 import org.javavietnam.gis.shared.midp.VietSign;
@@ -117,967 +123,1226 @@ import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
  */
 public class UIController {
 
-    private static final String BASE_NAME_UI_RESOURCES = "UIResources2";
-    private static final String BASE_NAME_MESSAGE_RESOURCES = "MessageResources";
+	private static final String BASE_NAME_UI_RESOURCES = "UIResources2";
+	private static final String BASE_NAME_MESSAGE_RESOURCES = "MessageResources";
 
-    public static class EventIds {
+	public static class EventIds {
 
-        public static final byte EVENT_ID_GETMAPWMS = 1;
-        public static final byte EVENT_ID_GETCAPABILITIESWMS = 2;
-        public static final byte EVENT_ID_UPDATEMAPWMS = 3;
-        // public static final byte EVENT_ID_FINDPATHWMS = 4;
-        // public static final byte EVENT_ID_VIEWPATHWMS = 5;
-        public static final byte EVENT_ID_GETFEATUREINFO = 6;
-        public static final byte EVENT_ID_SEARCHFEATURE = 7;
-        public static final byte EVENT_ID_VIEWFEATURE = 8;
-        public static final byte EVENT_ID_CHECKUPDATE = 9;
-        public static final byte EVENT_ID_SAVETOFILE = 10;
-    }
-    private static final String[] iconPaths = {"/icons/JVNMobileGIS_icon.png",
-    										    "/icons/map_server_icon.png",
-    										    "/icons/preferences_icon.png",
-    										    "/icons/check_update_icon.png",
-    										    "/icons/flags/en.png",
-    										    "/icons/flags/vn.png",
-    										    "/icons/flags/nl.png",
-    										    "/icons/error_alert_icon.png",
-    										    "/icons/info_alert_icon.png"};
-    private final MIDlet midlet;
-    /**
-     * @uml.property name="display"
-     */
-    private final Display display;
-    private IndexedResourceBundle resourceBundle;
-    private IndexedResourceBundle messageBundle;
-    private final ModelFacade model;
-    public VietSign vietSign;
-    public MapServersCmd mapServersCmd;
-    private final Image[] icons = new Image[iconPaths.length];
-    private Command mainMenuCommand;
-    private Command exitCommand;
-    private Command aboutCommand;
-    // private Alert alert;
-    private MainMenuUI mainMenuUI;
-    private PreferencesUI preferencesUI;
-    private MapServerUI mapServerUI;
-    private MapViewUI mapViewUI;
-    // private FindPathUI findPathUI;
-    private SearchFeatureUI searchFeatureUI;
-    private SearchFeatureResultUI searchFeatureResultUI;
-    private LayerSelectUI layerSelectUI;
-    private FeatureInfoUI featureInfoUI;
-    private HelpUI helpUI;
-    private LayerListUI layerListUI;
-    private SortLayerListUI sortLayerListUI;
-    private ProgressObserverUI progressObserverUI;
-    private PromptDialog promptDialog;
-    private ConfirmDialogUI confirmDialogUI;
-    private AccessFileUI accessFileUI;
-    private final Credentials credentials;
+		public static final byte EVENT_ID_GETMAPWMS = 1;
+		public static final byte EVENT_ID_GETCAPABILITIESWMS = 2;
+		public static final byte EVENT_ID_UPDATEMAPWMS = 3;
+		// public static final byte EVENT_ID_FINDPATHWMS = 4;
+		// public static final byte EVENT_ID_VIEWPATHWMS = 5;
+		public static final byte EVENT_ID_GETFEATUREINFO = 6;
+		public static final byte EVENT_ID_SEARCHFEATURE = 7;
+		public static final byte EVENT_ID_VIEWFEATURE = 8;
+		public static final byte EVENT_ID_CHECKUPDATE = 9;
+		public static final byte EVENT_ID_SAVETOFILE = 10;
+	}
 
-    public UIController(MIDlet midlet, ModelFacade model) {
-        this.credentials = new Credentials();
-        this.midlet = midlet;
-        this.display = Display.getDisplay(midlet);
-        this.model = model;
-        vietSign = new VietSign(midlet);
-    }
+	private static final String[] iconPaths = { "/icons/JVNMobileGIS_icon.png",
+			"/icons/map_server_icon.png", "/icons/preferences_icon.png",
+			"/icons/check_update_icon.png", "/icons/flags/en.png",
+			"/icons/flags/vn.png", "/icons/flags/nl.png",
+			"/icons/error_alert_icon.png", "/icons/info_alert_icon.png",
+			"/icons/dir.png", "/icons/file.png" };
 
-    /**
-     * @return Returns the display.
-     * @uml.property name="display"
-     */
-    private Display getDisplay() {
-        return display;
-    }
+	private final MIDlet midlet;
+	/**
+	 * @uml.property name="display"
+	 */
+	private final Display display;
+	private IndexedResourceBundle resourceBundle;
+	private IndexedResourceBundle messageBundle;
+	private final ModelFacade model;
+	public VietSign vietSign;
+	public MapServersCmd mapServersCmd;
+	private final Image[] icons = new Image[iconPaths.length];
+	private FileConnection fileConnection;
+	private Command mainMenuCommand;
+	private Command exitCommand;
+	private Command aboutCommand;
+	// private Alert alert;
+	private MainMenuUI mainMenuUI;
+	private PreferencesUI preferencesUI;
+	private MapServerUI mapServerUI;
+	private MapViewUI mapViewUI;
+	// private FindPathUI findPathUI;
+	private SearchFeatureUI searchFeatureUI;
+	private SearchFeatureResultUI searchFeatureResultUI;
+	private LayerSelectUI layerSelectUI;
+	private FeatureInfoUI featureInfoUI;
+	private HelpUI helpUI;
+	private LayerListUI layerListUI;
+	private SortLayerListUI sortLayerListUI;
+	private ProgressObserverUI progressObserverUI;
+	private PromptDialog promptDialog;
+	private ConfirmDialogUI confirmDialogUI;
+	private FileSystemBrowserUI fileSystemBrowserUI;
+	private FileSystemCreatorUI fileSystemCreatorUI;
+	private FilePropertiesUI filePropertiesUI;
+	private FileContentUI fileContentUI;
+	private final Credentials credentials;
 
-    public String getString(int uiConstant) {
-        return resourceBundle.getString(uiConstant);
-    }
+	public UIController(MIDlet midlet, ModelFacade model) {
+		this.credentials = new Credentials();
+		this.midlet = midlet;
+		this.display = Display.getDisplay(midlet);
+		this.model = model;
+		vietSign = new VietSign(midlet);
+	}
 
-    public String getMessage(int messageId) {
-        return messageBundle.getString(messageId);
-    }
+	/**
+	 * @return Returns the display.
+	 * @uml.property name="display"
+	 */
+	private Display getDisplay() {
+		return display;
+	}
 
-    public MIDlet getMIDlet() {
-        return midlet;
-    }
+	public String getString(int uiConstant) {
+		return resourceBundle.getString(uiConstant);
+	}
 
-    /**
-     * @return the model
-     * @uml.property name="model"
-     */
-    public ModelFacade getModel() {
-        return model;
-    }
+	public String getMessage(int messageId) {
+		return messageBundle.getString(messageId);
+	}
 
-    public void init() throws ApplicationException {
-        deinitialize(true);
-        resourceBundle = model.getResourceBundle(BASE_NAME_UI_RESOURCES);
-        messageBundle = model.getResourceBundle(BASE_NAME_MESSAGE_RESOURCES);
+	public MIDlet getMIDlet() {
+		return midlet;
+	}
 
-        createCommands();
-        // setCommands(mapViewUI);
-        // setCommands(preferencesUI);
-        // setCommands(layerListUI);
-        // setCommands(mapServerUI);
+	/**
+	 * @return the model
+	 * @uml.property name="model"
+	 */
+	public ModelFacade getModel() {
+		return model;
+	}
 
-        model.setProgressObserver(getProgressObserverUI());
+	public void init() throws ApplicationException {
+		deinitialize(true);
+		resourceBundle = model.getResourceBundle(BASE_NAME_UI_RESOURCES);
+		messageBundle = model.getResourceBundle(BASE_NAME_MESSAGE_RESOURCES);
 
-        mapServersCmd = new MapServersCmd(this);
+		createCommands();
+		// setCommands(mapViewUI);
+		// setCommands(preferencesUI);
+		// setCommands(layerListUI);
+		// setCommands(mapServerUI);
 
-        for (int i = 0; i < iconPaths.length; i++) {
-            try {
-                icons[i] = Image.createImage(iconPaths[i]);
-            } catch (IOException ioe) {
-            	System.out.println("can not get image " + iconPaths[i]);
-            }
-        }
+		model.setProgressObserver(getProgressObserverUI());
 
-        Alert alert = new Alert(
-            null,
-            getString(UIConstants.MOBILEGIS_CLIENT) + " version " + (null == midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION) ? ""
-            : midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION)) + " \n" + getString(UIConstants.COPYRIGHT),
-            icons[UIConstants.ICON_IDX_SPLASH], null);
-        alert.setTimeout(UIConstants.SPLASH_TIMEOUT);
-        display.setCurrent(alert, getMainMenuUI());
-    }
+		mapServersCmd = new MapServersCmd(this);
 
-    public void destroy() {
-    }
+		for (int i = 0; i < iconPaths.length; i++) {
+			try {
+				icons[i] = Image.createImage(iconPaths[i]);
+			} catch (IOException ioe) {
+				System.out.println("can not get image " + iconPaths[i]);
+			}
+		}
 
-    public MainMenuUI getMainMenuUI() {
-        if (mainMenuUI == null) {
-            mainMenuUI = new MainMenuUI(this);
-        }
-        return mainMenuUI;
-    }
+		Alert alert = new Alert(
+				null,
+				getString(UIConstants.MOBILEGIS_CLIENT)
+						+ " version "
+						+ (null == midlet
+								.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION) ? ""
+								: midlet
+										.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION))
+						+ " \n" + getString(UIConstants.COPYRIGHT),
+				icons[UIConstants.ICON_IDX_SPLASH], null);
+		alert.setTimeout(UIConstants.SPLASH_TIMEOUT);
+		display.setCurrent(alert, getMainMenuUI());
+	}
 
-    public PreferencesUI getPreferencesUI() {
-        if (preferencesUI == null) {
-            preferencesUI = new PreferencesUI(this);
-        }
-        return preferencesUI;
-    }
+	public void destroy() {
+	}
 
-    public MapServerUI getMapServerUI() {
-        if (mapServerUI == null) {
-            try {
-                mapServerUI = new MapServerUI(this, model.getPreferences().getWmsServerURL());
-            } catch (ApplicationException ae) {
-                ae.printStackTrace();
-                showErrorAlert(ae, getMainMenuUI());
-            }
-        }
-        return mapServerUI;
-    }
+	public MainMenuUI getMainMenuUI() {
+		if (mainMenuUI == null) {
+			mainMenuUI = new MainMenuUI(this);
+		}
+		return mainMenuUI;
+	}
 
-    public MapViewUI getMapViewUI() {
-        if (mapViewUI == null) {
-            mapViewUI = new MapViewUI(this, false);
-        }
-        return mapViewUI;
-    }
+	public PreferencesUI getPreferencesUI() {
+		if (preferencesUI == null) {
+			preferencesUI = new PreferencesUI(this);
+		}
+		return preferencesUI;
+	}
 
-    public SearchFeatureUI getSearchFeatureUI() {
-        if (searchFeatureUI == null) {
-            searchFeatureUI = new SearchFeatureUI(this);
-        }
-        return searchFeatureUI;
-    }
+	public MapServerUI getMapServerUI() {
+		if (mapServerUI == null) {
+			try {
+				mapServerUI = new MapServerUI(this, model.getPreferences()
+						.getWmsServerURL());
+			} catch (ApplicationException ae) {
+				ae.printStackTrace();
+				showErrorAlert(ae, getMainMenuUI());
+			}
+		}
+		return mapServerUI;
+	}
 
-    public SearchFeatureResultUI getSearchFeatureResultUI() {
-        if (searchFeatureResultUI == null) {
-            searchFeatureResultUI = new SearchFeatureResultUI(this);
-        }
-        return searchFeatureResultUI;
-    }
-    public LayerSelectUI getLayerSelectUI() {
-        if (layerSelectUI == null) {
-            layerSelectUI = new LayerSelectUI(this);
-        }
-        return layerSelectUI;
-    }
+	public MapViewUI getMapViewUI() {
+		if (mapViewUI == null) {
+			mapViewUI = new MapViewUI(this, false);
+		}
+		return mapViewUI;
+	}
 
-    public FeatureInfoUI getFeatureInfoUI() {
-        if (featureInfoUI == null) {
-            featureInfoUI = new FeatureInfoUI(this);
-        }
-        return featureInfoUI;
-    }
+	public SearchFeatureUI getSearchFeatureUI() {
+		if (searchFeatureUI == null) {
+			searchFeatureUI = new SearchFeatureUI(this);
+		}
+		return searchFeatureUI;
+	}
 
-    public HelpUI getHelpUI() {
-        if (helpUI == null) {
-            if (getMapViewUI().hasPointerEvents() && getMapViewUI().hasPointerMotionEvents()) {
-                helpUI = new HelpUI(this, true);
-            } else {
-                helpUI = new HelpUI(this, false);
-            }
-        }
-        return helpUI;
-    }
+	public SearchFeatureResultUI getSearchFeatureResultUI() {
+		if (searchFeatureResultUI == null) {
+			searchFeatureResultUI = new SearchFeatureResultUI(this);
+		}
+		return searchFeatureResultUI;
+	}
 
-    public LayerListUI getLayerListUI() {
-        if (layerListUI == null) {
-            layerListUI = new LayerListUI(this);
-        }
-        return layerListUI;
-    }
+	public LayerSelectUI getLayerSelectUI() {
+		if (layerSelectUI == null) {
+			layerSelectUI = new LayerSelectUI(this);
+		}
+		return layerSelectUI;
+	}
 
-    public void setLayerListUI(LayerListUI layerListUI) {
-        this.layerListUI = layerListUI;
-    }
+	public FeatureInfoUI getFeatureInfoUI() {
+		if (featureInfoUI == null) {
+			featureInfoUI = new FeatureInfoUI(this);
+		}
+		return featureInfoUI;
+	}
 
-    public SortLayerListUI getSortLayerListUI() {
-    	if (sortLayerListUI == null) {
-    		sortLayerListUI = new SortLayerListUI(this);
-    	}
+	public HelpUI getHelpUI() {
+		if (helpUI == null) {
+			if (getMapViewUI().hasPointerEvents()
+					&& getMapViewUI().hasPointerMotionEvents()) {
+				helpUI = new HelpUI(this, true);
+			} else {
+				helpUI = new HelpUI(this, false);
+			}
+		}
+		return helpUI;
+	}
 
-        return sortLayerListUI;
-    }
+	public LayerListUI getLayerListUI() {
+		if (layerListUI == null) {
+			layerListUI = new LayerListUI(this);
+		}
+		return layerListUI;
+	}
 
-    public void setSortLayerListUI(SortLayerListUI sortLayerListUI) {
-        this.sortLayerListUI = sortLayerListUI;
-    }
+	public void setLayerListUI(LayerListUI layerListUI) {
+		this.layerListUI = layerListUI;
+	}
 
-    /**
+	public SortLayerListUI getSortLayerListUI() {
+		if (sortLayerListUI == null) {
+			sortLayerListUI = new SortLayerListUI(this);
+		}
+
+		return sortLayerListUI;
+	}
+
+	public void setSortLayerListUI(SortLayerListUI sortLayerListUI) {
+		this.sortLayerListUI = sortLayerListUI;
+	}
+
+	/**
 	 * @return the selectedLayerList
 	 */
 	public Vector getSelectedLayerList() {
 		return getLayerListUI().getSelectedLayerList();
 	}
 
-    public ProgressObserverUI getProgressObserverUI() {
-        if (progressObserverUI == null) {
-            progressObserverUI = new ProgressObserverUI(this);
-        }
-        return progressObserverUI;
-    }
+	public ProgressObserverUI getProgressObserverUI() {
+		if (progressObserverUI == null) {
+			progressObserverUI = new ProgressObserverUI(this);
+		}
+		return progressObserverUI;
+	}
 
-    public PromptDialog getPromptDialog() {
-        if (promptDialog == null) {
-            promptDialog = new PromptDialog(this);
-        }
-        return promptDialog;
-    }
+	public PromptDialog getPromptDialog() {
+		if (promptDialog == null) {
+			promptDialog = new PromptDialog(this);
+		}
+		return promptDialog;
+	}
 
-    public ConfirmDialogUI getConfirmDialogUI() {
-        if (confirmDialogUI == null) {
-            confirmDialogUI = new ConfirmDialogUI(this);
-        }
-        return confirmDialogUI;
-    }
-    
-    public AccessFileUI getAccessFileUI() {
-        if (accessFileUI == null) {
-        	accessFileUI = new AccessFileUI(this);
-        }
-        return accessFileUI;
-    }
+	public ConfirmDialogUI getConfirmDialogUI() {
+		if (confirmDialogUI == null) {
+			confirmDialogUI = new ConfirmDialogUI(this);
+		}
+		return confirmDialogUI;
+	}
 
-    public void commandAction(Command command, Displayable displayable) {
-        if (command == mainMenuCommand) {
-            mainMenuRequested();
-        } else if (command == aboutCommand) {
-            aboutRequested();
-        } else if (command == exitCommand) {
-            exitRequested();
-        }
-    }
+	/**
+	 * @return the fileSystemBrowserUI
+	 */
+	public FileSystemBrowserUI getFileSystemBrowserUI() {
+		if (fileSystemBrowserUI == null) {
+			fileSystemBrowserUI = new FileSystemBrowserUI(this);
+		}
+		return fileSystemBrowserUI;
+	}
 
-    public void showErrorAlert(Exception e) {
-        showErrorAlert(new ApplicationException(e), getMainMenuUI());
-    }
+	/**
+	 * @return the fileSystemCreatorUI
+	 */
+	public FileSystemCreatorUI getFileSystemCreatorUI() {
+		if (fileSystemCreatorUI == null) {
+			fileSystemCreatorUI = new FileSystemCreatorUI(this,
+					getFileSystemBrowserUI());
+		}
+		return fileSystemCreatorUI;
+	}
 
-    private void showErrorAlert(ApplicationException ae, Displayable d) {
-        showErrorAlert(ae.getMessage(), d);
-    }
+	/**
+	 * @return the filePropertiesUI
+	 */
+	public FilePropertiesUI getFilePropertiesUI() {
+		if (filePropertiesUI == null) {
+			filePropertiesUI = new FilePropertiesUI(this,
+					getFileSystemBrowserUI());
+		}
+		return filePropertiesUI;
+	}
 
-    private void showErrorAlert(String message) {
-        showErrorAlert(message, display.getCurrent());
-    }
+	/**
+	 * @return the contentFileUI
+	 */
+	public FileContentUI getFileContentUI() {
+		if (fileContentUI == null) {
+			fileContentUI = new FileContentUI(this, getFileSystemBrowserUI());
+		}
+		return fileContentUI;
+	}
 
-    private void showErrorAlert(String message, Displayable d) {
-        Alert alert = new Alert(getString(UIConstants.ERROR));
+	public void commandAction(Command command, Displayable displayable) {
+		if (command == mainMenuCommand) {
+			mainMenuRequested();
+		} else if (command == aboutCommand) {
+			aboutRequested();
+		} else if (command == exitCommand) {
+			exitRequested();
+		}
+	}
 
-        alert.setImage(getImage(UIConstants.ICON_ERROR));
-        alert.setType(AlertType.ERROR);
-        alert.setTimeout(Alert.FOREVER);
-        alert.setString(message);
-        display.setCurrent(alert, d);
-    }
+	public void showErrorAlert(Exception e) {
+		showErrorAlert(new ApplicationException(e), getMainMenuUI());
+	}
 
-    private void showInfoAlert(String message, Displayable d) {
-        showInfoAlert(null, message, d);
-    }
+	private void showErrorAlert(ApplicationException ae, Displayable d) {
+		showErrorAlert(ae.getMessage(), d);
+	}
 
-    private void showInfoAlert(String title, String message, Displayable d) {
-        Alert alert = new Alert(
-            (title == null) ? getString(UIConstants.MOBILEGIS_CLIENT)
-            : title);
-        alert.setImage(getImage(UIConstants.ICON_INFO));
-        alert.setType(AlertType.INFO);
-        alert.setTimeout(Alert.FOREVER);
-        alert.setString(message);
-        display.setCurrent(alert, d);
-    }
+	private void showErrorAlert(String message) {
+		showErrorAlert(message, display.getCurrent());
+	}
 
-    private void runWithProgress(Thread thread, String title, boolean stoppable) {
-        getProgressObserverUI().init(title, stoppable);
-        getDisplay().setCurrent(getProgressObserverUI());
-        thread.start();
-    }
+	private void showErrorAlert(String message, Displayable d) {
+		Alert alert = new Alert(getString(UIConstants.ERROR));
 
-    public void mainMenuRequested() {
-        display.setCurrent(getMainMenuUI());
-    }
+		alert.setImage(getImage(UIConstants.ICON_ERROR));
+		alert.setType(AlertType.ERROR);
+		alert.setTimeout(Alert.FOREVER);
+		alert.setString(message);
+		display.setCurrent(alert, d);
+	}
 
-     public void aboutRequested() {
-        try {
-                showInfoAlert(
-                    getString(UIConstants.ABOUT),
-                    getString(UIConstants.MOBILEGIS_CLIENT) + " version " + (null == midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION) ? ""
-                    : midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION)) + " \n" + getString(UIConstants.COPYRIGHT) + " \n" + getString(UIConstants.DOWNLOADED_DATA_SIZE) +
-                    ": " + model.getDownloadedDataSize(), display.getCurrent());
-            } catch (ApplicationException ae) {
-            }
-    }
+	private void showInfoAlert(String message, Displayable d) {
+		showInfoAlert(null, message, d);
+	}
 
-    public void preferencesUIRequested() {
-        try {
-            getPreferencesUI().init(model.getPreferences());
-        } catch (ApplicationException e) {
-            e.printStackTrace();
-            showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n" + e.getMessage());
-        }
-        display.setCurrent(getPreferencesUI());
-    }
+	private void showInfoAlert(String title, String message, Displayable d) {
+		Alert alert = new Alert(
+				(title == null) ? getString(UIConstants.MOBILEGIS_CLIENT)
+						: title);
+		alert.setImage(getImage(UIConstants.ICON_INFO));
+		alert.setType(AlertType.INFO);
+		alert.setTimeout(Alert.FOREVER);
+		alert.setString(message);
+		display.setCurrent(alert, d);
+	}
 
-    public void savePreferencesRequested() {
-        try {
-            Preferences preferences = model.getPreferences();
-            switch (getPreferencesUI().getSelectedLanguage()) {
-                case 0:
-                    preferences.setDefaultLocale("en-US");
-                    break;
-                case 1:
-                    preferences.setDefaultLocale("vi");
-                    break;
-                case 2:
-                    preferences.setDefaultLocale("nl-NL");
-                default:
-                    break;
-            }
-            preferences.setWmsServerURL(getPreferencesUI().getServerURL());
-            preferences.setWebGISURL(getPreferencesUI().getWebGISURL());
-            // preferences.setFindPathLayer(preferencesUI.getFindPathLayer());
-            model.setPreferences(preferences);
+	private void runWithProgress(Thread thread, String title, boolean stoppable) {
+		getProgressObserverUI().init(title, stoppable);
+		getDisplay().setCurrent(getProgressObserverUI());
+		thread.start();
+	}
 
-            // apply new language and reload
-            if (!model.getLocale().equals(preferences.getDefaultLocale())) {
-                // reload when the locale changed
-                model.setLocale(preferences.getDefaultLocale());
-                init();
-            } else {
-                // just return to main menu
-                mainMenuRequested();
-            }
-        } catch (ApplicationException e) {
-            e.printStackTrace();
-            showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n" + e.getMessage());
-        }
-    }
+	public void mainMenuRequested() {
+		display.setCurrent(getMainMenuUI());
+	}
 
-    public void checkUpdateRequested() {
-        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_CHECKUPDATE, getMainMenuUI()), getString(UIConstants.PROCESSING), true);
-    }
+	public void aboutRequested() {
+		try {
+			showInfoAlert(
+					getString(UIConstants.ABOUT),
+					getString(UIConstants.MOBILEGIS_CLIENT)
+							+ " version "
+							+ (null == midlet
+									.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION) ? ""
+									: midlet
+											.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION))
+							+ " \n" + getString(UIConstants.COPYRIGHT) + " \n"
+							+ getString(UIConstants.DOWNLOADED_DATA_SIZE)
+							+ ": " + model.getDownloadedDataSize(), display
+							.getCurrent());
+		} catch (ApplicationException ae) {
+		}
+	}
 
-    public void mapServerRequested() {
-        try {
-            getMapServerUI().setServerURL(model.getPreferences().getWmsServerURL());
-        } catch (ApplicationException e) {
-            e.printStackTrace();
-            showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n" + e.getMessage());
-        }
+	public void preferencesUIRequested() {
+		try {
+			getPreferencesUI().init(model.getPreferences());
+		} catch (ApplicationException e) {
+			e.printStackTrace();
+			showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n"
+					+ e.getMessage());
+		}
+		display.setCurrent(getPreferencesUI());
+	}
 
-        display.setCurrent(getMapServerUI());
-    }
+	public void savePreferencesRequested() {
+		try {
+			Preferences preferences = model.getPreferences();
+			switch (getPreferencesUI().getSelectedLanguage()) {
+			case 0:
+				preferences.setDefaultLocale("en-US");
+				break;
+			case 1:
+				preferences.setDefaultLocale("vi");
+				break;
+			case 2:
+				preferences.setDefaultLocale("nl-NL");
+			default:
+				break;
+			}
+			preferences.setWmsServerURL(getPreferencesUI().getServerURL());
+			preferences.setWebGISURL(getPreferencesUI().getWebGISURL());
+			// preferences.setFindPathLayer(preferencesUI.getFindPathLayer());
+			model.setPreferences(preferences);
 
-    public void layerListRequested() {
-        display.setCurrent(getLayerListUI());
-    }
+			// apply new language and reload
+			if (!model.getLocale().equals(preferences.getDefaultLocale())) {
+				// reload when the locale changed
+				model.setLocale(preferences.getDefaultLocale());
+				init();
+			} else {
+				// just return to main menu
+				mainMenuRequested();
+			}
+		} catch (ApplicationException e) {
+			e.printStackTrace();
+			showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n"
+					+ e.getMessage());
+		}
+	}
 
-    public void sortLayerListRequested() {
-    	try {
+	public void checkUpdateRequested() {
+		runWithProgress(new EventDispatcher(EventIds.EVENT_ID_CHECKUPDATE,
+				getMainMenuUI()), getString(UIConstants.PROCESSING), true);
+	}
+
+	public void mapServerRequested() {
+		try {
+			getMapServerUI().setServerURL(
+					model.getPreferences().getWmsServerURL());
+		} catch (ApplicationException e) {
+			e.printStackTrace();
+			showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n"
+					+ e.getMessage());
+		}
+
+		display.setCurrent(getMapServerUI());
+	}
+
+	public void layerListRequested() {
+		display.setCurrent(getLayerListUI());
+	}
+
+	public void sortLayerListRequested() {
+		try {
 			getSortLayerListUI().init(this.getSelectedLayerList());
 			display.setCurrent(sortLayerListUI);
 		} catch (ApplicationException ae) {
 			showErrorAlert(ae.getMessage(), layerListUI);
 		}
-    }
-
-    public void backToSortLayerListUI() {
-    	display.setCurrent(sortLayerListUI);
-    }
-
-    public void viewMapRequested() {
-        display.setCurrent(getMapViewUI());
-    }
-
-    /*
-     * public void findPathResultRequested() { display.setCurrent(findPathUI); }
-     */
-    public void helpRequested() {
-        display.setCurrent(getHelpUI());
-    }
-
-    public void getMapRequested() {
-        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_GETMAPWMS, getLayerListUI()), getString(UIConstants.PROCESSING), true);
-    }
-
-    public void getFeatureInfoRequested() {
-        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_GETFEATUREINFO, getMapViewUI()), getString(UIConstants.PROCESSING), true);
-    }
-
-    public void selectInfoLayerRequested() {
-        if (getLayerSelectUI().isAskNextTime()) {
-            display.setCurrent(getLayerSelectUI());
-        } else {
-            getFeatureInfoRequested();
-        }
-    }
-
-    /*
-     * public void findPathRequested() { runWithProgress(new
-     * EventDispatcher(EventIds.EVENT_ID_FINDPATHWMS, mapViewUI),
-     * getString(UIConstants.PROCESSING), true); }
-     */
-    public void searchFeatureRequested() {
-        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_SEARCHFEATURE,getSearchFeatureUI()), getString(UIConstants.PROCESSING), true);
-    }
-
-    public void searchFeatureRequested(int start) {
-        getSearchFeatureUI().setStart(start);
-        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_SEARCHFEATURE,getSearchFeatureUI()), getString(UIConstants.PROCESSING), true);
-    }
-
-    public void searchUIRequested() {
-        try {
-            // set new bounding box for search
-            getSearchFeatureUI().initParam(getMapViewUI().getBoundingBox(), model.getPreferences().getWebGISURL());
-        } catch (ApplicationException e) {
-            e.printStackTrace();
-            showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n" + e.getMessage());
-        }
-
-        display.setCurrent(getSearchFeatureUI());
-    }
-
-    public void searchResultUIRequested() {
-        display.setCurrent(getSearchFeatureResultUI());
-    }
-
-
-//     public void viewPathRequested() { mapViewUI.setIsViewPath(true);
-//     runWithProgress(new EventDispatcher(EventIds.EVENT_ID_VIEWPATHWMS,
-//     findPathUI), getString(UIConstants.PROCESSING), false); }
-//
-    public void viewFeatureRequested() {
-        getMapViewUI().setIsViewFeature(true);
-        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_VIEWFEATURE,getSearchFeatureUI()), getString(UIConstants.PROCESSING), false);
-    }
-    public void updateMapRequested() {
-        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_UPDATEMAPWMS, getMapViewUI()), getString(UIConstants.PROCESSING), true);
-    }
-
-    public void getCapabilitiesRequested() {
-        // Save new server URL
-        try {
-            Preferences preference = model.getPreferences();
-            preference.setWmsServerURL(getMapServerUI().getServerURL());
-            model.setPreferences(preference);
-        } catch (ApplicationException e) {
-            e.printStackTrace();
-            showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n" + e.getMessage());
-        }
-
-        runWithProgress(new EventDispatcher(
-            EventIds.EVENT_ID_GETCAPABILITIESWMS, getMapServerUI()),
-            getString(UIConstants.PROCESSING), false);
-    }
-    
-    public void browseFileSystemRequested() {
-		getAccessFileUI().showCurrDir(display);
 	}
-	
+
+	public void backToSortLayerListUI() {
+		display.setCurrent(sortLayerListUI);
+	}
+
+	public void viewMapRequested() {
+		display.setCurrent(getMapViewUI());
+	}
+
+	/*
+	 * public void findPathResultRequested() { display.setCurrent(findPathUI); }
+	 */
+	public void helpRequested() {
+		display.setCurrent(getHelpUI());
+	}
+
+	public void getMapRequested() {
+		runWithProgress(new EventDispatcher(EventIds.EVENT_ID_GETMAPWMS,
+				getLayerListUI()), getString(UIConstants.PROCESSING), true);
+	}
+
+	public void getFeatureInfoRequested() {
+		runWithProgress(new EventDispatcher(EventIds.EVENT_ID_GETFEATUREINFO,
+				getMapViewUI()), getString(UIConstants.PROCESSING), true);
+	}
+
+	public void selectInfoLayerRequested() {
+		if (getLayerSelectUI().isAskNextTime()) {
+			display.setCurrent(getLayerSelectUI());
+		} else {
+			getFeatureInfoRequested();
+		}
+	}
+
+	/*
+	 * public void findPathRequested() { runWithProgress(new
+	 * EventDispatcher(EventIds.EVENT_ID_FINDPATHWMS, mapViewUI),
+	 * getString(UIConstants.PROCESSING), true); }
+	 */
+	public void searchFeatureRequested() {
+		runWithProgress(new EventDispatcher(EventIds.EVENT_ID_SEARCHFEATURE,
+				getSearchFeatureUI()), getString(UIConstants.PROCESSING), true);
+	}
+
+	public void searchFeatureRequested(int start) {
+		getSearchFeatureUI().setStart(start);
+		runWithProgress(new EventDispatcher(EventIds.EVENT_ID_SEARCHFEATURE,
+				getSearchFeatureUI()), getString(UIConstants.PROCESSING), true);
+	}
+
+	public void searchUIRequested() {
+		try {
+			// set new bounding box for search
+			getSearchFeatureUI().initParam(getMapViewUI().getBoundingBox(),
+					model.getPreferences().getWebGISURL());
+		} catch (ApplicationException e) {
+			e.printStackTrace();
+			showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n"
+					+ e.getMessage());
+		}
+
+		display.setCurrent(getSearchFeatureUI());
+	}
+
+	public void searchResultUIRequested() {
+		display.setCurrent(getSearchFeatureResultUI());
+	}
+
+	// public void viewPathRequested() { mapViewUI.setIsViewPath(true);
+	// runWithProgress(new EventDispatcher(EventIds.EVENT_ID_VIEWPATHWMS,
+	// findPathUI), getString(UIConstants.PROCESSING), false); }
+	//
+	public void viewFeatureRequested() {
+		getMapViewUI().setIsViewFeature(true);
+		runWithProgress(new EventDispatcher(EventIds.EVENT_ID_VIEWFEATURE,
+				getSearchFeatureUI()), getString(UIConstants.PROCESSING), false);
+	}
+
+	public void updateMapRequested() {
+		runWithProgress(new EventDispatcher(EventIds.EVENT_ID_UPDATEMAPWMS,
+				getMapViewUI()), getString(UIConstants.PROCESSING), true);
+	}
+
+	public void getCapabilitiesRequested() {
+		// Save new server URL
+		try {
+			Preferences preference = model.getPreferences();
+			preference.setWmsServerURL(getMapServerUI().getServerURL());
+			model.setPreferences(preference);
+		} catch (ApplicationException e) {
+			e.printStackTrace();
+			showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n"
+					+ e.getMessage());
+		}
+
+		runWithProgress(new EventDispatcher(
+				EventIds.EVENT_ID_GETCAPABILITIESWMS, getMapServerUI()),
+				getString(UIConstants.PROCESSING), false);
+	}
+
+	// File System Browser
+
+	public void browseFileSystemRequested() { // First time File System
+												// Browser is call
+		excuteShowDir(FileSystemBrowserUI.MEGA_ROOT);
+	}
+
+	public void browseFileSystemRequested(Displayable d) { // Browsing File
+															// System
+		final String itemName;
+		List curr = (List) d;
+		itemName = curr.getString(curr.getSelectedIndex());
+
+		if (itemName.endsWith(FileSystemBrowserUI.SEP_STR)
+				|| itemName.equals(FileSystemBrowserUI.UP_DIRECTORY)) {
+			traverseDirectory(itemName);
+		} else {
+			// Show file contents
+			viewFileContentRequested(itemName);
+		}
+	}
+
 	public void saveMapToFileRequested() {
 		runWithProgress(new EventDispatcher(EventIds.EVENT_ID_SAVETOFILE,
 				getMapServerUI()), getString(UIConstants.PROCESSING), false);
 	}
-	
-	// Public methods for Browsing File System
-	
-	public void viewFileOrDirRequested(Displayable d) {
-		List curr = (List)d;
-        final String currFileOrDir = curr.getString(curr.getSelectedIndex());
-        new Thread(new Runnable() {
-                public void run() {
-            		// Show directory
-                    if (currFileOrDir.endsWith(AccessFileUI.SEP_STR) || currFileOrDir.equals(AccessFileUI.UP_DIRECTORY)) {
-                        traverseDirectory(currFileOrDir);
-                    } else {
-                    // Show file contents
-                        showFile(currFileOrDir);
-                    }
-                }
-            }).start();
+
+	// Being invoked when browsing File System. Should have type input in File
+	// System Creator UI
+	public void viewFileSystemCreatorRequested() {
+		getFileSystemCreatorUI().addTypeInput();
+		display.setCurrent(getFileSystemCreatorUI());
 	}
-	
+
+	// Being invoked when saving map to file. Should remove type input File
+	// System Creator UI (if having)
+	public void viewSaveToFileInputRequested() {
+		getFileSystemCreatorUI().removeTypeInput();
+		display.setCurrent(getFileSystemCreatorUI());
+	}
+
 	public void viewPropertiesRequested(Displayable d) {
-		List curr = (List)d;
-        String currFile = curr.getString(curr.getSelectedIndex());
-
-        showProperties(currFile);
+		List curr = (List) d;
+		String fileName = curr.getString(curr.getSelectedIndex());
+		try {
+			excuteShowProperties(fileName);
+		} catch (Exception e) {
+			Alert alert = new Alert("Error!", "Can not access file " + fileName
+					+ "\nException: " + e.getMessage(), null, AlertType.ERROR);
+			alert.setTimeout(Alert.FOREVER);
+			display.setCurrent(alert);
+		}
 	}
-	
+
+	public void viewFileContentRequested(String fileName) {
+		try {
+			excuteShowFile(fileName);
+		} catch (Exception e) {
+			Alert alert = new Alert("Error!", "Can not access file " + fileName
+					+ " in directory " + getFileSystemBrowserUI().getCurrPath()
+					+ "\nException: " + e.getMessage(), null, AlertType.ERROR);
+			alert.setTimeout(Alert.FOREVER);
+			display.setCurrent(alert);
+		}
+	}
+
 	public void createOKRequested(TextField nameInput, ChoiceGroup typeInput) {
-		String newName = nameInput.getString();
+		String itemName = nameInput.getString();
 
-        if ((newName == null) || newName.equals("")) {
-            Alert alert =
-                new Alert("Error!", "File Name is empty. Please provide file name", null,
-                    AlertType.ERROR);
-            alert.setTimeout(Alert.FOREVER);
-            display.setCurrent(alert);
-        } else {
-            // Create file in a separate thread and disable all commands
-            // except for "exit"
-            executeCreateFile(newName, typeInput.getSelectedIndex() != 0);
-            accessFileUI.removeCreatingCommand();
-            
-        }
+		if ((itemName == null) || itemName.equals("")) {
+			showErrorAlert("Name input is empty. Please provide a name");
+		} else {
+			// Create file in a separate thread and disable all commands
+			// except for "exit"
+			executeCreateItem(itemName, typeInput.getSelectedIndex() != 0);
+		}
 	}
-	
-	public void deleteFileOrFolderRequested(Displayable d) {
-		List curr = (List)d;
-        String currFile = curr.getString(curr.getSelectedIndex());
-        executeDelete(currFile);
+
+	public void deleteItemRequested(Displayable d) {
+		List curr = (List) d;
+		executeDeleteItem(curr.getString(curr.getSelectedIndex()));
 	}
-	
+
+	public void backToFileSystemBrowserUIRequested() {
+		display.setCurrent(getFileSystemBrowserUI());
+	}
+
 	// Help methods for Browsing File System
-	
-	public void executeCreateFile(final String name, final boolean val) {
-        new Thread(new Runnable() {
-            public void run() {
-                createFile(name, val);
-            }
-        }).start();
+
+	public void traverseDirectory(String dirName) {
+		/*
+		 * In case of directory just change the current directory and show it
+		 */
+		String currPath = getFileSystemBrowserUI().getCurrPath();
+		if (dirName.equals("")) {
+			currPath = FileSystemBrowserUI.MEGA_ROOT;
+		} else if (currPath.equals(FileSystemBrowserUI.MEGA_ROOT)) {
+			if (dirName.equals(FileSystemBrowserUI.UP_DIRECTORY)) {
+				// can not go up from MEGA_ROOT
+				return;
+			}
+
+			currPath = dirName;
+		} else if (dirName.equals(FileSystemBrowserUI.UP_DIRECTORY)) {
+			// Go up one directory
+			int i = currPath.lastIndexOf(FileSystemBrowserUI.SEP, currPath
+					.length() - 2);
+
+			if (i != -1) {
+				currPath = currPath.substring(0, i + 1);
+			} else {
+				currPath = FileSystemBrowserUI.MEGA_ROOT;
+			}
+		} else {
+			currPath = currPath + dirName;
+		}
+
+		excuteShowDir(currPath);
 	}
-	
-	public void executeDelete(String currFile) {
-        final String file = currFile;
-        new Thread(new Runnable() {
-                public void run() {
-                    delete(file);
-                }
-            }).start();
+
+	public void executeCreateItem(final String itemName,
+			final boolean isDirectory) {
+		new Thread(new Runnable() {
+			public void run() {
+				try {
+					fileConnection = (FileConnection) Connector
+							.open("file://localhost/"
+									+ getFileSystemBrowserUI().getCurrPath()
+									+ itemName);
+
+					if (isDirectory) {
+						fileConnection.mkdir();
+					} else {
+						fileConnection.create();
+					}
+
+					fileConnection.close();
+					excuteShowCurrDir();
+				} catch (IOException ioe) {
+					String errorMessage = "Error! Can not create file '"
+							+ itemName + "\nException: " + ioe;
+					showErrorAlert(errorMessage);
+				}
+			}
+		}).start();
 	}
-	
-	public void showCurrDir() {
-		accessFileUI.showCurrDir(display);
+
+	public void executeDeleteItem(final String itemName) {
+		new Thread(new Runnable() {
+			public void run() {
+				if (!itemName.equals(FileSystemBrowserUI.UP_DIRECTORY)) {
+					if (itemName.endsWith(FileSystemBrowserUI.SEP_STR)) { // Delete
+						// folder
+						try {
+							if (isCurrDirEmpty(itemName)) { // Only empty folder
+								// can be delete
+								delete(itemName);
+								excuteShowCurrDir();
+							} else { // Alert if this folder is not empty
+								String errorMessage = "Error! Can not delete the non-empty folder: "
+										+ itemName;
+								showErrorAlert(errorMessage);
+							}
+						} catch (IOException ioe) {
+							String errorMessage = "Error! Can not access/delete folder: "
+									+ itemName + "\nException: " + ioe;
+							showErrorAlert(errorMessage);
+						}
+					} else { // Delete file
+						try {
+							delete(itemName);
+							excuteShowDir(getFileSystemBrowserUI()
+									.getCurrPath());
+						} catch (IOException ioe) { // Alert if this file can
+							// not be accessed
+							String errorMessage = "Error! Can not access/delete file: "
+									+ itemName + "\nException: " + ioe;
+							showErrorAlert(errorMessage);
+						}
+					}
+				} else {
+					String errorMessage = "Can not delete The up-directory (..). This is a symbol! not a real folder"
+							+ itemName;
+					showErrorAlert(errorMessage);
+				}
+			}
+		}).start();
 	}
-	
-	public void delete(String currFile) {
-        accessFileUI.delete(currFile, display);
+
+	public void delete(String strItemName) throws IOException {
+		fileConnection = (FileConnection) Connector.open("file://localhost/"
+				+ getFileSystemBrowserUI().getCurrPath() + strItemName);
+		fileConnection.delete();
+
+		fileConnection.close();
 	}
 
-	public void checkDeleteFolder(String folderName) {
-        accessFileUI.checkDeleteFolder(folderName, display);
-    }
+	public boolean isCurrDirEmpty(String folderName) throws IOException {
+		boolean result = false;
+		try {
+			fileConnection = (FileConnection) Connector
+					.open("file://localhost/"
+							+ getFileSystemBrowserUI().getCurrPath()
+							+ folderName);
+			Enumeration content = fileConnection.list("*", true);
 
-	public void traverseDirectory(String fileName) {
-        accessFileUI.traverseDirectory(fileName, display);
-    }
+			fileConnection.close();
 
-	public void showFile(String fileName) {
-        accessFileUI.showFile(fileName, display);
-    }
+			if (!content.hasMoreElements()) {
+				return true;
+			}
+		} catch (IOException e) {
+			showErrorAlert(e);
+		}
 
-	public void deleteFile(String fileName) {
-        accessFileUI.deleteFile(fileName, display);
-    }
-
-	public void showProperties(String fileName) {
-        accessFileUI.showProperties(fileName, display);
+		return result;
 	}
-    
-	public void createFileOrDir() {
-        display.setCurrent(accessFileUI.createFileOrDir());
-    }
 
-	public void createFile(String newName, boolean isDirectory) {
-        accessFileUI.createFile(newName, isDirectory, display);
-    }
+	public void excuteShowDir(final String path) {
+		new Thread() {
+			public void run() {
+				try {
+					getFileSystemBrowserUI().setCurrPath(path);
+					getFileSystemBrowserUI().getCurrDir();
+					display.setCurrent(getFileSystemBrowserUI());
+				} catch (IOException ioe) {
+					showErrorAlert("Can not view directory" + "\nException"
+							+ ioe);
+				}
+			}
+		}.start();
+	}
+
+	public void excuteShowCurrDir() {
+		new Thread() {
+			public void run() {
+				try {
+					getFileSystemBrowserUI().getCurrDir();
+					display.setCurrent(getFileSystemBrowserUI());
+				} catch (IOException ioe) {
+					showErrorAlert("Can not view current directory"
+							+ "\nException" + ioe);
+				}
+			}
+		}.start();
+	}
+
+	public void excuteShowProperties(final String fileName) {
+		new Thread() {
+			public void run() {
+				try {
+					getFilePropertiesUI().getProperties(fileName);
+					display.setCurrent(getFilePropertiesUI());
+				} catch (IOException ioe) {
+					showErrorAlert("Can not view file properties"
+							+ "\nException" + ioe);
+				}
+			}
+		}.start();
+	}
+
+	public void excuteShowFile(final String fileName) {
+		new Thread() {
+			public void run() {
+				try {
+					getFileContentUI().getFileContent(fileName);
+					display.setCurrent(getFileContentUI());
+				} catch (IOException ioe) {
+					showErrorAlert("Can not view file content" + "\nException"
+							+ ioe);
+				}
+
+			}
+		}.start();
+	}
 
 	public void exitRequested() {
-        System.out.println("Bye Bye");
-        // FIXME - Not yet implemented.
-        midlet.notifyDestroyed();
-    }
-	
-    class EventDispatcher extends Thread {
+		System.out.println("Bye Bye");
+		// FIXME - Not yet implemented.
+		midlet.notifyDestroyed();
+	}
 
-        private final int taskId;
-        private final Displayable fallbackUI;
+	class EventDispatcher extends Thread {
 
-        EventDispatcher(int taskId, Displayable fallbackUI) {
-            this.taskId = taskId;
-            this.fallbackUI = fallbackUI;
-        }
+		private final int taskId;
+		private final Displayable fallbackUI;
 
-        public void run() {
-            try {
-                switch (taskId) {
-                    case EventIds.EVENT_ID_GETMAPWMS: {
-                    	//Image img = getMapWMS(getMapViewUI(), getLayerListUI().getSelectedLayerList());
-                    	Image img = getMapWMS(getMapViewUI(), getSortLayerListUI().getSortLayerList());
+		EventDispatcher(int taskId, Displayable fallbackUI) {
+			this.taskId = taskId;
+			this.fallbackUI = fallbackUI;
+		}
 
-                        if (img == null) {
-                            showErrorAlert(
-                                getString(UIConstants.GET_MAP_WMS_ERROR), getMainMenuUI());
-                        } else {
-                            getMapViewUI().init(img);
-                            display.setCurrent(getMapViewUI());
-                        }
+		public void run() {
+			try {
+				switch (taskId) {
+				case EventIds.EVENT_ID_GETMAPWMS: {
+					// Image img = getMapWMS(getMapViewUI(),
+					// getLayerListUI().getSelectedLayerList());
+					Image img = getMapWMS(getMapViewUI(), getSortLayerListUI()
+							.getSortLayerList());
 
-                        break;
-                    }
-                    /*
-                     * case EventIds.EVENT_ID_VIEWPATHWMS: { Image img =
-                     * viewPathWMS(mapViewUI); if (img == null) {
-                     * showErrorAlert(getString(UIConstants.VIEWPATH_ERROR),
-                     * findPathUI); } else { mapViewUI.init(img);
-                     * display.setCurrent(mapViewUI); } break; }
-                     */
+					if (img == null) {
+						showErrorAlert(
+								getString(UIConstants.GET_MAP_WMS_ERROR),
+								getMainMenuUI());
+					} else {
+						getMapViewUI().init(img);
+						display.setCurrent(getMapViewUI());
+					}
 
-                    case EventIds.EVENT_ID_VIEWFEATURE: {
-                        MapFeature feature = getSearchFeatureResultUI().getSelectedFeature();
-                        // Recenter map view to this feature
-                        getMapViewUI().reCenterAtFeature(feature);
+					break;
+				}
+					/*
+					 * case EventIds.EVENT_ID_VIEWPATHWMS: { Image img =
+					 * viewPathWMS(mapViewUI); if (img == null) {
+					 * showErrorAlert(getString(UIConstants.VIEWPATH_ERROR),
+					 * findPathUI); } else { mapViewUI.init(img);
+					 * display.setCurrent(mapViewUI); } break; }
+					 */
 
-                        // Update new map
-                        Image img = updateMapWMS( getMapViewUI(),getLayerListUI().getSelectedLayerList());
+				case EventIds.EVENT_ID_VIEWFEATURE: {
+					MapFeature feature = getSearchFeatureResultUI()
+							.getSelectedFeature();
+					// Recenter map view to this feature
+					getMapViewUI().reCenterAtFeature(feature);
 
-                        if (img == null) {
-                            showErrorAlert(
-                                getString(UIConstants.GET_MAP_WMS_ERROR),getMainMenuUI());
-                        } else {
-                            getMapViewUI().init(img);
-                            display.setCurrent(getMapViewUI());
-                        }
+					// Update new map
+					Image img = updateMapWMS(getMapViewUI(), getLayerListUI()
+							.getSelectedLayerList());
 
-                        break;
-                    }
-                    /*
-                     * case EventIds.EVENT_ID_FINDPATHWMS: { String result =
-                     * findPathWMS(mapViewUI); findPathUI.init(result);
-                     * display.setCurrent(findPathUI); break; }
-                     */
+					if (img == null) {
+						showErrorAlert(
+								getString(UIConstants.GET_MAP_WMS_ERROR),
+								getMainMenuUI());
+					} else {
+						getMapViewUI().init(img);
+						display.setCurrent(getMapViewUI());
+					}
 
-                    case EventIds.EVENT_ID_SEARCHFEATURE: {
-                        String result = searchFeature(getSearchFeatureUI());
-                        getSearchFeatureResultUI().init(result);
-                        searchResultUIRequested();
+					break;
+				}
+					/*
+					 * case EventIds.EVENT_ID_FINDPATHWMS: { String result =
+					 * findPathWMS(mapViewUI); findPathUI.init(result);
+					 * display.setCurrent(findPathUI); break; }
+					 */
 
-                        break;
-                    }
-                    case EventIds.EVENT_ID_GETFEATUREINFO: {
-                        String result = getFeatureInfo(getMapViewUI(), getLayerListUI().getSelectedLayerList(), getLayerSelectUI().getInfoLayerName());
-                        getFeatureInfoUI().init(result);
-                        display.setCurrent(getFeatureInfoUI());
+				case EventIds.EVENT_ID_SEARCHFEATURE: {
+					String result = searchFeature(getSearchFeatureUI());
+					getSearchFeatureResultUI().init(result);
+					searchResultUIRequested();
 
-                        break;
-                    }
-                    case EventIds.EVENT_ID_UPDATEMAPWMS: {
-                        Image img = updateMapWMS(getMapViewUI(), getLayerListUI().getSelectedLayerList());
+					break;
+				}
+				case EventIds.EVENT_ID_GETFEATUREINFO: {
+					String result = getFeatureInfo(getMapViewUI(),
+							getLayerListUI().getSelectedLayerList(),
+							getLayerSelectUI().getInfoLayerName());
+					getFeatureInfoUI().init(result);
+					display.setCurrent(getFeatureInfoUI());
 
-                        if (img == null) {
-                            showErrorAlert(
-                                getString(UIConstants.GET_MAP_WMS_ERROR), getMainMenuUI());
-                        } else {
-                            getMapViewUI().init(img);
-                            display.setCurrent(getMapViewUI());
-                        }
+					break;
+				}
+				case EventIds.EVENT_ID_UPDATEMAPWMS: {
+					Image img = updateMapWMS(getMapViewUI(), getLayerListUI()
+							.getSelectedLayerList());
 
-                        break;
-                    }
-                    case EventIds.EVENT_ID_GETCAPABILITIESWMS: {
-                        Vector constructedDataTree = getCapabilitiesWMS(getMapServerUI().getServerURL());
+					if (img == null) {
+						showErrorAlert(
+								getString(UIConstants.GET_MAP_WMS_ERROR),
+								getMainMenuUI());
+					} else {
+						getMapViewUI().init(img);
+						display.setCurrent(getMapViewUI());
+					}
 
-                        if (constructedDataTree == null) {
-                            showErrorAlert(
-                                getString(UIConstants.GET_CAPABILITIES_WMS_ERROR), getMainMenuUI());
-                        } else {
-                            getLayerListUI().init(constructedDataTree);
+					break;
+				}
+				case EventIds.EVENT_ID_GETCAPABILITIESWMS: {
+					Vector constructedDataTree = getCapabilitiesWMS(getMapServerUI()
+							.getServerURL());
 
-                            display.setCurrent(getLayerListUI());
-                        }
+					if (constructedDataTree == null) {
+						showErrorAlert(
+								getString(UIConstants.GET_CAPABILITIES_WMS_ERROR),
+								getMainMenuUI());
+					} else {
+						getLayerListUI().init(constructedDataTree);
 
-                        break;
-                    }
-                    case EventIds.EVENT_ID_SAVETOFILE: {
-    					String FCOPversion = System
-    							.getProperty("microedition.io.file.FileConnection.version");
+						display.setCurrent(getLayerListUI());
+					}
 
-    					if (FCOPversion != null) { //FCOP is available
-    						Image img = getMapWMS(getMapViewUI(), getLayerListUI()
-    								.getSelectedLayerList());
-    						int width = img.getWidth();
-    						int height = img.getHeight();
-    						int[] imgRgbData = new int[width * height];
-    						try {
-    							img.getRGB(imgRgbData, 0, width, 0, 0, width, height);
-    						} catch (Exception ex) {
-    							ex.printStackTrace();
-    							showErrorAlert(getString(UIConstants.UNKNOWN_ERROR)
-    									+ ":\n" + ex.getMessage());
-    						}
-    						
-    						String url = "file://localhost/" + accessFileUI.currDirName;
-    						FileConnection conn = null;
-    						OutputStream out = null;
+					break;
+				}
+				case EventIds.EVENT_ID_SAVETOFILE: {
+					String FCOPversion = System
+							.getProperty("microedition.io.file.FileConnection.version");
 
-    						try {
-    							conn = (FileConnection) Connector.open(url);
-    							if (!conn.exists()) {
-    								out = conn.openOutputStream();
-    								for (int i = 0; i < imgRgbData.length; i++) {
-    									out.write(imgRgbData[i]);
-    								}
-    							}
-    						} catch (IOException ioEx) {
-    							ioEx.printStackTrace();
-    							showErrorAlert(getString(UIConstants.UNKNOWN_ERROR)
-    									+ ":\n" + ioEx.getMessage());
-    						} catch (SecurityException sEx) {
-    							sEx.printStackTrace();
-    							showErrorAlert(getString(UIConstants.UNKNOWN_ERROR)
-    									+ ":\n" + sEx.getMessage());
-    						} finally {
-    							out.close();
-    							conn.close();
-    						}
-    					} else {
-    						// FCOP not available
-    					}
-    					
-    					break;
-    				}
-                    case EventIds.EVENT_ID_CHECKUPDATE: {
-                        String currentVersion = checkUpdate(
-                            getString(UIConstants.CONF_UPDATE_URL)).trim();
-                        String oldVersion = midlet.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION);
-                        // System.out.println("****** Current Version = " +
-                        // currentVersion + ". oldVersion = " +
-                        // oldVersion);
-                        if (null != currentVersion && currentVersion.compareTo(oldVersion) > 0) {
-                            showInfoAlert(getString(UIConstants.UPDATE_AVAILABE), getMainMenuUI());
-                        } else {
-                            showInfoAlert(
-                                getString(UIConstants.NO_UPDATE_AVAILABE), getMainMenuUI());
-                        }
+					if (FCOPversion != null) { // FCOP is available
+						Image img = getMapWMS(getMapViewUI(), getLayerListUI()
+								.getSelectedLayerList());
+						int width = img.getWidth();
+						int height = img.getHeight();
+						InputStream is;
+						byte[] imgByteArray = new byte[60];
+						// DataInputStream diss = new DataInputStream(new
+						// InputStream(img));
+						// img.
 
-                        break;
-                    }
-                } // for switch - case
-            } catch (ApplicationException ae) {
-                ae.printStackTrace();
-                if (ae.getCode() == MessageCodes.ERROR_OPERATION_INTERRUPTED) {
-                    display.setCurrent(fallbackUI);
-                } else if (ae.getCode() == MessageCodes.ERROR_CANNOT_CONNECT) {
-                    showErrorAlert(ae, fallbackUI);
-                } else if (ae.getCode() == MessageCodes.NO_SELECTED_LAYER) {
-                    showErrorAlert(ae, fallbackUI);
-//                } else if (ae.getCode() == MessageCodes.NO_SELECTED_POINT) {
-//                    showErrorAlert(ae, fallbackUI);
-                } else if (ae.getCode() == MessageCodes.ERROR_UNAUTHORIZED) {
-                    try {
-                        promtForCredentials(model.getWwwAuthenticate());
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                        showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n" + ex.getMessage());
-                    }
-                } else {
-                    showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n" + ae.getMessage(), fallbackUI);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n" + e.getMessage(), getMainMenuUI());
-            }
-        }
-    }
+						String url = "file://localhost/"
+								+ getFileSystemBrowserUI().getCurrPath()
+								+ fileSystemCreatorUI.getNameInput()
+										.getString();
+						FileConnection fileConnection = null;
+						OutputStream out = null;
 
-    private void createCommands() {
-        exitCommand = new Command(getString(UIConstants.EXIT), Command.EXIT, 75);
-        mainMenuCommand = new Command(getString(UIConstants.MAIN_MENU),
-            Command.OK, 13);
-        aboutCommand = new Command(getString(UIConstants.ABOUT), Command.OK, 14);
-    }
+						try {
+							fileConnection = (FileConnection) Connector.open(
+									url, Connector.READ_WRITE);
+							if (!fileConnection.exists()) {
+								fileConnection.create();
+							}
+							out = fileConnection.openOutputStream();
 
-    public void setCommands(Displayable displayable) {
-        displayable.addCommand(exitCommand);
-        displayable.addCommand(mainMenuCommand);
-        displayable.addCommand(aboutCommand);
-    }
+							// out.write(byteArray);
+							out.flush();
+						} catch (IOException ioEx) {
+							ioEx.printStackTrace();
+							showErrorAlert(getString(UIConstants.UNKNOWN_ERROR)
+									+ ":\n" + ioEx.getMessage());
+						} catch (SecurityException sEx) {
+							sEx.printStackTrace();
+							showErrorAlert(getString(UIConstants.UNKNOWN_ERROR)
+									+ ":\n" + sEx.getMessage());
+						} finally {
+							out.close();
+							fileConnection.close();
+						}
+					} else {
+						// FCOP not available
+					}
+					viewMapRequested();
+					break;
+				}
+				case EventIds.EVENT_ID_CHECKUPDATE: {
+					String currentVersion = checkUpdate(
+							getString(UIConstants.CONF_UPDATE_URL)).trim();
+					String oldVersion = midlet
+							.getAppProperty(JVNMobileGISMIDlet.PROPERTY_MIDLET_VERSION);
+					// System.out.println("****** Current Version = " +
+					// currentVersion + ". oldVersion = " +
+					// oldVersion);
+					if (null != currentVersion
+							&& currentVersion.compareTo(oldVersion) > 0) {
+						showInfoAlert(getString(UIConstants.UPDATE_AVAILABE),
+								getMainMenuUI());
+					} else {
+						showInfoAlert(
+								getString(UIConstants.NO_UPDATE_AVAILABE),
+								getMainMenuUI());
+					}
 
-    public Image getImage(byte imageIndex) {
-        return icons[imageIndex];
-    }
+					break;
+				}
+				} // for switch - case
+			} catch (ApplicationException ae) {
+				ae.printStackTrace();
+				if (ae.getCode() == MessageCodes.ERROR_OPERATION_INTERRUPTED) {
+					display.setCurrent(fallbackUI);
+				} else if (ae.getCode() == MessageCodes.ERROR_CANNOT_CONNECT) {
+					showErrorAlert(ae, fallbackUI);
+				} else if (ae.getCode() == MessageCodes.NO_SELECTED_LAYER) {
+					showErrorAlert(ae, fallbackUI);
+					// } else if (ae.getCode() ==
+					// MessageCodes.NO_SELECTED_POINT) {
+					// showErrorAlert(ae, fallbackUI);
+				} else if (ae.getCode() == MessageCodes.ERROR_UNAUTHORIZED) {
+					try {
+						promtForCredentials(model.getWwwAuthenticate());
+					} catch (Exception ex) {
+						ex.printStackTrace();
+						showErrorAlert(getString(UIConstants.UNKNOWN_ERROR)
+								+ ":\n" + ex.getMessage());
+					}
+				} else {
+					showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n"
+							+ ae.getMessage(), fallbackUI);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n"
+						+ e.getMessage(), getMainMenuUI());
+			}
+		}
+	}
 
-    private Image getMapWMS(WMSRequestParameter requestParam, Vector layerList)
-        throws ApplicationException {
-        if (0 < layerList.size()) {
-            LayerInformation layerInfo = (LayerInformation) layerList.elementAt(0);
-            getMapViewUI().initParam(layerInfo.getLatLonBoundingBox(), layerInfo.getServerInformation().getGetMapURL(), layerInfo.getField("srs"));
-        }
-        // Init layers for select layer UI
-        getLayerSelectUI().init(getLayerListUI().getSelectedLayerList());
-        //return model.getMapWMS(requestParam, layerList);
-        return model.getMapWMS(requestParam, getSortLayerListUI().getSortLayerList());
-    }
+	private void createCommands() {
+		exitCommand = new Command(getString(UIConstants.EXIT), Command.EXIT, 75);
+		mainMenuCommand = new Command(getString(UIConstants.MAIN_MENU),
+				Command.OK, 13);
+		aboutCommand = new Command(getString(UIConstants.ABOUT), Command.OK, 14);
+	}
 
-    /*
-     * private String findPathWMS(WMSRequestParameter requestParam) throws
-     * ApplicationException { return model.findPathWMS(requestParam); }
-     */
-    private String searchFeature(SearchFeatureParameter searchParam)
-        throws ApplicationException {
-        return model.searchFeature(searchParam);
-    }
+	public void setCommands(Displayable displayable) {
+		displayable.addCommand(exitCommand);
+		displayable.addCommand(mainMenuCommand);
+		displayable.addCommand(aboutCommand);
+	}
 
-    private String getFeatureInfo(WMSRequestParameter requestParam,
-        Vector layerList, String infoLayer) throws ApplicationException {
-        return model.getFeatureInfo(requestParam, layerList, infoLayer);
-    }
+	public Image getImage(byte imageIndex) {
+		return icons[imageIndex];
+	}
 
-    /*
-     * private Image viewPathWMS(WMSRequestParameter requestParam) throws
-     * ApplicationException { return model.viewPathWMS(requestParam); }
-     */
-    private Image updateMapWMS(WMSRequestParameter requestParam,
-        Vector layerList) throws ApplicationException {
-        return model.getMapWMS(requestParam, layerList);
-    }
+	private Image getMapWMS(WMSRequestParameter requestParam, Vector layerList)
+			throws ApplicationException {
+		if (0 < layerList.size()) {
+			LayerInformation layerInfo = (LayerInformation) layerList
+					.elementAt(0);
+			getMapViewUI().initParam(layerInfo.getLatLonBoundingBox(),
+					layerInfo.getServerInformation().getGetMapURL(),
+					layerInfo.getField("srs"));
+		}
+		// Init layers for select layer UI
+		getLayerSelectUI().init(getLayerListUI().getSelectedLayerList());
+		// return model.getMapWMS(requestParam, layerList);
+		return model.getMapWMS(requestParam, getSortLayerListUI()
+				.getSortLayerList());
+	}
 
-    private String checkUpdate(String updateURL) throws ApplicationException {
-        return model.checkUpdate(updateURL);
-    }
+	/*
+	 * private String findPathWMS(WMSRequestParameter requestParam) throws
+	 * ApplicationException { return model.findPathWMS(requestParam); }
+	 */
+	private String searchFeature(SearchFeatureParameter searchParam)
+			throws ApplicationException {
+		return model.searchFeature(searchParam);
+	}
 
-    private Vector getCapabilitiesWMS(String serverURL)
-        throws ApplicationException {
-        return model.getCapabilitiesWMS(serverURL);
-    }
+	private String getFeatureInfo(WMSRequestParameter requestParam,
+			Vector layerList, String infoLayer) throws ApplicationException {
+		return model.getFeatureInfo(requestParam, layerList, infoLayer);
+	}
 
-    /**
-     * @return
-     * @uml.property name="credentials"
-     */
-    public Credentials getCredentials() {
-        return credentials;
-    }
+	/*
+	 * private Image viewPathWMS(WMSRequestParameter requestParam) throws
+	 * ApplicationException { return model.viewPathWMS(requestParam); }
+	 */
+	private Image updateMapWMS(WMSRequestParameter requestParam,
+			Vector layerList) throws ApplicationException {
+		return model.getMapWMS(requestParam, layerList);
+	}
 
-    public void promtForCredentials(String challenge) {
-        try {
-            java.lang.String realm = null;
-            if (challenge == null) {
-                throw new ApplicationException(
-                    MessageCodes.MISSING_CHALLENGE);
-            }
-            challenge = challenge.trim();
-            if (!challenge.trim().toLowerCase().startsWith("basic")) {
-                throw new ApplicationException(
-                    MessageCodes.AUTH_SCHEME_NOT_BASIC);
-            }
-            int length = challenge.length();
-            // we don't check for extra double quotes...
-            if ((length < 8) || (!challenge.substring(5, 13).equals(" realm=\"")) || (challenge.charAt(length - 1) != '\"')) {
-                throw new ApplicationException(
-                    MessageCodes.AUTH_REALM_SYNTAX_ERROR);
-            }
-            realm = challenge.substring(13, length - 1);
+	private String checkUpdate(String updateURL) throws ApplicationException {
+		return model.checkUpdate(updateURL);
+	}
 
-            getPromptDialog().setTitle(realm);
-            display.setCurrent(getPromptDialog());
-        } catch (ApplicationException ex) {
-            ex.printStackTrace();
-        }
-    }
+	private Vector getCapabilitiesWMS(String serverURL)
+			throws ApplicationException {
+		return model.getCapabilitiesWMS(serverURL);
+	}
 
-    public void calculateCredentials() {
-        if ("".equals(getPromptDialog().getUsername()) || "".equals(getPromptDialog().getPassword())) {
-            showErrorAlert(getString(UIConstants.MUST_GIVE_USER_PWD));
-        } else {
-            credentials.setUsername(getPromptDialog().getUsername());
-            credentials.setPassword(getPromptDialog().getPassword());
-            // Calculate the credentials
-            byte[] credentialsBA = (credentials.getUsername() + ":" + credentials.getPassword()).getBytes();
-            byte[] encodedCredentialsBA = Base64.encode(credentialsBA);
-            credentials.setCredentials(new String(encodedCredentialsBA));
-            // System.out.println("************ Calculated credentials:"
-            // + credentials.getCredentials());
-            try {
-                // Set credentials for HTTPS
-                model.setCredentials(credentials.getCredentials());
-            } catch (ApplicationException e) {
-                e.printStackTrace();
-                showErrorAlert(e, getMainMenuUI());
-            }
-            // After saving credentials, get server's capabilities
-            getCapabilitiesRequested();
-        }
-    }
+	/**
+	 * @return
+	 * @uml.property name="credentials"
+	 */
+	public Credentials getCredentials() {
+		return credentials;
+	}
 
-    public void confirm(int messageId) {
-        getConfirmDialogUI().showConfirm(messageId);
-        display.setCurrent(getConfirmDialogUI());
-    }
+	public void promtForCredentials(String challenge) {
+		try {
+			java.lang.String realm = null;
+			if (challenge == null) {
+				throw new ApplicationException(MessageCodes.MISSING_CHALLENGE);
+			}
+			challenge = challenge.trim();
+			if (!challenge.trim().toLowerCase().startsWith("basic")) {
+				throw new ApplicationException(
+						MessageCodes.AUTH_SCHEME_NOT_BASIC);
+			}
+			int length = challenge.length();
+			// we don't check for extra double quotes...
+			if ((length < 8)
+					|| (!challenge.substring(5, 13).equals(" realm=\""))
+					|| (challenge.charAt(length - 1) != '\"')) {
+				throw new ApplicationException(
+						MessageCodes.AUTH_REALM_SYNTAX_ERROR);
+			}
+			realm = challenge.substring(13, length - 1);
 
-    public void confirmAction(int messageId, boolean accepted) {
-        switch (messageId) {
-            case MessageCodes.CONFIRM_SAVE_PREFERENCES:
-                if (accepted) {
-                    this.savePreferencesRequested();
-                } else {
-                    mainMenuRequested();
-                }
-                break;
+			getPromptDialog().setTitle(realm);
+			display.setCurrent(getPromptDialog());
+		} catch (ApplicationException ex) {
+			ex.printStackTrace();
+		}
+	}
 
-            default:
-                break;
-        }
-    }
-    
-    void deinitialize(boolean all) {
-        if (all) {
-            mapServersCmd = null;
-            mainMenuCommand = null;
-            exitCommand = null;
-            aboutCommand = null;
-            mainMenuUI = null;
-            preferencesUI = null;
-            mapServerUI = null;
-            mapViewUI = null;
-            // findPathUI = null;
-            searchFeatureUI = null;
-            searchFeatureResultUI = null;
-            layerSelectUI = null;
-            featureInfoUI = null;
-            helpUI = null;
-            layerListUI = null;
-            sortLayerListUI = null;
-            progressObserverUI = null;
-            promptDialog = null;
-            confirmDialogUI = null;
-        }
-    }
+	public void calculateCredentials() {
+		if ("".equals(getPromptDialog().getUsername())
+				|| "".equals(getPromptDialog().getPassword())) {
+			showErrorAlert(getString(UIConstants.MUST_GIVE_USER_PWD));
+		} else {
+			credentials.setUsername(getPromptDialog().getUsername());
+			credentials.setPassword(getPromptDialog().getPassword());
+			// Calculate the credentials
+			byte[] credentialsBA = (credentials.getUsername() + ":" + credentials
+					.getPassword()).getBytes();
+			byte[] encodedCredentialsBA = Base64.encode(credentialsBA);
+			credentials.setCredentials(new String(encodedCredentialsBA));
+			// System.out.println("************ Calculated credentials:"
+			// + credentials.getCredentials());
+			try {
+				// Set credentials for HTTPS
+				model.setCredentials(credentials.getCredentials());
+			} catch (ApplicationException e) {
+				e.printStackTrace();
+				showErrorAlert(e, getMainMenuUI());
+			}
+			// After saving credentials, get server's capabilities
+			getCapabilitiesRequested();
+		}
+	}
+
+	public void confirm(int messageId) {
+		getConfirmDialogUI().showConfirm(messageId);
+		display.setCurrent(getConfirmDialogUI());
+	}
+
+	public void confirmAction(int messageId, boolean accepted) {
+		switch (messageId) {
+		case MessageCodes.CONFIRM_SAVE_PREFERENCES:
+			if (accepted) {
+				this.savePreferencesRequested();
+			} else {
+				mainMenuRequested();
+			}
+			break;
+
+		default:
+			break;
+		}
+	}
+
+	void deinitialize(boolean all) {
+		if (all) {
+			mapServersCmd = null;
+			mainMenuCommand = null;
+			exitCommand = null;
+			aboutCommand = null;
+			mainMenuUI = null;
+			preferencesUI = null;
+			mapServerUI = null;
+			mapViewUI = null;
+			// findPathUI = null;
+			searchFeatureUI = null;
+			searchFeatureResultUI = null;
+			layerSelectUI = null;
+			featureInfoUI = null;
+			helpUI = null;
+			layerListUI = null;
+			sortLayerListUI = null;
+			progressObserverUI = null;
+			promptDialog = null;
+			confirmDialogUI = null;
+		}
+	}
 }

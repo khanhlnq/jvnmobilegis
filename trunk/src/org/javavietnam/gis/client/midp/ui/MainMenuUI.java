@@ -93,54 +93,57 @@ import javax.microedition.lcdui.List;
  */
 class MainMenuUI extends List implements CommandListener {
 
-    private UIController uiController;
-    private Command exitCommand;
+	private UIController uiController;
+	private Command exitCommand;
 
-    public MainMenuUI(UIController uiController) {
-        super(uiController.getString(UIConstants.MOBILEGIS_CLIENT),
-                Choice.IMPLICIT);
-        try {
-            this.uiController = uiController;
+	public MainMenuUI(UIController uiController) {
+		super(uiController.getString(UIConstants.MOBILEGIS_CLIENT),
+				Choice.IMPLICIT);
+		try {
+			this.uiController = uiController;
 
-            append(uiController.getString(UIConstants.SERVER_UI_TITLE), uiController.getImage(UIConstants.ICON_SERVER_UI_TITLE));
-            append(uiController.getString(UIConstants.PREFERENCES), uiController.getImage(UIConstants.ICON_PREFERENCES));
-            append(uiController.getString(UIConstants.CHECK_UPDATE), uiController.getImage(UIConstants.ICON_CHECK_UPDATE));
-            append(uiController.getString(UIConstants.ABOUT), uiController.getImage(UIConstants.ICON_INFO));
-            exitCommand = new Command(uiController.getString(UIConstants.EXIT),
-                    Command.EXIT, 75);
+			append(uiController.getString(UIConstants.SERVER_UI_TITLE),
+					uiController.getImage(UIConstants.ICON_SERVER_UI_TITLE));
+			append(uiController.getString(UIConstants.PREFERENCES),
+					uiController.getImage(UIConstants.ICON_PREFERENCES));
+			append(uiController.getString(UIConstants.CHECK_UPDATE),
+					uiController.getImage(UIConstants.ICON_CHECK_UPDATE));
+			append(uiController.getString(UIConstants.ABOUT), uiController
+					.getImage(UIConstants.ICON_INFO));
+			exitCommand = new Command(uiController.getString(UIConstants.EXIT),
+					Command.EXIT, 75);
 
-            addCommand(exitCommand);
-            setCommandListener(this);
-        } catch (Exception e) {
-            System.out.println("*************** Exception: ");
-            e.printStackTrace();
-        }
-    }
+			addCommand(exitCommand);
+			setCommandListener(this);
+		} catch (Exception e) {
+			System.out.println("*************** Exception: ");
+			e.printStackTrace();
+		}
+	}
 
-    public void commandAction(Command command, Displayable displayable) {
-        if (List.SELECT_COMMAND == command) {
-            String label = getString(getSelectedIndex());
+	public void commandAction(Command command, Displayable displayable) {
+		if (List.SELECT_COMMAND == command) {
+			String label = getString(getSelectedIndex());
 
-            if (label.equals(uiController
-                    .getString(UIConstants.SERVER_UI_TITLE))) {
-                uiController.mapServerRequested();
-            } else if (label.equals(uiController
-                    .getString(UIConstants.PREFERENCES))) {
-                uiController.preferencesUIRequested();
-            } else if (label.equals(uiController
-                    .getString(UIConstants.CHECK_UPDATE))) {
-                uiController.checkUpdateRequested();
-            } else if (label.equals(uiController
-                    .getString(UIConstants.ABOUT))) {
-                uiController.aboutRequested();
-            }
-        } else {
-            if (command == exitCommand) {
-                uiController.exitRequested();
-            } else {
-                uiController.commandAction(command, displayable);
-            }
-        }
-    }
+			if (label.equals(uiController
+					.getString(UIConstants.SERVER_UI_TITLE))) {
+				uiController.mapServerRequested();
+			} else if (label.equals(uiController
+					.getString(UIConstants.PREFERENCES))) {
+				uiController.preferencesUIRequested();
+			} else if (label.equals(uiController
+					.getString(UIConstants.CHECK_UPDATE))) {
+				uiController.checkUpdateRequested();
+			} else if (label.equals(uiController.getString(UIConstants.ABOUT))) {
+				uiController.aboutRequested();
+			}
+		} else {
+			if (command == exitCommand) {
+				uiController.exitRequested();
+			} else {
+				uiController.commandAction(command, displayable);
+			}
+		}
+	}
 
 }

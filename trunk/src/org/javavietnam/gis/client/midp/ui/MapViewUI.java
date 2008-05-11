@@ -197,7 +197,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
                 .getString(UIConstants.SEARCH_FEATURE_UI_TITLE),
                 Command.SCREEN, 7);
         saveToFileCommand = new Command(uiController
-                .getString(UIConstants.SEARCH_FEATURE_UI_TITLE),
+                .getString(UIConstants.SAVE_TO_FILE),
                 Command.SCREEN, 7);
         helpCommand = new Command(uiController.getString(UIConstants.HELP_CMD),
             Command.SCREEN, 8);
@@ -884,7 +884,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
                     }
                 }
         else if (command == saveToFileCommand) {
-        	
+        	uiController.browseFileSystemRequested();
         } else if (command == helpCommand) {
             uiController.helpRequested();
         } else {
