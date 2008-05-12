@@ -6,14 +6,7 @@ import java.util.Enumeration;
 import javax.microedition.io.Connector;
 import javax.microedition.io.file.FileConnection;
 import javax.microedition.io.file.FileSystemRegistry;
-import javax.microedition.lcdui.Choice;
-import javax.microedition.lcdui.ChoiceGroup;
-import javax.microedition.lcdui.Command;
-import javax.microedition.lcdui.CommandListener;
-import javax.microedition.lcdui.Display;
-import javax.microedition.lcdui.Displayable;
-import javax.microedition.lcdui.Image;
-import javax.microedition.lcdui.List;
+import javax.microedition.lcdui.*;
 
 public class FileSystemBrowserUI extends List implements CommandListener {
 
@@ -46,10 +39,7 @@ public class FileSystemBrowserUI extends List implements CommandListener {
 	private Command save;
 	private Command view;
 	private Command properties;
-	private Command create;
-	private Command delete;
 	private Command back;
-	private Command exit;
 
 	public FileSystemBrowserUI(UIController uiController) {
 		super(uiController.getString(UIConstants.FILE_SYSTEM), List.IMPLICIT);
@@ -58,21 +48,15 @@ public class FileSystemBrowserUI extends List implements CommandListener {
 		dirIcon = this.uiController.getImage(UIConstants.ICON_DIR);
 		fileIcon = this.uiController.getImage(UIConstants.ICON_FILE);
 
-		exit = new Command(uiController.getString(UIConstants.EXIT),
-				Command.EXIT, 1);
 		view = new Command(uiController.getString(UIConstants.VIEW),
 				Command.SCREEN, 1);
-		create = new Command(uiController.getString(UIConstants.NEW),
-				Command.SCREEN, 2);
 		save = new Command(uiController.getString(UIConstants.SAVE),
-				Command.SCREEN, 3);
+				Command.SCREEN, 2);
 		properties = new Command(
 				uiController.getString(UIConstants.PROPERTIES), Command.SCREEN,
-				4);
-		delete = new Command(uiController.getString(UIConstants.DELETE),
-				Command.SCREEN, 5);
+				3);
 		back = new Command(uiController.getString(UIConstants.BACK),
-				Command.SCREEN, 6);
+				Command.SCREEN, 4);
 	}
 
 	public void getCurrDir() throws IOException{
@@ -106,20 +90,20 @@ public class FileSystemBrowserUI extends List implements CommandListener {
 		if (!currPath.equals(MEGA_ROOT)) {
 			addCommand(save);
 			addCommand(properties);
-			addCommand(create);
-			addCommand(delete);
+		} else {
+			removeCommand(save);
+			removeCommand(properties);
 		}
 
 		addCommand(back);
-
+		
 		uiController.setCommands(this);
-
+		
 		setCommandListener(this);
 
 		if (fileConnection != null) {
 			fileConnection.close();
 		}
-
 	}
 
 	public void commandAction(Command command, Displayable display) {
@@ -130,11 +114,9 @@ public class FileSystemBrowserUI extends List implements CommandListener {
 			uiController.browseFileSystemRequested(display);
 		} else if (command == properties) {
 			uiController.viewPropertiesRequested(display);
-		} else if (command == create) {
-			uiController.viewFileSystemCreatorRequested();
-		} else if (command == delete) {
-			uiController.deleteItemRequested(display);
-		} else {
+		} else if (command == back) {
+            uiController.viewMapRequested();
+        } else {
 			uiController.commandAction(command, display);
 		}
 	}

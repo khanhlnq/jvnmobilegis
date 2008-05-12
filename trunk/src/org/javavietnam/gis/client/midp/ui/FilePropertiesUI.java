@@ -17,7 +17,6 @@ import javax.microedition.lcdui.StringItem;
 public class FilePropertiesUI extends Form implements CommandListener {
 	private UIController uiController;
 	private FileSystemBrowserUI fileSystemBrowserUI;
-	private String filePath;
 	private FileConnection fileConnection;
 	private ChoiceGroup attrs;
 	private Command back;
@@ -44,7 +43,6 @@ public class FilePropertiesUI extends Form implements CommandListener {
 		if (fileName.endsWith(FileSystemBrowserUI.UP_DIRECTORY)) {
 			return;
 		}
-		this.filePath = fileName;
 
 		if (!fileConnection.exists()) {
 			throw new IOException("File does not exists");
@@ -89,9 +87,8 @@ public class FilePropertiesUI extends Form implements CommandListener {
 	}
 
 	public void commandAction(Command command, Displayable display) {
-		// TODO Auto-generated method stub
 		if (command == back) {
-			uiController.backToFileSystemBrowserUIRequested();
+			uiController.viewFileSystemBrowserUIRequested();
 		} 
 	}
 }
