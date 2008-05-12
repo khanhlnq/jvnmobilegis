@@ -206,6 +206,16 @@ public class ModelFacade {
                     .getCauseCode()]);
         }
     }
+    
+    public byte[] getMapWMSAsBytes(WMSRequestParameter requestParam, Vector layerList)
+		    throws ApplicationException {
+		try {
+		    return remoteModel.getMapWMSAsBytes(requestParam, layerList);
+		} catch (ModelException me) {
+		    throw new ApplicationException(errorMessageCodeMap[me
+		            .getCauseCode()]);
+		}
+	}
 
     /*
      * public String findPathWMS(WMSRequestParameter requestParam) throws

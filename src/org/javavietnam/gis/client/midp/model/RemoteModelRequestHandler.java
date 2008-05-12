@@ -167,6 +167,12 @@ abstract public class RemoteModelRequestHandler implements RequestHandler {
         return getRemoteModelRequestHandler()
                 .getMapWMS(requestParam, layerList);
     }
+    
+    public byte[] getMapWMSAsBytes(WMSRequestParameter requestParam, Vector layerList)
+		    throws ModelException, ApplicationException {
+		return getRemoteModelRequestHandler()
+		        .getMapWMSAsBytes(requestParam, layerList);
+	}
 
     public String checkUpdate(String updateURL) throws ModelException,
             ApplicationException {
