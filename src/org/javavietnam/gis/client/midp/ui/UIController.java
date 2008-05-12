@@ -1079,7 +1079,6 @@ public class UIController {
 							+ getFileSystemBrowserUI().getCurrPath()
 							+ fileSystemCreatorUI.getNameInput().getString();
 					
-
 					try {
 						fileConnection = (FileConnection) Connector.open(url,
 								Connector.READ_WRITE);
