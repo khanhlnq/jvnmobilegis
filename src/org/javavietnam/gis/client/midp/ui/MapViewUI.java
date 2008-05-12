@@ -83,6 +83,7 @@ package org.javavietnam.gis.client.midp.ui;
 
 import henson.midp.Float;
 
+import javax.microedition.lcdui.Alert;
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.CommandListener;
 import javax.microedition.lcdui.Displayable;
@@ -884,7 +885,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
                     }
                 }
         else if (command == saveToFileCommand) {
-        	uiController.browseFileSystemRequested();
+    		uiController.browseFileSystemRequested();
         } else if (command == helpCommand) {
             uiController.helpRequested();
         } else {

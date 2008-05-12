@@ -15,14 +15,11 @@ import javax.microedition.lcdui.Image;
 public class FileContentUI extends Form implements CommandListener {
 	private UIController uiController;
 	private FileSystemBrowserUI fileSystemBrowserUI;
-	private String fileName;
 	private FileConnection fileConnection;
 	private DataInputStream dis;
 	private InputStream is;
-	private String textContent;
 	private Image imageContent;
 	private Command back;
-	private Command exit;
 
 	public FileContentUI(UIController uiController,
 			FileSystemBrowserUI fileSystemBrowserUI) {
@@ -30,13 +27,10 @@ public class FileContentUI extends Form implements CommandListener {
 		this.uiController = uiController;
 		this.fileSystemBrowserUI = fileSystemBrowserUI;
 
-		exit = new Command(uiController.getString(UIConstants.EXIT),
-				Command.EXIT, 1);
 		back = new Command(uiController.getString(UIConstants.BACK),
 				Command.BACK, 1);
 
 		addCommand(back);
-		addCommand(exit);
 		setCommandListener(this);
 	}
 
@@ -82,7 +76,7 @@ public class FileContentUI extends Form implements CommandListener {
 	public void commandAction(Command command, Displayable display) {
 		// TODO Auto-generated method stub
 		if (command == back) {
-			uiController.backToFileSystemBrowserUIRequested();
+			uiController.viewFileSystemBrowserUIRequested();
 		}
 	}
 }

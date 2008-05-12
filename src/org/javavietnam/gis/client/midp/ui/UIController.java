@@ -81,6 +81,8 @@
  */
 package org.javavietnam.gis.client.midp.ui;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -155,6 +157,7 @@ public class UIController {
 	public MapServersCmd mapServersCmd;
 	private final Image[] icons = new Image[iconPaths.length];
 	private FileConnection fileConnection;
+	private OutputStream out = null;
 	private Command mainMenuCommand;
 	private Command exitCommand;
 	private Command aboutCommand;
@@ -396,8 +399,7 @@ public class UIController {
 	 */
 	public FileSystemCreatorUI getFileSystemCreatorUI() {
 		if (fileSystemCreatorUI == null) {
-			fileSystemCreatorUI = new FileSystemCreatorUI(this,
-					getFileSystemBrowserUI());
+			fileSystemCreatorUI = new FileSystemCreatorUI(this);
 		}
 		return fileSystemCreatorUI;
 	}
@@ -678,12 +680,18 @@ public class UIController {
 	// File System Browser
 
 	public void browseFileSystemRequested() { // First time File System
-												// Browser is call
-		excuteShowDir(FileSystemBrowserUI.MEGA_ROOT);
+		// Browser is call
+		String FCOPversion = System
+				.getProperty("microedition.io.file.FileConnection.version");
+		if (FCOPversion != null) {
+			excuteShowDir(FileSystemBrowserUI.MEGA_ROOT);
+		} else {
+			showErrorAlert("Error! Your device doesn't support Browsing File System");
+		}
 	}
 
 	public void browseFileSystemRequested(Displayable d) { // Browsing File
-															// System
+		// System
 		final String itemName;
 		List curr = (List) d;
 		itemName = curr.getString(curr.getSelectedIndex());
@@ -702,17 +710,9 @@ public class UIController {
 				getMapServerUI()), getString(UIConstants.PROCESSING), false);
 	}
 
-	// Being invoked when browsing File System. Should have type input in File
-	// System Creator UI
-	public void viewFileSystemCreatorRequested() {
-		getFileSystemCreatorUI().addTypeInput();
-		display.setCurrent(getFileSystemCreatorUI());
-	}
-
 	// Being invoked when saving map to file. Should remove type input File
 	// System Creator UI (if having)
 	public void viewSaveToFileInputRequested() {
-		getFileSystemCreatorUI().removeTypeInput();
 		display.setCurrent(getFileSystemCreatorUI());
 	}
 
@@ -741,24 +741,22 @@ public class UIController {
 		}
 	}
 
-	public void createOKRequested(TextField nameInput, ChoiceGroup typeInput) {
-		String itemName = nameInput.getString();
-
-		if ((itemName == null) || itemName.equals("")) {
-			showErrorAlert("Name input is empty. Please provide a name");
-		} else {
-			// Create file in a separate thread and disable all commands
-			// except for "exit"
-			executeCreateItem(itemName, typeInput.getSelectedIndex() != 0);
-		}
-	}
+	/*
+	 * public void createOKRequested(TextField nameInput, ChoiceGroup typeInput) {
+	 * String itemName = nameInput.getString();
+	 * 
+	 * if ((itemName == null) || itemName.equals("")) { showErrorAlert("Name
+	 * input is empty. Please provide a name"); } else { // Create file in a
+	 * separate thread and disable all commands // except for "exit"
+	 * executeCreateItem(itemName, typeInput.getSelectedIndex() != 0); } }
+	 */
 
 	public void deleteItemRequested(Displayable d) {
 		List curr = (List) d;
 		executeDeleteItem(curr.getString(curr.getSelectedIndex()));
 	}
 
-	public void backToFileSystemBrowserUIRequested() {
+	public void viewFileSystemBrowserUIRequested() {
 		display.setCurrent(getFileSystemBrowserUI());
 	}
 
@@ -945,6 +943,9 @@ public class UIController {
 				} catch (IOException ioe) {
 					showErrorAlert("Can not view file content" + "\nException"
 							+ ioe);
+				} catch (IllegalArgumentException iae) {
+					showErrorAlert("This file is not in a right format"
+							+ "\nException" + iae);
 				}
 
 			}
@@ -1070,51 +1071,36 @@ public class UIController {
 					break;
 				}
 				case EventIds.EVENT_ID_SAVETOFILE: {
-					String FCOPversion = System
-							.getProperty("microedition.io.file.FileConnection.version");
 
-					if (FCOPversion != null) { // FCOP is available
-						Image img = getMapWMS(getMapViewUI(), getLayerListUI()
-								.getSelectedLayerList());
-						int width = img.getWidth();
-						int height = img.getHeight();
-						InputStream is;
-						byte[] imgByteArray = new byte[60];
-						// DataInputStream diss = new DataInputStream(new
-						// InputStream(img));
-						// img.
+					byte[] imgByteArray = getMapWMSAsBytes(getMapViewUI(),
+							getLayerListUI().getSelectedLayerList());
 
-						String url = "file://localhost/"
-								+ getFileSystemBrowserUI().getCurrPath()
-								+ fileSystemCreatorUI.getNameInput()
-										.getString();
-						FileConnection fileConnection = null;
-						OutputStream out = null;
+					String url = "file://localhost/"
+							+ getFileSystemBrowserUI().getCurrPath()
+							+ fileSystemCreatorUI.getNameInput().getString();
+					
 
-						try {
-							fileConnection = (FileConnection) Connector.open(
-									url, Connector.READ_WRITE);
-							if (!fileConnection.exists()) {
-								fileConnection.create();
-							}
-							out = fileConnection.openOutputStream();
-
-							// out.write(byteArray);
-							out.flush();
-						} catch (IOException ioEx) {
-							ioEx.printStackTrace();
-							showErrorAlert(getString(UIConstants.UNKNOWN_ERROR)
-									+ ":\n" + ioEx.getMessage());
-						} catch (SecurityException sEx) {
-							sEx.printStackTrace();
-							showErrorAlert(getString(UIConstants.UNKNOWN_ERROR)
-									+ ":\n" + sEx.getMessage());
-						} finally {
-							out.close();
-							fileConnection.close();
+					try {
+						fileConnection = (FileConnection) Connector.open(url,
+								Connector.READ_WRITE);
+						if (!fileConnection.exists()) {
+							fileConnection.create();
 						}
-					} else {
-						// FCOP not available
+						out = fileConnection.openOutputStream();
+
+						out.write(imgByteArray);
+						out.flush();
+					} catch (IOException ioEx) {
+						ioEx.printStackTrace();
+						showErrorAlert(getString(UIConstants.UNKNOWN_ERROR)
+								+ ":\n" + ioEx.getMessage());
+					} catch (SecurityException sEx) {
+						sEx.printStackTrace();
+						showErrorAlert(getString(UIConstants.UNKNOWN_ERROR)
+								+ ":\n" + sEx.getMessage());
+					} finally {
+						out.close();
+						fileConnection.close();
 					}
 					viewMapRequested();
 					break;
@@ -1201,6 +1187,22 @@ public class UIController {
 		getLayerSelectUI().init(getLayerListUI().getSelectedLayerList());
 		// return model.getMapWMS(requestParam, layerList);
 		return model.getMapWMS(requestParam, getSortLayerListUI()
+				.getSortLayerList());
+	}
+
+	private byte[] getMapWMSAsBytes(WMSRequestParameter requestParam,
+			Vector layerList) throws ApplicationException {
+		if (0 < layerList.size()) {
+			LayerInformation layerInfo = (LayerInformation) layerList
+					.elementAt(0);
+			getMapViewUI().initParam(layerInfo.getLatLonBoundingBox(),
+					layerInfo.getServerInformation().getGetMapURL(),
+					layerInfo.getField("srs"));
+		}
+		// Init layers for select layer UI
+		getLayerSelectUI().init(getLayerListUI().getSelectedLayerList());
+		// return model.getMapWMS(requestParam, layerList);
+		return model.getMapWMSAsBytes(requestParam, getSortLayerListUI()
 				.getSortLayerList());
 	}
 
