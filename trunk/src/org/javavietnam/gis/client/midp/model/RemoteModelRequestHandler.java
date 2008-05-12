@@ -102,7 +102,6 @@ abstract public class RemoteModelRequestHandler implements RequestHandler {
      */
     private RemoteModelRequestHandler nextHandler;
     private static ProgressObserver progressObserver;
-    private int totalData = 0;
 
     public RemoteModelRequestHandler(RemoteModelRequestHandler nextHandler) {
         this.nextHandler = nextHandler;
