@@ -124,15 +124,20 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         internalCache = new SimpleCache();
     }
 
+    public Image getMapWMS(WMSRequestParameter requestParam, Vector layerList)
+            throws ModelException, ApplicationException {
+    	
+    	byte[] bytes = getMapWMSAsBytes(requestParam, layerList);
+    	
+    	return Image.createImage(bytes, 0, bytes.length);
+    }
     /**
      * Get image from WMS server @
      */
-    public Image getMapWMS(WMSRequestParameter requestParam, Vector layerList)
+    public byte[] getMapWMSAsBytes(WMSRequestParameter requestParam, Vector layerList)
             throws ModelException, ApplicationException {
         HttpConnection connection = null;
         InputStream inputStream = null;
-
-        Image img;
 
         // Try to free-up memory first
         System.gc();
@@ -181,7 +186,6 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         // Check if this URL was already cached
         if (internalCache.containsKey(wmsUrl)) {
            System.out.println("Pull data from cache for \n" + wmsUrl);
-           img = (Image)internalCache.get(wmsUrl);
         } else {
             try {
                 connection = openGETConnection(wmsUrl);
@@ -214,8 +218,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
                     totalData++;
                 }
 
-                img = Image.createImage(baos.toByteArray(), 0, baos.size());
-                internalCache.put(wmsUrl, img);
+                internalCache.put(wmsUrl, baos.toByteArray());
 
                 updateProgress();
             } catch (IOException ioe) {
@@ -237,8 +240,8 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
                 closeConnection(connection, inputStream);
             }
         }
-
-        return img;
+        
+        return (byte[])internalCache.get(wmsUrl);
     }
 
     /*
@@ -739,5 +742,4 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 
 		return new Integer(totalData).toString() + " B";
 	}
-
 }
