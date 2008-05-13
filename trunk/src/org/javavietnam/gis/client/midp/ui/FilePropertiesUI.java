@@ -19,6 +19,7 @@ public class FilePropertiesUI extends Form implements CommandListener {
 	private FileSystemBrowserUI fileSystemBrowserUI;
 	private FileConnection fileConnection;
 	private ChoiceGroup attrs;
+	private StringItem location, type, dateModified;
 	private Command back;
 
 	public static final String[] attrList = { "Read", "Write", "Hidden" };
@@ -31,15 +32,26 @@ public class FilePropertiesUI extends Form implements CommandListener {
 
 		attrs = new ChoiceGroup("Attributes:", Choice.MULTIPLE, attrList, null);
 
+		location = new StringItem("Location:", null);
+		type = new StringItem("Type: ", null);
+		dateModified = new StringItem("Modified:", null);
+
 		back = new Command(uiController.getString(UIConstants.BACK),
 				Command.BACK, 2);
+		
+		append(location);
+		append(type);
+		append(dateModified);
+		append(attrs);
+
+		addCommand(back);
+		setCommandListener(this);
 
 	}
 
-	public void getProperties(String fileName) throws IOException{
-		fileConnection = (FileConnection) Connector
-				.open("file://localhost/"
-						+ fileSystemBrowserUI.getCurrPath() + fileName);
+	public void getProperties(String fileName) throws IOException {
+		fileConnection = (FileConnection) Connector.open("file://localhost/"
+				+ fileSystemBrowserUI.getCurrPath() + fileName);
 		if (fileName.endsWith(FileSystemBrowserUI.UP_DIRECTORY)) {
 			return;
 		}
@@ -47,18 +59,16 @@ public class FilePropertiesUI extends Form implements CommandListener {
 		if (!fileConnection.exists()) {
 			throw new IOException("File does not exists");
 		}
+
 		attrs.setSelectedFlags(new boolean[] { fileConnection.canRead(),
 				fileConnection.canWrite(), fileConnection.isHidden() });
+		
+		System.gc();
 
-		append(new StringItem("Location:", fileName));
-		append(new StringItem("Type: ",
-				fileConnection.isDirectory() ? "Directory" : "Regular File"));
-		append(new StringItem("Modified:", myDate(fileConnection
-				.lastModified())));
-		append(attrs);
-
-		addCommand(back);
-		setCommandListener(this);
+		location.setText(fileName);
+		type.setText(fileConnection.isDirectory() ? "Directory"
+				: "Regular File");
+		dateModified.setText(myDate(fileConnection.lastModified()));
 
 		fileConnection.close();
 	}
@@ -89,6 +99,6 @@ public class FilePropertiesUI extends Form implements CommandListener {
 	public void commandAction(Command command, Displayable display) {
 		if (command == back) {
 			uiController.viewFileSystemBrowserUIRequested();
-		} 
+		}
 	}
 }

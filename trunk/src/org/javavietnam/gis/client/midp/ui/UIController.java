@@ -929,6 +929,8 @@ public class UIController {
 				} catch (IOException ioe) {
 					showErrorAlert("Can not view file properties"
 							+ "\nException" + ioe);
+				} catch (IllegalStateException ise) {
+					
 				}
 			}
 		}.start();
@@ -1072,13 +1074,13 @@ public class UIController {
 				}
 				case EventIds.EVENT_ID_SAVETOFILE: {
 
-					byte[] imgByteArray = getMapWMSAsBytes(getMapViewUI(),
+					byte[] imgByteArray = getMapWMSAsBytesForSaving(getMapViewUI(),
 							getLayerListUI().getSelectedLayerList());
 
 					String url = "file://localhost/"
 							+ getFileSystemBrowserUI().getCurrPath()
 							+ fileSystemCreatorUI.getNameInput().getString();
-					
+
 					try {
 						fileConnection = (FileConnection) Connector.open(url,
 								Connector.READ_WRITE);
@@ -1203,6 +1205,11 @@ public class UIController {
 		// return model.getMapWMS(requestParam, layerList);
 		return model.getMapWMSAsBytes(requestParam, getSortLayerListUI()
 				.getSortLayerList());
+	}
+
+	private byte[] getMapWMSAsBytesForSaving(WMSRequestParameter requestParam,
+			Vector layerList) throws ApplicationException {
+		return model.getMapWMSAsBytes(requestParam, layerList);
 	}
 
 	/*
