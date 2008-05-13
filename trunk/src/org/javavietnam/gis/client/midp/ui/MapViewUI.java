@@ -212,6 +212,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         // addCommand(findPathCommand);
         addCommand(getFeatureInfoCommand);
         addCommand(searchFeatureCommand);
+        // FIXME Binh: Should check for JRS-75 support before add this command
         addCommand(saveToFileCommand);
         addCommand(helpCommand);
 

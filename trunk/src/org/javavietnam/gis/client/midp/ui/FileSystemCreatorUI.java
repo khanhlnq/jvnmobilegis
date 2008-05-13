@@ -1,3 +1,5 @@
+// TODO Binh: Add Java file header
+
 package org.javavietnam.gis.client.midp.ui;
 
 import javax.microedition.lcdui.*;
