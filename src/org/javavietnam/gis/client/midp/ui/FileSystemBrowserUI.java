@@ -56,10 +56,10 @@ public class FileSystemBrowserUI extends List implements CommandListener {
 				uiController.getString(UIConstants.PROPERTIES), Command.SCREEN,
 				3);
 		back = new Command(uiController.getString(UIConstants.BACK),
-				Command.SCREEN, 4);
+				Command.BACK, 4);
 	}
 
-	public void getCurrDir() throws IOException{
+	public void getCurrDir() throws IOException {
 		if (MEGA_ROOT.equals(currPath)) {
 			enumeration = FileSystemRegistry.listRoots();
 			this.deleteAll();
@@ -96,9 +96,9 @@ public class FileSystemBrowserUI extends List implements CommandListener {
 		}
 
 		addCommand(back);
-		
+
 		uiController.setCommands(this);
-		
+
 		setCommandListener(this);
 
 		if (fileConnection != null) {
@@ -115,8 +115,8 @@ public class FileSystemBrowserUI extends List implements CommandListener {
 		} else if (command == properties) {
 			uiController.viewPropertiesRequested(display);
 		} else if (command == back) {
-            uiController.viewMapRequested();
-        } else {
+			uiController.viewMapRequested();
+		} else {
 			uiController.commandAction(command, display);
 		}
 	}
