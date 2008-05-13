@@ -124,6 +124,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         internalCache = new SimpleCache();
     }
 
+    // FIXME Binh: Should not modify this method, create getMapWMSAsBytes()base on this method instead
     public Image getMapWMS(WMSRequestParameter requestParam, Vector layerList)
             throws ModelException, ApplicationException {
     	

@@ -1,3 +1,5 @@
+// TODO Binh: Add Java file header
+
 package org.javavietnam.gis.client.midp.ui;
 
 import java.io.IOException;
@@ -107,7 +109,7 @@ public class FileSystemBrowserUI extends List implements CommandListener {
 	}
 
 	public void commandAction(Command command, Displayable display) {
-		// TODO Auto-generated method stub
+		// TODO Binh: Should allowing browsing by pressing Action key (List.SELECT_COMMAND) 
 		if (command == save) {
 			uiController.viewSaveToFileInputRequested();
 		} else if (command == view) {
@@ -118,7 +120,7 @@ public class FileSystemBrowserUI extends List implements CommandListener {
 			uiController.viewMapRequested();
 		} else {
 			uiController.commandAction(command, display);
-		}
+		} 
 	}
 
 	/**

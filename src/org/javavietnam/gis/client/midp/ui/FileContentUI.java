@@ -1,3 +1,5 @@
+// TODO Binh: Add Java file header
+
 package org.javavietnam.gis.client.midp.ui;
 
 import java.io.DataInputStream;
@@ -74,7 +76,6 @@ public class FileContentUI extends Form implements CommandListener {
 	}
 
 	public void commandAction(Command command, Displayable display) {
-		// TODO Auto-generated method stub
 		if (command == back) {
 			uiController.viewFileSystemBrowserUIRequested();
 		}
