@@ -930,7 +930,7 @@ public class UIController {
 					showErrorAlert("Can not view file properties"
 							+ "\nException" + ioe);
 				} catch (IllegalStateException ise) {
-					
+
 				}
 			}
 		}.start();
@@ -1074,8 +1074,9 @@ public class UIController {
 				}
 				case EventIds.EVENT_ID_SAVETOFILE: {
 
-					byte[] imgByteArray = getMapWMSAsBytesForSaving(getMapViewUI(),
-							getLayerListUI().getSelectedLayerList());
+					byte[] imgByteArray = getMapWMSAsBytesForSaving(
+							getMapViewUI(), getLayerListUI()
+									.getSelectedLayerList());
 
 					String url = "file://localhost/"
 							+ getFileSystemBrowserUI().getCurrPath()
