@@ -41,6 +41,9 @@ package org.javavietnam.gis.client.midp.ui;
 
 import javax.microedition.lcdui.*;
 
+import org.javavietnam.gis.client.midp.model.MessageCodes;
+import org.javavietnam.gis.shared.midp.ApplicationException;
+
 public class FileSystemCreatorUI extends Form implements CommandListener {
 	private UIController uiController;
 	private TextField nameInput;
@@ -48,9 +51,11 @@ public class FileSystemCreatorUI extends Form implements CommandListener {
 	private Command back;
 
 	public FileSystemCreatorUI(UIController uiController) {
-		super("New File");
+		super(uiController.getString(UIConstants.SAVE_AS));
 		this.uiController = uiController;
-		nameInput = new TextField("Enter Name", null, 256, TextField.ANY);
+		nameInput = new TextField(
+				uiController.getString(UIConstants.FILE_NAME), null, 256,
+				TextField.ANY);
 
 		creatOK = new Command(uiController.getString(UIConstants.OK),
 				Command.OK, 1);
@@ -65,7 +70,14 @@ public class FileSystemCreatorUI extends Form implements CommandListener {
 
 	public void commandAction(Command command, Displayable display) {
 		if (command == creatOK) {
-		    uiController.saveMapToFileRequested();
+			if (getNameInput().getString().equals("")) {
+				uiController.showErrorAlert(new ApplicationException(
+						uiController
+								.getMessage(MessageCodes.MISSING_NAME_INPUT)),
+						display);
+			} else {
+				uiController.saveMapToFileRequested(null);
+			}
 		} else if (command == back) {
 			uiController.viewFileSystemBrowserUIRequested();
 		}
@@ -77,5 +89,4 @@ public class FileSystemCreatorUI extends Form implements CommandListener {
 	public TextField getNameInput() {
 		return nameInput;
 	}
-
 }

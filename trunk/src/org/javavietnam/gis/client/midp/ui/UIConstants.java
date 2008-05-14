@@ -168,6 +168,8 @@ public final class UIConstants {
 	public static final int NEW = 98;
 	public static final int DELETE = 99;
 	public static final int CREATE = 100;
+	public static final int SAVE_AS = 101;
+	public static final int FILE_NAME = 102;
 
     private UIConstants() {
     }

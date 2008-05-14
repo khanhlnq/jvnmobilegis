@@ -99,7 +99,24 @@ public final class MessageCodes {
 
     // Confirm messages
     public static final int CONFIRM_SAVE_PREFERENCES = 9;
-
+    
+    // File System Browser
+    public static final int ERROR_DOESNT_SUPPORT_JSR_75 = 10;
+    public static final int ERROR_CAN_NOT_ACCESS_FILE = 11;
+    public static final int ERROR_CAN_NOT_ACCESS_DIR = 12;
+    public static final int ERROR_CAN_NOT_CREATE_FILE = 13;
+    public static final int ERROR_CAN_NOT_CREATE_DIR = 14;
+    public static final int ERROR_CAN_NOT_DELETE_NON_EMPTY_DIR = 15;
+    public static final int ERROR_CAN_NOT_DELETE_FILE = 16;
+    public static final int ERROR_CAN_NOT_DELETE_DIR = 17;
+    public static final int ERROR_CAN_NOT_DELETE_UP_DIR = 18;
+    public static final int ERROR_CAN_NOT_VIEW_DIR = 19;
+    public static final int ERROR_CAN_NOT_VIEW_CUR_DIR = 20;
+    public static final int ERROR_CAN_NOT_VIEW_PROPERTIES = 21;
+    public static final int ERROR_CAN_NOT_VIEW_CONTENT = 22;
+    public static final int ERROR_WRONG_FORMAT = 23;
+    public static final int ERROR_CAN_NOT_SAVE_MAP_TO_DIR = 24;
+    public static final int MISSING_NAME_INPUT = 25;
     // private ErrorMessageCodes() {
     // }
 

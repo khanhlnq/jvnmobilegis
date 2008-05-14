@@ -321,6 +321,10 @@ public class MapViewUI extends GameCanvas implements CommandListener,
     public String getPNGFormat() {
         return ("image/png");
     }
+    
+    public String getPNGExtension() {
+    	return (".png");
+    }
 
     /*
      * public void setIsViewPath(boolean viewPath) { this.isViewPath = viewPath; }

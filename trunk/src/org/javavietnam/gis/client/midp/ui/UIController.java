@@ -439,7 +439,7 @@ public class UIController {
 		showErrorAlert(new ApplicationException(e), getMainMenuUI());
 	}
 
-	private void showErrorAlert(ApplicationException ae, Displayable d) {
+	public void showErrorAlert(ApplicationException ae, Displayable d) {
 		showErrorAlert(ae.getMessage(), d);
 	}
 
@@ -686,7 +686,7 @@ public class UIController {
 		if (FCOPversion != null) {
 			excuteShowDir(FileSystemBrowserUI.MEGA_ROOT);
 		} else {
-			showErrorAlert("Error! Your device doesn't support Browsing File System");
+			showErrorAlert(getMessage(MessageCodes.ERROR_DOESNT_SUPPORT_JSR_75));
 		}
 	}
 
@@ -705,27 +705,35 @@ public class UIController {
 		}
 	}
 
-	public void saveMapToFileRequested() {
+	public void saveMapToFileRequested(Displayable display) {
+		// Over write the existing file. If not, get file name from
+		// FileSystemCreatorUI.
+		if (display != null && display instanceof List) {
+			List list = (List) display;
+			String fileName = list.getString(list.getSelectedIndex());
+			getFileSystemCreatorUI().getNameInput().setString(fileName);
+		}
+
 		runWithProgress(new EventDispatcher(EventIds.EVENT_ID_SAVETOFILE,
 				getMapServerUI()), getString(UIConstants.PROCESSING), false);
 	}
 
-	// Being invoked when saving map to file. Should remove type input File
-	// System Creator UI (if having)
-	public void viewSaveToFileInputRequested() {
+	public void saveAsMapToFileRequested() {
+		getFileSystemCreatorUI().getNameInput().setString("");
+
 		display.setCurrent(getFileSystemCreatorUI());
 	}
 
 	public void viewPropertiesRequested(Displayable d) {
 		List curr = (List) d;
 		String fileName = curr.getString(curr.getSelectedIndex());
+
 		try {
 			excuteShowProperties(fileName);
 		} catch (Exception e) {
-			Alert alert = new Alert("Error!", "Can not access file " + fileName
-					+ "\nException: " + e.getMessage(), null, AlertType.ERROR);
-			alert.setTimeout(Alert.FOREVER);
-			display.setCurrent(alert);
+			String errorMessage = getMessage(MessageCodes.ERROR_CAN_NOT_ACCESS_FILE)
+					+ fileName + "\nException: " + e.getMessage();
+			showErrorAlert(errorMessage);
 		}
 	}
 
@@ -733,11 +741,10 @@ public class UIController {
 		try {
 			excuteShowFile(fileName);
 		} catch (Exception e) {
-			Alert alert = new Alert("Error!", "Can not access file " + fileName
+			String errorMessage = "Error! Can not access file " + fileName
 					+ " in directory " + getFileSystemBrowserUI().getCurrPath()
-					+ "\nException: " + e.getMessage(), null, AlertType.ERROR);
-			alert.setTimeout(Alert.FOREVER);
-			display.setCurrent(alert);
+					+ "\nException: " + e.getMessage();
+			showErrorAlert(errorMessage);
 		}
 	}
 
@@ -753,10 +760,12 @@ public class UIController {
 
 	public void deleteItemRequested(Displayable d) {
 		List curr = (List) d;
+
 		executeDeleteItem(curr.getString(curr.getSelectedIndex()));
 	}
 
 	public void viewFileSystemBrowserUIRequested() {
+
 		display.setCurrent(getFileSystemBrowserUI());
 	}
 
@@ -812,8 +821,9 @@ public class UIController {
 					fileConnection.close();
 					excuteShowCurrDir();
 				} catch (IOException ioe) {
-					String errorMessage = "Error! Can not create file '"
-							+ itemName + "\nException: " + ioe;
+					String errorMessage = (isDirectory) ? getMessage(MessageCodes.ERROR_CAN_NOT_CREATE_DIR)
+							: getMessage(MessageCodes.ERROR_CAN_NOT_CREATE_FILE)
+									+ itemName + "\nException: " + ioe;
 					showErrorAlert(errorMessage);
 				}
 			}
@@ -832,12 +842,12 @@ public class UIController {
 								delete(itemName);
 								excuteShowCurrDir();
 							} else { // Alert if this folder is not empty
-								String errorMessage = "Error! Can not delete the non-empty folder: "
+								String errorMessage = getMessage(MessageCodes.ERROR_CAN_NOT_DELETE_NON_EMPTY_DIR)
 										+ itemName;
 								showErrorAlert(errorMessage);
 							}
 						} catch (IOException ioe) {
-							String errorMessage = "Error! Can not access/delete folder: "
+							String errorMessage = getMessage(MessageCodes.ERROR_CAN_NOT_DELETE_DIR)
 									+ itemName + "\nException: " + ioe;
 							showErrorAlert(errorMessage);
 						}
@@ -848,13 +858,13 @@ public class UIController {
 									.getCurrPath());
 						} catch (IOException ioe) { // Alert if this file can
 							// not be accessed
-							String errorMessage = "Error! Can not access/delete file: "
+							String errorMessage = getMessage(MessageCodes.ERROR_CAN_NOT_DELETE_FILE)
 									+ itemName + "\nException: " + ioe;
 							showErrorAlert(errorMessage);
 						}
 					}
 				} else {
-					String errorMessage = "Can not delete The up-directory (..). This is a symbol! not a real folder"
+					String errorMessage = getMessage(MessageCodes.ERROR_CAN_NOT_DELETE_UP_DIR)
 							+ itemName;
 					showErrorAlert(errorMessage);
 				}
@@ -865,6 +875,7 @@ public class UIController {
 	public void delete(String strItemName) throws IOException {
 		fileConnection = (FileConnection) Connector.open("file://localhost/"
 				+ getFileSystemBrowserUI().getCurrPath() + strItemName);
+
 		fileConnection.delete();
 
 		fileConnection.close();
@@ -899,7 +910,7 @@ public class UIController {
 					getFileSystemBrowserUI().getCurrDir();
 					display.setCurrent(getFileSystemBrowserUI());
 				} catch (IOException ioe) {
-					showErrorAlert("Can not view directory" + "\nException"
+					showErrorAlert(getMessage(MessageCodes.ERROR_CAN_NOT_VIEW_DIR) + "\nException: "
 							+ ioe);
 				}
 			}
@@ -913,8 +924,8 @@ public class UIController {
 					getFileSystemBrowserUI().getCurrDir();
 					display.setCurrent(getFileSystemBrowserUI());
 				} catch (IOException ioe) {
-					showErrorAlert("Can not view current directory"
-							+ "\nException" + ioe);
+					showErrorAlert(getMessage(MessageCodes.ERROR_CAN_NOT_VIEW_CUR_DIR)
+							+ "\nException: " + ioe);
 				}
 			}
 		}.start();
@@ -927,8 +938,8 @@ public class UIController {
 					getFilePropertiesUI().getProperties(fileName);
 					display.setCurrent(getFilePropertiesUI());
 				} catch (IOException ioe) {
-					showErrorAlert("Can not view file properties"
-							+ "\nException" + ioe);
+					showErrorAlert(getMessage(MessageCodes.ERROR_CAN_NOT_VIEW_PROPERTIES)
+							+ "\nException: " + ioe);
 				} catch (IllegalStateException ise) {
 
 				}
@@ -943,11 +954,11 @@ public class UIController {
 					getFileContentUI().getFileContent(fileName);
 					display.setCurrent(getFileContentUI());
 				} catch (IOException ioe) {
-					showErrorAlert("Can not view file content" + "\nException"
+					showErrorAlert(getMessage(MessageCodes.ERROR_CAN_NOT_VIEW_CONTENT) + "\nException: "
 							+ ioe);
 				} catch (IllegalArgumentException iae) {
-					showErrorAlert("This file is not in a right format"
-							+ "\nException" + iae);
+					showErrorAlert(getMessage(MessageCodes.ERROR_WRONG_FORMAT)
+							+ "\nException: " + iae);
 				}
 
 			}
@@ -1078,9 +1089,14 @@ public class UIController {
 							getMapViewUI(), getLayerListUI()
 									.getSelectedLayerList());
 
+					String fileName = fileSystemCreatorUI.getNameInput()
+							.getString();
+					fileName = (fileName.endsWith(getMapViewUI()
+							.getPNGExtension())) ? fileName : fileName
+							+ getMapViewUI().getPNGExtension();
+
 					String url = "file://localhost/"
-							+ getFileSystemBrowserUI().getCurrPath()
-							+ fileSystemCreatorUI.getNameInput().getString();
+							+ getFileSystemBrowserUI().getCurrPath() + fileName;
 
 					try {
 						fileConnection = (FileConnection) Connector.open(url,
@@ -1189,22 +1205,6 @@ public class UIController {
 		getLayerSelectUI().init(getLayerListUI().getSelectedLayerList());
 		// return model.getMapWMS(requestParam, layerList);
 		return model.getMapWMS(requestParam, getSortLayerListUI()
-				.getSortLayerList());
-	}
-
-	private byte[] getMapWMSAsBytes(WMSRequestParameter requestParam,
-			Vector layerList) throws ApplicationException {
-		if (0 < layerList.size()) {
-			LayerInformation layerInfo = (LayerInformation) layerList
-					.elementAt(0);
-			getMapViewUI().initParam(layerInfo.getLatLonBoundingBox(),
-					layerInfo.getServerInformation().getGetMapURL(),
-					layerInfo.getField("srs"));
-		}
-		// Init layers for select layer UI
-		getLayerSelectUI().init(getLayerListUI().getSelectedLayerList());
-		// return model.getMapWMS(requestParam, layerList);
-		return model.getMapWMSAsBytes(requestParam, getSortLayerListUI()
 				.getSortLayerList());
 	}
 
