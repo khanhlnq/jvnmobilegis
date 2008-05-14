@@ -47,6 +47,9 @@ import javax.microedition.io.file.FileConnection;
 import javax.microedition.io.file.FileSystemRegistry;
 import javax.microedition.lcdui.*;
 
+import org.javavietnam.gis.client.midp.model.MessageCodes;
+import org.javavietnam.gis.shared.midp.ApplicationException;
+
 public class FileSystemBrowserUI extends List implements CommandListener {
 
 	public static final String[] attrList = { "Read", "Write", "Hidden" };
@@ -76,6 +79,7 @@ public class FileSystemBrowserUI extends List implements CommandListener {
 	private Image fileIcon;
 	private Enumeration enumeration;
 	private Command save;
+	private Command saveAs;
 	private Command view;
 	private Command properties;
 	private Command back;
@@ -83,7 +87,7 @@ public class FileSystemBrowserUI extends List implements CommandListener {
 	public FileSystemBrowserUI(UIController uiController) {
 		super(uiController.getString(UIConstants.FILE_SYSTEM), List.IMPLICIT);
 		this.uiController = uiController;
-		currPath = MEGA_ROOT;
+		setCurrPath(MEGA_ROOT);
 		dirIcon = this.uiController.getImage(UIConstants.ICON_DIR);
 		fileIcon = this.uiController.getImage(UIConstants.ICON_FILE);
 
@@ -91,11 +95,13 @@ public class FileSystemBrowserUI extends List implements CommandListener {
 				Command.SCREEN, 1);
 		save = new Command(uiController.getString(UIConstants.SAVE),
 				Command.SCREEN, 2);
+		saveAs = new Command(uiController.getString(UIConstants.SAVE_AS),
+				Command.SCREEN, 3);
 		properties = new Command(
 				uiController.getString(UIConstants.PROPERTIES), Command.SCREEN,
-				3);
+				4);
 		back = new Command(uiController.getString(UIConstants.BACK),
-				Command.BACK, 4);
+				Command.BACK, 5);
 	}
 
 	public void getCurrDir() throws IOException {
@@ -128,6 +134,7 @@ public class FileSystemBrowserUI extends List implements CommandListener {
 		// Do not allow creating files/directories beside root
 		if (!currPath.equals(MEGA_ROOT)) {
 			addCommand(save);
+			addCommand(saveAs);
 			addCommand(properties);
 		} else {
 			removeCommand(save);
@@ -146,22 +153,36 @@ public class FileSystemBrowserUI extends List implements CommandListener {
 	}
 
 	public void commandAction(Command command, Displayable display) {
-		// TODO Binh: Should allowing browsing by pressing Action key (List.SELECT_COMMAND) 
+		String label = getString(getSelectedIndex());
 		if (List.SELECT_COMMAND == command) {
-			String label = getString(getSelectedIndex());
-			if (label.equals(uiController.getString(UIConstants.VIEW))) {
-				uiController.viewSaveToFileInputRequested();
+			if (label.endsWith(SEP_STR) || label.endsWith(UP_DIRECTORY)) {
+				uiController.browseFileSystemRequested(display);
+			} else {
+				uiController.saveMapToFileRequested(display);
 			}
 		}
-		if (command == save) {
-			uiController.viewSaveToFileInputRequested();
+		if (command == view) {
+			uiController.browseFileSystemRequested(display);
+		} else if (command == save) {
+			if (label.endsWith(SEP_STR) || label.endsWith(UP_DIRECTORY)) {
+				uiController
+						.showErrorAlert(
+								new ApplicationException(
+										uiController
+												.getMessage(MessageCodes.ERROR_CAN_NOT_SAVE_MAP_TO_DIR)),
+								display);
+			} else {
+				uiController.saveMapToFileRequested(display);
+			}
+		} else if (command == saveAs) {
+			uiController.saveAsMapToFileRequested();
 		} else if (command == properties) {
 			uiController.viewPropertiesRequested(display);
 		} else if (command == back) {
 			uiController.viewMapRequested();
 		} else {
 			uiController.commandAction(command, display);
-		} 
+		}
 	}
 
 	/**
