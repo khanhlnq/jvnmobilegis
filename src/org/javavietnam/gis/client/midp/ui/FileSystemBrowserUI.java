@@ -33,6 +33,7 @@
  * khanh.lnq AT gmail.com
  *
  * @version: 1.0
+ * TODO Binh: Change author and date informations
  * @author: Khanh Le
  * @Date Created: 22 Jun 2007
  */
@@ -50,6 +51,7 @@ import javax.microedition.lcdui.*;
 import org.javavietnam.gis.client.midp.model.MessageCodes;
 import org.javavietnam.gis.shared.midp.ApplicationException;
 
+// TODO Binh: Format all source files using NetBeans Source/Format menu
 public class FileSystemBrowserUI extends List implements CommandListener {
 
 	public static final String[] attrList = { "Read", "Write", "Hidden" };
@@ -91,13 +93,15 @@ public class FileSystemBrowserUI extends List implements CommandListener {
 		dirIcon = this.uiController.getImage(UIConstants.ICON_DIR);
 		fileIcon = this.uiController.getImage(UIConstants.ICON_FILE);
 
+                // TODO Binh: Hide View command for now. We already have SELECT_COMMAND
 		view = new Command(uiController.getString(UIConstants.VIEW),
 				Command.SCREEN, 1);
 		save = new Command(uiController.getString(UIConstants.SAVE),
 				Command.SCREEN, 2);
 		saveAs = new Command(uiController.getString(UIConstants.SAVE_AS),
 				Command.SCREEN, 3);
-		properties = new Command(
+		// TODO Binh: Hide Properties command for now
+                properties = new Command(
 				uiController.getString(UIConstants.PROPERTIES), Command.SCREEN,
 				4);
 		back = new Command(uiController.getString(UIConstants.BACK),

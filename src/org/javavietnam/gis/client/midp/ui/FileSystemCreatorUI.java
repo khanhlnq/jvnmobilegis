@@ -33,6 +33,7 @@
  * khanh.lnq AT gmail.com
  *
  * @version: 1.0
+ * TODO Binh: Change author and date informations
  * @author: Khanh Le
  * @Date Created: 22 Jun 2007
  */
@@ -44,6 +45,7 @@ import javax.microedition.lcdui.*;
 import org.javavietnam.gis.client.midp.model.MessageCodes;
 import org.javavietnam.gis.shared.midp.ApplicationException;
 
+// TODO Binh: Format all source files using NetBeans Source/Format menu
 public class FileSystemCreatorUI extends Form implements CommandListener {
 	private UIController uiController;
 	private TextField nameInput;
@@ -53,10 +55,11 @@ public class FileSystemCreatorUI extends Form implements CommandListener {
 	public FileSystemCreatorUI(UIController uiController) {
 		super(uiController.getString(UIConstants.SAVE_AS));
 		this.uiController = uiController;
+                // TODO Binh: should pre-enter value '.png'
 		nameInput = new TextField(
 				uiController.getString(UIConstants.FILE_NAME), null, 256,
 				TextField.ANY);
-
+                // TODO Binh: Spelling error
 		creatOK = new Command(uiController.getString(UIConstants.OK),
 				Command.OK, 1);
 		back = new Command(uiController.getString(UIConstants.BACK),

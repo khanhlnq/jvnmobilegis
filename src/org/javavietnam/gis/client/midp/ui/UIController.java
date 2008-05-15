@@ -684,6 +684,7 @@ public class UIController {
 		String FCOPversion = System
 				.getProperty("microedition.io.file.FileConnection.version");
 		if (FCOPversion != null) {
+                    // TODO Binh: Can remember last location?
 			excuteShowDir(FileSystemBrowserUI.MEGA_ROOT);
 		} else {
 			showErrorAlert(getMessage(MessageCodes.ERROR_DOESNT_SUPPORT_JSR_75));
@@ -706,6 +707,7 @@ public class UIController {
 	}
 
 	public void saveMapToFileRequested(Displayable display) {
+                // TODO Binh: Should use ConfirmUI to ask if user sure to overwrite
 		// Over write the existing file. If not, get file name from
 		// FileSystemCreatorUI.
 		if (display != null && display instanceof List) {
@@ -903,6 +905,7 @@ public class UIController {
 	}
 
 	public void excuteShowDir(final String path) {
+            // TODO: Should not use Thread here, can fire a runWithProgress request
 		new Thread() {
 			public void run() {
 				try {
@@ -918,6 +921,7 @@ public class UIController {
 	}
 
 	public void excuteShowCurrDir() {
+            // TODO: Should not use Thread here, can fire a runWithProgress request
 		new Thread() {
 			public void run() {
 				try {
@@ -932,6 +936,7 @@ public class UIController {
 	}
 
 	public void excuteShowProperties(final String fileName) {
+            // TODO: Should not use Thread here, can fire a runWithProgress request
 		new Thread() {
 			public void run() {
 				try {
@@ -948,6 +953,7 @@ public class UIController {
 	}
 
 	public void excuteShowFile(final String fileName) {
+            // TODO: Should not use Thread here, can fire a runWithProgress request
 		new Thread() {
 			public void run() {
 				try {

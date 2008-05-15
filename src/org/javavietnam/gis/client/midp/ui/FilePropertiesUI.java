@@ -33,6 +33,7 @@
  * khanh.lnq AT gmail.com
  *
  * @version: 1.0
+ * TODO Binh: Change author and date informations
  * @author: Khanh Le
  * @Date Created: 22 Jun 2007
  */
@@ -53,6 +54,7 @@ import javax.microedition.lcdui.Displayable;
 import javax.microedition.lcdui.Form;
 import javax.microedition.lcdui.StringItem;
 
+// TODO Binh: Format all source files using NetBeans Source/Format menu
 public class FilePropertiesUI extends Form implements CommandListener {
 	private UIController uiController;
 	private FileSystemBrowserUI fileSystemBrowserUI;
