@@ -138,6 +138,7 @@ public class FileSystemBrowserUI extends List implements CommandListener {
 			addCommand(properties);
 		} else {
 			removeCommand(save);
+			removeCommand(saveAs);
 			removeCommand(properties);
 		}
 
@@ -177,7 +178,16 @@ public class FileSystemBrowserUI extends List implements CommandListener {
 		} else if (command == saveAs) {
 			uiController.saveAsMapToFileRequested();
 		} else if (command == properties) {
-			uiController.viewPropertiesRequested(display);
+			if (label.endsWith(UP_DIRECTORY)) {
+				uiController
+						.showErrorAlert(
+								new ApplicationException(
+										uiController
+												.getMessage(MessageCodes.ERROR_CAN_NOT_VIEW_UP_DIR_PROPS)),
+								display);
+			} else {
+				uiController.viewPropertiesRequested(display);
+			}
 		} else if (command == back) {
 			uiController.viewMapRequested();
 		} else {

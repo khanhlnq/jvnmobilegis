@@ -117,6 +117,7 @@ public final class MessageCodes {
     public static final int ERROR_WRONG_FORMAT = 23;
     public static final int ERROR_CAN_NOT_SAVE_MAP_TO_DIR = 24;
     public static final int MISSING_NAME_INPUT = 25;
+    public static final int ERROR_CAN_NOT_VIEW_UP_DIR_PROPS = 26;
     // private ErrorMessageCodes() {
     // }
 
