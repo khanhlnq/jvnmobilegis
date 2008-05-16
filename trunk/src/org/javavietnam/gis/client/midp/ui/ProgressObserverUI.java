@@ -79,7 +79,6 @@
  * @author: Khanh Le
  * @Date Created: 22 Jun 2007
  */
-
 package org.javavietnam.gis.client.midp.ui;
 
 import javax.microedition.lcdui.Command;
@@ -97,7 +96,7 @@ import org.javavietnam.gis.client.midp.util.ProgressObserver;
 public class ProgressObserverUI extends Form implements ProgressObserver,
         CommandListener {
 
-    // private UIController uiController;
+    private UIController uiController;
     private static final int GAUGE_MAX = 10;
     private static final int GAUGE_LEVELS = 2;
     private int current = 0;
@@ -115,6 +114,8 @@ public class ProgressObserverUI extends Form implements ProgressObserver,
 
     public ProgressObserverUI(UIController uiController) {
         super("");
+
+        this.uiController = uiController;
 
         gauge = new Gauge("", false, GAUGE_MAX, 0);
         note = new StringItem("", "");
@@ -181,7 +182,7 @@ public class ProgressObserverUI extends Form implements ProgressObserver,
     public void commandAction(Command c, Displayable d) {
         if (c == stopCommand) {
             stopped = true;
+            uiController.stopRequested();
         }
     }
-
 }
