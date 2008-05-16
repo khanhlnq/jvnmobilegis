@@ -32,12 +32,10 @@
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq AT gmail.com
  * 
- * @version: 1.0
- * TODO Binh: Change author and date informations
- * @author: Khanh Le
- * @Date Created: 22 Jun 2007
+ * @version: 1.0.3
+ * @author: Binh Pham
+ * @Date Created: 09 May 2008
  */
-
 package org.javavietnam.gis.client.midp.ui;
 
 import java.io.DataInputStream;
@@ -52,71 +50,69 @@ import javax.microedition.lcdui.Displayable;
 import javax.microedition.lcdui.Form;
 import javax.microedition.lcdui.Image;
 
-// TODO Binh: Format all source files using NetBeans Source/Format menu
 public class FileContentUI extends Form implements CommandListener {
-	private UIController uiController;
-	private FileSystemBrowserUI fileSystemBrowserUI;
-	private FileConnection fileConnection;
-	private DataInputStream dis;
-	private InputStream is;
-	private Image imageContent;
-	private Command back;
 
-	public FileContentUI(UIController uiController,
-			FileSystemBrowserUI fileSystemBrowserUI) {
-		super("");
-		this.uiController = uiController;
-		this.fileSystemBrowserUI = fileSystemBrowserUI;
+    private UIController uiController;
+    private FileSystemBrowserUI fileSystemBrowserUI;
+    private FileConnection fileConnection;
+    private DataInputStream dis;
+    private InputStream is;
+    private Image imageContent;
+    private Command back;
 
-		back = new Command(uiController.getString(UIConstants.BACK),
-				Command.BACK, 1);
+    public FileContentUI(UIController uiController,
+            FileSystemBrowserUI fileSystemBrowserUI) {
+        super("");
+        this.uiController = uiController;
+        this.fileSystemBrowserUI = fileSystemBrowserUI;
 
-		addCommand(back);
-		setCommandListener(this);
-	}
+        back = new Command(uiController.getString(UIConstants.BACK),
+                Command.BACK, 1);
 
-	public void getFileContent(String fileName) throws IOException {
-		this.deleteAll();
-		fileConnection = (FileConnection) Connector
-				.open("file://localhost/"
-						+ fileSystemBrowserUI.getCurrPath() + fileName);
-		setTitle("View file: " + fileName);
+        addCommand(back);
+        setCommandListener(this);
+    }
 
-		if (!fileConnection.exists()) {
-			throw new IOException("File does not exists");
-		}
+    public void getFileContent(String fileName) throws IOException {
+        this.deleteAll();
+        fileConnection = (FileConnection) Connector.open("file://localhost/" + fileSystemBrowserUI.getCurrPath() + fileName);
+        setTitle("View file: " + fileName);
 
-		int fileSize = (int)fileConnection.fileSize();
-		
-		if (fileSize > 0) {
-			if (fileName.endsWith(".png")) {
-				dis = fileConnection.openDataInputStream();
-				byte[] data = new byte[fileSize];
-				
-				dis.read(data);
-				imageContent = Image.createImage(data, 0, data.length);
-				append(imageContent);
-			} else {
-				is = fileConnection.openInputStream();
-				byte[] data = new byte[fileSize];
-				
-				is.read(data);
-				append(new String(data, 0, data.length));
-			}
-		}
+        if (!fileConnection.exists()) {
+            throw new IOException("File does not exists");
+        }
 
-		if (is != null) {
-			is.close();
-		}
-		if (dis != null) {
-			dis.close();
-		}
-		fileConnection.close();
-	}
+        int fileSize = (int) fileConnection.fileSize();
 
-	public void commandAction(Command command, Displayable display) {
-		if (command == back) {
-			uiController.viewFileSystemBrowserUIRequested();
-		}
-	}
+        if (fileSize > 0) {
+            if (fileName.endsWith(".png")) {
+                dis = fileConnection.openDataInputStream();
+                byte[] data = new byte[fileSize];
+
+                dis.read(data);
+                imageContent = Image.createImage(data, 0, data.length);
+                append(imageContent);
+            } else {
+                is = fileConnection.openInputStream();
+                byte[] data = new byte[fileSize];
+
+                is.read(data);
+                append(new String(data, 0, data.length));
+            }
+        }
+
+        if (is != null) {
+            is.close();
+        }
+        if (dis != null) {
+            dis.close();
+        }
+        fileConnection.close();
+    }
+
+    public void commandAction(Command command, Displayable display) {
+        if (command == back) {
+            uiController.viewFileSystemBrowserUIRequested();
+        }
+    }
 }

@@ -32,12 +32,10 @@
  * Correspondence and Marketing Questions can be sent to:
  * khanh.lnq AT gmail.com
  *
- * @version: 1.0
- * TODO Binh: Change author and date informations
- * @author: Khanh Le
- * @Date Created: 22 Jun 2007
+ * @version: 1.0.3
+ * @author: Binh Pham
+ * @Date Created: 09 May 2008
  */
-
 package org.javavietnam.gis.client.midp.ui;
 
 import javax.microedition.lcdui.*;
@@ -45,51 +43,49 @@ import javax.microedition.lcdui.*;
 import org.javavietnam.gis.client.midp.model.MessageCodes;
 import org.javavietnam.gis.shared.midp.ApplicationException;
 
-// TODO Binh: Format all source files using NetBeans Source/Format menu
 public class FileSystemCreatorUI extends Form implements CommandListener {
-	private UIController uiController;
-	private TextField nameInput;
-	private Command creatOK;
-	private Command back;
 
-	public FileSystemCreatorUI(UIController uiController) {
-		super(uiController.getString(UIConstants.SAVE_AS));
-		this.uiController = uiController;
-                // TODO Binh: should pre-enter value '.png'
-		nameInput = new TextField(
-				uiController.getString(UIConstants.FILE_NAME), null, 256,
-				TextField.ANY);
-                // TODO Binh: Spelling error
-		creatOK = new Command(uiController.getString(UIConstants.OK),
-				Command.OK, 1);
-		back = new Command(uiController.getString(UIConstants.BACK),
-				Command.BACK, 2);
+    private UIController uiController;
+    private TextField nameInput;
+    private Command createOK;
+    private Command back;
 
-		append(nameInput);
-		addCommand(creatOK);
-		addCommand(back);
-		setCommandListener(this);
-	}
+    public FileSystemCreatorUI(UIController uiController) {
+        super(uiController.getString(UIConstants.SAVE_AS));
+        this.uiController = uiController;
+        // TODO Binh: should pre-enter value '.png'
+        nameInput = new TextField(
+                uiController.getString(UIConstants.FILE_NAME), null, 256,
+                TextField.ANY);
+        createOK = new Command(uiController.getString(UIConstants.OK),
+                Command.OK, 1);
+        back = new Command(uiController.getString(UIConstants.BACK),
+                Command.BACK, 2);
 
-	public void commandAction(Command command, Displayable display) {
-		if (command == creatOK) {
-			if (getNameInput().getString().equals("")) {
-				uiController.showErrorAlert(new ApplicationException(
-						uiController
-								.getMessage(MessageCodes.MISSING_NAME_INPUT)),
-						display);
-			} else {
-				uiController.saveMapToFileRequested(null);
-			}
-		} else if (command == back) {
-			uiController.viewFileSystemBrowserUIRequested();
-		}
-	}
+        append(nameInput);
+        addCommand(createOK);
+        addCommand(back);
+        setCommandListener(this);
+    }
 
-	/**
-	 * @return the nameInput
-	 */
-	public TextField getNameInput() {
-		return nameInput;
-	}
+    public void commandAction(Command command, Displayable display) {
+        if (command == createOK) {
+            if (getNameInput().getString().equals("")) {
+                uiController.showErrorAlert(new ApplicationException(
+                        uiController.getMessage(MessageCodes.MISSING_NAME_INPUT)),
+                        display);
+            } else {
+                uiController.saveMapToFileRequested(null);
+            }
+        } else if (command == back) {
+            uiController.viewFileSystemBrowserUIRequested();
+        }
+    }
+
+    /**
+     * @return the nameInput
+     */
+    public TextField getNameInput() {
+        return nameInput;
+    }
 }
