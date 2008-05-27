@@ -135,7 +135,9 @@ public class UIController {
         public static final byte EVENT_ID_SEARCHFEATURE = 7;
         public static final byte EVENT_ID_VIEWFEATURE = 8;
         public static final byte EVENT_ID_CHECKUPDATE = 9;
-        public static final byte EVENT_ID_SAVETOFILE = 10;
+        public static final byte EVENT_ID_SAVEMAPTOFILE = 10;
+        public static final byte EVENT_ID_SAVETOFILE = 11;
+        public static final byte EVENT_ID_SHOWDIR = 12;
     }
     private static final String[] iconPaths = {"/icons/JVNMobileGIS_icon.png",
         "/icons/map_server_icon.png", "/icons/preferences_icon.png",
@@ -178,8 +180,6 @@ public class UIController {
     private ConfirmDialogUI confirmDialogUI;
     private FileSystemBrowserUI fileSystemBrowserUI;
     private FileSystemCreatorUI fileSystemCreatorUI;
-    private FilePropertiesUI filePropertiesUI;
-    private FileContentUI fileContentUI;
     private final Credentials credentials;
     private Displayable currentFallBackUI;
     // private EventDispatcher currentThread;
@@ -404,27 +404,6 @@ public class UIController {
             fileSystemCreatorUI = new FileSystemCreatorUI(this);
         }
         return fileSystemCreatorUI;
-    }
-
-    /**
-     * @return the filePropertiesUI
-     */
-    public FilePropertiesUI getFilePropertiesUI() {
-        if (filePropertiesUI == null) {
-            filePropertiesUI = new FilePropertiesUI(this,
-                    getFileSystemBrowserUI());
-        }
-        return filePropertiesUI;
-    }
-
-    /**
-     * @return the contentFileUI
-     */
-    public FileContentUI getFileContentUI() {
-        if (fileContentUI == null) {
-            fileContentUI = new FileContentUI(this, getFileSystemBrowserUI());
-        }
-        return fileContentUI;
     }
 
     public void commandAction(Command command, Displayable displayable) {
@@ -682,31 +661,23 @@ public class UIController {
     }
 
     // File System Browser
-    public void browseFileSystemRequested() { // First time File System
-        // Browser is call
+    public void browseFileSystemRequested() { // First time File System Browser is call
 
         String FCOPversion = System.getProperty("microedition.io.file.FileConnection.version");
         if (FCOPversion != null) {
-            // TODO Binh: Can remember last location?
-            excuteShowDir(FileSystemBrowserUI.MEGA_ROOT);
+            executeShowDir(getFileSystemBrowserUI().getCurrPath());
         } else {
             showErrorAlert(getMessage(MessageCodes.ERROR_DOESNT_SUPPORT_JSR_75));
         }
     }
 
-    public void browseFileSystemRequested(Displayable d) { // Browsing File
-        // System
+    public void browseFileSystemRequested(Displayable d) {// Browsing File System
 
         final String itemName;
         List curr = (List) d;
         itemName = curr.getString(curr.getSelectedIndex());
 
-        if (itemName.endsWith(FileSystemBrowserUI.SEP_STR) || itemName.equals(FileSystemBrowserUI.UP_DIRECTORY)) {
-            traverseDirectory(itemName);
-        } else {
-            // Show file contents
-            viewFileContentRequested(itemName);
-        }
+        traverseDirectory(itemName);
     }
 
     public void saveMapToFileRequested(Displayable display) {
@@ -716,61 +687,23 @@ public class UIController {
         if (display != null && display instanceof List) {
             List list = (List) display;
             String fileName = list.getString(list.getSelectedIndex());
-            getFileSystemCreatorUI().getNameInput().setString(fileName);
+            getFileSystemCreatorUI().setNameInputValue(fileName);
         }
 
-        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_SAVETOFILE,
-                getMapServerUI()), getString(UIConstants.PROCESSING), true);
+        executeSaveMapToFile();
     }
 
     public void saveAsMapToFileRequested() {
-        getFileSystemCreatorUI().getNameInput().setString("");
+        getFileSystemCreatorUI().setNameInputValue(getMapViewUI().getPNGExtension());
 
         display.setCurrent(getFileSystemCreatorUI());
-    }
-
-    public void viewPropertiesRequested(Displayable d) {
-        List curr = (List) d;
-        String fileName = curr.getString(curr.getSelectedIndex());
-
-        try {
-            excuteShowProperties(fileName);
-        } catch (Exception e) {
-            String errorMessage = getMessage(MessageCodes.ERROR_CAN_NOT_ACCESS_FILE) + fileName + "\nException: " + e.getMessage();
-            showErrorAlert(errorMessage);
-        }
-    }
-
-    public void viewFileContentRequested(String fileName) {
-        try {
-            excuteShowFile(fileName);
-        } catch (Exception e) {
-            String errorMessage = "Error! Can not access file " + fileName + " in directory " + getFileSystemBrowserUI().getCurrPath() + "\nException: " + e.getMessage();
-            showErrorAlert(errorMessage);
-        }
-    }
-
-    /*
-     * public void createOKRequested(TextField nameInput, ChoiceGroup typeInput) {
-     * String itemName = nameInput.getString();
-     * 
-     * if ((itemName == null) || itemName.equals("")) { showErrorAlert("Name
-     * input is empty. Please provide a name"); } else { // Create file in a
-     * separate thread and disable all commands // except for "exit"
-     * executeCreateItem(itemName, typeInput.getSelectedIndex() != 0); } }
-     */
-    public void deleteItemRequested(Displayable d) {
-        List curr = (List) d;
-
-        executeDeleteItem(curr.getString(curr.getSelectedIndex()));
     }
 
     public void viewFileSystemBrowserUIRequested() {
 
         display.setCurrent(getFileSystemBrowserUI());
     }
-
-    // Help methods for Browsing File System
+    
     public void traverseDirectory(String dirName) {
         /*
          * In case of directory just change the current directory and show it
@@ -798,168 +731,21 @@ public class UIController {
             currPath = currPath + dirName;
         }
 
-        excuteShowDir(currPath);
+        executeShowDir(currPath);
     }
 
-    public void executeCreateItem(final String itemName,
-            final boolean isDirectory) {
-        new Thread(new Runnable() {
-
-            public void run() {
-                try {
-                    fileConnection = (FileConnection) Connector.open("file://localhost/" + getFileSystemBrowserUI().getCurrPath() + itemName);
-
-                    if (isDirectory) {
-                        fileConnection.mkdir();
-                    } else {
-                        fileConnection.create();
-                    }
-
-                    fileConnection.close();
-                    excuteShowCurrDir();
-                } catch (IOException ioe) {
-                    String errorMessage = (isDirectory) ? getMessage(MessageCodes.ERROR_CAN_NOT_CREATE_DIR)
-                            : getMessage(MessageCodes.ERROR_CAN_NOT_CREATE_FILE) + itemName + "\nException: " + ioe;
-                    showErrorAlert(errorMessage);
-                }
-            }
-        }).start();
+    public void executeSaveMapToFile() {
+        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_SAVEMAPTOFILE,
+                getMapServerUI()), getString(UIConstants.PROCESSING), true);
     }
-
-    public void executeDeleteItem(final String itemName) {
-        new Thread(new Runnable() {
-
-            public void run() {
-                if (!itemName.equals(FileSystemBrowserUI.UP_DIRECTORY)) {
-                    if (itemName.endsWith(FileSystemBrowserUI.SEP_STR)) { // Delete
-                        // folder
-
-                        try {
-                            if (isCurrDirEmpty(itemName)) { // Only empty folder
-                                // can be delete
-
-                                delete(itemName);
-                                excuteShowCurrDir();
-                            } else { // Alert if this folder is not empty
-
-                                String errorMessage = getMessage(MessageCodes.ERROR_CAN_NOT_DELETE_NON_EMPTY_DIR) + itemName;
-                                showErrorAlert(errorMessage);
-                            }
-                        } catch (IOException ioe) {
-                            String errorMessage = getMessage(MessageCodes.ERROR_CAN_NOT_DELETE_DIR) + itemName + "\nException: " + ioe;
-                            showErrorAlert(errorMessage);
-                        }
-                    } else { // Delete file
-
-                        try {
-                            delete(itemName);
-                            excuteShowDir(getFileSystemBrowserUI().getCurrPath());
-                        } catch (IOException ioe) { // Alert if this file can
-                            // not be accessed
-
-                            String errorMessage = getMessage(MessageCodes.ERROR_CAN_NOT_DELETE_FILE) + itemName + "\nException: " + ioe;
-                            showErrorAlert(errorMessage);
-                        }
-                    }
-                } else {
-                    String errorMessage = getMessage(MessageCodes.ERROR_CAN_NOT_DELETE_UP_DIR) + itemName;
-                    showErrorAlert(errorMessage);
-                }
-            }
-        }).start();
+    
+    public void executeShowDir(final String path) {
+        getFileSystemBrowserUI().setCurrPath(path);
+        
+        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_SHOWDIR,
+                getFileSystemBrowserUI()), getString(UIConstants.PROCESSING), true);
     }
-
-    public void delete(String strItemName) throws IOException {
-        fileConnection = (FileConnection) Connector.open("file://localhost/" + getFileSystemBrowserUI().getCurrPath() + strItemName);
-
-        fileConnection.delete();
-
-        fileConnection.close();
-    }
-
-    public boolean isCurrDirEmpty(String folderName) throws IOException {
-        boolean result = false;
-        try {
-            fileConnection = (FileConnection) Connector.open("file://localhost/" + getFileSystemBrowserUI().getCurrPath() + folderName);
-            Enumeration content = fileConnection.list("*", true);
-
-            fileConnection.close();
-
-            if (!content.hasMoreElements()) {
-                return true;
-            }
-        } catch (IOException e) {
-            showErrorAlert(e);
-        }
-
-        return result;
-    }
-
-    public void excuteShowDir(final String path) {
-        // TODO: Should not use Thread here, can fire a runWithProgress request
-        new Thread() {
-
-            public void run() {
-                try {
-                    getFileSystemBrowserUI().setCurrPath(path);
-                    getFileSystemBrowserUI().getCurrDir();
-                    display.setCurrent(getFileSystemBrowserUI());
-                } catch (IOException ioe) {
-                    showErrorAlert(getMessage(MessageCodes.ERROR_CAN_NOT_VIEW_DIR) + "\nException: " + ioe);
-                }
-            }
-        }.start();
-    }
-
-    public void excuteShowCurrDir() {
-        // TODO: Should not use Thread here, can fire a runWithProgress request
-        new Thread() {
-
-            public void run() {
-                try {
-                    getFileSystemBrowserUI().getCurrDir();
-                    display.setCurrent(getFileSystemBrowserUI());
-                } catch (IOException ioe) {
-                    showErrorAlert(getMessage(MessageCodes.ERROR_CAN_NOT_VIEW_CUR_DIR) + "\nException: " + ioe);
-                }
-            }
-        }.start();
-    }
-
-    public void excuteShowProperties(final String fileName) {
-        // TODO: Should not use Thread here, can fire a runWithProgress request
-        new Thread() {
-
-            public void run() {
-                try {
-                    getFilePropertiesUI().getProperties(fileName);
-                    display.setCurrent(getFilePropertiesUI());
-                } catch (IOException ioe) {
-                    showErrorAlert(getMessage(MessageCodes.ERROR_CAN_NOT_VIEW_PROPERTIES) + "\nException: " + ioe);
-                } catch (IllegalStateException ise) {
-                }
-            }
-        }.start();
-    }
-
-    public void excuteShowFile(final String fileName) {
-        // TODO: Should not use Thread here, can fire a runWithProgress request
-        new Thread() {
-
-            public void run() {
-                try {
-                    getFileContentUI().getFileContent(fileName);
-                    display.setCurrent(getFileContentUI());
-                } catch (IOException ioe) {
-                    showErrorAlert(getMessage(MessageCodes.ERROR_CAN_NOT_VIEW_CONTENT) + "\nException: " + ioe);
-                } catch (IllegalArgumentException iae) {
-                    showErrorAlert(getMessage(MessageCodes.ERROR_WRONG_FORMAT) + "\nException: " + iae);
-                }
-
-            }
-        }.start();
-    }
-
+    
     public void exitRequested() {
         System.out.println("Bye Bye");
         // FIXME - Not yet implemented.
@@ -1073,12 +859,12 @@ public class UIController {
 
                         break;
                     }
-                    case EventIds.EVENT_ID_SAVETOFILE: {
+                    case EventIds.EVENT_ID_SAVEMAPTOFILE: {
 
                         byte[] imgByteArray = getMapWMSAsBytesForSaving(
                                 getMapViewUI(), getLayerListUI().getSelectedLayerList());
 
-                        String fileName = fileSystemCreatorUI.getNameInput().getString();
+                        String fileName = fileSystemCreatorUI.getNameInputValue();
                         fileName = (fileName.endsWith(getMapViewUI().getPNGExtension())) ? fileName : fileName + getMapViewUI().getPNGExtension();
 
                         String url = "file://localhost/" + getFileSystemBrowserUI().getCurrPath() + fileName;
@@ -1104,6 +890,15 @@ public class UIController {
                             fileConnection.close();
                         }
                         viewMapRequested();
+                        break;
+                    }
+                    case EventIds.EVENT_ID_SHOWDIR: {
+                        try {
+                            getFileSystemBrowserUI().getCurrDir();
+                            display.setCurrent(getFileSystemBrowserUI());
+                        } catch (IOException ioe) {
+                            showErrorAlert(getMessage(MessageCodes.ERROR_CAN_NOT_VIEW_DIR) + "\nException: " + ioe);
+                        }
                         break;
                     }
                     case EventIds.EVENT_ID_CHECKUPDATE: {

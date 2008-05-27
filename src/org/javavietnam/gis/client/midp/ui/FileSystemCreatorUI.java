@@ -53,7 +53,6 @@ public class FileSystemCreatorUI extends Form implements CommandListener {
     public FileSystemCreatorUI(UIController uiController) {
         super(uiController.getString(UIConstants.SAVE_AS));
         this.uiController = uiController;
-        // TODO Binh: should pre-enter value '.png'
         nameInput = new TextField(
                 uiController.getString(UIConstants.FILE_NAME), null, 256,
                 TextField.ANY);
@@ -70,7 +69,7 @@ public class FileSystemCreatorUI extends Form implements CommandListener {
 
     public void commandAction(Command command, Displayable display) {
         if (command == createOK) {
-            if (getNameInput().getString().equals("")) {
+            if (getNameInputValue().equals("")) {
                 uiController.showErrorAlert(new ApplicationException(
                         uiController.getMessage(MessageCodes.MISSING_NAME_INPUT)),
                         display);
@@ -81,11 +80,13 @@ public class FileSystemCreatorUI extends Form implements CommandListener {
             uiController.viewFileSystemBrowserUIRequested();
         }
     }
-
-    /**
-     * @return the nameInput
-     */
-    public TextField getNameInput() {
-        return nameInput;
+    
+    public String getNameInputValue() {
+        return nameInput.getString();
     }
+
+    public void setNameInputValue(String nameInput) {
+        this.nameInput.setString(nameInput);
+    }
+    
 }
