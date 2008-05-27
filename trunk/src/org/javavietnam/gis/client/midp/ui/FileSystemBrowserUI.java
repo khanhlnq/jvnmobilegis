@@ -71,6 +71,7 @@ public class FileSystemBrowserUI extends List implements CommandListener {
 
     /* separator character as defined by FC specification */
     public static final char SEP = '/';
+    public boolean isExisting;
     private UIController uiController;
     private FileConnection fileConnection;
     private String currPath;
@@ -79,8 +80,6 @@ public class FileSystemBrowserUI extends List implements CommandListener {
     private Enumeration enumeration;
     private Command save;
     private Command saveAs;
-    private Command view;
-    private Command properties;
     private Command back;
 
     public FileSystemBrowserUI(UIController uiController) {
@@ -89,18 +88,11 @@ public class FileSystemBrowserUI extends List implements CommandListener {
         setCurrPath(MEGA_ROOT);
         dirIcon = this.uiController.getImage(UIConstants.ICON_DIR);
         fileIcon = this.uiController.getImage(UIConstants.ICON_FILE);
-
-
-//        view = new Command(uiController.getString(UIConstants.VIEW),
-//                Command.SCREEN, 1);
+        
         save = new Command(uiController.getString(UIConstants.SAVE),
                 Command.SCREEN, 2);
         saveAs = new Command(uiController.getString(UIConstants.SAVE_AS),
                 Command.SCREEN, 3);
-
-//        properties = new Command(
-//                uiController.getString(UIConstants.PROPERTIES), Command.SCREEN,
-//                4);
         back = new Command(uiController.getString(UIConstants.BACK),
                 Command.BACK, 5);
     }
@@ -129,17 +121,13 @@ public class FileSystemBrowserUI extends List implements CommandListener {
             }
         }
 
-        addCommand(view);
-
         // Do not allow creating files/directories beside root
         if (!currPath.equals(MEGA_ROOT)) {
             addCommand(save);
             addCommand(saveAs);
-            addCommand(properties);
         } else {
             removeCommand(save);
             removeCommand(saveAs);
-            removeCommand(properties);
         }
 
         addCommand(back);
@@ -152,6 +140,22 @@ public class FileSystemBrowserUI extends List implements CommandListener {
             fileConnection.close();
         }
     }
+    
+    public boolean checkExisting(final String path, final List fileSystemBrowser) {
+        
+        new Thread(new Runnable() {
+
+            public void run() {
+                try {
+                    fileConnection = (FileConnection) Connector.open(path);
+                    isExisting = true;
+                } catch (IOException ex) {
+                    uiController.showErrorAlert(new ApplicationException(), fileSystemBrowser);
+                }
+            }
+        }).start();
+        return isExisting;
+    }
 
     public void commandAction(Command command, Displayable display) {
         String label = getString(getSelectedIndex());
@@ -159,31 +163,28 @@ public class FileSystemBrowserUI extends List implements CommandListener {
             if (label.endsWith(SEP_STR) || label.endsWith(UP_DIRECTORY)) {
                 uiController.browseFileSystemRequested(display);
             } else {
-                uiController.saveMapToFileRequested(display);
+                checkExisting(this.getCurrPath() + label, this);
+                if (!isExisting) {
+                    uiController.saveMapToFileRequested(display);
+                } else {
+                    uiController.confirm(IMPLICIT);
+                }
             }
         }
-        if (command == view) {
-            uiController.browseFileSystemRequested(display);
-        } else if (command == save) {
+        if (command == save) {
             if (label.endsWith(SEP_STR) || label.endsWith(UP_DIRECTORY)) {
                 uiController.showErrorAlert(
                         new ApplicationException(
                         uiController.getMessage(MessageCodes.ERROR_CAN_NOT_SAVE_MAP_TO_DIR)),
                         display);
             } else {
-                uiController.saveMapToFileRequested(display);
+                checkExisting(this.getCurrPath() + label, this);
+                if (!isExisting) {
+                    uiController.saveMapToFileRequested(display);
+                }
             }
         } else if (command == saveAs) {
             uiController.saveAsMapToFileRequested();
-        } else if (command == properties) {
-            if (label.endsWith(UP_DIRECTORY)) {
-                uiController.showErrorAlert(
-                        new ApplicationException(
-                        uiController.getMessage(MessageCodes.ERROR_CAN_NOT_VIEW_UP_DIR_PROPS)),
-                        display);
-            } else {
-                uiController.viewPropertiesRequested(display);
-            }
         } else if (command == back) {
             uiController.viewMapRequested();
         } else {
