@@ -46,41 +46,44 @@ import org.javavietnam.gis.shared.midp.ApplicationException;
 public class FileSystemCreatorUI extends Form implements CommandListener {
 
     private UIController uiController;
+    private boolean itemExisting;
     private TextField nameInput;
-    private Command createOK;
+    private Command saveOK;
     private Command back;
 
     public FileSystemCreatorUI(UIController uiController) {
         super(uiController.getString(UIConstants.SAVE_AS));
         this.uiController = uiController;
+
         nameInput = new TextField(
                 uiController.getString(UIConstants.FILE_NAME), null, 256,
                 TextField.ANY);
-        createOK = new Command(uiController.getString(UIConstants.OK),
+        saveOK = new Command(uiController.getString(UIConstants.OK),
                 Command.OK, 1);
         back = new Command(uiController.getString(UIConstants.BACK),
                 Command.BACK, 2);
 
         append(nameInput);
-        addCommand(createOK);
+        addCommand(saveOK);
         addCommand(back);
+
         setCommandListener(this);
     }
 
     public void commandAction(Command command, Displayable display) {
-        if (command == createOK) {
+        if (command == saveOK) {
             if (getNameInputValue().equals("")) {
                 uiController.showErrorAlert(new ApplicationException(
-                        uiController.getMessage(MessageCodes.MISSING_NAME_INPUT)),
+                        this.uiController.getMessage(MessageCodes.MISSING_NAME_INPUT)),
                         display);
             } else {
-                uiController.saveMapToFileRequested(null);
+                uiController.executeSaveMapToFile();
             }
         } else if (command == back) {
-            uiController.viewFileSystemBrowserUIRequested();
+            uiController.fileSystemBrowserUIRequested();
         }
     }
-    
+
     public String getNameInputValue() {
         return nameInput.getString();
     }
@@ -88,5 +91,15 @@ public class FileSystemCreatorUI extends Form implements CommandListener {
     public void setNameInputValue(String nameInput) {
         this.nameInput.setString(nameInput);
     }
-    
+
+    public boolean isItemExisting() {
+        return itemExisting;
+    }
+
+    public void setItemExisting(boolean itemExisting) {
+        this.itemExisting = itemExisting;
+    }
+
+    private void callKeyPressed(int keyCode) {
+    }
 }

@@ -50,13 +50,7 @@ import org.javavietnam.gis.client.midp.model.MessageCodes;
 import org.javavietnam.gis.shared.midp.ApplicationException;
 
 public class FileSystemBrowserUI extends List implements CommandListener {
-
-    public static final String[] attrList = {"Read", "Write", "Hidden"};
-    public static final String[] typeList = {"Regular File", "Directory"};
-    public static final String[] monthList = {"Jan", "Feb", "Mar", "Apr",
-        "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-    };
-
+    
     /* special string denotes upper directory */
     public static final String UP_DIRECTORY = "..";
 
@@ -71,7 +65,7 @@ public class FileSystemBrowserUI extends List implements CommandListener {
 
     /* separator character as defined by FC specification */
     public static final char SEP = '/';
-    public boolean isExisting;
+    
     private UIController uiController;
     private FileConnection fileConnection;
     private String currPath;
@@ -85,9 +79,10 @@ public class FileSystemBrowserUI extends List implements CommandListener {
     public FileSystemBrowserUI(UIController uiController) {
         super(uiController.getString(UIConstants.FILE_SYSTEM), List.IMPLICIT);
         this.uiController = uiController;
-        setCurrPath(MEGA_ROOT);
         dirIcon = this.uiController.getImage(UIConstants.ICON_DIR);
         fileIcon = this.uiController.getImage(UIConstants.ICON_FILE);
+        
+        setCurrPath(MEGA_ROOT);
         
         save = new Command(uiController.getString(UIConstants.SAVE),
                 Command.SCREEN, 2);
@@ -95,6 +90,11 @@ public class FileSystemBrowserUI extends List implements CommandListener {
                 Command.SCREEN, 3);
         back = new Command(uiController.getString(UIConstants.BACK),
                 Command.BACK, 5);
+        
+        addCommand(back);
+        uiController.setCommands(this);
+
+        setCommandListener(this);
     }
 
     public void getCurrDir() throws IOException {
@@ -130,31 +130,9 @@ public class FileSystemBrowserUI extends List implements CommandListener {
             removeCommand(saveAs);
         }
 
-        addCommand(back);
-
-        uiController.setCommands(this);
-
-        setCommandListener(this);
-
         if (fileConnection != null) {
             fileConnection.close();
         }
-    }
-    
-    public boolean checkExisting(final String path, final List fileSystemBrowser) {
-        
-        new Thread(new Runnable() {
-
-            public void run() {
-                try {
-                    fileConnection = (FileConnection) Connector.open(path);
-                    isExisting = true;
-                } catch (IOException ex) {
-                    uiController.showErrorAlert(new ApplicationException(), fileSystemBrowser);
-                }
-            }
-        }).start();
-        return isExisting;
     }
 
     public void commandAction(Command command, Displayable display) {
@@ -163,12 +141,7 @@ public class FileSystemBrowserUI extends List implements CommandListener {
             if (label.endsWith(SEP_STR) || label.endsWith(UP_DIRECTORY)) {
                 uiController.browseFileSystemRequested(display);
             } else {
-                checkExisting(this.getCurrPath() + label, this);
-                if (!isExisting) {
-                    uiController.saveMapToFileRequested(display);
-                } else {
-                    uiController.confirm(IMPLICIT);
-                }
+                uiController.saveMapToFileRequested(display);
             }
         }
         if (command == save) {
@@ -178,10 +151,7 @@ public class FileSystemBrowserUI extends List implements CommandListener {
                         uiController.getMessage(MessageCodes.ERROR_CAN_NOT_SAVE_MAP_TO_DIR)),
                         display);
             } else {
-                checkExisting(this.getCurrPath() + label, this);
-                if (!isExisting) {
-                    uiController.saveMapToFileRequested(display);
-                }
+                uiController.saveMapToFileRequested(display);
             }
         } else if (command == saveAs) {
             uiController.saveAsMapToFileRequested();
