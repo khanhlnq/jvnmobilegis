@@ -81,25 +81,19 @@
  */
 package org.javavietnam.gis.client.midp.ui;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Enumeration;
 import java.util.Vector;
 
 import javax.microedition.io.Connector;
 import javax.microedition.io.file.FileConnection;
 import javax.microedition.lcdui.Alert;
 import javax.microedition.lcdui.AlertType;
-import javax.microedition.lcdui.ChoiceGroup;
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.Display;
 import javax.microedition.lcdui.Displayable;
 import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.List;
-import javax.microedition.lcdui.TextField;
 import javax.microedition.midlet.MIDlet;
 
 import org.bouncycastle.util.encoders.Base64;
@@ -138,6 +132,7 @@ public class UIController {
         public static final byte EVENT_ID_SAVEMAPTOFILE = 10;
         public static final byte EVENT_ID_SAVETOFILE = 11;
         public static final byte EVENT_ID_SHOWDIR = 12;
+        public static final byte EVENT_ID_CHECKEXISTING = 13;
     }
     private static final String[] iconPaths = {"/icons/JVNMobileGIS_icon.png",
         "/icons/map_server_icon.png", "/icons/preferences_icon.png",
@@ -662,6 +657,7 @@ public class UIController {
 
     // File System Browser
     public void browseFileSystemRequested() { // First time File System Browser is call
+        // Check if device supports
 
         String FCOPversion = System.getProperty("microedition.io.file.FileConnection.version");
         if (FCOPversion != null) {
@@ -673,7 +669,7 @@ public class UIController {
 
     public void browseFileSystemRequested(Displayable d) {// Browsing File System
 
-        final String itemName;
+        String itemName;
         List curr = (List) d;
         itemName = curr.getString(curr.getSelectedIndex());
 
@@ -681,29 +677,31 @@ public class UIController {
     }
 
     public void saveMapToFileRequested(Displayable display) {
-        // TODO Binh: Should use ConfirmUI to ask if user sure to overwrite
-        // Over write the existing file. If not, get file name from
-        // FileSystemCreatorUI.
         if (display != null && display instanceof List) {
             List list = (List) display;
             String fileName = list.getString(list.getSelectedIndex());
             getFileSystemCreatorUI().setNameInputValue(fileName);
         }
 
-        executeSaveMapToFile();
+        this.display.setCurrent(getFileSystemCreatorUI());
     }
 
     public void saveAsMapToFileRequested() {
-        getFileSystemCreatorUI().setNameInputValue(getMapViewUI().getPNGExtension());
+        getFileSystemCreatorUI().setNameInputValue(".png");
+
+        this.display.setCurrent(getFileSystemCreatorUI());
+    }
+
+    public void fileSystemBrowserUIRequested() {
+
+        display.setCurrent(getFileSystemBrowserUI());
+    }
+
+    public void fileSystemCreatorUIRequested() {
 
         display.setCurrent(getFileSystemCreatorUI());
     }
 
-    public void viewFileSystemBrowserUIRequested() {
-
-        display.setCurrent(getFileSystemBrowserUI());
-    }
-    
     public void traverseDirectory(String dirName) {
         /*
          * In case of directory just change the current directory and show it
@@ -735,17 +733,23 @@ public class UIController {
     }
 
     public void executeSaveMapToFile() {
-        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_SAVEMAPTOFILE,
-                getMapServerUI()), getString(UIConstants.PROCESSING), true);
+        String fileName = getFileSystemCreatorUI().getNameInputValue();
+        if (!fileName.endsWith(".png")) {
+            showErrorAlert(new ApplicationException(
+                    getMessage(MessageCodes.ERROR_WRONG_PNG_FORMAT)), getFileSystemCreatorUI());
+        } else {
+            runWithProgress(new EventDispatcher(EventIds.EVENT_ID_CHECKEXISTING,
+                    getFileSystemCreatorUI()), getString(UIConstants.PROCESSING), true);
+        }
     }
-    
+
     public void executeShowDir(final String path) {
         getFileSystemBrowserUI().setCurrPath(path);
-        
+
         runWithProgress(new EventDispatcher(EventIds.EVENT_ID_SHOWDIR,
                 getFileSystemBrowserUI()), getString(UIConstants.PROCESSING), true);
     }
-    
+
     public void exitRequested() {
         System.out.println("Bye Bye");
         // FIXME - Not yet implemented.
@@ -860,12 +864,10 @@ public class UIController {
                         break;
                     }
                     case EventIds.EVENT_ID_SAVEMAPTOFILE: {
-
                         byte[] imgByteArray = getMapWMSAsBytesForSaving(
                                 getMapViewUI(), getLayerListUI().getSelectedLayerList());
 
                         String fileName = fileSystemCreatorUI.getNameInputValue();
-                        fileName = (fileName.endsWith(getMapViewUI().getPNGExtension())) ? fileName : fileName + getMapViewUI().getPNGExtension();
 
                         String url = "file://localhost/" + getFileSystemBrowserUI().getCurrPath() + fileName;
 
@@ -889,7 +891,9 @@ public class UIController {
                             out.close();
                             fileConnection.close();
                         }
+
                         viewMapRequested();
+
                         break;
                     }
                     case EventIds.EVENT_ID_SHOWDIR: {
@@ -899,6 +903,24 @@ public class UIController {
                         } catch (IOException ioe) {
                             showErrorAlert(getMessage(MessageCodes.ERROR_CAN_NOT_VIEW_DIR) + "\nException: " + ioe);
                         }
+
+                        break;
+                    }
+                    case EventIds.EVENT_ID_CHECKEXISTING: {
+                        try {
+                            fileConnection = (FileConnection) Connector.open("file://localhost/" + getFileSystemBrowserUI().getCurrPath() + getFileSystemCreatorUI().getNameInputValue());
+                            getFileSystemCreatorUI().setItemExisting(fileConnection.exists());
+
+                            if (!getFileSystemCreatorUI().isItemExisting()) {
+                                runWithProgress(new EventDispatcher(EventIds.EVENT_ID_SAVEMAPTOFILE,
+                                        getMapServerUI()), getString(UIConstants.PROCESSING), true);
+                            } else {
+                                confirm(MessageCodes.CONFIRM_OVERWRITE_TO_FILE);
+                            }
+                        } catch (IOException ex) {
+                            showErrorAlert(new ApplicationException(), getFileSystemCreatorUI());
+                        }
+
                         break;
                     }
                     case EventIds.EVENT_ID_CHECKUPDATE: {
@@ -1090,6 +1112,16 @@ public class UIController {
                 }
                 break;
 
+            case MessageCodes.CONFIRM_OVERWRITE_TO_FILE: {
+                if (accepted) {
+                    runWithProgress(new EventDispatcher(EventIds.EVENT_ID_SAVEMAPTOFILE,
+                            getMapServerUI()), getString(UIConstants.PROCESSING), true);
+                } else {
+                    fileSystemCreatorUIRequested();
+                }
+                break;
+            }
+
             default:
                 break;
         }
@@ -1116,6 +1148,8 @@ public class UIController {
             progressObserverUI = null;
             promptDialog = null;
             confirmDialogUI = null;
+            fileSystemBrowserUI = null;
+            fileSystemCreatorUI = null;
         }
     }
 }
