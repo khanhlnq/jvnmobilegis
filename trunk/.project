@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
 	<name>JVNMobileGIS</name>
-	<comment>@key 32303037303533312D31303030204A564E4D6F62696C654749532F6B68616E686C6E71 </comment>
+	<comment></comment>
 	<projects>
 	</projects>
 	<buildSpec>
@@ -16,7 +16,17 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>com.soyatec.additional.Builder</name>
+			<name>com.atlassw.tools.eclipse.checkstyle.CheckstyleBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>edu.umd.cs.findbugs.plugin.eclipse.findbugsBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>net.sourceforge.pmd.runtime.pmdBuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
@@ -24,6 +34,8 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>eclipseme.core.nature</nature>
-		<nature>com.soyatec.additional.Nature</nature>
+		<nature>com.atlassw.tools.eclipse.checkstyle.CheckstyleNature</nature>
+		<nature>edu.umd.cs.findbugs.plugin.eclipse.findbugsNature</nature>
+		<nature>net.sourceforge.pmd.runtime.pmdNature</nature>
 	</natures>
 </projectDescription>
