@@ -1,15 +1,19 @@
 #FindBugs User Preferences
-#Sat Nov 03 02:58:56 GMT 2007
+#Mon Jun 02 11:34:55 GMT+07:00 2008
+detectorAppendingToAnObjectOutputStream=AppendingToAnObjectOutputStream|true
 detectorBadAppletConstructor=BadAppletConstructor|false
 detectorBadResultSetAccess=BadResultSetAccess|true
 detectorBadSyntaxForRegularExpression=BadSyntaxForRegularExpression|true
 detectorBadUseOfReturnValue=BadUseOfReturnValue|true
 detectorBadlyOverriddenAdapter=BadlyOverriddenAdapter|true
+detectorBooleanReturnNull=BooleanReturnNull|true
 detectorCheckImmutableAnnotation=CheckImmutableAnnotation|true
+detectorCheckTypeQualifiers=CheckTypeQualifiers|true
 detectorCloneIdiom=CloneIdiom|true
 detectorComparatorIdiom=ComparatorIdiom|true
 detectorConfusedInheritance=ConfusedInheritance|true
 detectorConfusionBetweenInheritedAndOuterMethod=ConfusionBetweenInheritedAndOuterMethod|true
+detectorCrossSiteScripting=CrossSiteScripting|true
 detectorDoInsideDoPrivileged=DoInsideDoPrivileged|true
 detectorDontCatchIllegalMonitorStateException=DontCatchIllegalMonitorStateException|true
 detectorDontUseEnum=DontUseEnum|true
@@ -78,6 +82,7 @@ detectorMutableLock=MutableLock|true
 detectorMutableStaticFields=MutableStaticFields|true
 detectorNaming=Naming|true
 detectorNumberConstructor=NumberConstructor|true
+detectorOverridingEqualsNotSymmetrical=OverridingEqualsNotSymmetrical|true
 detectorPreferZeroLengthArrays=PreferZeroLengthArrays|true
 detectorPublicSemaphores=PublicSemaphores|false
 detectorQuestionableBooleanAssignment=QuestionableBooleanAssignment|true
@@ -105,5 +110,6 @@ detectorWaitInLoop=WaitInLoop|true
 detectorWrongMapIterator=WrongMapIterator|true
 detectorXMLFactoryBypass=XMLFactoryBypass|true
 detector_threshold=2
-filter_settings=Medium|MALICIOUS_CODE,STYLE,BAD_PRACTICE,CORRECTNESS,I18N,PERFORMANCE,MT_CORRECTNESS|false
+effort=default
+filter_settings=Medium|BAD_PRACTICE,CORRECTNESS,I18N,MALICIOUS_CODE,MT_CORRECTNESS,PERFORMANCE,SECURITY,STYLE|false
 filter_settings_neg=|
