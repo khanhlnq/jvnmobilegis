@@ -1,5 +1,7 @@
 #summary Live demo of JVNMobileGIS on PC
 
+_*Important notice: Because of security restriction of Live demo, user cannot use full functionality of JVNMobileGIS. User is advised to use Executable version instead.*_
+
 = Introduction =
 
 You can run JVNMobileGIS on your PC using Java Webstart of [http://mpowerplayer.com/ mpowerplayer]. Please make sure you have Java Runtime Environment installed.
