@@ -82,10 +82,11 @@
             -->
 
     <!-- Define the Wireless Toolkit home directory. Needed by the tasks. -->
-    <property name="wtk.home" value="c:\WTK2.5"/>
+    <property name="wtk.home" value="c:\WTK2.5.2"/>
 
     <property name="wtk.cldc.version" value="1.0"/>
     <property name="wtk.midp.version" value="2.0"/>
+    <property name="wtk.optionalpda.enabled" value="true"/>
 
     <!-- Define some additional properties for this project. Not required. -->
 
