@@ -92,7 +92,7 @@
 
     <property name="midlet.name" value="JVNMobileGIS"/>
     <property name="midlet.home" value="."/>
-    <property name="dist.dir" value="bin"/>
+    <property name="dist.dir" value="dist"/>
 
     <path id="jvnmobilegis.classpath">
         <fileset dir="lib">
@@ -107,7 +107,8 @@
 
 	<target name="clean">
 	    <delete failonerror="false" dir="classes"/>
-        <delete failonerror="false" file="${midlet.home}/${midlet.name}.jad"/>
+        <delete failonerror="false" dir="${dist.dir}"/>
+        <!--delete failonerror="false" file="${midlet.home}/${midlet.name}.jad"/-->
 	    <!--delete failonerror="false">
 	        <fileset dir=".">
 	            <exclude name="build.xml"/>
@@ -121,8 +122,11 @@
              Caution: Ant only copies this the first time. Also
              make a directory to compile into. -->
 
-        <copy file="${midlet.home}/bin/${midlet.name}.jad" todir="."/>
         <mkdir dir="classes"/>
+        <mkdir dir="${dist.dir}"/>
+        <copy file="${midlet.home}/bin/${midlet.name}.jad" todir="${midlet.home}"/>
+        <copy file="${midlet.home}/bin/${midlet.name}.jad" todir="${dist.dir}"/>
+        
 
         <!-- Compile everything, but don't preverify (yet). -->
 
@@ -166,6 +170,7 @@
         <wtkmakeprc jadfile="${midlet.name}.jad"
                     prcfile="${midlet.name}.prc"/>
         -->
+        <delete failonerror="false" file="${midlet.home}/${midlet.name}.jad" />
 
     </target>
 
