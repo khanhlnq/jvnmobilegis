@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="res"/>
-	<classpathentry kind="con" path="J2MELIB"/>
+	<classpathentry exported="true" kind="con" path="J2MELIB"/>
 	<classpathentry exported="true" kind="lib" path="lib/tinylinegzip.jar"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="output" path="classes"/>
 </classpath>
