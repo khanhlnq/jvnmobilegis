@@ -1,0 +1,10 @@
+THIS IS MY NOTE FOR TODO TASK.
+
+1. Dialog utility class
+3. Remove JVN special features
+2. Map profile management
+- Server
+- Layer list
+- Scale
+4. Add Reset RMS utility
+5. FAQ page in wiki
