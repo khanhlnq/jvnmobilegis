@@ -1,4 +1,4 @@
- /*
+/*
  * $Id$
  * $URL$
  * $Author$
@@ -158,18 +158,18 @@ public final class UIConstants {
     public static final int MOVE_DOWN = 88;
     public static final int MOVE_TO_BOTTOM = 89;
     public static final int SORT_LAYER_TICKER = 90;
-	public static final int NO_SELECTED_LAYER = 91;
-	public static final int LAYER_LIST_TICKER = 92;
-	public static final int SAVE_TO_FILE = 93;
-	public static final int FILE_SYSTEM = 94;
-	public static final int FILE_PROPERTIES = 95;
-	public static final int VIEW = 96;
-	public static final int PROPERTIES = 97;
-	public static final int NEW = 98;
-	public static final int DELETE = 99;
-	public static final int CREATE = 100;
-	public static final int SAVE_AS = 101;
-	public static final int FILE_NAME = 102;
+    public static final int NO_SELECTED_LAYER = 91;
+    public static final int LAYER_LIST_TICKER = 92;
+    public static final int SAVE_TO_FILE = 93;
+    public static final int FILE_SYSTEM = 94;
+    public static final int FILE_PROPERTIES = 95;
+    public static final int VIEW = 96;
+    public static final int PROPERTIES = 97;
+    public static final int NEW = 98;
+    public static final int DELETE = 99;
+    public static final int CREATE = 100;
+    public static final int SAVE_AS = 101;
+    public static final int FILE_NAME = 102;
 
     private UIConstants() {
     }

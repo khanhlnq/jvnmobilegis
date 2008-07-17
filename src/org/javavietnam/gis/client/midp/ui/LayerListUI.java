@@ -58,7 +58,7 @@ class LayerListUI extends List implements CommandListener {
 
     private final UIController uiController;
     private final Command backCommand;
-    //private final Command getMapCommand;
+    // private final Command getMapCommand;
     private final Command nextCommand;
     private Ticker ticker;
 
@@ -71,7 +71,8 @@ class LayerListUI extends List implements CommandListener {
         super(uiController.getString(UIConstants.LAYER_LIST_TITLE),
                 Choice.MULTIPLE);
 
-        ticker =  new Ticker(uiController.getString(UIConstants.LAYER_LIST_TICKER));
+        ticker = new Ticker(uiController
+                .getString(UIConstants.LAYER_LIST_TICKER));
         setTicker(ticker);
 
         this.uiController = uiController;
@@ -79,13 +80,16 @@ class LayerListUI extends List implements CommandListener {
 
         backCommand = new Command(uiController.getString(UIConstants.BACK),
                 Command.BACK, 5);
-        //getMapCommand = new Command(uiController.getString(UIConstants.GETMAP), Command.SCREEN, 0);
+        // getMapCommand = new
+        // Command(uiController.getString(UIConstants.GETMAP), Command.SCREEN,
+        // 0);
 
-        nextCommand = new Command(uiController.getString(UIConstants.NEXT), Command.SCREEN, 0);
+        nextCommand = new Command(uiController.getString(UIConstants.NEXT),
+                Command.SCREEN, 0);
         addCommand(backCommand);
-        //addCommand(getMapCommand);
+        // addCommand(getMapCommand);
         addCommand(nextCommand);
-        //uiController.setCommands(this);
+        // uiController.setCommands(this);
 
         setCommandListener(this);
     }
@@ -106,12 +110,12 @@ class LayerListUI extends List implements CommandListener {
     public void commandAction(Command command, Displayable displayable) {
         if (command == backCommand) {
             uiController.mapServerRequested();
-        //} else if (command == getMapCommand) {
-        //    uiController.getMapRequested();
+            // } else if (command == getMapCommand) {
+            // uiController.getMapRequested();
         } else if (command == nextCommand) {
             uiController.sortLayerListRequested();
-        //} else {
-        //   uiController.commandAction(command, displayable);
+            // } else {
+            // uiController.commandAction(command, displayable);
         }
     }
 

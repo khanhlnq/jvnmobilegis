@@ -128,11 +128,11 @@ class RemoteModelProxy extends ModelObjectLoader {
             throws ModelException, ApplicationException {
         return requestHandlerChain.getMapWMS(requestParam, layerList);
     }
-    
-    public byte[] getMapWMSAsBytes(WMSRequestParameter requestParam, Vector layerList)
-		    throws ModelException, ApplicationException {
-		return requestHandlerChain.getMapWMSAsBytes(requestParam, layerList);
-	}
+
+    public byte[] getMapWMSAsBytes(WMSRequestParameter requestParam,
+            Vector layerList) throws ModelException, ApplicationException {
+        return requestHandlerChain.getMapWMSAsBytes(requestParam, layerList);
+    }
 
     public String checkUpdate(String updateURL) throws ModelException,
             ApplicationException {
@@ -179,6 +179,6 @@ class RemoteModelProxy extends ModelObjectLoader {
     }
 
     public String getDownloadedDataSize() throws ApplicationException {
-    	return requestHandlerChain.getTotalData();
+        return requestHandlerChain.getTotalData();
     }
 }

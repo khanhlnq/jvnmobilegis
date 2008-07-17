@@ -48,18 +48,14 @@ package org.xml.sax;
  * implementing this interface and then passing an instance to the application
  * using the document handler's setDocumentLocator method. The application can
  * use the object to obtain the location of any other document handler event in
- * the XML source document.
- * </p>
- * <p/> Note that the results returned by the object will be valid only during
- * the scope of each document handler method: the application will receive
- * unpredictable results if it attempts to use the locator at any other time.
- * </p>
- * <p/> SAX parsers are not required to supply a locator, but they are very
- * strong encouraged to do so. If the parser supplies a locator, it must do so
- * before reporting any other document events. If no locator has been set by the
- * time the application receives the startDocument event, the application should
- * assume that a locator is not available.
- * </p>
+ * the XML source document. </p> <p/> Note that the results returned by the
+ * object will be valid only during the scope of each document handler method:
+ * the application will receive unpredictable results if it attempts to use the
+ * locator at any other time. </p> <p/> SAX parsers are not required to supply a
+ * locator, but they are very strong encouraged to do so. If the parser supplies
+ * a locator, it must do so before reporting any other document events. If no
+ * locator has been set by the time the application receives the startDocument
+ * event, the application should assume that a locator is not available. </p>
  * 
  * @author David Megginson (ak117@freenet.carleton.ca)
  * @version 1.0
@@ -80,8 +76,7 @@ public interface Locator {
     /**
      * Return the system identifier for the current document event. <p/> If the
      * system identifier is a URL, the parser must resolve it fully before
-     * passing it to the application.
-     * </p>
+     * passing it to the application. </p>
      * 
      * @return A string containing the system identifier, or null if none is
      *         available.

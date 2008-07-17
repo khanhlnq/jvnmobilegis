@@ -74,7 +74,8 @@ public class FileSystemCreatorUI extends Form implements CommandListener {
         if (command == saveOK) {
             if (getNameInputValue().equals("")) {
                 uiController.showErrorAlert(new ApplicationException(
-                        this.uiController.getMessage(MessageCodes.MISSING_NAME_INPUT)),
+                        this.uiController
+                                .getMessage(MessageCodes.MISSING_NAME_INPUT)),
                         display);
             } else {
                 uiController.executeSaveMapToFile();

@@ -108,10 +108,9 @@ public class ModelFacade {
     private String locale;
     // FIXME: What is errorMessageCodeMap for?
     private static final int[] errorMessageCodeMap = new int[] {
-            MessageCodes.ERROR_GENERAL,
-            MessageCodes.ERROR_CANNOT_CONNECT,
+            MessageCodes.ERROR_GENERAL, MessageCodes.ERROR_CANNOT_CONNECT,
             MessageCodes.NO_SELECTED_LAYER,
-            // MessageCodes.NO_SELECTED_POINT
+    // MessageCodes.NO_SELECTED_POINT
 
     };
 
@@ -206,22 +205,23 @@ public class ModelFacade {
                     .getCauseCode()]);
         }
     }
-    
-    public byte[] getMapWMSAsBytes(WMSRequestParameter requestParam, Vector layerList)
-		    throws ApplicationException {
-		try {
-		    return remoteModel.getMapWMSAsBytes(requestParam, layerList);
-		} catch (ModelException me) {
-		    throw new ApplicationException(errorMessageCodeMap[me
-		            .getCauseCode()]);
-		}
-	}
+
+    public byte[] getMapWMSAsBytes(WMSRequestParameter requestParam,
+            Vector layerList) throws ApplicationException {
+        try {
+            return remoteModel.getMapWMSAsBytes(requestParam, layerList);
+        } catch (ModelException me) {
+            throw new ApplicationException(errorMessageCodeMap[me
+                    .getCauseCode()]);
+        }
+    }
 
     /*
      * public String findPathWMS(WMSRequestParameter requestParam) throws
      * ApplicationException { try { return
      * remoteModel.findPathWMS(requestParam); } catch (ModelException me) {
-     * throw new ApplicationException(errorMessageCodeMap[me.getCauseCode()]); } }
+     * throw new ApplicationException(errorMessageCodeMap[me.getCauseCode()]); }
+     * }
      */
 
     public String checkUpdate(String updateURL) throws ApplicationException {
@@ -258,7 +258,8 @@ public class ModelFacade {
      * public Image viewPathWMS(WMSRequestParameter requestParam) throws
      * ApplicationException { try { return
      * remoteModel.viewPathWMS(requestParam); } catch (ModelException me) {
-     * throw new ApplicationException(errorMessageCodeMap[me.getCauseCode()]); } }
+     * throw new ApplicationException(errorMessageCodeMap[me.getCauseCode()]); }
+     * }
      */
 
     public Vector getCapabilitiesWMS(String serverURL)
@@ -290,6 +291,6 @@ public class ModelFacade {
     }
 
     public String getDownloadedDataSize() throws ApplicationException {
-    	return remoteModel.getDownloadedDataSize();
+        return remoteModel.getDownloadedDataSize();
     }
 }

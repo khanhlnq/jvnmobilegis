@@ -157,8 +157,7 @@ abstract public class RemoteModelRequestHandler implements RequestHandler {
             return nextHandler;
         }
 
-        throw new ApplicationException(
-                MessageCodes.ERROR_BROKEN_HANDLER_CHAIN);
+        throw new ApplicationException(MessageCodes.ERROR_BROKEN_HANDLER_CHAIN);
     }
 
     public Image getMapWMS(WMSRequestParameter requestParam, Vector layerList)
@@ -166,12 +165,12 @@ abstract public class RemoteModelRequestHandler implements RequestHandler {
         return getRemoteModelRequestHandler()
                 .getMapWMS(requestParam, layerList);
     }
-    
-    public byte[] getMapWMSAsBytes(WMSRequestParameter requestParam, Vector layerList)
-		    throws ModelException, ApplicationException {
-		return getRemoteModelRequestHandler()
-		        .getMapWMSAsBytes(requestParam, layerList);
-	}
+
+    public byte[] getMapWMSAsBytes(WMSRequestParameter requestParam,
+            Vector layerList) throws ModelException, ApplicationException {
+        return getRemoteModelRequestHandler().getMapWMSAsBytes(requestParam,
+                layerList);
+    }
 
     public String checkUpdate(String updateURL) throws ModelException,
             ApplicationException {
@@ -215,9 +214,8 @@ abstract public class RemoteModelRequestHandler implements RequestHandler {
         getRemoteModelRequestHandler().setCredentials(credentials);
     }
 
-	public String getTotalData() throws ApplicationException {
-		return getRemoteModelRequestHandler().getTotalData();
-	}
-
+    public String getTotalData() throws ApplicationException {
+        return getRemoteModelRequestHandler().getTotalData();
+    }
 
 }

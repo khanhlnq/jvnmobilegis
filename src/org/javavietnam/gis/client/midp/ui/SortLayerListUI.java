@@ -51,7 +51,7 @@ import org.javavietnam.gis.shared.midp.ApplicationException;
 
 /**
  * @author anntv
- *
+ * 
  */
 public class SortLayerListUI extends List implements CommandListener {
 
@@ -67,17 +67,23 @@ public class SortLayerListUI extends List implements CommandListener {
     public SortLayerListUI(UIController uiController) {
         super(uiController.getString(UIConstants.LAYER_SORT), Choice.EXCLUSIVE);
 
-        ticker =  new Ticker(uiController.getString(UIConstants.SORT_LAYER_TICKER));
+        ticker = new Ticker(uiController
+                .getString(UIConstants.SORT_LAYER_TICKER));
         setTicker(ticker);
 
         this.uiController = uiController;
         this.sortLayerList = uiController.getSelectedLayerList();
 
-        getMapCommand = new Command(uiController.getString(UIConstants.GETMAP), Command.SCREEN, 0);
-        moveTopCommand = new Command(uiController.getString(UIConstants.MOVE_TO_TOP), Command.SCREEN, 1);
-        moveUpCommand = new Command(uiController.getString(UIConstants.MOVE_UP), Command.SCREEN, 2);
-        moveDownCommand = new Command(uiController.getString(UIConstants.MOVE_DOWN), Command.SCREEN, 3);
-        moveBottomCommand = new Command(uiController.getString(UIConstants.MOVE_TO_BOTTOM), Command.SCREEN, 4);
+        getMapCommand = new Command(uiController.getString(UIConstants.GETMAP),
+                Command.SCREEN, 0);
+        moveTopCommand = new Command(uiController
+                .getString(UIConstants.MOVE_TO_TOP), Command.SCREEN, 1);
+        moveUpCommand = new Command(
+                uiController.getString(UIConstants.MOVE_UP), Command.SCREEN, 2);
+        moveDownCommand = new Command(uiController
+                .getString(UIConstants.MOVE_DOWN), Command.SCREEN, 3);
+        moveBottomCommand = new Command(uiController
+                .getString(UIConstants.MOVE_TO_BOTTOM), Command.SCREEN, 4);
 
         addCommand(getMapCommand);
         addCommand(moveTopCommand);
@@ -94,13 +100,14 @@ public class SortLayerListUI extends List implements CommandListener {
         this.sortLayerList = sortLayerList;
 
         if (0 == sortLayerList.size()) {
-            throw new ApplicationException(uiController.getString(UIConstants.NO_SELECTED_LAYER));
+            throw new ApplicationException(uiController
+                    .getString(UIConstants.NO_SELECTED_LAYER));
         }
 
-		deleteAll();
-		for (int i = 0; i < sortLayerList.size(); i++) {
-		    append(sortLayerList.elementAt(i).toString(), null);
-		}
+        deleteAll();
+        for (int i = 0; i < sortLayerList.size(); i++) {
+            append(sortLayerList.elementAt(i).toString(), null);
+        }
     }
 
     /**
@@ -137,7 +144,8 @@ public class SortLayerListUI extends List implements CommandListener {
 
             setSelectedIndex(selectedIndex - 1, true);
         } else {
-            // Can't call moveToBottom() because we have to check condition with moveToBottom()
+            // Can't call moveToBottom() because we have to check condition with
+            // moveToBottom()
             sortLayerList.removeElementAt(selectedIndex);
             delete(selectedIndex);
 
@@ -161,7 +169,8 @@ public class SortLayerListUI extends List implements CommandListener {
 
             setSelectedIndex(selectedIndex + 1, true);
         } else {
-            // Can't call moveToTop() because we have to check condition with moveToTop()
+            // Can't call moveToTop() because we have to check condition with
+            // moveToTop()
             sortLayerList.removeElementAt(selectedIndex);
             delete(selectedIndex);
 

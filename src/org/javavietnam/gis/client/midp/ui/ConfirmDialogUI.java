@@ -45,37 +45,41 @@ import javax.microedition.lcdui.Form;
 import javax.microedition.lcdui.StringItem;
 
 public class ConfirmDialogUI extends Form implements CommandListener {
-	private UIController uiController;
-	private int messageId;
+    private UIController uiController;
+    private int messageId;
 
-	private StringItem messageItem;
-	private Command yesCommand;
-	private Command noCommand;
+    private StringItem messageItem;
+    private Command yesCommand;
+    private Command noCommand;
 
-	public ConfirmDialogUI(UIController uiController) {
-		super("");
-		this.uiController = uiController;
-		messageItem = new StringItem(this.uiController.getString(UIConstants.NOTICE) + ": ", "");
-		append(messageItem);
-		yesCommand = new Command(this.uiController.getString(UIConstants.YES), Command.OK, 0);
-		addCommand(yesCommand);
-		noCommand = new Command(this.uiController.getString(UIConstants.NO), Command.CANCEL, 0);
-		addCommand(noCommand);
-		setCommandListener(this);
-	}
+    public ConfirmDialogUI(UIController uiController) {
+        super("");
+        this.uiController = uiController;
+        messageItem = new StringItem(this.uiController
+                .getString(UIConstants.NOTICE)
+                + ": ", "");
+        append(messageItem);
+        yesCommand = new Command(this.uiController.getString(UIConstants.YES),
+                Command.OK, 0);
+        addCommand(yesCommand);
+        noCommand = new Command(this.uiController.getString(UIConstants.NO),
+                Command.CANCEL, 0);
+        addCommand(noCommand);
+        setCommandListener(this);
+    }
 
-	public void showConfirm(int messageId) {
-		this.messageId = messageId;
-		this.messageItem.setText(this.uiController.getMessage(messageId));
-	}
+    public void showConfirm(int messageId) {
+        this.messageId = messageId;
+        this.messageItem.setText(this.uiController.getMessage(messageId));
+    }
 
-	public void commandAction(Command c, Displayable d) {
-		if(c == yesCommand) {
-			this.uiController.confirmAction(messageId, true);
-		}
-		if(c == noCommand) {
-			this.uiController.confirmAction(messageId, false);
-		}
-	}
+    public void commandAction(Command c, Displayable d) {
+        if (c == yesCommand) {
+            this.uiController.confirmAction(messageId, true);
+        }
+        if (c == noCommand) {
+            this.uiController.confirmAction(messageId, false);
+        }
+    }
 
 }

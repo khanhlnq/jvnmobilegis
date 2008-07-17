@@ -83,7 +83,6 @@ package org.javavietnam.gis.client.midp.ui;
 
 import henson.midp.Float;
 
-import javax.microedition.lcdui.Alert;
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.CommandListener;
 import javax.microedition.lcdui.Displayable;
@@ -99,7 +98,7 @@ import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
  * @author khanhlnq
  */
 public class MapViewUI extends GameCanvas implements CommandListener,
-    WMSRequestParameter {
+        WMSRequestParameter {
 
     private static final int NO_ACTION = 0;
     private static final int MOVE_DOWN = 1;
@@ -116,13 +115,14 @@ public class MapViewUI extends GameCanvas implements CommandListener,
     private final Command resetCommand;
     private final Command recenterCommand;
     // private Command findPathCommand;
+    private final Command whereAmICommand;
     private final Command getFeatureInfoCommand;
     private final Command saveToFileCommand;
     private final Command searchFeatureCommand;
     private final Command helpCommand;
     private final Command refreshCommand;
     private final Font smallFont = Font.getFont(Font.FACE_PROPORTIONAL,
-        Font.STYLE_ITALIC, Font.SIZE_SMALL);
+            Font.STYLE_ITALIC, Font.SIZE_SMALL);
     /**
      * @uml.property name="cursorX"
      */
@@ -155,7 +155,10 @@ public class MapViewUI extends GameCanvas implements CommandListener,
     private Float[] boundingBox = new Float[4];
     private Float[] previousBoundingBox = new Float[4];
 
+    private Float[] myLocation = new Float[2];
+
     private int previousAction = NO_ACTION;
+    private boolean isLocated = false;
     /**
      * @uml.property name="getMapURL"
      */
@@ -169,11 +172,12 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         try {
             String platform = System.getProperty("microedition.platform");
             System.out.println("******* Platform: " + platform);
-            if ((platform != null) && (platform.toLowerCase().trim().indexOf("nokia") >= 0)) {
+            if ((platform != null)
+                    && (platform.toLowerCase().trim().indexOf("nokia") >= 0)) {
                 this.setFullScreenMode(true);
             }
         } catch (Exception e) {
-        // Do nothing
+            // Do nothing
         }
 
         this.uiController = uiController;
@@ -184,24 +188,30 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         cursorSize = Font.getDefaultFont().charWidth('+');
 
         backCommand = new Command(uiController.getString(UIConstants.BACK),
-            Command.BACK, 5);
-        zoomInCommand = new Command(uiController.getString(UIConstants.ZOOM_IN_CMD), Command.SCREEN, 1);
-        zoomOutCommand = new Command(uiController.getString(UIConstants.ZOOM_OUT_CMD), Command.SCREEN, 2);
-        resetCommand = new Command(uiController.getString(UIConstants.RESET_VIEW_CMD), Command.SCREEN, 3);
-        recenterCommand = new Command(uiController.getString(UIConstants.RECENTER_CMD), Command.SCREEN, 4);
-        refreshCommand = new Command(uiController.getString(UIConstants.REFRESH), Command.SCREEN, 5);
+                Command.BACK, 5);
+        zoomInCommand = new Command(uiController
+                .getString(UIConstants.ZOOM_IN_CMD), Command.SCREEN, 1);
+        zoomOutCommand = new Command(uiController
+                .getString(UIConstants.ZOOM_OUT_CMD), Command.SCREEN, 2);
+        resetCommand = new Command(uiController
+                .getString(UIConstants.RESET_VIEW_CMD), Command.SCREEN, 3);
+        recenterCommand = new Command(uiController
+                .getString(UIConstants.RECENTER_CMD), Command.SCREEN, 4);
+        refreshCommand = new Command(uiController
+                .getString(UIConstants.REFRESH), Command.SCREEN, 5);
         // findPathCommand = new
         // Command(uiController.getString(UIConstants.FIND_PATH_CMD),
         // Command.SCREEN, 5);
-        getFeatureInfoCommand = new Command(uiController.getString(UIConstants.GET_FEATURE_INFO), Command.SCREEN, 6);
+        whereAmICommand = new Command("Where am I?", Command.SCREEN, 6);
+        getFeatureInfoCommand = new Command(uiController
+                .getString(UIConstants.GET_FEATURE_INFO), Command.SCREEN, 7);
         searchFeatureCommand = new Command(uiController
                 .getString(UIConstants.SEARCH_FEATURE_UI_TITLE),
-                Command.SCREEN, 7);
+                Command.SCREEN, 8);
         saveToFileCommand = new Command(uiController
-                .getString(UIConstants.SAVE_TO_FILE),
-                Command.SCREEN, 7);
+                .getString(UIConstants.SAVE_TO_FILE), Command.SCREEN, 9);
         helpCommand = new Command(uiController.getString(UIConstants.HELP_CMD),
-            Command.SCREEN, 8);
+                Command.SCREEN, 10);
 
         addCommand(zoomInCommand);
         addCommand(zoomOutCommand);
@@ -210,6 +220,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         addCommand(backCommand);
         addCommand(refreshCommand);
         // addCommand(findPathCommand);
+        addCommand(whereAmICommand);
         addCommand(getFeatureInfoCommand);
         addCommand(searchFeatureCommand);
         addCommand(saveToFileCommand);
@@ -228,7 +239,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
     }
 
     public void initParam(Float[] latLonBoundingBox, String getMapURL,
-        String srs) {
+            String srs) {
         System.arraycopy(latLonBoundingBox, 0, boundingBox, 0, 4);
         this.getMapURL = getMapURL;
 
@@ -249,8 +260,8 @@ public class MapViewUI extends GameCanvas implements CommandListener,
 
         previousAction = NO_ACTION;
 
-    // startPointSelected = false;
-    // endPointSelected = false;
+        // startPointSelected = false;
+        // endPointSelected = false;
     }
 
     /**
@@ -278,8 +289,8 @@ public class MapViewUI extends GameCanvas implements CommandListener,
 
         previousAction = NO_ACTION;
 
-    // startPointSelected = false;
-    // endPointSelected = false;
+        // startPointSelected = false;
+        // endPointSelected = false;
     }
 
     /**
@@ -323,7 +334,8 @@ public class MapViewUI extends GameCanvas implements CommandListener,
     }
 
     /*
-     * public void setIsViewPath(boolean viewPath) { this.isViewPath = viewPath; }
+     * public void setIsViewPath(boolean viewPath) { this.isViewPath = viewPath;
+     * }
      */
     public void setIsViewFeature(boolean viewFeature) {
         this.isViewFeature = viewFeature;
@@ -331,7 +343,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
 
     public String getSRS() {
         return "EPSG:4326";
-    // return srs;
+        // return srs;
     }
 
     public String getVersion() {
@@ -350,7 +362,8 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         // int pw;
         // // pw = getHeight() * getBoxWidth() / getBoxHeight();
         // pw =
-        // (int)(((getBoxWidth().Mul(getHeight())).Div(getBoxHeight())).toLong());
+        //(int)(((getBoxWidth().Mul(getHeight())).Div(getBoxHeight())).toLong())
+        // ;
         // if (pw > getWidth()) {
         // return getWidth();
         // }
@@ -362,12 +375,20 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         // int ph;
         // // ph = getWidth() * getBoxHeight() / getBoxWidth();
         // ph =
-        // (int)(((getBoxHeight().Mul(getWidth())).Div(getBoxWidth())).toLong());
+        //(int)(((getBoxHeight().Mul(getWidth())).Div(getBoxWidth())).toLong());
         // if (ph > getHeight()) {
         // return getHeight();
         // }
         // return ph;
         return getHeight();
+    }
+
+    public boolean isInside(Float[] point, Float[] box) {
+        if (box[0].Less(point[0]) && point[0].Less(box[2])
+                && box[1].Less(point[1]) && point[1].Less(box[3])) {
+            return true;
+        }
+        return false;
     }
 
     // Transform from cursor coordinate to world coordinate
@@ -378,9 +399,11 @@ public class MapViewUI extends GameCanvas implements CommandListener,
 
         Float[] dest = new Float[2];
         // dest[0] = boundingBox[0] + source[0]/getCurrentScale();
-        dest[0] = boundingBox[0].Add(new Float(source[0]).Div(getCurrentScale()));
+        dest[0] = boundingBox[0].Add(new Float(source[0])
+                .Div(getCurrentScale()));
         // dest[3] = boundingBox[3] - source[1]/getCurrentScale();
-        dest[1] = boundingBox[1].Add(new Float(getHeight() - source[1]).Div(getCurrentScale()));
+        dest[1] = boundingBox[1].Add(new Float(getHeight() - source[1])
+                .Div(getCurrentScale()));
         return dest;
     }
 
@@ -391,8 +414,11 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         }
 
         int[] dest = new int[2];
-        dest[0] = (int) (((source[0].Sub(boundingBox[0])).Mul(getCurrentScale())).toLong());
-        dest[1] = getHeight() - (int) (((source[1].Sub(boundingBox[1])).Mul(getCurrentScale())).toLong());
+        dest[0] = (int) (((source[0].Sub(boundingBox[0]))
+                .Mul(getCurrentScale())).toLong());
+        dest[1] = getHeight()
+                - (int) (((source[1].Sub(boundingBox[1]))
+                        .Mul(getCurrentScale())).toLong());
         return dest;
     }
 
@@ -445,17 +471,31 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         boundingBox[3] = feature.getY().Add(boxHeight.Div(2));
         cursorX = getWidth() / 2;
         cursorY = getHeight() / 2;
+    }
 
+    // Center at the specific point
+    public void updateMyLocation(String latitude, String longitude) {
+        previousAction = NO_ACTION;
+        isLocated = true;
+
+        // Soom to best scale first
+        zoomToScale(UIConstants.BEST_SCALE);
+
+        // Set location to new lat/lon
+        myLocation[0] = Float.parse(latitude, 8);
+        myLocation[1] = Float.parse(longitude, 8);
+        // Re-center to my location
+        reCenter(myLocation);
     }
 
     private void zoomIn() {
         if (previousAction == ZOOM_OUT) {
-           restorePreviousAction(ZOOM_IN);
+            restorePreviousAction(ZOOM_IN);
         } else {
             saveCurrentAction(ZOOM_IN);
 
             // Recenter at cursor first
-            int[] cursors = {getCursorX(), getCursorY()};
+            int[] cursors = { getCursorX(), getCursorY() };
             reCenter(cursors);
 
             // then zoom in
@@ -463,9 +503,12 @@ public class MapViewUI extends GameCanvas implements CommandListener,
             Float oldWidth = getBoxWidth();
             Float oldHeight = getBoxHeight();
 
-            boundingBox[0] = boundingBox[0].Add(UIConstants.SCALE.Mul(oldWidth));
-            boundingBox[1] = boundingBox[1].Add(UIConstants.SCALE.Mul(oldHeight));
-            boundingBox[2] = boundingBox[2].Sub(UIConstants.SCALE.Mul(oldWidth));
+            boundingBox[0] = boundingBox[0]
+                    .Add(UIConstants.SCALE.Mul(oldWidth));
+            boundingBox[1] = boundingBox[1].Add(UIConstants.SCALE
+                    .Mul(oldHeight));
+            boundingBox[2] = boundingBox[2]
+                    .Sub(UIConstants.SCALE.Mul(oldWidth));
 
             boundingBox[3] = boundingBox[1].Add(getBoxWidth().Div(oldScale));
         }
@@ -473,12 +516,12 @@ public class MapViewUI extends GameCanvas implements CommandListener,
 
     private void zoomOut() {
         if (previousAction == ZOOM_IN) {
-           restorePreviousAction(ZOOM_OUT);
+            restorePreviousAction(ZOOM_OUT);
         } else {
             saveCurrentAction(ZOOM_OUT);
 
             // Recenter at cursor first
-            int[] cursors = {getCursorX(), getCursorY()};
+            int[] cursors = { getCursorX(), getCursorY() };
             reCenter(cursors);
 
             // then zoom out
@@ -486,9 +529,12 @@ public class MapViewUI extends GameCanvas implements CommandListener,
             Float oldWidth = getBoxWidth();
             Float oldHeight = getBoxHeight();
 
-            boundingBox[0] = boundingBox[0].Sub(UIConstants.SCALE.Mul(oldWidth));
-            boundingBox[1] = boundingBox[1].Sub(UIConstants.SCALE.Mul(oldHeight));
-            boundingBox[2] = boundingBox[2].Add(UIConstants.SCALE.Mul(oldWidth));
+            boundingBox[0] = boundingBox[0]
+                    .Sub(UIConstants.SCALE.Mul(oldWidth));
+            boundingBox[1] = boundingBox[1].Sub(UIConstants.SCALE
+                    .Mul(oldHeight));
+            boundingBox[2] = boundingBox[2]
+                    .Add(UIConstants.SCALE.Mul(oldWidth));
 
             boundingBox[3] = boundingBox[1].Add(getBoxWidth().Div(oldScale));
         }
@@ -525,64 +571,72 @@ public class MapViewUI extends GameCanvas implements CommandListener,
 
     private void moveUp() {
         if (previousAction == MOVE_DOWN) {
-           restorePreviousAction(MOVE_UP);
+            restorePreviousAction(MOVE_UP);
         } else {
             saveCurrentAction(MOVE_UP);
 
             Float oldHeight = getBoxHeight();
 
-            boundingBox[1] = boundingBox[1].Add(UIConstants.SCALE.Mul(oldHeight));
-            boundingBox[3] = boundingBox[3].Add(UIConstants.SCALE.Mul(oldHeight));
+            boundingBox[1] = boundingBox[1].Add(UIConstants.SCALE
+                    .Mul(oldHeight));
+            boundingBox[3] = boundingBox[3].Add(UIConstants.SCALE
+                    .Mul(oldHeight));
         }
     }
 
     private void moveDown() {
         if (previousAction == MOVE_UP) {
-           restorePreviousAction(MOVE_DOWN);
+            restorePreviousAction(MOVE_DOWN);
         } else {
             saveCurrentAction(MOVE_DOWN);
 
             Float oldHeight = getBoxHeight();
 
-            boundingBox[1] = boundingBox[1].Sub(UIConstants.SCALE.Mul(oldHeight));
-            boundingBox[3] = boundingBox[3].Sub(UIConstants.SCALE.Mul(oldHeight));
+            boundingBox[1] = boundingBox[1].Sub(UIConstants.SCALE
+                    .Mul(oldHeight));
+            boundingBox[3] = boundingBox[3].Sub(UIConstants.SCALE
+                    .Mul(oldHeight));
         }
     }
 
     private void moveLeft() {
         if (previousAction == MOVE_RIGHT) {
-           restorePreviousAction(MOVE_LEFT);
+            restorePreviousAction(MOVE_LEFT);
         } else {
             saveCurrentAction(MOVE_LEFT);
 
             Float oldWidth = getBoxWidth();
 
-            boundingBox[0] = boundingBox[0].Sub(UIConstants.SCALE.Mul(oldWidth));
-            boundingBox[2] = boundingBox[2].Sub(UIConstants.SCALE.Mul(oldWidth));
+            boundingBox[0] = boundingBox[0]
+                    .Sub(UIConstants.SCALE.Mul(oldWidth));
+            boundingBox[2] = boundingBox[2]
+                    .Sub(UIConstants.SCALE.Mul(oldWidth));
         }
     }
 
     private void moveRight() {
         if (previousAction == MOVE_LEFT) {
-           restorePreviousAction(MOVE_RIGHT);
+            restorePreviousAction(MOVE_RIGHT);
         } else {
             saveCurrentAction(MOVE_RIGHT);
 
             Float oldWidth = getBoxWidth();
 
-            boundingBox[0] = boundingBox[0].Add(UIConstants.SCALE.Mul(oldWidth));
-            boundingBox[2] = boundingBox[2].Add(UIConstants.SCALE.Mul(oldWidth));
+            boundingBox[0] = boundingBox[0]
+                    .Add(UIConstants.SCALE.Mul(oldWidth));
+            boundingBox[2] = boundingBox[2]
+                    .Add(UIConstants.SCALE.Mul(oldWidth));
         }
     }
 
     private void repaintCursor() {
         repaint(cursorX - (2 * cursorSize), cursorY - (2 * cursorSize),
-            4 * cursorSize, 4 * cursorSize);
+                4 * cursorSize, 4 * cursorSize);
     }
 
     private void repaintCursor(int x, int y) {
         repaint(x - (2 * cursorSize), y - (2 * cursorSize), 4 * cursorSize,
-            4 * cursorSize);
+                4 * cursorSize);
     }
 
     private void repaintStatus() {
@@ -626,20 +680,21 @@ public class MapViewUI extends GameCanvas implements CommandListener,
      * getCursorY()}; int[] oldCursors = transformFromReal(startPoint);
      * startPoint = transformFromView(cursors); startPointSelected = true; //
      * Erase old points if (null != oldCursors) { repaint(oldCursors[0] -
-     * cursorSize, oldCursors[1] - cursorSize, 2 * cursorSize, 2 * cursorSize); } //
+     * cursorSize, oldCursors[1] - cursorSize, 2 cursorSize, 2 cursorSize); } //
      * Paint new points repaint(cursors[0] - cursorSize, cursors[1] -
-     * cursorSize, 2 * cursorSize, 2 * cursorSize); }
-     *
+     * cursorSize, 2 cursorSize, 2 cursorSize); }
+     * 
      * private void setEndPoint() { int[] cursors = {getCursorX(),
      * getCursorY()}; int[] oldCursors = transformFromReal(endPoint); endPoint =
      * transformFromView(cursors); endPointSelected = true; if (null !=
      * oldCursors) { repaint(oldCursors[0] - cursorSize, oldCursors[1] -
-     * cursorSize, 2 * cursorSize, 2 * cursorSize); } repaint(cursors[0] -
-     * cursorSize, cursors[1] - cursorSize, 2 * cursorSize, 2 * cursorSize); }
+     * cursorSize, 2 cursorSize, 2 cursorSize); } repaint(cursors[0] -
+     * cursorSize, cursors[1] - cursorSize, 2 cursorSize, 2 cursorSize); }
      */
     private static String floatToString(Float f, int num) {
         String floatValue = f.toString();
-        if (floatValue.indexOf('.') >= 0 && (floatValue.indexOf('.') + num + 1 < floatValue.length())) {
+        if (floatValue.indexOf('.') >= 0
+                && (floatValue.indexOf('.') + num + 1 < floatValue.length())) {
             return floatValue.substring(0, floatValue.indexOf('.') + num + 1);
         } else {
             return floatValue;
@@ -658,7 +713,8 @@ public class MapViewUI extends GameCanvas implements CommandListener,
             // System.out.println("****** Cursor (x, y) = (" + cursorX + ", " +
             // cursorY + ")");
             if (isDragging) {
-                g.drawImage(wmsImg, pointerEndX - pointerStartX, pointerEndY - pointerStartY, Graphics.TOP | Graphics.LEFT);
+                g.drawImage(wmsImg, pointerEndX - pointerStartX, pointerEndY
+                        - pointerStartY, Graphics.TOP | Graphics.LEFT);
             } else {
                 g.drawImage(wmsImg, 0, 0, Graphics.TOP | Graphics.LEFT);
             }
@@ -666,11 +722,12 @@ public class MapViewUI extends GameCanvas implements CommandListener,
             g.setFont(smallFont);
             g.setColor(0x0000FF);
             g.drawString("1/" + floatToString(getCurrentScale(), 3), 0,
-                getHeight(), Graphics.BOTTOM | Graphics.LEFT);
-            int[] cursors = {getCursorX(), getCursorY()};
+                    getHeight(), Graphics.BOTTOM | Graphics.LEFT);
+            int[] cursors = { getCursorX(), getCursorY() };
             Float[] real = transformFromView(cursors);
-            g.drawString("lon:" + floatToString(real[0], 3) + " lat:" + floatToString(real[1], 3), getWidth(), getHeight(),
-                Graphics.BOTTOM + Graphics.RIGHT);
+            g.drawString("lon:" + floatToString(real[0], 3) + " lat:"
+                    + floatToString(real[1], 3), getWidth(), getHeight(),
+                    Graphics.BOTTOM + Graphics.RIGHT);
             // Reset to default Font and color
             g.setFont(Font.getDefaultFont());
             g.setColor(oldColor);
@@ -687,9 +744,18 @@ public class MapViewUI extends GameCanvas implements CommandListener,
              * cursorSize, 0, 360); g.setColor(oldColor); }
              */
 
+            // Draw my location
+            if (isLocated && isInside(myLocation, boundingBox)) {
+                g.setColor(0x00FF00);
+                int[] myLocationPoint = transformFromReal(myLocation);
+                g.drawArc(myLocationPoint[0] - cursorSize, myLocationPoint[1]
+                        - cursorSize, cursorSize * 2, cursorSize * 2, 0, 360);
+                g.setColor(oldColor);
+            }
+
             g.setColor(0x0000FF);
             g.drawChar('+', cursorX, cursorY + (cursorSize / 2),
-                Graphics.BASELINE | Graphics.HCENTER);
+                    Graphics.BASELINE | Graphics.HCENTER);
             g.setColor(oldColor);
         } else {
             uiController.getMapRequested();
@@ -726,8 +792,8 @@ public class MapViewUI extends GameCanvas implements CommandListener,
             if (Math.abs(intDx) > 0 || Math.abs(intDy) > 0) {
                 previousAction = NO_ACTION;
 
-                int[] pointersStart = {pointerStartX, pointerStartY};
-                int[] pointersEnd = {pointerEndX, pointerEndY};
+                int[] pointersStart = { pointerStartX, pointerStartY };
+                int[] pointersEnd = { pointerEndX, pointerEndY };
 
                 Float[] pointersStartReal = transformFromView(pointersStart);
                 Float[] pointersEndReal = transformFromView(pointersEnd);
@@ -744,7 +810,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
                  * if (isViewPath) { uiController.viewPathRequested(); } else {
                  */
                 uiController.updateMapRequested();
-            // }
+                // }
             } else {
                 // if distance is less than 1, then consider pointer press
                 pointerPressed(x, y);
@@ -768,64 +834,64 @@ public class MapViewUI extends GameCanvas implements CommandListener,
 
     public void keyPressed(int keyCode) {
         switch (keyCode) {
-            case KEY_NUM2:
-                moveUp();
-                /*
-                 * if (isViewPath) { uiController.viewPathRequested(); } else {
-                 */
-                uiController.updateMapRequested();
-                // }
-                break;
-            case KEY_NUM8:
-                moveDown();
-                // if (isViewPath) {
-                // uiController.viewPathRequested();
-                // } else {
-                uiController.updateMapRequested();
-                // }
-                break;
-            case KEY_NUM4:
-                moveLeft();
-                // if (isViewPath) {
-                // uiController.viewPathRequested();
-                // } else {
-                uiController.updateMapRequested();
-                // }
-                break;
-            case KEY_NUM6:
-                moveRight();
-                // if (isViewPath) {
-                // uiController.viewPathRequested();
-                // } else {
-                uiController.updateMapRequested();
-                // }
-                break;
+        case KEY_NUM2:
+            moveUp();
             /*
-             * case KEY_NUM1: // isViewPath = false; setStartPoint(); break; case
-             * KEY_NUM3: // isViewPath = false; setEndPoint(); break;
+             * if (isViewPath) { uiController.viewPathRequested(); } else {
              */
-            case KEY_NUM5:
-                uiController.selectInfoLayerRequested();
+            uiController.updateMapRequested();
+            // }
+            break;
+        case KEY_NUM8:
+            moveDown();
+            // if (isViewPath) {
+            // uiController.viewPathRequested();
+            // } else {
+            uiController.updateMapRequested();
+            // }
+            break;
+        case KEY_NUM4:
+            moveLeft();
+            // if (isViewPath) {
+            // uiController.viewPathRequested();
+            // } else {
+            uiController.updateMapRequested();
+            // }
+            break;
+        case KEY_NUM6:
+            moveRight();
+            // if (isViewPath) {
+            // uiController.viewPathRequested();
+            // } else {
+            uiController.updateMapRequested();
+            // }
+            break;
+        /*
+         * case KEY_NUM1: // isViewPath = false; setStartPoint(); break; case
+         * KEY_NUM3: // isViewPath = false; setEndPoint(); break;
+         */
+        case KEY_NUM5:
+            uiController.selectInfoLayerRequested();
+            break;
+        default:
+            int action = getGameAction(keyCode);
+            switch (action) {
+            case LEFT:
+                moveCursorLeft();
+                break;
+            case RIGHT:
+                moveCursorRight();
+                break;
+            case UP:
+                moveCursorUp();
+                break;
+            case DOWN:
+                moveCursorDown();
                 break;
             default:
-                int action = getGameAction(keyCode);
-                switch (action) {
-                    case LEFT:
-                        moveCursorLeft();
-                        break;
-                    case RIGHT:
-                        moveCursorRight();
-                        break;
-                    case UP:
-                        moveCursorUp();
-                        break;
-                    case DOWN:
-                        moveCursorDown();
-                        break;
-                    default:
-                        break;
-                }
                 break;
+            }
+            break;
         }
     }
 
@@ -839,53 +905,56 @@ public class MapViewUI extends GameCanvas implements CommandListener,
             // uiController.viewPathRequested();
             // } else {
             uiController.updateMapRequested();
-        // }
+            // }
         } else if (command == zoomInCommand) {
             zoomIn();
             // if (isViewPath) {
             // uiController.viewPathRequested();
             // } else {
             uiController.updateMapRequested();
-        // }
+            // }
         } else if (command == zoomOutCommand) {
             zoomOut();
             // if (isViewPath) {
             // uiController.viewPathRequested();
             // } else {
             uiController.updateMapRequested();
-        // }
+            // }
         } else if (command == resetCommand) {
             // isViewPath = false;
             uiController.getMapRequested();
         } else if (command == recenterCommand) {
             previousAction = NO_ACTION;
-            int[] cursors = {getCursorX(), getCursorY()};
+            int[] cursors = { getCursorX(), getCursorY() };
             reCenter(cursors);
             // if (isViewPath) {
             // uiController.viewPathRequested();
             // } else {
             uiController.updateMapRequested();
-        // }
+            // }
         } else if (command == backCommand) {
             // isViewPath = false;
             isViewFeature = false;
-            //uiController.layerListRequested();
+            // uiController.layerListRequested();
             uiController.backToSortLayerListUI();
         } /*
-         * else if (command == findPathCommand) { isViewPath = false;
-         * isViewFeature = false; uiController.findPathRequested(); }
-         */ else if (command == getFeatureInfoCommand) {
+           * else if (command == findPathCommand) { isViewPath = false;
+           * isViewFeature = false; uiController.findPathRequested(); }
+           */
+        else if (command == whereAmICommand) {
+            isLocated = false;
+            uiController.lbsInfoRequested();
+        } else if (command == getFeatureInfoCommand) {
             uiController.selectInfoLayerRequested();
-        }         else if (command == searchFeatureCommand) {
-                    if (isViewFeature) {
-                        uiController.searchResultUIRequested();
-                    } else {
-                        isViewFeature = false;
-                        uiController.searchUIRequested();
-                    }
-                }
-        else if (command == saveToFileCommand) {
-    		uiController.browseFileSystemRequested();
+        } else if (command == searchFeatureCommand) {
+            if (isViewFeature) {
+                uiController.searchResultUIRequested();
+            } else {
+                isViewFeature = false;
+                uiController.searchUIRequested();
+            }
+        } else if (command == saveToFileCommand) {
+            uiController.browseFileSystemRequested();
         } else if (command == helpCommand) {
             uiController.helpRequested();
         } else {

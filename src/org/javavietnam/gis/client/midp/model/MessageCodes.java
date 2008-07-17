@@ -100,14 +100,14 @@ public final class MessageCodes {
     // Confirm messages
     public static final int CONFIRM_SAVE_PREFERENCES = 9;
     public static final int CONFIRM_OVERWRITE_TO_FILE = 10;
-    
+
     // File System Browser
     public static final int ERROR_DOESNT_SUPPORT_JSR_75 = 11;
     public static final int ERROR_CAN_NOT_VIEW_DIR = 12;
     public static final int ERROR_WRONG_PNG_FORMAT = 13;
     public static final int ERROR_CAN_NOT_SAVE_MAP_TO_DIR = 14;
     public static final int MISSING_NAME_INPUT = 15;
-    
+
     // private ErrorMessageCodes() {
     // }
 

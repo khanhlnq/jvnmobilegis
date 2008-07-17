@@ -95,10 +95,8 @@ public class InputSource {
     /**
      * Create a new input source with a system identifier. <p/> Applications may
      * use setPublicId to include a public identifier as well, or setEncoding to
-     * specify the character encoding, if known.
-     * </p>
-     * <p/> If the system identifier is a URL, it must be full resolved.
-     * </p>
+     * specify the character encoding, if known. </p> <p/> If the system
+     * identifier is a URL, it must be full resolved. </p>
      * 
      * @param systemId
      *            The system identifier (URI).
@@ -116,8 +114,7 @@ public class InputSource {
      * Create a new input source with a byte stream. <p/> Application writers
      * may use setSystemId to provide a base for resolving relative URIs,
      * setPublicId to include a public identifier, and/or setEncoding to specify
-     * the object's character encoding.
-     * </p>
+     * the object's character encoding. </p>
      * 
      * @param byteStream
      *            The raw byte stream containing the document.
@@ -134,10 +131,8 @@ public class InputSource {
     /**
      * Create a new input source with a character stream. <p/> Application
      * writers may use setSystemId() to provide a base for resolving relative
-     * URIs, and setPublicId to include a public identifier.
-     * </p>
-     * <p/> The character stream shall not include a byte order mark.
-     * </p>
+     * URIs, and setPublicId to include a public identifier. </p> <p/> The
+     * character stream shall not include a byte order mark. </p>
      * 
      * @param characterStream
      * @see #setPublicId

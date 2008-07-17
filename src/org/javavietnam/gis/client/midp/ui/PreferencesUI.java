@@ -70,11 +70,13 @@ class PreferencesUI extends Form implements CommandListener {
             this.uiController = uiController;
 
             String[] languages = { uiController.getString(UIConstants.ENGLISH),
-                    uiController.getString(UIConstants.VIETNAMESE), uiController.getString(UIConstants.DUTCH) };
+                    uiController.getString(UIConstants.VIETNAMESE),
+                    uiController.getString(UIConstants.DUTCH) };
 
-            Image[] icons = {uiController.getImage(UIConstants.ICON_ENGLAND_FLAG),
-            		uiController.getImage(UIConstants.ICON_VIETNAM_FLAG),
-            		uiController.getImage(UIConstants.ICON_DUTCH_FLAG)};
+            Image[] icons = {
+                    uiController.getImage(UIConstants.ICON_ENGLAND_FLAG),
+                    uiController.getImage(UIConstants.ICON_VIETNAM_FLAG),
+                    uiController.getImage(UIConstants.ICON_DUTCH_FLAG) };
 
             languageChoice = new ChoiceGroup(uiController
                     .getString(UIConstants.LANGUAGE), Choice.POPUP, languages,
@@ -133,12 +135,13 @@ class PreferencesUI extends Form implements CommandListener {
     }
 
     /*
-     * public String getFindPathLayer() { return findPathLayerField.getString(); }
+     * public String getFindPathLayer() { return findPathLayerField.getString();
+     * }
      */
 
     public void commandAction(Command command, Displayable displayable) {
         if (saveCommand == command) {
-        	uiController.confirm(MessageCodes.CONFIRM_SAVE_PREFERENCES);
+            uiController.confirm(MessageCodes.CONFIRM_SAVE_PREFERENCES);
         } else {
             uiController.commandAction(command, displayable);
         }
