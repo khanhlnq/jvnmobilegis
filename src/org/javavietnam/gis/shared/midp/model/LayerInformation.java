@@ -56,6 +56,10 @@ public class LayerInformation {
      * @uml.associationEnd multiplicity="(0 -1)"
      */
     private Float[] latLonBoundingBox;
+    
+    // ------ Tai Nguyen - Start ------
+    private Float[] boundingBox;
+    // ------ Tai Nguyen - End --------
 
     /**
      * Erstellt ein neues Objekt mit Refferenz auf den Server, der diesen Layer
@@ -170,4 +174,16 @@ public class LayerInformation {
             return super.toString();
     }
 
+    // ------ Tai Nguyen - Start ------
+    public Float[] getBoundingBox() {
+        if (boundingBox == null && parent != null)
+            return parent.getBoundingBox();
+        return boundingBox;
+    }
+
+    public void setBoundingBox(Float minx, Float miny, Float maxx,
+            Float maxy) {
+        boundingBox = new Float[] { minx, miny, maxx, maxy };
+    }
+    // ------ Tai Nguyen - End --------
 }

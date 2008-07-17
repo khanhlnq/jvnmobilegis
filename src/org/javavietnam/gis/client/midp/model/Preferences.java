@@ -105,6 +105,11 @@ public class Preferences {
 
     // private String findPathLayer = "";
 
+    /**
+     * @uml.property name="wfsServerURL"
+     */
+    private String wfsServerURL = "";
+
     public Preferences() {
     }
 
@@ -112,6 +117,7 @@ public class Preferences {
         this.locale = preferences.locale;
         this.setWmsServerURL(preferences.getWmsServerURL());
         this.setWebGISURL(preferences.getWebGISURL());
+        this.setWfsServerURL(preferences.getWfsServerURL());
         // this.setFindPathLayer(preferences.getFindPathLayer());
 
     }
@@ -122,6 +128,7 @@ public class Preferences {
             dataStream.writeUTF(locale);
             dataStream.writeUTF(getWmsServerURL());
             dataStream.writeUTF(getWebGISURL());
+            dataStream.writeUTF(getWfsServerURL());
             // dataStream.writeUTF(getFindPathLayer());
 
         } catch (IOException ioe) {
@@ -137,6 +144,7 @@ public class Preferences {
             preferences.locale = dataStream.readUTF();
             preferences.setWmsServerURL(dataStream.readUTF());
             preferences.setWebGISURL(dataStream.readUTF());
+            preferences.setWfsServerURL(dataStream.readUTF());
             // preferences.setFindPathLayer(dataStream.readUTF());
 
             return preferences;
@@ -185,6 +193,23 @@ public class Preferences {
      */
     public void setWebGISURL(String webGISURL) {
         this.webGISURL = webGISURL;
+    }
+
+    /**
+     * @return the wfsServerURL
+     * @uml.property name="wfsServerURL"
+     */
+    public String getWfsServerURL() {
+        return wfsServerURL;
+    }
+
+    /**
+     * @param wfsServerURL
+     *            the wfsServerURL to set
+     * @uml.property name="wfsServerURL"
+     */
+    public void setWfsServerURL(String wfsServerURL) {
+        this.wfsServerURL = wfsServerURL;
     }
 
     /**

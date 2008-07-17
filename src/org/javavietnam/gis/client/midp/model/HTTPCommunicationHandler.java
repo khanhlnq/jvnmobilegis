@@ -79,7 +79,6 @@
  * @author: Khanh Le
  * @Date Created: 22 Jun 2007
  */
-
 package org.javavietnam.gis.client.midp.model;
 
 import henson.midp.Float;
@@ -103,6 +102,7 @@ import org.javavietnam.gis.shared.midp.model.SearchFeatureParameter;
 import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
 
 import com.tinyline.util.GZIPInputStream;
+import org.javavietnam.gis.shared.midp.model.WFSParameter;
 
 /**
  * @author khanhlnq
@@ -110,7 +110,6 @@ import com.tinyline.util.GZIPInputStream;
 public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 
     // store the last valid credentials
-
     /**
      * @uml.property name="wwwAuthenticate"
      */
@@ -129,11 +128,12 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
      */
     public Image getMapWMS(WMSRequestParameter requestParam, Vector layerList)
             throws ModelException, ApplicationException {
-    	
-    	byte[] bytes = getMapWMSAsBytes(requestParam, layerList);
-    	
-    	return Image.createImage(bytes, 0, bytes.length);
+
+        byte[] bytes = getMapWMSAsBytes(requestParam, layerList);
+
+        return Image.createImage(bytes, 0, bytes.length);
     }
+
     /**
      * Get image as bytes from WMS server @
      */
@@ -163,8 +163,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         // or must one from the list.
         url.append("&layers=");
         for (int i = 0; i < layerList.size(); i++) {
-            url.append(((LayerInformation) layerList.elementAt(i))
-                    .getField("name"));
+            url.append(((LayerInformation) layerList.elementAt(i)).getField("name"));
             url.append(",");
         }
         // Delete the last comma
@@ -188,7 +187,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 
         // Check if this URL was already cached
         if (internalCache.containsKey(wmsUrl)) {
-           System.out.println("Pull data from cache for \n" + wmsUrl);
+            System.out.println("Pull data from cache for \n" + wmsUrl);
         } else {
             try {
                 connection = openGETConnection(wmsUrl);
@@ -243,8 +242,8 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
                 closeConnection(connection, inputStream);
             }
         }
-        
-        return (byte[])internalCache.get(wmsUrl);
+
+        return (byte[]) internalCache.get(wmsUrl);
     }
 
     /*
@@ -289,7 +288,6 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
      * finally { closeConnection(connection, inputStream); } return
      * toUTF8(resultBuf.toString()); }
      */
-
     public String searchFeature(SearchFeatureParameter searchParam)
             throws ModelException, ApplicationException {
         HttpConnection connection = null;
@@ -298,9 +296,8 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 
         String webGISURL = searchParam.getWebGISURL();
         StringBuffer url = new StringBuffer(webGISURL);
-        url
-                .append((webGISURL.lastIndexOf('/') != (webGISURL.length() - 1)) ? "/searchfeatures?"
-                        : "searchfeatures?");
+        url.append((webGISURL.lastIndexOf('/') != (webGISURL.length() - 1)) ? "/searchfeatures?"
+                : "searchfeatures?");
         url.append("minx=").append(searchParam.getBoundingBox()[0].toString());
         url.append("&miny=").append(searchParam.getBoundingBox()[1].toString());
         url.append("&maxx=").append(searchParam.getBoundingBox()[2].toString());
@@ -316,7 +313,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         // "http://khanhlnq:8080/jvnwebgis/searchfeatures?minx=617420&miny=1144670&maxx=752520&maxy=1238000&word=n&start=0";
         if (internalCache.containsKey(webGISURL)) {
             System.out.println("Pull data from cache \n" + webGISURL);
-           results = (String)internalCache.get(webGISURL);
+            results = (String) internalCache.get(webGISURL);
         } else {
             try {
                 connection = openGETConnection(webGISURL);
@@ -359,8 +356,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         // or must one from the list.
         url.append("&layers=");
         for (int i = 0; i < layerList.size(); i++) {
-            url.append(((LayerInformation) layerList.elementAt(i))
-                    .getField("name"));
+            url.append(((LayerInformation) layerList.elementAt(i)).getField("name"));
             url.append(",");
         }
         // Delete the last comma
@@ -389,8 +385,8 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         // wmsUrl =
         // "http://localhost:8080/geoserver/wms?&request=FindPath&service=wms&styles=&LAYERS=jvn:roads_topo&spoint=105.94586,10.78163&epoint=105.94065,10.79906&bbox=105.93026,10.75845,105.95795,10.80074&SRS=EPSG:4326&width=240&height=367&format=text/xml&version=1.1.1";
         if (internalCache.containsKey(wmsUrl)) {
-           System.out.println("Pull data from cache \n" + wmsUrl);
-           results = (String)internalCache.get(wmsUrl);
+            System.out.println("Pull data from cache \n" + wmsUrl);
+            results = (String) internalCache.get(wmsUrl);
         } else {
 
             try {
@@ -479,7 +475,6 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
      * new ApplicationException(ioe); } finally { closeConnection(connection,
      * inputStream); } return path; }
      */
-
     public String getCapabilitiesWMS(String serviceURL) throws ModelException,
             ApplicationException {
         HttpConnection connection;
@@ -492,7 +487,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 
         if (internalCache.containsKey(serviceURL)) {
             System.out.println("Pull data from cache \n" + serviceURL);
-           results = (String)internalCache.get(serviceURL);
+            results = (String) internalCache.get(serviceURL);
         } else {
 
             try {
@@ -563,28 +558,26 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 
             connection = (HttpConnection) Connector.open(serverURL);
 
-            connection.setRequestProperty("User-Agent", System
-                    .getProperty("microedition.profiles"));
+            connection.setRequestProperty("User-Agent", System.getProperty("microedition.profiles"));
             connection.setRequestProperty("Accept-Encoding", "gzip");
 
             if (0 == serverURL.indexOf("https://")) {
                 if (null != credentials && !"".equals(credentials)) {
-                    connection.setRequestProperty("Authorization", "Basic "
-                            + credentials);
+                    connection.setRequestProperty("Authorization", "Basic " + credentials);
                 }
                 // connection.setRequestMethod(HttpConnection.POST);
                 connection.setRequestMethod(HttpConnection.GET);
 
-                // SecurityInfo si = ((HttpsConnection) connection)
-                // .getSecurityInfo();
-                // Certificate c = si.getServerCertificate();
-                // String subject = c.getSubject();
-                // String cipherSuite = si.getCipherSuite();
-                //
-                // System.out.println("Server certificate subject: \n" +
-                // subject);
-                //
-                // System.out.println("Server Cipher Suite: \n" + cipherSuite);
+            // SecurityInfo si = ((HttpsConnection) connection)
+            // .getSecurityInfo();
+            // Certificate c = si.getServerCertificate();
+            // String subject = c.getSubject();
+            // String cipherSuite = si.getCipherSuite();
+            //
+            // System.out.println("Server certificate subject: \n" +
+            // subject);
+            //
+            // System.out.println("Server Cipher Suite: \n" + cipherSuite);
             } else {
                 connection.setRequestMethod(HttpConnection.GET);
             }
@@ -604,8 +597,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         try {
             String reponseMessage = connection.getResponseMessage();
 
-            if (responseCode == HttpConnection.HTTP_OK
-                    || responseCode == HttpConnection.HTTP_CREATED) {
+            if (responseCode == HttpConnection.HTTP_OK || responseCode == HttpConnection.HTTP_CREATED) {
                 inputStream = connection.openInputStream();
 //                try {
 //                	totalData += Integer.parseInt(connection.getHeaderField("Content-Length"));
@@ -618,7 +610,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
                 }
 
                 if ((connection.getEncoding() != null) && (connection.getHeaderField("Content-Encoding").toLowerCase().indexOf("gzip") != -1)) {
-                	inputStream = new GZIPInputStream(inputStream);
+                    inputStream = new GZIPInputStream(inputStream);
                 }
 
                 return inputStream;
@@ -631,22 +623,21 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
                 // closeConnection(connection, inputStream);
                 throw new ApplicationException(
                         MessageCodes.ERROR_UNAUTHORIZED);
-                // open again, this time with credentials
+            // open again, this time with credentials
             } else {
                 // System.out.println(" ******* Response Code = " +
                 // responseCode);
                 // throw new
                 // ApplicationException(ioe);
-                throw new ApplicationException("HTTP_"
-                        + String.valueOf(responseCode) + ": " + reponseMessage);
+                throw new ApplicationException("HTTP_" + String.valueOf(responseCode) + ": " + reponseMessage);
             }
         } catch (CertificateException certe) {
             throw new ApplicationException(MessageCodes.ERROR_CERTIFICATE);
         } catch (IOException ioe) {
             throw ioe;
         } // finally {
-        // closeConnection(connection, inputStream);
-        // }
+    // closeConnection(connection, inputStream);
+    // }
     }
 
     private String readStringContent(HttpConnection connection)
@@ -658,9 +649,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
                 return "";
             }
 
-            if ("UTF-8".equals(connection.getEncoding())
-                    || "UTF-8".equals(connection
-                            .getHeaderField("Content-Encoding"))) {
+            if ("UTF-8".equals(connection.getEncoding()) || "UTF-8".equals(connection.getHeaderField("Content-Encoding"))) {
                 isUTF8 = true;
             }
 
@@ -679,11 +668,11 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
             while ((ch = inputStream.read()) != -1) {
                 resultBuf.append((char) ch);
                 totalData++;
-                // i++;
-                // if (i > (length / 5)) {
-                // updateProgress();
-                // i = 0;
-                // }
+            // i++;
+            // if (i > (length / 5)) {
+            // updateProgress();
+            // i = 0;
+            // }
             }
 
             if (isUTF8) {
@@ -732,17 +721,52 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         this.credentials = credentials;
     }
 
-	/**
-	 * @return the totalData
-	 */
-	public String getTotalData() {
-        if(totalData >= 1024) {
-			Float f = new Float(totalData);
-			f = Float.round(f.Div(1024), 2);
+    /**
+     * @return the totalData
+     */
+    public String getTotalData() {
+        if (totalData >= 1024) {
+            Float f = new Float(totalData);
+            f = Float.round(f.Div(1024), 2);
 
-			return f.toString() + " KB" ;
-		}
+            return f.toString() + " KB";
+        }
 
-		return new Integer(totalData).toString() + " B";
-	}
+        return new Integer(totalData).toString() + " B";
+    }
+
+    // ------ Tai Nguyen - Start ------
+    public String getWFSRequest(WFSParameter param) throws ModelException,
+            ApplicationException {
+        HttpConnection connection;
+
+        // Try to free-up memory first
+        System.gc();
+        updateProgress();
+
+        String results = new String("");
+        String serviceURL = param.toString();
+
+        if (internalCache.containsKey(serviceURL)) {
+            System.out.println("Pull data from cache \n" + serviceURL);
+            results = (String) internalCache.get(serviceURL);
+        } else {
+            try {
+                connection = openGETConnection(serviceURL);
+
+                results = toUTF8(readStringContent(connection));
+                internalCache.put(serviceURL, results);
+                updateProgress();
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+                throw new ApplicationException(ioe);
+            }
+        }
+        // Do not close input stream now
+        // finally {
+        // closeGETConnection(connection, inputStream);
+        // }
+        return results;
+    }
+    // ------ Tai Nguyen - End --------
 }

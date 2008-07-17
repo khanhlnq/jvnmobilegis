@@ -60,6 +60,7 @@ class PreferencesUI extends Form implements CommandListener {
     private ChoiceGroup languageChoice;
     private TextField serverField;
     private TextField webGISField;
+    private TextField wfsServerField;
 
     // private TextField findPathLayerField;
     private Command saveCommand;
@@ -84,6 +85,9 @@ class PreferencesUI extends Form implements CommandListener {
                     TextField.URL);
             webGISField = new TextField(uiController
                     .getString(UIConstants.WEBGIS_URL), "", 255, TextField.URL);
+            wfsServerField = new TextField(uiController
+                    .getString(UIConstants.WFS_SERVER_TITLE), "", 255,
+                    TextField.URL);
             // findPathLayerField = new
             // TextField(uiController.getString(UIConstants.FINDPATH_LAYER), "",
             // 255, TextField.URL);
@@ -91,6 +95,7 @@ class PreferencesUI extends Form implements CommandListener {
             append(languageChoice);
             append(serverField);
             append(webGISField);
+            append(wfsServerField);
             // append(findPathLayerField);
 
             saveCommand = new Command(uiController.getString(UIConstants.SAVE),
@@ -117,6 +122,7 @@ class PreferencesUI extends Form implements CommandListener {
 
         serverField.setString(preferences.getWmsServerURL());
         webGISField.setString(preferences.getWebGISURL());
+        wfsServerField.setString(preferences.getWfsServerURL());
         // findPathLayerField.setString(preferences.getFindPathLayer());
     }
 
@@ -130,6 +136,10 @@ class PreferencesUI extends Form implements CommandListener {
 
     public String getWebGISURL() {
         return webGISField.getString();
+    }
+
+    public String getWfsServerURL() {
+        return wfsServerField.getString();
     }
 
     /*

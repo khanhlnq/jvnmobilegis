@@ -166,6 +166,17 @@ public class CapabilitiesParser extends MinML {
                             Float.parse(attributes.getValue("miny"), 10),
                             Float.parse(attributes.getValue("maxx"), 10),
                             Float.parse(attributes.getValue("maxy"), 10));
+        // ------ Tai Nguyen - Start ------
+        } else if (layerIsParent
+                && name.toLowerCase().equals("boundingbox")) {
+
+            ((InnerTreeNode) currPath.lastElement()).getLayerInformation()
+                    .setBoundingBox(
+                            Float.parse(attributes.getValue("minx"), 10),
+                            Float.parse(attributes.getValue("miny"), 10),
+                            Float.parse(attributes.getValue("maxx"), 10),
+                            Float.parse(attributes.getValue("maxy"), 10));
+        // ------ Tai Nguyen - End --------
         } else {
 
             if (name.toLowerCase().equals("style"))

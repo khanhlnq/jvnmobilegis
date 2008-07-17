@@ -79,7 +79,6 @@
  * @author: Khanh Le
  * @Date Created: 22 Jun 2007
  */
-
 package org.javavietnam.gis.client.midp.model;
 
 import java.util.Vector;
@@ -89,9 +88,13 @@ import javax.microedition.lcdui.Image;
 import org.javavietnam.gis.client.midp.util.ProgressObserver;
 import org.javavietnam.gis.shared.midp.ApplicationException;
 import org.javavietnam.gis.shared.midp.CapabilitiesParser;
+import org.javavietnam.gis.shared.midp.WFSDescribeParser;
+import org.javavietnam.gis.shared.midp.WFSFeatureParser;
 import org.javavietnam.gis.shared.midp.model.ModelException;
 import org.javavietnam.gis.shared.midp.model.ModelObjectLoader;
 import org.javavietnam.gis.shared.midp.model.SearchFeatureParameter;
+import org.javavietnam.gis.shared.midp.model.WFSGetFeatureParameter;
+import org.javavietnam.gis.shared.midp.model.WFSParameter;
 import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
 
 /**
@@ -107,7 +110,6 @@ class RemoteModelProxy extends ModelObjectLoader {
 
     public RemoteModelProxy() throws ApplicationException {
         requestHandlerChain = new HTTPCommunicationHandler(null);
-
     }
 
     public void setProgressObserver(ProgressObserver progressObserver) {
@@ -128,11 +130,11 @@ class RemoteModelProxy extends ModelObjectLoader {
             throws ModelException, ApplicationException {
         return requestHandlerChain.getMapWMS(requestParam, layerList);
     }
-    
+
     public byte[] getMapWMSAsBytes(WMSRequestParameter requestParam, Vector layerList)
-		    throws ModelException, ApplicationException {
-		return requestHandlerChain.getMapWMSAsBytes(requestParam, layerList);
-	}
+            throws ModelException, ApplicationException {
+        return requestHandlerChain.getMapWMSAsBytes(requestParam, layerList);
+    }
 
     public String checkUpdate(String updateURL) throws ModelException,
             ApplicationException {
@@ -144,7 +146,6 @@ class RemoteModelProxy extends ModelObjectLoader {
      * ModelException, ApplicationException { return
      * requestHandlerChain.findPathWMS(requestParam); }
      */
-
     public String searchFeature(SearchFeatureParameter searchParam)
             throws ModelException, ApplicationException {
         return requestHandlerChain.searchFeature(searchParam);
@@ -162,7 +163,6 @@ class RemoteModelProxy extends ModelObjectLoader {
      * ModelException, ApplicationException { return
      * requestHandlerChain.viewPathWMS(requestParam); }
      */
-
     public Vector getCapabilitiesWMS(String serviceURL) throws ModelException,
             ApplicationException {
         String result = requestHandlerChain.getCapabilitiesWMS(serviceURL);
@@ -179,6 +179,38 @@ class RemoteModelProxy extends ModelObjectLoader {
     }
 
     public String getDownloadedDataSize() throws ApplicationException {
-    	return requestHandlerChain.getTotalData();
+        return requestHandlerChain.getTotalData();
     }
+
+    // ------ Tai Nguyen - Start ------
+    public Vector getFeatureWFS(WFSGetFeatureParameter param) throws ModelException,
+            ApplicationException {
+        String result = requestHandlerChain.getWFSRequest(param);
+        WFSFeatureParser parser = new WFSFeatureParser(result);
+
+        String[] typeName = param.getTypeName();
+        Vector types = new Vector();
+        for (int i = 0; i < typeName.length; i++) {
+            types.addElement(typeName[i]);
+        }
+
+        String[] propertyName = param.getPropertyName();
+        Vector properties = new Vector();
+        for (int i = 0; i < propertyName.length; i++) {
+            properties.addElement(propertyName[i]);
+        }
+
+        parser.setTypeName(types);
+        parser.setPropertyName(properties);
+
+        return parser.constructDataTree();
+    }
+
+    public Vector describeFeatureWFS(WFSParameter param) throws ModelException,
+            ApplicationException {
+        String result = requestHandlerChain.getWFSRequest(param);
+        WFSDescribeParser parser = new WFSDescribeParser(result);
+        return parser.constructDataTree();
+    }
+    // ------ Tai Nguyen - End --------
 }

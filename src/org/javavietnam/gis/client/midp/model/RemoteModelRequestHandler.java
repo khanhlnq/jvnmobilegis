@@ -79,7 +79,6 @@
  * @author: Khanh Le
  * @Date Created: 22 Jun 2007
  */
-
 package org.javavietnam.gis.client.midp.model;
 
 import java.util.Vector;
@@ -90,6 +89,7 @@ import org.javavietnam.gis.client.midp.util.ProgressObserver;
 import org.javavietnam.gis.shared.midp.ApplicationException;
 import org.javavietnam.gis.shared.midp.model.ModelException;
 import org.javavietnam.gis.shared.midp.model.SearchFeatureParameter;
+import org.javavietnam.gis.shared.midp.model.WFSParameter;
 import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
 
 /**
@@ -163,15 +163,13 @@ abstract public class RemoteModelRequestHandler implements RequestHandler {
 
     public Image getMapWMS(WMSRequestParameter requestParam, Vector layerList)
             throws ModelException, ApplicationException {
-        return getRemoteModelRequestHandler()
-                .getMapWMS(requestParam, layerList);
+        return getRemoteModelRequestHandler().getMapWMS(requestParam, layerList);
     }
-    
+
     public byte[] getMapWMSAsBytes(WMSRequestParameter requestParam, Vector layerList)
-		    throws ModelException, ApplicationException {
-		return getRemoteModelRequestHandler()
-		        .getMapWMSAsBytes(requestParam, layerList);
-	}
+            throws ModelException, ApplicationException {
+        return getRemoteModelRequestHandler().getMapWMSAsBytes(requestParam, layerList);
+    }
 
     public String checkUpdate(String updateURL) throws ModelException,
             ApplicationException {
@@ -183,7 +181,6 @@ abstract public class RemoteModelRequestHandler implements RequestHandler {
      * ModelException, ApplicationException { return
      * getRemoteModelRequestHandler().findPathWMS(requestParam); }
      */
-
     public String searchFeature(SearchFeatureParameter searchParam)
             throws ModelException, ApplicationException {
         return getRemoteModelRequestHandler().searchFeature(searchParam);
@@ -201,7 +198,6 @@ abstract public class RemoteModelRequestHandler implements RequestHandler {
      * ModelException, ApplicationException { return
      * getRemoteModelRequestHandler().viewPathWMS(requestParam); }
      */
-
     public String getCapabilitiesWMS(String serviceURL) throws ModelException,
             ApplicationException {
         return getRemoteModelRequestHandler().getCapabilitiesWMS(serviceURL);
@@ -215,9 +211,14 @@ abstract public class RemoteModelRequestHandler implements RequestHandler {
         getRemoteModelRequestHandler().setCredentials(credentials);
     }
 
-	public String getTotalData() throws ApplicationException {
-		return getRemoteModelRequestHandler().getTotalData();
-	}
+    public String getTotalData() throws ApplicationException {
+        return getRemoteModelRequestHandler().getTotalData();
+    }
 
-
+    // ------ Tai Nguyen - Start ------
+    public String getWFSRequest(WFSParameter param) throws ModelException,
+            ApplicationException {
+        return getRemoteModelRequestHandler().getWFSRequest(param);
+    }
+    // ------ Tai Nguyen - End --------
 }

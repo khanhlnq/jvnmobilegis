@@ -158,18 +158,34 @@ public final class UIConstants {
     public static final int MOVE_DOWN = 88;
     public static final int MOVE_TO_BOTTOM = 89;
     public static final int SORT_LAYER_TICKER = 90;
-	public static final int NO_SELECTED_LAYER = 91;
-	public static final int LAYER_LIST_TICKER = 92;
-	public static final int SAVE_TO_FILE = 93;
-	public static final int FILE_SYSTEM = 94;
-	public static final int FILE_PROPERTIES = 95;
-	public static final int VIEW = 96;
-	public static final int PROPERTIES = 97;
-	public static final int NEW = 98;
-	public static final int DELETE = 99;
-	public static final int CREATE = 100;
-	public static final int SAVE_AS = 101;
-	public static final int FILE_NAME = 102;
+    public static final int NO_SELECTED_LAYER = 91;
+    public static final int LAYER_LIST_TICKER = 92;
+    public static final int SAVE_TO_FILE = 93;
+    public static final int FILE_SYSTEM = 94;
+    public static final int FILE_PROPERTIES = 95;
+    public static final int VIEW = 96;
+    public static final int PROPERTIES = 97;
+    public static final int NEW = 98;
+    public static final int DELETE = 99;
+    public static final int CREATE = 100;
+    public static final int SAVE_AS = 101;
+    public static final int FILE_NAME = 102;
+
+    // ---------- Tai Nguyen - Start --------------
+    public static final int HCM_MAP = 103;
+    public static final int HCM_WMSURL = 104;
+    public static final int HCM_QUAN = 105;
+    public static final int HCM_DGT = 106;
+    public static final int CONF_WFS_SERVER_URL = 107;
+    public static final int WFS_SERVER_TITLE = 108;
+    public static final int GET_FEATURES_CMD = 109;
+    public static final int CHOOSE_LAYER = 110;
+    public static final int CHOOSE_LAYER_TICKER = 111;
+    public static final int CHOOSE_ATTRIBUTE = 112;
+    public static final int CHOOSE_ATTRIBUTE_TICKER = 113;
+    public static final int SEARCH_RESULT = 114;
+    public static final int HCM_QUAN_NAME = 115;
+    // ---------- Tai Nguyen - End ----------------
 
     private UIConstants() {
     }

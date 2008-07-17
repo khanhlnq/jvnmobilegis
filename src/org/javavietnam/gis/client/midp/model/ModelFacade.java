@@ -79,7 +79,6 @@
  * @author: Khanh Le
  * @Date Created: 22 Jun 2007
  */
-
 package org.javavietnam.gis.client.midp.model;
 
 import java.io.IOException;
@@ -93,6 +92,8 @@ import org.javavietnam.gis.shared.midp.ApplicationException;
 import org.javavietnam.gis.shared.midp.IndexedResourceBundle;
 import org.javavietnam.gis.shared.midp.model.ModelException;
 import org.javavietnam.gis.shared.midp.model.SearchFeatureParameter;
+import org.javavietnam.gis.shared.midp.model.WFSGetFeatureParameter;
+import org.javavietnam.gis.shared.midp.model.WFSParameter;
 import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
 
 /**
@@ -107,16 +108,13 @@ public class ModelFacade {
      */
     private String locale;
     // FIXME: What is errorMessageCodeMap for?
-    private static final int[] errorMessageCodeMap = new int[] {
-            MessageCodes.ERROR_GENERAL,
-            MessageCodes.ERROR_CANNOT_CONNECT,
-            MessageCodes.NO_SELECTED_LAYER,
-            // MessageCodes.NO_SELECTED_POINT
-
+    private static final int[] errorMessageCodeMap = new int[]{
+        MessageCodes.ERROR_GENERAL,
+        MessageCodes.ERROR_CANNOT_CONNECT,
+        MessageCodes.NO_SELECTED_LAYER,
+    // MessageCodes.NO_SELECTED_POINT
     };
-
     private final RemoteModelProxy remoteModel;
-
     private final LocalModel localModel;
 
     public ModelFacade(String locale) throws ApplicationException {
@@ -183,8 +181,7 @@ public class ModelFacade {
             InputStream stream = getClass().getResourceAsStream(
                     makeResourceBundleName(baseName, locale));
 
-            resourceBundle = stream != null ? IndexedResourceBundle
-                    .getBundleFromPropertyFile(locale, stream) : null;
+            resourceBundle = stream != null ? IndexedResourceBundle.getBundleFromPropertyFile(locale, stream) : null;
         } catch (IOException ioe) {
             resourceBundle = null;
         }
@@ -193,8 +190,7 @@ public class ModelFacade {
     }
 
     private String makeResourceBundleName(String baseName, String locale) {
-        return new StringBuffer(L10N_ROOT_DIR).append(baseName).append("-")
-                .append(locale).append(".properties").toString();
+        return new StringBuffer(L10N_ROOT_DIR).append(baseName).append("-").append(locale).append(".properties").toString();
     }
 
     public Image getMapWMS(WMSRequestParameter requestParam, Vector layerList)
@@ -202,20 +198,18 @@ public class ModelFacade {
         try {
             return remoteModel.getMapWMS(requestParam, layerList);
         } catch (ModelException me) {
-            throw new ApplicationException(errorMessageCodeMap[me
-                    .getCauseCode()]);
+            throw new ApplicationException(errorMessageCodeMap[me.getCauseCode()]);
         }
     }
-    
+
     public byte[] getMapWMSAsBytes(WMSRequestParameter requestParam, Vector layerList)
-		    throws ApplicationException {
-		try {
-		    return remoteModel.getMapWMSAsBytes(requestParam, layerList);
-		} catch (ModelException me) {
-		    throw new ApplicationException(errorMessageCodeMap[me
-		            .getCauseCode()]);
-		}
-	}
+            throws ApplicationException {
+        try {
+            return remoteModel.getMapWMSAsBytes(requestParam, layerList);
+        } catch (ModelException me) {
+            throw new ApplicationException(errorMessageCodeMap[me.getCauseCode()]);
+        }
+    }
 
     /*
      * public String findPathWMS(WMSRequestParameter requestParam) throws
@@ -223,13 +217,11 @@ public class ModelFacade {
      * remoteModel.findPathWMS(requestParam); } catch (ModelException me) {
      * throw new ApplicationException(errorMessageCodeMap[me.getCauseCode()]); } }
      */
-
     public String checkUpdate(String updateURL) throws ApplicationException {
         try {
             return remoteModel.checkUpdate(updateURL);
         } catch (ModelException me) {
-            throw new ApplicationException(errorMessageCodeMap[me
-                    .getCauseCode()]);
+            throw new ApplicationException(errorMessageCodeMap[me.getCauseCode()]);
         }
     }
 
@@ -238,8 +230,7 @@ public class ModelFacade {
         try {
             return remoteModel.searchFeature(searchParam);
         } catch (ModelException me) {
-            throw new ApplicationException(errorMessageCodeMap[me
-                    .getCauseCode()]);
+            throw new ApplicationException(errorMessageCodeMap[me.getCauseCode()]);
         }
     }
 
@@ -249,8 +240,7 @@ public class ModelFacade {
             return remoteModel.getFeatureInfo(requestParam, layerList,
                     infoLayer);
         } catch (ModelException me) {
-            throw new ApplicationException(errorMessageCodeMap[me
-                    .getCauseCode()]);
+            throw new ApplicationException(errorMessageCodeMap[me.getCauseCode()]);
         }
     }
 
@@ -260,14 +250,12 @@ public class ModelFacade {
      * remoteModel.viewPathWMS(requestParam); } catch (ModelException me) {
      * throw new ApplicationException(errorMessageCodeMap[me.getCauseCode()]); } }
      */
-
     public Vector getCapabilitiesWMS(String serverURL)
             throws ApplicationException {
         try {
             return remoteModel.getCapabilitiesWMS(serverURL);
         } catch (ModelException me) {
-            throw new ApplicationException(errorMessageCodeMap[me
-                    .getCauseCode()]);
+            throw new ApplicationException(errorMessageCodeMap[me.getCauseCode()]);
         }
     }
 
@@ -278,7 +266,6 @@ public class ModelFacade {
     public void setPreferences(Preferences preferences)
             throws ApplicationException {
         localModel.setPreferences(preferences);
-
     }
 
     public String getWwwAuthenticate() throws ApplicationException {
@@ -290,6 +277,26 @@ public class ModelFacade {
     }
 
     public String getDownloadedDataSize() throws ApplicationException {
-    	return remoteModel.getDownloadedDataSize();
+        return remoteModel.getDownloadedDataSize();
     }
+
+    // ------ Tai Nguyen - Start ------
+    public Vector getFeatureWFS(WFSGetFeatureParameter param)
+            throws ApplicationException {
+        try {
+            return remoteModel.getFeatureWFS(param);
+        } catch (ModelException me) {
+            throw new ApplicationException(errorMessageCodeMap[me.getCauseCode()]);
+        }
+    }
+
+    public Vector describeFeatureWFS(WFSParameter param)
+            throws ApplicationException {
+        try {
+            return remoteModel.describeFeatureWFS(param);
+        } catch (ModelException me) {
+            throw new ApplicationException(errorMessageCodeMap[me.getCauseCode()]);
+        }
+    }
+    // ------ Tai Nguyen - End --------
 }

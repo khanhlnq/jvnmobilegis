@@ -45,6 +45,10 @@ package org.javavietnam.gis.shared.midp.model;
 public class TreeNode implements TreeNodeInterface {
 
     private LayerInformation content;
+    private FeatureInformation feature;
+
+    public TreeNode() {
+    }
 
     public TreeNode(LayerInformation content) {
         this.content = content;
@@ -56,5 +60,13 @@ public class TreeNode implements TreeNodeInterface {
 
     public LayerInformation getLayerInformation() {
         return content;
+    }
+
+    public FeatureInformation getFeatureInformation() {
+        return feature;
+    }
+
+    public void setFeatureInformation(FeatureInformation feature) {
+        this.feature = feature;
     }
 }
