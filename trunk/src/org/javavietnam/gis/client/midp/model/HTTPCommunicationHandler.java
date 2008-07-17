@@ -129,16 +129,17 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
      */
     public Image getMapWMS(WMSRequestParameter requestParam, Vector layerList)
             throws ModelException, ApplicationException {
-    	
-    	byte[] bytes = getMapWMSAsBytes(requestParam, layerList);
-    	
-    	return Image.createImage(bytes, 0, bytes.length);
+
+        byte[] bytes = getMapWMSAsBytes(requestParam, layerList);
+
+        return Image.createImage(bytes, 0, bytes.length);
     }
+
     /**
      * Get image as bytes from WMS server @
      */
-    public byte[] getMapWMSAsBytes(WMSRequestParameter requestParam, Vector layerList)
-            throws ModelException, ApplicationException {
+    public byte[] getMapWMSAsBytes(WMSRequestParameter requestParam,
+            Vector layerList) throws ModelException, ApplicationException {
         HttpConnection connection = null;
         InputStream inputStream = null;
 
@@ -188,7 +189,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 
         // Check if this URL was already cached
         if (internalCache.containsKey(wmsUrl)) {
-           System.out.println("Pull data from cache for \n" + wmsUrl);
+            System.out.println("Pull data from cache for \n" + wmsUrl);
         } else {
             try {
                 connection = openGETConnection(wmsUrl);
@@ -243,15 +244,15 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
                 closeConnection(connection, inputStream);
             }
         }
-        
-        return (byte[])internalCache.get(wmsUrl);
+
+        return (byte[]) internalCache.get(wmsUrl);
     }
 
     /*
      * public String findPathWMS(WMSRequestParameter requestParam) throws
      * ModelException, ApplicationException { HttpConnection connection = null;
-     * InputStream inputStream = null; if (null == requestParam.getStartPoint() ||
-     * null == requestParam.getEndPoint()) { throw new
+     * InputStream inputStream = null; if (null == requestParam.getStartPoint()
+     * || null == requestParam.getEndPoint()) { throw new
      * ApplicationException(ErrorMessageCodes.NO_SELECTED_POINT); } StringBuffer
      * resultBuf = new StringBuffer(); String wmsUrl =
      * requestParam.getGetMapURL(); StringBuffer url = new StringBuffer(wmsUrl);
@@ -260,8 +261,11 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
      * url.append("&styles="); // 7.2.3.4; MUST be present and // may be a null
      * value for default // or must one from the list. url.append("&layers=");
      * url.append(requestParam.getFindPathLayer());
-     * url.append("&spoint=").append(requestParam.getStartPoint()[0]).append(",").append(requestParam.getStartPoint()[1]);
-     * url.append("&epoint=").append(requestParam.getEndPoint()[0]).append(",").append(requestParam.getEndPoint()[1]);
+     * url.append("&spoint=").append
+     * (requestParam.getStartPoint()[0]).append(",")
+     * .append(requestParam.getStartPoint()[1]);
+     * url.append("&epoint=").append(requestParam
+     * .getEndPoint()[0]).append(",").append(requestParam.getEndPoint()[1]);
      * url.append("&bbox=").append(new
      * Float(requestParam.getBoundingX1()).toString());
      * url.append(",").append(new
@@ -271,13 +275,15 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
      * url.append(",").append(new
      * Float(requestParam.getBoundingY2()).toString());
      * url.append("&SRS=").append(requestParam.getSRS());
-     * url.append("&width=").append(requestParam.getPixelWidth()).append("&height=").append(requestParam.getPixelHeight());
+     * url.append("&width=").append
+     * (requestParam.getPixelWidth()).append("&height="
+     * ).append(requestParam.getPixelHeight());
      * url.append("&format=").append(requestParam.getXmlFormat());
      * url.append("&exceptions=").append(requestParam.getTextFormat());
      * url.append("&version=").append(requestParam.getVersion()); wmsUrl =
      * url.toString(); // wmsUrl = //
-     * "http://localhost:8080/geoserver/wms?&request=FindPath&service=wms&styles=&LAYERS=jvn:roads_topo&spoint=105.94586,10.78163&epoint=105.94065,10.79906&bbox=105.93026,10.75845,105.95795,10.80074&SRS=EPSG:4326&width=240&height=367&format=text/xml&version=1.1.1";
-     * try { connection = openGETConnection(wmsUrl); //
+     * "http://localhost:8080/geoserver/wms?&request=FindPath&service=wms&styles=&LAYERS=jvn:roads_topo&spoint=105.94586,10.78163&epoint=105.94065,10.79906&bbox=105.93026,10.75845,105.95795,10.80074&SRS=EPSG:4326&width=240&height=367&format=text/xml&version=1.1.1"
+     * ; try { connection = openGETConnection(wmsUrl); //
      * System.out.println("******** Reading stream: "); updateProgress();
      * inputStream = openConnectionInputStream(connection); updateProgress();
      * int ch; while ((ch = inputStream.read()) != -1) { resultBuf.append((char)
@@ -313,10 +319,11 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 
         // For testing only
         // webGISURL =
-        // "http://khanhlnq:8080/jvnwebgis/searchfeatures?minx=617420&miny=1144670&maxx=752520&maxy=1238000&word=n&start=0";
+        // "http://khanhlnq:8080/jvnwebgis/searchfeatures?minx=617420&miny=1144670&maxx=752520&maxy=1238000&word=n&start=0"
+        // ;
         if (internalCache.containsKey(webGISURL)) {
             System.out.println("Pull data from cache \n" + webGISURL);
-           results = (String)internalCache.get(webGISURL);
+            results = (String) internalCache.get(webGISURL);
         } else {
             try {
                 connection = openGETConnection(webGISURL);
@@ -387,10 +394,11 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 
         wmsUrl = url.toString();
         // wmsUrl =
-        // "http://localhost:8080/geoserver/wms?&request=FindPath&service=wms&styles=&LAYERS=jvn:roads_topo&spoint=105.94586,10.78163&epoint=105.94065,10.79906&bbox=105.93026,10.75845,105.95795,10.80074&SRS=EPSG:4326&width=240&height=367&format=text/xml&version=1.1.1";
+        // "http://localhost:8080/geoserver/wms?&request=FindPath&service=wms&styles=&LAYERS=jvn:roads_topo&spoint=105.94586,10.78163&epoint=105.94065,10.79906&bbox=105.93026,10.75845,105.95795,10.80074&SRS=EPSG:4326&width=240&height=367&format=text/xml&version=1.1.1"
+        // ;
         if (internalCache.containsKey(wmsUrl)) {
-           System.out.println("Pull data from cache \n" + wmsUrl);
-           results = (String)internalCache.get(wmsUrl);
+            System.out.println("Pull data from cache \n" + wmsUrl);
+            results = (String) internalCache.get(wmsUrl);
         } else {
 
             try {
@@ -447,8 +455,11 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
      * url.append("&styles="); // 7.2.3.4; MUST be present and // may be a null
      * value for default // or must one from the list. url.append("&layers=");
      * url.append(requestParam.getFindPathLayer());
-     * url.append("&spoint=").append(requestParam.getStartPoint()[0]).append(",").append(requestParam.getStartPoint()[1]);
-     * url.append("&epoint=").append(requestParam.getEndPoint()[0]).append(",").append(requestParam.getEndPoint()[1]);
+     * url.append("&spoint=").append
+     * (requestParam.getStartPoint()[0]).append(",")
+     * .append(requestParam.getStartPoint()[1]);
+     * url.append("&epoint=").append(requestParam
+     * .getEndPoint()[0]).append(",").append(requestParam.getEndPoint()[1]);
      * url.append("&bbox=").append(new
      * Float(requestParam.getBoundingX1()).toString());
      * url.append(",").append(new
@@ -458,13 +469,15 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
      * url.append(",").append(new
      * Float(requestParam.getBoundingY2()).toString());
      * url.append("&SRS=").append(requestParam.getSRS());
-     * url.append("&width=").append(requestParam.getPixelWidth()).append("&height=").append(requestParam.getPixelHeight());
+     * url.append("&width=").append
+     * (requestParam.getPixelWidth()).append("&height="
+     * ).append(requestParam.getPixelHeight());
      * url.append("&format=").append(requestParam.getPNGFormat());
      * url.append("&exceptions=").append(requestParam.getTextFormat());
      * url.append("&version=").append(requestParam.getVersion()); wmsUrl =
      * url.toString(); // wmsUrl = //
-     * "http://localhost:8080/geoserver/wms?&request=FindPath&service=wms&styles=&LAYERS=jvn:roads_topo&spoint=105.94586,10.78163&epoint=105.94065,10.79906&bbox=105.93026,10.75845,105.95795,10.80074&SRS=EPSG:4326&width=240&height=367&format=image/png&version=1.1.1";
-     * try { connection = openGETConnection(wmsUrl); updateProgress();
+     * "http://localhost:8080/geoserver/wms?&request=FindPath&service=wms&styles=&LAYERS=jvn:roads_topo&spoint=105.94586,10.78163&epoint=105.94065,10.79906&bbox=105.93026,10.75845,105.95795,10.80074&SRS=EPSG:4326&width=240&height=367&format=image/png&version=1.1.1"
+     * ; try { connection = openGETConnection(wmsUrl); updateProgress();
      * inputStream = openConnectionInputStream(connection); updateProgress(); //
      * Check for content type String contentType =
      * connection.getHeaderField("content-type"); if
@@ -492,7 +505,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 
         if (internalCache.containsKey(serviceURL)) {
             System.out.println("Pull data from cache \n" + serviceURL);
-           results = (String)internalCache.get(serviceURL);
+            results = (String) internalCache.get(serviceURL);
         } else {
 
             try {
@@ -607,18 +620,22 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
             if (responseCode == HttpConnection.HTTP_OK
                     || responseCode == HttpConnection.HTTP_CREATED) {
                 inputStream = connection.openInputStream();
-//                try {
-//                	totalData += Integer.parseInt(connection.getHeaderField("Content-Length"));
-//                }catch(NumberFormatException nfe) {
-//                }
+                // try {
+                // totalData +=
+                // Integer.parseInt(connection.getHeaderField("Content-Length"
+                // ));
+                // }catch(NumberFormatException nfe) {
+                // }
 
                 if (null == inputStream) {
                     throw new ApplicationException(
                             MessageCodes.ERROR_CANNOT_CONNECT);
                 }
 
-                if ((connection.getEncoding() != null) && (connection.getHeaderField("Content-Encoding").toLowerCase().indexOf("gzip") != -1)) {
-                	inputStream = new GZIPInputStream(inputStream);
+                if ((connection.getEncoding() != null)
+                        && (connection.getHeaderField("Content-Encoding")
+                                .toLowerCase().indexOf("gzip") != -1)) {
+                    inputStream = new GZIPInputStream(inputStream);
                 }
 
                 return inputStream;
@@ -629,8 +646,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
                 // System.out.println("*********** WWW-Authenticate: "
                 // + wwwAuthenticate);
                 // closeConnection(connection, inputStream);
-                throw new ApplicationException(
-                        MessageCodes.ERROR_UNAUTHORIZED);
+                throw new ApplicationException(MessageCodes.ERROR_UNAUTHORIZED);
                 // open again, this time with credentials
             } else {
                 // System.out.println(" ******* Response Code = " +
@@ -732,17 +748,17 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         this.credentials = credentials;
     }
 
-	/**
-	 * @return the totalData
-	 */
-	public String getTotalData() {
-        if(totalData >= 1024) {
-			Float f = new Float(totalData);
-			f = Float.round(f.Div(1024), 2);
+    /**
+     * @return the totalData
+     */
+    public String getTotalData() {
+        if (totalData >= 1024) {
+            Float f = new Float(totalData);
+            f = Float.round(f.Div(1024), 2);
 
-			return f.toString() + " KB" ;
-		}
+            return f.toString() + " KB";
+        }
 
-		return new Integer(totalData).toString() + " B";
-	}
+        return new Integer(totalData).toString() + " B";
+    }
 }

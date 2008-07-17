@@ -50,7 +50,7 @@ import org.javavietnam.gis.client.midp.model.MessageCodes;
 import org.javavietnam.gis.shared.midp.ApplicationException;
 
 public class FileSystemBrowserUI extends List implements CommandListener {
-    
+
     /* special string denotes upper directory */
     public static final String UP_DIRECTORY = "..";
 
@@ -65,7 +65,7 @@ public class FileSystemBrowserUI extends List implements CommandListener {
 
     /* separator character as defined by FC specification */
     public static final char SEP = '/';
-    
+
     private UIController uiController;
     private FileConnection fileConnection;
     private String currPath;
@@ -81,16 +81,16 @@ public class FileSystemBrowserUI extends List implements CommandListener {
         this.uiController = uiController;
         dirIcon = this.uiController.getImage(UIConstants.ICON_DIR);
         fileIcon = this.uiController.getImage(UIConstants.ICON_FILE);
-        
+
         setCurrPath(MEGA_ROOT);
-        
+
         save = new Command(uiController.getString(UIConstants.SAVE),
                 Command.SCREEN, 2);
         saveAs = new Command(uiController.getString(UIConstants.SAVE_AS),
                 Command.SCREEN, 3);
         back = new Command(uiController.getString(UIConstants.BACK),
                 Command.BACK, 5);
-        
+
         addCommand(back);
         uiController.setCommands(this);
 
@@ -102,7 +102,8 @@ public class FileSystemBrowserUI extends List implements CommandListener {
             enumeration = FileSystemRegistry.listRoots();
             this.deleteAll();
         } else {
-            fileConnection = (FileConnection) Connector.open("file://localhost/" + currPath);
+            fileConnection = (FileConnection) Connector
+                    .open("file://localhost/" + currPath);
             enumeration = fileConnection.list();
             // not root - draw UP_DIRECTORY
             this.deleteAll();
@@ -146,10 +147,12 @@ public class FileSystemBrowserUI extends List implements CommandListener {
         }
         if (command == save) {
             if (label.endsWith(SEP_STR) || label.endsWith(UP_DIRECTORY)) {
-                uiController.showErrorAlert(
-                        new ApplicationException(
-                        uiController.getMessage(MessageCodes.ERROR_CAN_NOT_SAVE_MAP_TO_DIR)),
-                        display);
+                uiController
+                        .showErrorAlert(
+                                new ApplicationException(
+                                        uiController
+                                                .getMessage(MessageCodes.ERROR_CAN_NOT_SAVE_MAP_TO_DIR)),
+                                display);
             } else {
                 uiController.saveMapToFileRequested(display);
             }

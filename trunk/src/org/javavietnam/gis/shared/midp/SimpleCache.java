@@ -46,6 +46,7 @@ import java.util.Hashtable;
  */
 public class SimpleCache {
     Hashtable cacheTable;
+
     public SimpleCache() {
 
     }
@@ -62,20 +63,18 @@ public class SimpleCache {
     }
 
     /**
-     * Put an object in to cache
-     * 1: Success
-     * -1: Fail
+     * Put an object in to cache 1: Success -1: Fail
      */
     public int put(String key, Object obj) {
-       try {
-           getCacheTable().put(key, obj);
-           return 1;
-       }
-       // catch(OutOfMemoryError oe) {
-       catch(Throwable e) {
-           cacheTable = null;
-           return -1;
-       }
+        try {
+            getCacheTable().put(key, obj);
+            return 1;
+        }
+        // catch(OutOfMemoryError oe) {
+        catch (Throwable e) {
+            cacheTable = null;
+            return -1;
+        }
     }
 
     public Object get(String key) {

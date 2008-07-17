@@ -72,8 +72,7 @@ public class SAXParseException extends SAXException {
     /**
      * Create a new SAXParseException from a message and a Locator. <p/> This
      * constructor is especially useful when an application is creating its own
-     * exception from within a DocumentHandler callback.
-     * </p>
+     * exception from within a DocumentHandler callback. </p>
      * 
      * @param message
      *            The error or warning message.
@@ -94,8 +93,7 @@ public class SAXParseException extends SAXException {
      * Wrap an existing exception in a SAXParseException. <p/> This constructor
      * is especially useful when an application is creating its own exception
      * from within a DocumentHandler callback, and needs to wrap an existing
-     * exception that is not a subclass of SAXException.
-     * </p>
+     * exception that is not a subclass of SAXException. </p>
      * 
      * @param message
      *            The error or warning message, or null to use the message from
@@ -117,11 +115,8 @@ public class SAXParseException extends SAXException {
 
     /**
      * Create a new SAXParseException. <p/> This constructor is most useful for
-     * parser writers.
-     * </p>
-     * <p/> If the system identifier is a URL, the parser must resolve it fully
-     * before creating the exception.
-     * </p>
+     * parser writers. </p> <p/> If the system identifier is a URL, the parser
+     * must resolve it fully before creating the exception. </p>
      * 
      * @param message
      *            The error or warning message.
@@ -151,11 +146,9 @@ public class SAXParseException extends SAXException {
     /**
      * Create a new SAXParseException with an embedded exception. <p/> This
      * constructor is most useful for parser writers who need to wrap an
-     * exception that is not a subclass of SAXException.
-     * </p>
-     * <p/> If the system identifier is a URL, the parser must resolve it fully
-     * before creating the exception.
-     * </p>
+     * exception that is not a subclass of SAXException. </p> <p/> If the system
+     * identifier is a URL, the parser must resolve it fully before creating the
+     * exception. </p>
      * 
      * @param message
      *            The error or warning message, or null to use the message from

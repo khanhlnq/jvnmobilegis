@@ -122,8 +122,7 @@ public class LayerInformation {
      * <br>
      * Beachte: Die Keys sollten LowerCase sein. <br>
      * <br>
-     * Die Eigenschaft srs ist einfach als Text gespeichert, wie im XML-Dokument
-     * <br>
+     * Die Eigenschaft srs ist einfach als Text gespeichert, wie im XML-Dokument <br>
      * Eine Funktion getSRSList gibt es noch nicht
      * 
      * @param value
@@ -142,8 +141,7 @@ public class LayerInformation {
      * <br>
      * Beachte: Die Keys sollten LowerCase sein. <br>
      * <br>
-     * Die Eigenschaft srs ist einfach als Text gespeichert, wie im XML-Dokument
-     * <br>
+     * Die Eigenschaft srs ist einfach als Text gespeichert, wie im XML-Dokument <br>
      * Eine Funktion getSRSList gibt es noch nicht. Kann aber bei bedarf hinzu
      * kommen.
      * 

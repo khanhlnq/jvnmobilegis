@@ -48,16 +48,12 @@ import java.io.IOException;
  * Basic interface for SAX (Simple API for XML) parsers. <p/> All SAX parsers
  * must implement this basic interface: it allows applications to register
  * handlers for different types of events and to initiate a parse from a URI, or
- * a character stream.
- * </p>
- * <p/> All SAX parsers must also implement a zero-argument constructor (though
- * other constructors are also allowed).
- * </p>
+ * a character stream. </p> <p/> All SAX parsers must also implement a
+ * zero-argument constructor (though other constructors are also allowed). </p>
  * <p/> SAX parsers are reusable but not re-entrant: the application may reuse a
  * parser object (possibly with a different input source) once the first parse
  * has completed successfully, but it may not invoke the parse() methods
- * recursively within a parse.
- * </p>
+ * recursively within a parse. </p>
  * 
  * @author David Megginson (ak117@freenet.carleton.ca)
  * @version 1.0
@@ -74,12 +70,10 @@ public interface Parser {
      * Allow an application to register a custom entity resolver. <p/> If the
      * application does not register an entity resolver, the SAX parser will
      * resolve system identifiers and open connections to entities itself (this
-     * is the default behaviour implemented in HandlerBase).
-     * </p>
-     * <p/> Applications may register a new or different entity resolver in the
+     * is the default behaviour implemented in HandlerBase). </p> <p/>
+     * Applications may register a new or different entity resolver in the
      * middle of a parse, and the SAX parser must begin using the new resolver
-     * immediately.
-     * </p>
+     * immediately. </p>
      * 
      * @param resolver
      *            The object for resolving entities.
@@ -92,12 +86,9 @@ public interface Parser {
      * Allow an application to register a DTD event handler. <p/> If the
      * application does not register a DTD handler, all DTD events reported by
      * the SAX parser will be silently ignored (this is the default behaviour
-     * implemented by HandlerBase).
-     * </p>
-     * <p/> Applications may register a new or different handler in the middle
-     * of a parse, and the SAX parser must begin using the new handler
-     * immediately.
-     * </p>
+     * implemented by HandlerBase). </p> <p/> Applications may register a new or
+     * different handler in the middle of a parse, and the SAX parser must begin
+     * using the new handler immediately. </p>
      * 
      * @param handler
      *            The DTD handler.
@@ -110,12 +101,9 @@ public interface Parser {
      * Allow an application to register a document event handler. <p/> If the
      * application does not register a document handler, all document events
      * reported by the SAX parser will be silently ignored (this is the default
-     * behaviour implemented by HandlerBase).
-     * </p>
-     * <p/> Applications may register a new or different handler in the middle
-     * of a parse, and the SAX parser must begin using the new handler
-     * immediately.
-     * </p>
+     * behaviour implemented by HandlerBase). </p> <p/> Applications may
+     * register a new or different handler in the middle of a parse, and the SAX
+     * parser must begin using the new handler immediately. </p>
      * 
      * @param handler
      *            The document handler.
@@ -129,12 +117,9 @@ public interface Parser {
      * application does not register an error event handler, all error events
      * reported by the SAX parser will be silently ignored, except for
      * fatalError, which will throw a SAXException (this is the default
-     * behaviour implemented by HandlerBase).
-     * </p>
-     * <p/> Applications may register a new or different handler in the middle
-     * of a parse, and the SAX parser must begin using the new handler
-     * immediately.
-     * </p>
+     * behaviour implemented by HandlerBase). </p> <p/> Applications may
+     * register a new or different handler in the middle of a parse, and the SAX
+     * parser must begin using the new handler immediately. </p>
      * 
      * @param handler
      *            The error handler.
@@ -147,13 +132,11 @@ public interface Parser {
     /**
      * Parse an XML document. <p/> The application can use this method to
      * instruct the SAX parser to begin parsing an XML document from any valid
-     * input source (a character stream, a byte stream, or a URI).
-     * </p>
-     * <p/> Applications may not invoke this method while a parse is in progress
+     * input source (a character stream, a byte stream, or a URI). </p> <p/>
+     * Applications may not invoke this method while a parse is in progress
      * (they should create a new Parser instead for each additional XML
      * document). Once a parse is complete, an application may reuse the same
-     * Parser object, possibly with a different input source.
-     * </p>
+     * Parser object, possibly with a different input source. </p>
      * 
      * @param source
      *            The input source for the top-level of the XML document.

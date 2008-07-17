@@ -47,22 +47,17 @@ package org.xml.sax;
  * needs information about notations and unparsed entities, then the application
  * implements this interface and registers an instance with the SAX parser using
  * the parser's setDTDHandler method. The parser uses the instance to report
- * notation and unparsed entity declarations to the application.
- * </p>
- * <p/> The SAX parser may report these events in any order, regardless of the
- * order in which the notations and unparsed entities were declared; however,
- * all DTD events must be reported after the document handler's startDocument
- * event, and before the first startElement event.
- * </p>
- * <p/> It is up to the application to store the information for future use
- * (perhaps in a hash table or object tree). If the application encounters
- * attributes of type "NOTATION", "ENTITY", or "ENTITIES", it can use the
- * information that it obtained through this interface to find the entity and/or
- * notation corresponding with the attribute value.
- * </p>
- * <p/> The HandlerBase class provides a default implementation of this
- * interface, which simply ignores the events.
- * </p>
+ * notation and unparsed entity declarations to the application. </p> <p/> The
+ * SAX parser may report these events in any order, regardless of the order in
+ * which the notations and unparsed entities were declared; however, all DTD
+ * events must be reported after the document handler's startDocument event, and
+ * before the first startElement event. </p> <p/> It is up to the application to
+ * store the information for future use (perhaps in a hash table or object
+ * tree). If the application encounters attributes of type "NOTATION", "ENTITY",
+ * or "ENTITIES", it can use the information that it obtained through this
+ * interface to find the entity and/or notation corresponding with the attribute
+ * value. </p> <p/> The HandlerBase class provides a default implementation of
+ * this interface, which simply ignores the events. </p>
  * 
  * @author David Megginson (ak117@freenet.carleton.ca)
  * @version 1.0
@@ -74,10 +69,8 @@ public interface DTDHandler {
     /**
      * Receive notification of a notation declaration event. <p/> It is up to
      * the application to record the notation for later reference, if necessary.
-     * </p>
-     * <p/> If a system identifier is present, and it is a URL, the SAX parser
-     * must resolve it fully before passing it to the application.
-     * </p>
+     * </p> <p/> If a system identifier is present, and it is a URL, the SAX
+     * parser must resolve it fully before passing it to the application. </p>
      * 
      * @param name
      *            The notation name.
@@ -97,11 +90,9 @@ public interface DTDHandler {
      * Receive notification of an unparsed entity declaration event. <p/> Note
      * that the notation name corresponds to a notation reported by the
      * notationDecl() event. It is up to the application to record the entity
-     * for later reference, if necessary.
-     * </p>
-     * <p/> If the system identifier is a URL, the parser must resolve it fully
-     * before passing it to the application.
-     * </p>
+     * for later reference, if necessary. </p> <p/> If the system identifier is
+     * a URL, the parser must resolve it fully before passing it to the
+     * application. </p>
      * 
      * @param name
      *            The unparsed entity's name.

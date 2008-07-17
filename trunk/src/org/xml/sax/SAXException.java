@@ -83,8 +83,7 @@ public class SAXException extends Exception {
     /**
      * Create a new SAXException wrapping an existing exception. <p/> The
      * existing exception will be embedded in the new one, and its message will
-     * become the default message for the SAXException.
-     * </p>
+     * become the default message for the SAXException. </p>
      * 
      * @param e
      *            The exception to be wrapped in a SAXException.
@@ -98,8 +97,7 @@ public class SAXException extends Exception {
     /**
      * Create a new SAXException from an existing exception. <p/> The existing
      * exception will be embedded in the new one, but the new exception will
-     * have its own message.
-     * </p>
+     * have its own message. </p>
      * 
      * @param message
      *            The detail message.
