@@ -47,6 +47,10 @@ import java.util.Vector;
 public class InnerTreeNode extends Vector implements TreeNodeInterface {
 
     private LayerInformation content;
+    private FeatureInformation feature;
+
+    public InnerTreeNode() {
+    }
 
     public InnerTreeNode(LayerInformation content) {
         this.content = content;
@@ -58,5 +62,13 @@ public class InnerTreeNode extends Vector implements TreeNodeInterface {
 
     public LayerInformation getLayerInformation() {
         return content;
+    }
+
+    public FeatureInformation getFeatureInformation() {
+        return feature;
+    }
+
+    public void setFeatureInformation(FeatureInformation feature) {
+        this.feature = feature;
     }
 }

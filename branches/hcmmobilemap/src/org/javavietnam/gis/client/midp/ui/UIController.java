@@ -105,9 +105,12 @@ import org.javavietnam.gis.shared.midp.ApplicationException;
 import org.javavietnam.gis.shared.midp.IndexedResourceBundle;
 import org.javavietnam.gis.shared.midp.VietSign;
 import org.javavietnam.gis.shared.midp.model.Credentials;
+import org.javavietnam.gis.shared.midp.model.FeatureInformation;
 import org.javavietnam.gis.shared.midp.model.MapFeature;
 import org.javavietnam.gis.shared.midp.model.LayerInformation;
 import org.javavietnam.gis.shared.midp.model.SearchFeatureParameter;
+import org.javavietnam.gis.shared.midp.model.WFSDescribeFeatureParameter;
+import org.javavietnam.gis.shared.midp.model.WFSGetFeatureParameter;
 import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
 
 /**
@@ -133,6 +136,10 @@ public class UIController {
         public static final byte EVENT_ID_SAVETOFILE = 11;
         public static final byte EVENT_ID_SHOWDIR = 12;
         public static final byte EVENT_ID_CHECKEXISTING = 13;
+        public static final byte EVENT_ID_CHOOSEATTRIBUTE = 14;
+        public static final byte EVENT_ID_GETFEATUREINBBOX = 15;
+        public static final byte EVENT_ID_VIEWFEATUREBYBBOX = 16;
+        public static final byte EVENT_ID_HCM_GETFEATUREINBBOX = 17;
     }
     private static final String[] iconPaths = {"/icons/JVNMobileGIS_icon.png",
         "/icons/map_server_icon.png", "/icons/preferences_icon.png",
@@ -179,6 +186,12 @@ public class UIController {
     private Displayable currentFallBackUI;
     // private EventDispatcher currentThread;
 
+    // ------ Tai Nguyen - Start ------
+    private boolean hcmMap = false;
+    private ChooseLayerUI chooseLayerUI;
+    private ChooseAttributeUI chooseAttributeUI;
+    private FeatureInBBoxUI featureInBBoxUI;
+    // ------ Tai Nguyen - End --------
     public UIController(MIDlet midlet, ModelFacade model) {
         this.credentials = new Credentials();
         this.midlet = midlet;
@@ -510,6 +523,7 @@ public class UIController {
             }
             preferences.setWmsServerURL(getPreferencesUI().getServerURL());
             preferences.setWebGISURL(getPreferencesUI().getWebGISURL());
+            preferences.setWfsServerURL(getPreferencesUI().getWfsServerURL());
             // preferences.setFindPathLayer(preferencesUI.getFindPathLayer());
             model.setPreferences(preferences);
 
@@ -543,6 +557,10 @@ public class UIController {
         }
 
         display.setCurrent(getMapServerUI());
+
+        // ------ Tai Nguyen - Start ------
+        hcmMap = false;
+    // ------ Tai Nguyen - End --------
     }
 
     public void layerListRequested() {
@@ -941,6 +959,73 @@ public class UIController {
 
                         break;
                     }
+
+                    // ---------- Tai Nguyen - Start --------------
+                    case EventIds.EVENT_ID_CHOOSEATTRIBUTE: {
+                        String wfsServerURL = model.getPreferences().getWfsServerURL();
+                        WFSDescribeFeatureParameter param = new WFSDescribeFeatureParameter(wfsServerURL);
+                        LayerInformation selectedLayer = getSelectedLayer();
+                        param.setTypeName(selectedLayer.getField("name"));
+
+                        Vector attributeList = model.describeFeatureWFS(param);
+                        getChooseAttributeUI().init(attributeList);
+                        display.setCurrent(getChooseAttributeUI());
+
+                        break;
+                    }
+                    case EventIds.EVENT_ID_GETFEATUREINBBOX: {
+                        String wfsServerURL = model.getPreferences().getWfsServerURL();
+                        WFSGetFeatureParameter param = new WFSGetFeatureParameter(wfsServerURL);
+                        LayerInformation selectedLayer = getSelectedLayer();
+                        String selectedAttribute = getSelectedAttribute();
+
+                        param.setTypeName(new String[]{selectedLayer.getField("name")});
+                        param.setPropertyName(new String[]{selectedAttribute});
+                        param.setBbox(getMapViewUI().getBoundingBox());
+                        param.setSrs(getMapViewUI().getSRS());
+
+                        Vector treeNode = model.getFeatureWFS(param);
+                        getFeatureInBBoxUI().init(treeNode, selectedAttribute);
+                        display.setCurrent(getFeatureInBBoxUI());
+
+                        break;
+                    }
+                    case EventIds.EVENT_ID_VIEWFEATUREBYBBOX: {
+                        FeatureInformation feature = getFeatureInBBoxUI().getSelectedFeature();
+                        // Set bounding box of feature to view
+                        getMapViewUI().setBoundingBox(feature.getBbox());
+
+                        // Update new map
+                        Image img = updateMapWMS(getMapViewUI(), getLayerListUI().getSelectedLayerList());
+
+                        if (img == null) {
+                            showErrorAlert(
+                                    getString(UIConstants.GET_MAP_WMS_ERROR),
+                                    getMainMenuUI());
+                        } else {
+                            getMapViewUI().init(img);
+                            display.setCurrent(getMapViewUI());
+                        }
+
+                        break;
+                    }
+                    case EventIds.EVENT_ID_HCM_GETFEATUREINBBOX: {
+                        String distLayer = getString(UIConstants.HCM_QUAN);
+                        String selectedAttribute = getString(UIConstants.HCM_QUAN_NAME);
+
+                        String wfsServerURL = model.getPreferences().getWfsServerURL();
+                        WFSGetFeatureParameter param = new WFSGetFeatureParameter(wfsServerURL);
+
+                        param.setTypeName(new String[]{distLayer});
+                        param.setPropertyName(new String[]{selectedAttribute});
+                        param.setBbox(getMapViewUI().getBoundingBox());
+                        param.setSrs(getMapViewUI().getSRS());
+
+                        Vector treeNode = model.getFeatureWFS(param);
+                        getFeatureInBBoxUI().init(treeNode, selectedAttribute);
+                        display.setCurrent(getFeatureInBBoxUI());
+                    }
+                    // ---------- Tai Nguyen - End ----------------
                 } // for switch - case
 
             } catch (ApplicationException ae) {
@@ -992,9 +1077,16 @@ public class UIController {
             throws ApplicationException {
         if (0 < layerList.size()) {
             LayerInformation layerInfo = (LayerInformation) layerList.elementAt(0);
-            getMapViewUI().initParam(layerInfo.getLatLonBoundingBox(),
-                    layerInfo.getServerInformation().getGetMapURL(),
-                    layerInfo.getField("srs"));
+
+            if (hcmMap) {
+                getMapViewUI().initParam(layerInfo.getBoundingBox(),
+                        layerInfo.getServerInformation().getGetMapURL(),
+                        layerInfo.getField("srs"));
+            } else {
+                getMapViewUI().initParam(layerInfo.getLatLonBoundingBox(),
+                        layerInfo.getServerInformation().getGetMapURL(),
+                        null);
+            }
         }
         // Init layers for select layer UI
         getLayerSelectUI().init(getLayerListUI().getSelectedLayerList());
@@ -1150,6 +1242,128 @@ public class UIController {
             confirmDialogUI = null;
             fileSystemBrowserUI = null;
             fileSystemCreatorUI = null;
+            chooseLayerUI = null;
+            chooseAttributeUI = null;
+            featureInBBoxUI = null;
         }
     }
+
+    // ---------- Tai Nguyen - Start --------------
+    public void hcmMapRequested() {
+        String serverURL = getString(UIConstants.HCM_WMSURL);
+        String distLayer = getString(UIConstants.HCM_QUAN);
+        String streetLayer = getString(UIConstants.HCM_DGT);
+
+        try {
+            Preferences preference = model.getPreferences();
+            preference.setWmsServerURL(serverURL);
+            model.setPreferences(preference);
+            getMapServerUI().setServerURL(serverURL);
+
+            Vector constructedDataTree = model.getCapabilitiesWMS(serverURL);
+            if (constructedDataTree == null) {
+                showErrorAlert(getString(UIConstants.GET_CAPABILITIES_WMS_ERROR), getMainMenuUI());
+                return;
+            }
+
+            getLayerListUI().init(constructedDataTree);
+
+            Vector layerList = getLayerListUI().getLayerList();
+            boolean[] layerFlags = new boolean[layerList.size()];
+
+            for (int i = 0; i < layerList.size(); i++) {
+                LayerInformation layerInfo = (LayerInformation) layerList.elementAt(i);
+                String layerName = layerInfo.getField("name");
+
+                if (distLayer.equals(layerName) || streetLayer.equals(layerName)) {
+                    layerFlags[i] = true;
+                } else {
+                    layerFlags[i] = false;
+                }
+            }
+
+            getLayerListUI().setSelectedFlags(layerFlags);
+            getSortLayerListUI().init(getSelectedLayerList());
+            hcmMap = true;
+
+            runWithProgress(new EventDispatcher(EventIds.EVENT_ID_GETMAPWMS,
+                    getMainMenuUI()), getString(UIConstants.PROCESSING), true);
+        } catch (ApplicationException e) {
+            e.printStackTrace();
+            showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n" + e.getMessage());
+        }
+    }
+
+    public boolean isHcmMap() {
+        return hcmMap;
+    }
+
+    public ChooseLayerUI getChooseLayerUI() {
+        if (null == chooseLayerUI) {
+            chooseLayerUI = new ChooseLayerUI(this);
+        }
+        return chooseLayerUI;
+    }
+
+    public ChooseAttributeUI getChooseAttributeUI() {
+        if (null == chooseAttributeUI) {
+            chooseAttributeUI = new ChooseAttributeUI(this);
+        }
+        return chooseAttributeUI;
+    }
+
+    public FeatureInBBoxUI getFeatureInBBoxUI() {
+        if (null == featureInBBoxUI) {
+            featureInBBoxUI = new FeatureInBBoxUI(this);
+        }
+        return featureInBBoxUI;
+    }
+
+    public void chooseLayerRequest() {
+        try {
+            getChooseLayerUI().init(getSelectedLayerList());
+        } catch (ApplicationException e) {
+            e.printStackTrace();
+            showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n" + e.getMessage());
+        }
+
+        display.setCurrent(getChooseLayerUI());
+    }
+
+    public void chooseAttributeRequested() {
+        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_CHOOSEATTRIBUTE,
+                getChooseLayerUI()), getString(UIConstants.PROCESSING), true);
+    }
+
+    public void backChooseLayer() {
+        display.setCurrent(getChooseLayerUI());
+    }
+
+    public void backChooseAttribute() {
+        display.setCurrent(getChooseAttributeUI());
+    }
+
+    public LayerInformation getSelectedLayer() {
+        return getChooseLayerUI().getSelectedLayer();
+    }
+
+    public String getSelectedAttribute() {
+        return getChooseAttributeUI().getSelectedAttribute();
+    }
+
+    public void getFeaturesInBBox() {
+        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_GETFEATUREINBBOX,
+                getChooseAttributeUI()), getString(UIConstants.PROCESSING), true);
+    }
+
+    public void viewMapByBBox() {
+        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_VIEWFEATUREBYBBOX,
+                getFeatureInBBoxUI()), getString(UIConstants.PROCESSING), true);
+    }
+
+    public void hcmGetFeatureInBBox() {
+        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_HCM_GETFEATUREINBBOX,
+                getMapViewUI()), getString(UIConstants.PROCESSING), true);
+    }
+    // ---------- Tai Nguyen - End ----------------
 }

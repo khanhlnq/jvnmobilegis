@@ -83,7 +83,6 @@ package org.javavietnam.gis.client.midp.ui;
 
 import henson.midp.Float;
 
-import javax.microedition.lcdui.Alert;
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.CommandListener;
 import javax.microedition.lcdui.Displayable;
@@ -99,7 +98,7 @@ import org.javavietnam.gis.shared.midp.model.WMSRequestParameter;
  * @author khanhlnq
  */
 public class MapViewUI extends GameCanvas implements CommandListener,
-    WMSRequestParameter {
+        WMSRequestParameter {
 
     private static final int NO_ACTION = 0;
     private static final int MOVE_DOWN = 1;
@@ -108,7 +107,6 @@ public class MapViewUI extends GameCanvas implements CommandListener,
     private static final int MOVE_UP = 4;
     private static final int ZOOM_IN = 5;
     private static final int ZOOM_OUT = 6;
-
     private final UIController uiController;
     private final Command backCommand;
     private final Command zoomInCommand;
@@ -122,7 +120,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
     private final Command helpCommand;
     private final Command refreshCommand;
     private final Font smallFont = Font.getFont(Font.FACE_PROPORTIONAL,
-        Font.STYLE_ITALIC, Font.SIZE_SMALL);
+            Font.STYLE_ITALIC, Font.SIZE_SMALL);
     /**
      * @uml.property name="cursorX"
      */
@@ -154,7 +152,6 @@ public class MapViewUI extends GameCanvas implements CommandListener,
      */
     private Float[] boundingBox = new Float[4];
     private Float[] previousBoundingBox = new Float[4];
-
     private int previousAction = NO_ACTION;
     /**
      * @uml.property name="getMapURL"
@@ -162,6 +159,11 @@ public class MapViewUI extends GameCanvas implements CommandListener,
     private String getMapURL = "";
     private Image wmsImg;
     private final int cursorSize;
+
+    // ------ Tai Nguyen - Start ------
+    private String srs = "EPSG:4326";
+    private final Command getFeaturesCommand;
+    // ------ Tai Nguyen - End --------
 
     public MapViewUI(UIController uiController, boolean suppressKeyEvents) {
         super(suppressKeyEvents);
@@ -173,7 +175,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
                 this.setFullScreenMode(true);
             }
         } catch (Exception e) {
-        // Do nothing
+            // Do nothing
         }
 
         this.uiController = uiController;
@@ -184,7 +186,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         cursorSize = Font.getDefaultFont().charWidth('+');
 
         backCommand = new Command(uiController.getString(UIConstants.BACK),
-            Command.BACK, 5);
+                Command.BACK, 5);
         zoomInCommand = new Command(uiController.getString(UIConstants.ZOOM_IN_CMD), Command.SCREEN, 1);
         zoomOutCommand = new Command(uiController.getString(UIConstants.ZOOM_OUT_CMD), Command.SCREEN, 2);
         resetCommand = new Command(uiController.getString(UIConstants.RESET_VIEW_CMD), Command.SCREEN, 3);
@@ -194,14 +196,12 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         // Command(uiController.getString(UIConstants.FIND_PATH_CMD),
         // Command.SCREEN, 5);
         getFeatureInfoCommand = new Command(uiController.getString(UIConstants.GET_FEATURE_INFO), Command.SCREEN, 6);
-        searchFeatureCommand = new Command(uiController
-                .getString(UIConstants.SEARCH_FEATURE_UI_TITLE),
+        searchFeatureCommand = new Command(uiController.getString(UIConstants.SEARCH_FEATURE_UI_TITLE),
                 Command.SCREEN, 7);
-        saveToFileCommand = new Command(uiController
-                .getString(UIConstants.SAVE_TO_FILE),
+        saveToFileCommand = new Command(uiController.getString(UIConstants.SAVE_TO_FILE),
                 Command.SCREEN, 7);
         helpCommand = new Command(uiController.getString(UIConstants.HELP_CMD),
-            Command.SCREEN, 8);
+                Command.SCREEN, 8);
 
         addCommand(zoomInCommand);
         addCommand(zoomOutCommand);
@@ -214,6 +214,13 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         addCommand(searchFeatureCommand);
         addCommand(saveToFileCommand);
         addCommand(helpCommand);
+
+        // ------ Tai Nguyen - Start ------
+        getFeaturesCommand = new Command(uiController.getString(UIConstants.GET_FEATURES_CMD), Command.SCREEN, 5);
+        if (uiController.isHcmMap()) {
+            addCommand(getFeaturesCommand);
+        }
+        // ------ Tai Nguyen - End --------
 
         previousAction = NO_ACTION;
 
@@ -228,7 +235,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
     }
 
     public void initParam(Float[] latLonBoundingBox, String getMapURL,
-        String srs) {
+            String srs) {
         System.arraycopy(latLonBoundingBox, 0, boundingBox, 0, 4);
         this.getMapURL = getMapURL;
 
@@ -249,8 +256,14 @@ public class MapViewUI extends GameCanvas implements CommandListener,
 
         previousAction = NO_ACTION;
 
-    // startPointSelected = false;
-    // endPointSelected = false;
+        // startPointSelected = false;
+        // endPointSelected = false;
+
+        // ------ Tai Nguyen - Start ------
+        if (null != srs) {
+            this.srs = srs;
+        }
+    // ------ Tai Nguyen - End --------
     }
 
     /**
@@ -330,8 +343,11 @@ public class MapViewUI extends GameCanvas implements CommandListener,
     }
 
     public String getSRS() {
-        return "EPSG:4326";
-    // return srs;
+        //return "EPSG:4326";
+
+        // ------ Tai Nguyen - Start ------
+        return srs;
+    // ------ Tai Nguyen - End --------
     }
 
     public String getVersion() {
@@ -450,7 +466,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
 
     private void zoomIn() {
         if (previousAction == ZOOM_OUT) {
-           restorePreviousAction(ZOOM_IN);
+            restorePreviousAction(ZOOM_IN);
         } else {
             saveCurrentAction(ZOOM_IN);
 
@@ -473,7 +489,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
 
     private void zoomOut() {
         if (previousAction == ZOOM_IN) {
-           restorePreviousAction(ZOOM_OUT);
+            restorePreviousAction(ZOOM_OUT);
         } else {
             saveCurrentAction(ZOOM_OUT);
 
@@ -525,7 +541,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
 
     private void moveUp() {
         if (previousAction == MOVE_DOWN) {
-           restorePreviousAction(MOVE_UP);
+            restorePreviousAction(MOVE_UP);
         } else {
             saveCurrentAction(MOVE_UP);
 
@@ -538,7 +554,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
 
     private void moveDown() {
         if (previousAction == MOVE_UP) {
-           restorePreviousAction(MOVE_DOWN);
+            restorePreviousAction(MOVE_DOWN);
         } else {
             saveCurrentAction(MOVE_DOWN);
 
@@ -551,7 +567,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
 
     private void moveLeft() {
         if (previousAction == MOVE_RIGHT) {
-           restorePreviousAction(MOVE_LEFT);
+            restorePreviousAction(MOVE_LEFT);
         } else {
             saveCurrentAction(MOVE_LEFT);
 
@@ -564,7 +580,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
 
     private void moveRight() {
         if (previousAction == MOVE_LEFT) {
-           restorePreviousAction(MOVE_RIGHT);
+            restorePreviousAction(MOVE_RIGHT);
         } else {
             saveCurrentAction(MOVE_RIGHT);
 
@@ -577,12 +593,12 @@ public class MapViewUI extends GameCanvas implements CommandListener,
 
     private void repaintCursor() {
         repaint(cursorX - (2 * cursorSize), cursorY - (2 * cursorSize),
-            4 * cursorSize, 4 * cursorSize);
+                4 * cursorSize, 4 * cursorSize);
     }
 
     private void repaintCursor(int x, int y) {
         repaint(x - (2 * cursorSize), y - (2 * cursorSize), 4 * cursorSize,
-            4 * cursorSize);
+                4 * cursorSize);
     }
 
     private void repaintStatus() {
@@ -666,11 +682,11 @@ public class MapViewUI extends GameCanvas implements CommandListener,
             g.setFont(smallFont);
             g.setColor(0x0000FF);
             g.drawString("1/" + floatToString(getCurrentScale(), 3), 0,
-                getHeight(), Graphics.BOTTOM | Graphics.LEFT);
+                    getHeight(), Graphics.BOTTOM | Graphics.LEFT);
             int[] cursors = {getCursorX(), getCursorY()};
             Float[] real = transformFromView(cursors);
             g.drawString("lon:" + floatToString(real[0], 3) + " lat:" + floatToString(real[1], 3), getWidth(), getHeight(),
-                Graphics.BOTTOM + Graphics.RIGHT);
+                    Graphics.BOTTOM + Graphics.RIGHT);
             // Reset to default Font and color
             g.setFont(Font.getDefaultFont());
             g.setColor(oldColor);
@@ -689,7 +705,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
 
             g.setColor(0x0000FF);
             g.drawChar('+', cursorX, cursorY + (cursorSize / 2),
-                Graphics.BASELINE | Graphics.HCENTER);
+                    Graphics.BASELINE | Graphics.HCENTER);
             g.setColor(oldColor);
         } else {
             uiController.getMapRequested();
@@ -876,18 +892,23 @@ public class MapViewUI extends GameCanvas implements CommandListener,
          * isViewFeature = false; uiController.findPathRequested(); }
          */ else if (command == getFeatureInfoCommand) {
             uiController.selectInfoLayerRequested();
-        }         else if (command == searchFeatureCommand) {
-                    if (isViewFeature) {
-                        uiController.searchResultUIRequested();
-                    } else {
-                        isViewFeature = false;
-                        uiController.searchUIRequested();
-                    }
-                }
-        else if (command == saveToFileCommand) {
-    		uiController.browseFileSystemRequested();
+        } else if (command == searchFeatureCommand) {
+            if (isViewFeature) {
+                uiController.searchResultUIRequested();
+            } else {
+                isViewFeature = false;
+                uiController.searchUIRequested();
+            }
+        } else if (command == saveToFileCommand) {
+            uiController.browseFileSystemRequested();
         } else if (command == helpCommand) {
             uiController.helpRequested();
+        } else if (command == getFeaturesCommand) {
+            if (uiController.isHcmMap()) {
+                uiController.hcmGetFeatureInBBox();
+            } else {
+                uiController.chooseLayerRequest();
+            }
         } else {
             // isViewPath = false;
             isViewFeature = false;

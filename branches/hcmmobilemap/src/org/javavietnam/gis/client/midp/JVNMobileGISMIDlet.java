@@ -137,6 +137,8 @@ public class JVNMobileGISMIDlet extends MIDlet {
                         .getString(UIConstants.CONF_WMS_SERVER_URL));
                 preferences.setWebGISURL(controller
                         .getString(UIConstants.CONF_WEBGIS_URL));
+                preferences.setWfsServerURL(controller
+                        .getString(UIConstants.CONF_WFS_SERVER_URL));
                 // preferences.setFindPathLayer(getAppProperty(PROPERTY_FINDPATH_LAYER));
                 model.setLocale(preferences.getDefaultLocale());
                 model.setPreferences(preferences);

@@ -102,6 +102,8 @@ class MainMenuUI extends List implements CommandListener {
 		try {
 			this.uiController = uiController;
 
+			append(uiController.getString(UIConstants.HCM_MAP),
+					uiController.getImage(UIConstants.ICON_SERVER_UI_TITLE));
 			append(uiController.getString(UIConstants.SERVER_UI_TITLE),
 					uiController.getImage(UIConstants.ICON_SERVER_UI_TITLE));
 			append(uiController.getString(UIConstants.PREFERENCES),
@@ -136,6 +138,8 @@ class MainMenuUI extends List implements CommandListener {
 				uiController.checkUpdateRequested();
 			} else if (label.equals(uiController.getString(UIConstants.ABOUT))) {
 				uiController.aboutRequested();
+			} else if (label.equals(uiController.getString(UIConstants.HCM_MAP))) {
+				uiController.hcmMapRequested();
 			}
 		} else {
 			if (command == exitCommand) {
