@@ -57,7 +57,7 @@ import org.javavietnam.gis.client.midp.util.Location;
  * @author Administrator
  * 
  */
-public class LBSMainForm extends Form implements CommandListener, Runnable {
+public class LBSMainForm extends Form implements CommandListener {
 
     private Command cmdBack;
     private Command cmdSearchGps;
@@ -76,11 +76,9 @@ public class LBSMainForm extends Form implements CommandListener, Runnable {
     private static final int STATE_IDLE = 0;
     private static final int STATE_SEARCH = 1;
     private static final int STATE_READING = 2;
-
-    private boolean active = false;
     private int state = STATE_IDLE;
 
-    private Thread thread;
+    private GPSThread thread;
     private final UIController uiController;
 
     /**
@@ -119,11 +117,10 @@ public class LBSMainForm extends Form implements CommandListener, Runnable {
                 display(initGPSForm());
                 doAction(STATE_SEARCH);
             } else if (cmd == cmdShowMeOnMap) {
+                thread.active = false;
                 if (gpsState.getText().trim().equals("Connected")) {
-                    active = false;
                     uiController.getMapViewUI().updateMyNMEALocation(
                             latitude.getText(), longitude.getText());
-                    uiController.viewMapRequested();
                 } else {
                     display(new Alert("Error",
                             "You're not connected to a GPS device!", null,
@@ -189,53 +186,66 @@ public class LBSMainForm extends Form implements CommandListener, Runnable {
     }
 
     public void doAction(int action) {
-        if (thread == null) {
-            thread = new Thread(this);
+        state = action;
+        if (thread == null || !thread.isAlive()) {
+            thread = null;
+            thread = new GPSThread(this);
             thread.start();
         }
-        state = action;
     }
 
-    public void run() {
-        active = true;
-        while (active) {
-            switch (state) {
-            case (STATE_IDLE):
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+    class GPSThread extends Thread {
+        private boolean active = false;
+        private LBSMainForm mainForm;
+
+        public GPSThread(LBSMainForm mainForm) {
+            super();
+            this.mainForm = mainForm;
+        }
+
+        public void run() {
+            active = true;
+            while (active) {
+                switch (state) {
+                case (STATE_IDLE):
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case (STATE_SEARCH):
+                    choiceGps.deleteAll();
+                    gpsForm.setTicker(new Ticker("Searching devices..."));
+                    BTManager.instance().find(BTManager.getRFCOMM_UUID());
+                    int size = BTManager.instance().btDevicesFound.size();
+                    for (int i = 0; i < size; i++) {
+                        choiceGps.append(BTManager.instance().getDeviceName(i),
+                                null);
+                    }
+                    gpsForm.setTicker(null);
+                    if (size == 0) {
+                        display(new Alert("No devices found"));
+                    }
+                    doAction(STATE_IDLE);
+                    break;
+                case (STATE_READING):
+                    GpsBt gpsBt = GpsBt.instance();
+                    if (gpsBt.isConnected()) {
+                        gpsState.setText("Connected");
+                        Location location = gpsBt.getLocation();
+                        quality.setText(location.quality + "");
+                        latitude
+                                .setText(location.latitude + location.northHemi);
+                        longitude.setText(location.longitude
+                                + location.eastHemi);
+                        time.setText(location.utc);
+                        satellite.setText(location.nSat + "");
+                    } else {
+                        gpsState.setText("Disconnected");
+                    }
+                    break;
                 }
-                break;
-            case (STATE_SEARCH):
-                choiceGps.deleteAll();
-                gpsForm.setTicker(new Ticker("Searching devices..."));
-                BTManager.instance().find(BTManager.getRFCOMM_UUID());
-                int size = BTManager.instance().btDevicesFound.size();
-                for (int i = 0; i < size; i++) {
-                    choiceGps.append(BTManager.instance().getDeviceName(i),
-                            null);
-                }
-                gpsForm.setTicker(null);
-                if (size == 0) {
-                    display(new Alert("No devices found"));
-                }
-                doAction(STATE_IDLE);
-                break;
-            case (STATE_READING):
-                GpsBt gpsBt = GpsBt.instance();
-                if (gpsBt.isConnected()) {
-                    gpsState.setText("Connected");
-                    Location location = gpsBt.getLocation();
-                    quality.setText(location.quality + "");
-                    latitude.setText(location.latitude + location.northHemi);
-                    longitude.setText(location.longitude + location.eastHemi);
-                    time.setText(location.utc);
-                    satellite.setText(location.nSat + "");
-                } else {
-                    gpsState.setText("Disconnected");
-                }
-                break;
             }
         }
     }
