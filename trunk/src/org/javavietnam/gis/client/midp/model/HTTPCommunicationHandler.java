@@ -95,8 +95,8 @@ import javax.microedition.io.HttpConnection;
 import javax.microedition.lcdui.Image;
 import javax.microedition.pki.CertificateException;
 
-import org.javavietnam.gis.shared.midp.SimpleCache;
 import org.javavietnam.gis.shared.midp.ApplicationException;
+import org.javavietnam.gis.shared.midp.SimpleCache;
 import org.javavietnam.gis.shared.midp.model.LayerInformation;
 import org.javavietnam.gis.shared.midp.model.ModelException;
 import org.javavietnam.gis.shared.midp.model.SearchFeatureParameter;
@@ -576,8 +576,12 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
 
             connection = (HttpConnection) Connector.open(serverURL);
 
-            connection.setRequestProperty("User-Agent", System
-                    .getProperty("microedition.profiles"));
+            String userAgent = System.getProperty("microedition.profiles");
+
+            if (userAgent != null && !"".equals(userAgent)) {
+                connection.setRequestProperty("User-Agent", userAgent);
+            }
+
             connection.setRequestProperty("Accept-Encoding", "gzip");
 
             if (0 == serverURL.indexOf("https://")) {

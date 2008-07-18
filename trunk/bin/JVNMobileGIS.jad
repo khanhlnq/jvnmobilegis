@@ -1,4 +1,4 @@
-MIDlet-Jar-Size: 117639
+MIDlet-Jar-Size: 176860
 MIDlet-1: JVNMobileGIS,/icons/JVNMobileGIS_icon.png,org.javavietnam.gis.client.midp.JVNMobileGISMIDlet
 MIDlet-Jar-URL: JVNMobileGIS.jar
 MIDlet-Icon: /icons/JVNMobileGIS_icon.png

@@ -473,8 +473,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         cursorY = getHeight() / 2;
     }
 
-    // Center at the specific point
-    public void updateMyLocation(String latitude, String longitude) {
+    public void updateMyNMEALocation(String latitude, String longitude) {
         previousAction = NO_ACTION;
         isLocated = true;
 
@@ -482,8 +481,8 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         zoomToScale(UIConstants.BEST_SCALE);
 
         // Set location to new lat/lon
-        myLocation[0] = Float.parse(latitude, 8);
-        myLocation[1] = Float.parse(longitude, 8);
+        myLocation[0] = (Float.parse(latitude, 8).Mul(Float.PI)).Div(180);
+        myLocation[1] = (Float.parse(longitude, 8).Mul(Float.PI)).Div(180);
         // Re-center to my location
         reCenter(myLocation);
     }
