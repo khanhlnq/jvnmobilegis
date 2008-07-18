@@ -252,6 +252,7 @@ public class UIController {
                 icons[UIConstants.ICON_IDX_SPLASH], null);
         alert.setTimeout(UIConstants.SPLASH_TIMEOUT);
         display.setCurrent(alert, getMainMenuUI());
+        // display.setCurrent(getMainMenuUI());
     }
 
     public void destroy() {

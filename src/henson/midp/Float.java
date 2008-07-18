@@ -100,7 +100,7 @@ public class Float {
      * The Float value that is closer than any other to pi, the ratio of the
      * circumference of a circle to its diameter
      */
-    private final static Float PI = new Float(3141592653589793238L, -18L);
+    public final static Float PI = new Float(3141592653589793238L, -18L);
     /**
      * Zero constant
      */
