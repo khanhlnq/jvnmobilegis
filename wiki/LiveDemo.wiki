@@ -11,4 +11,5 @@ You can run JVNMobileGIS on your PC using Java Webstart of [http://mpowerplayer.
 Below is the link to launch live demo of JVNMobileGIS, please accept any warnings because *mpowerplayer* and *JVNMobileGIS* are trusted sources :)
 
 Latest Release: http://webstart.mpowerplayer.com/jvnmobilegis.googlecode.com/svn/JVNMobileGIS.jad
+
 Latest Build: http://webstart.mpowerplayer.com/jvnmobilegis.googlecode.com/svn/trunk/bin/JVNMobileGIS.jad
