@@ -1,6 +1,6 @@
 #summary Live demo of JVNMobileGIS on PC
 
-_*Important notice: Because of security restriction of Live demo, user cannot use full functionality of JVNMobileGIS. User is advised to use Executable version instead.*_
+http://jvnmobilegis.googlecode.com/svn/docs/images/screenshots/23-JVNMobileGIS_LiveDemo.png
 
 = Introduction =
 
