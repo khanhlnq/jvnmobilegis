@@ -592,7 +592,7 @@ public class UIController {
 
     public void viewMapRequested() {
         display.setCurrent(getMapViewUI());
-        mapViewUI.repaint();
+        // mapViewUI.repaint();
     }
 
     /*

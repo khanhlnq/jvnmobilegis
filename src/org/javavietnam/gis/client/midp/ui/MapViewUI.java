@@ -481,10 +481,12 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         zoomToScale(UIConstants.BEST_SCALE);
 
         // Set location to new lat/lon
-        myLocation[0] = (Float.parse(latitude, 8).Mul(Float.PI)).Div(180);
-        myLocation[1] = (Float.parse(longitude, 8).Mul(Float.PI)).Div(180);
+        myLocation[0] = (Float.parse(latitude, 10).Mul(Float.PI)).Div(180);
+        myLocation[1] = (Float.parse(longitude, 10).Mul(Float.PI)).Div(180);
         // Re-center to my location
         reCenter(myLocation);
+
+        uiController.updateMapRequested();
     }
 
     private void zoomIn() {
@@ -724,8 +726,8 @@ public class MapViewUI extends GameCanvas implements CommandListener,
                     getHeight(), Graphics.BOTTOM | Graphics.LEFT);
             int[] cursors = { getCursorX(), getCursorY() };
             Float[] real = transformFromView(cursors);
-            g.drawString("lon:" + floatToString(real[0], 3) + " lat:"
-                    + floatToString(real[1], 3), getWidth(), getHeight(),
+            g.drawString("lat:" + floatToString(real[1], 3) + " lon:"
+                    + floatToString(real[0], 3), getWidth(), getHeight(),
                     Graphics.BOTTOM + Graphics.RIGHT);
             // Reset to default Font and color
             g.setFont(Font.getDefaultFont());
@@ -827,8 +829,9 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         cursorX = x;
         cursorY = y;
 
-        repaintCursor(oldCursorX, oldCursorY);
-        repaintCursor();
+        // repaintCursor(oldCursorX, oldCursorY);
+        // repaintCursor();
+        repaint();
     }
 
     public void keyPressed(int keyCode) {
