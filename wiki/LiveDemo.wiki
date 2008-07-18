@@ -1,6 +1,6 @@
 #summary Live demo of JVNMobileGIS on PC
 
-http://jvnmobilegis.googlecode.com/svn/docs/images/screenshots/23-JVNMobileGIS_LiveDemo.png
+http://jvnmobilegis.googlecode.com/svn/docs/images/JVNMobileGIS_LiveDemo_small.png
 
 = Introduction =
 
