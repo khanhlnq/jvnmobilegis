@@ -64,6 +64,7 @@ public class LBSMainForm extends Form implements CommandListener {
     private Form gpsForm;
     private Command cmdSearch;
     private Command cmdShowMeOnMap;
+    private Command cmdStop;
     private Command cmdSelect;
     private ChoiceGroup choiceGps;
     private StringItem gpsState;
@@ -93,7 +94,6 @@ public class LBSMainForm extends Form implements CommandListener {
         cmdShowMeOnMap = new Command("Show me on map!", Command.ITEM, 2);
         cmdBack = new Command("Back", Command.BACK, 3);
         addCommand(cmdSearchGps);
-        addCommand(cmdShowMeOnMap);
         addCommand(cmdBack);
 
         gpsState = new StringItem("Status", "No Gps Found");
@@ -114,6 +114,8 @@ public class LBSMainForm extends Form implements CommandListener {
     public void commandAction(Command cmd, Displayable display) {
         if (display == this) {
             if (cmd == cmdSearchGps) {
+                removeCommand(cmdStop);
+                removeCommand(cmdShowMeOnMap);
                 display(initGPSForm());
                 doAction(STATE_SEARCH);
             } else if (cmd == cmdShowMeOnMap) {
@@ -126,6 +128,10 @@ public class LBSMainForm extends Form implements CommandListener {
                             "You're not connected to a GPS device!", null,
                             AlertType.ERROR), this);
                 }
+            } else if (cmd == cmdStop) {
+                thread.active = false;
+                removeCommand(cmdStop);
+                addCommand(cmdShowMeOnMap);
             } else if (cmd == cmdBack) {
                 uiController.viewMapRequested();
             }
@@ -137,6 +143,7 @@ public class LBSMainForm extends Form implements CommandListener {
                 int option = choiceGps.getSelectedIndex();
                 // any device selected?
                 if (option != -1) {
+                    addCommand(cmdStop);
                     // set gps reader to selected device
                     GpsBt.instance().setDevice(
                             BTManager.instance().getServiceURL(option),
