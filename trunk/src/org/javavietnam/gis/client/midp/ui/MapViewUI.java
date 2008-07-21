@@ -481,12 +481,19 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         zoomToScale(UIConstants.BEST_SCALE);
 
         // Set location to new lat/lon
-        myLocation[0] = (Float.parse(latitude, 10).Mul(Float.PI)).Div(180);
-        myLocation[1] = (Float.parse(longitude, 10).Mul(Float.PI)).Div(180);
+        myLocation[0] = nmeaToDecimal(Float.parse(latitude, 10));
+        myLocation[1] = nmeaToDecimal(Float.parse(longitude, 10));
         // Re-center to my location
         reCenter(myLocation);
 
         uiController.updateMapRequested();
+    }
+
+    public Float nmeaToDecimal(Float pos) {
+        Float deg, decPos;
+        deg = Float.floor(pos.Div(100));
+        decPos = Float.round(deg.Add((pos.Sub(deg.Mul(100))).Div(60)), 8);
+        return decPos;
     }
 
     private void zoomIn() {

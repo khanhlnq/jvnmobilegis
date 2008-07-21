@@ -209,7 +209,7 @@ public class LBSMainForm extends Form implements CommandListener {
                 switch (state) {
                 case (STATE_IDLE):
                     try {
-                        Thread.sleep(3000);
+                        Thread.sleep(10000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
