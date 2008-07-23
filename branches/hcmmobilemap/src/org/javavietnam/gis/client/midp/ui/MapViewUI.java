@@ -216,7 +216,14 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         addCommand(helpCommand);
 
         // ------ Tai Nguyen - Start ------
-        getFeaturesCommand = new Command(uiController.getString(UIConstants.GET_FEATURES_CMD), Command.SCREEN, 5);
+        String featureCmdLabel = null;
+        if (uiController.isHcmMap()) {
+            featureCmdLabel = uiController.getString(UIConstants.GET_DISTRICTS_CMD);
+        } else {
+            featureCmdLabel = uiController.getString(UIConstants.GET_FEATURES_CMD);
+        }
+
+        getFeaturesCommand = new Command(featureCmdLabel, Command.SCREEN, 5);
         if (uiController.isHcmMap()) {
             addCommand(getFeaturesCommand);
         }
@@ -905,7 +912,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
             uiController.helpRequested();
         } else if (command == getFeaturesCommand) {
             if (uiController.isHcmMap()) {
-                uiController.hcmGetFeatureInBBox();
+                uiController.hcmGetDistrictInBBox();
             } else {
                 uiController.chooseLayerRequest();
             }
