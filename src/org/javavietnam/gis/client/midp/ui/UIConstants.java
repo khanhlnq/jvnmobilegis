@@ -185,6 +185,7 @@ public final class UIConstants {
     public static final int CHOOSE_ATTRIBUTE_TICKER = 113;
     public static final int SEARCH_RESULT = 114;
     public static final int HCM_QUAN_NAME = 115;
+    public static final int GET_DISTRICTS_CMD = 116;
     // ---------- Tai Nguyen - End ----------------
 
     private UIConstants() {

@@ -136,10 +136,11 @@ public class UIController {
         public static final byte EVENT_ID_SAVETOFILE = 11;
         public static final byte EVENT_ID_SHOWDIR = 12;
         public static final byte EVENT_ID_CHECKEXISTING = 13;
-        public static final byte EVENT_ID_CHOOSEATTRIBUTE = 14;
-        public static final byte EVENT_ID_GETFEATUREINBBOX = 15;
-        public static final byte EVENT_ID_VIEWFEATUREBYBBOX = 16;
-        public static final byte EVENT_ID_HCM_GETFEATUREINBBOX = 17;
+        public static final byte EVENT_ID_HCM_MAP = 14;
+        public static final byte EVENT_ID_CHOOSEATTRIBUTE = 15;
+        public static final byte EVENT_ID_GETFEATUREINBBOX = 16;
+        public static final byte EVENT_ID_VIEWFEATUREBYBBOX = 17;
+        public static final byte EVENT_ID_HCM_GETDISTRICT_INBBOX = 18;
     }
     private static final String[] iconPaths = {"/icons/JVNMobileGIS_icon.png",
         "/icons/map_server_icon.png", "/icons/preferences_icon.png",
@@ -961,6 +962,55 @@ public class UIController {
                     }
 
                     // ---------- Tai Nguyen - Start --------------
+                    case EventIds.EVENT_ID_HCM_MAP: {
+                        String serverURL = getString(UIConstants.HCM_WMSURL);
+                        String distLayer = getString(UIConstants.HCM_QUAN);
+                        String streetLayer = getString(UIConstants.HCM_DGT);
+
+                        Preferences preference = model.getPreferences();
+                        preference.setWmsServerURL(serverURL);
+                        model.setPreferences(preference);
+                        getMapServerUI().setServerURL(serverURL);
+
+                        Vector constructedDataTree = model.getCapabilitiesWMS(serverURL);
+                        if (constructedDataTree == null) {
+                            showErrorAlert(getString(UIConstants.GET_CAPABILITIES_WMS_ERROR), getMainMenuUI());
+                            return;
+                        }
+
+                        getLayerListUI().init(constructedDataTree);
+
+                        Vector layerList = getLayerListUI().getLayerList();
+                        boolean[] layerFlags = new boolean[layerList.size()];
+
+                        for (int i = 0; i < layerList.size(); i++) {
+                            LayerInformation layerInfo = (LayerInformation) layerList.elementAt(i);
+                            String layerName = layerInfo.getField("name");
+
+                            if (distLayer.equals(layerName) || streetLayer.equals(layerName)) {
+                                layerFlags[i] = true;
+                            } else {
+                                layerFlags[i] = false;
+                            }
+                        }
+
+                        getLayerListUI().setSelectedFlags(layerFlags);
+                        getSortLayerListUI().init(getSelectedLayerList());
+                        hcmMap = true;
+
+                        Image img = getMapWMS(getMapViewUI(), getSortLayerListUI().getSortLayerList());
+
+                        if (img == null) {
+                            showErrorAlert(
+                                    getString(UIConstants.GET_MAP_WMS_ERROR),
+                                    getMainMenuUI());
+                        } else {
+                            getMapViewUI().init(img);
+                            display.setCurrent(getMapViewUI());
+                        }
+
+                        break;
+                    }
                     case EventIds.EVENT_ID_CHOOSEATTRIBUTE: {
                         String wfsServerURL = model.getPreferences().getWfsServerURL();
                         WFSDescribeFeatureParameter param = new WFSDescribeFeatureParameter(wfsServerURL);
@@ -1009,7 +1059,7 @@ public class UIController {
 
                         break;
                     }
-                    case EventIds.EVENT_ID_HCM_GETFEATUREINBBOX: {
+                    case EventIds.EVENT_ID_HCM_GETDISTRICT_INBBOX: {
                         String distLayer = getString(UIConstants.HCM_QUAN);
                         String selectedAttribute = getString(UIConstants.HCM_QUAN_NAME);
 
@@ -1250,48 +1300,8 @@ public class UIController {
 
     // ---------- Tai Nguyen - Start --------------
     public void hcmMapRequested() {
-        String serverURL = getString(UIConstants.HCM_WMSURL);
-        String distLayer = getString(UIConstants.HCM_QUAN);
-        String streetLayer = getString(UIConstants.HCM_DGT);
-
-        try {
-            Preferences preference = model.getPreferences();
-            preference.setWmsServerURL(serverURL);
-            model.setPreferences(preference);
-            getMapServerUI().setServerURL(serverURL);
-
-            Vector constructedDataTree = model.getCapabilitiesWMS(serverURL);
-            if (constructedDataTree == null) {
-                showErrorAlert(getString(UIConstants.GET_CAPABILITIES_WMS_ERROR), getMainMenuUI());
-                return;
-            }
-
-            getLayerListUI().init(constructedDataTree);
-
-            Vector layerList = getLayerListUI().getLayerList();
-            boolean[] layerFlags = new boolean[layerList.size()];
-
-            for (int i = 0; i < layerList.size(); i++) {
-                LayerInformation layerInfo = (LayerInformation) layerList.elementAt(i);
-                String layerName = layerInfo.getField("name");
-
-                if (distLayer.equals(layerName) || streetLayer.equals(layerName)) {
-                    layerFlags[i] = true;
-                } else {
-                    layerFlags[i] = false;
-                }
-            }
-
-            getLayerListUI().setSelectedFlags(layerFlags);
-            getSortLayerListUI().init(getSelectedLayerList());
-            hcmMap = true;
-
-            runWithProgress(new EventDispatcher(EventIds.EVENT_ID_GETMAPWMS,
-                    getMainMenuUI()), getString(UIConstants.PROCESSING), true);
-        } catch (ApplicationException e) {
-            e.printStackTrace();
-            showErrorAlert(getString(UIConstants.UNKNOWN_ERROR) + ":\n" + e.getMessage());
-        }
+        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_HCM_MAP,
+                getMainMenuUI()), getString(UIConstants.PROCESSING), true);
     }
 
     public boolean isHcmMap() {
@@ -1361,8 +1371,8 @@ public class UIController {
                 getFeatureInBBoxUI()), getString(UIConstants.PROCESSING), true);
     }
 
-    public void hcmGetFeatureInBBox() {
-        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_HCM_GETFEATUREINBBOX,
+    public void hcmGetDistrictInBBox() {
+        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_HCM_GETDISTRICT_INBBOX,
                 getMapViewUI()), getString(UIConstants.PROCESSING), true);
     }
     // ---------- Tai Nguyen - End ----------------
