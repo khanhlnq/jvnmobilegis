@@ -163,6 +163,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
     // ------ Tai Nguyen - Start ------
     private String srs = "EPSG:4326";
     private final Command getFeaturesCommand;
+    private final Command findStreetCommand;
     // ------ Tai Nguyen - End --------
 
     public MapViewUI(UIController uiController, boolean suppressKeyEvents) {
@@ -224,8 +225,11 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         }
 
         getFeaturesCommand = new Command(featureCmdLabel, Command.SCREEN, 5);
+        findStreetCommand = new Command(uiController.getString(UIConstants.FIND_STREET_CMD),
+                Command.SCREEN, 5);
         if (uiController.isHcmMap()) {
             addCommand(getFeaturesCommand);
+            addCommand(findStreetCommand);
         }
         // ------ Tai Nguyen - End --------
 
@@ -910,12 +914,18 @@ public class MapViewUI extends GameCanvas implements CommandListener,
             uiController.browseFileSystemRequested();
         } else if (command == helpCommand) {
             uiController.helpRequested();
+
+        // ------ Tai Nguyen - Start ------
         } else if (command == getFeaturesCommand) {
             if (uiController.isHcmMap()) {
                 uiController.hcmGetDistrictInBBox();
             } else {
                 uiController.chooseLayerRequest();
             }
+        } else if (command == findStreetCommand) {
+            uiController.findStreetView();
+        // ------ Tai Nguyen - End --------
+
         } else {
             // isViewPath = false;
             isViewFeature = false;

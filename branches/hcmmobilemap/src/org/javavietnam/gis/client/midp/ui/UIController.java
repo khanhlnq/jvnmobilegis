@@ -81,6 +81,7 @@
  */
 package org.javavietnam.gis.client.midp.ui;
 
+import henson.midp.Float;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Vector;
@@ -102,6 +103,8 @@ import org.javavietnam.gis.client.midp.model.MessageCodes;
 import org.javavietnam.gis.client.midp.model.ModelFacade;
 import org.javavietnam.gis.client.midp.model.Preferences;
 import org.javavietnam.gis.shared.midp.ApplicationException;
+import org.javavietnam.gis.shared.midp.CQLFilter;
+import org.javavietnam.gis.shared.midp.FilterEncoding;
 import org.javavietnam.gis.shared.midp.IndexedResourceBundle;
 import org.javavietnam.gis.shared.midp.VietSign;
 import org.javavietnam.gis.shared.midp.model.Credentials;
@@ -141,6 +144,9 @@ public class UIController {
         public static final byte EVENT_ID_GETFEATUREINBBOX = 16;
         public static final byte EVENT_ID_VIEWFEATUREBYBBOX = 17;
         public static final byte EVENT_ID_HCM_GETDISTRICT_INBBOX = 18;
+        public static final byte EVENT_ID_HCM_FINDSTREET_VIEW = 19;
+        public static final byte EVENT_ID_HCM_FINDSTREET = 20;
+        public static final byte EVENT_ID_HCM_VIEWSTREET_ONMAP = 21;
     }
     private static final String[] iconPaths = {"/icons/JVNMobileGIS_icon.png",
         "/icons/map_server_icon.png", "/icons/preferences_icon.png",
@@ -192,6 +198,8 @@ public class UIController {
     private ChooseLayerUI chooseLayerUI;
     private ChooseAttributeUI chooseAttributeUI;
     private FeatureInBBoxUI featureInBBoxUI;
+    private FindStreetUI findStreetUI;
+    private FindStreetResultUI findStreetResultUI;
     // ------ Tai Nguyen - End --------
     public UIController(MIDlet midlet, ModelFacade model) {
         this.credentials = new Credentials();
@@ -964,8 +972,8 @@ public class UIController {
                     // ---------- Tai Nguyen - Start --------------
                     case EventIds.EVENT_ID_HCM_MAP: {
                         String serverURL = getString(UIConstants.HCM_WMSURL);
-                        String distLayer = getString(UIConstants.HCM_QUAN);
-                        String streetLayer = getString(UIConstants.HCM_DGT);
+                        String distLayer = getString(UIConstants.HCM_DISTRICT);
+                        String streetLayer = getString(UIConstants.HCM_STREET);
 
                         Preferences preference = model.getPreferences();
                         preference.setWmsServerURL(serverURL);
@@ -1060,20 +1068,97 @@ public class UIController {
                         break;
                     }
                     case EventIds.EVENT_ID_HCM_GETDISTRICT_INBBOX: {
-                        String distLayer = getString(UIConstants.HCM_QUAN);
-                        String selectedAttribute = getString(UIConstants.HCM_QUAN_NAME);
+                        String distLayer = getString(UIConstants.HCM_DISTRICT);
+                        String distAttribute = getString(UIConstants.HCM_DISTRICT_NAME);
 
                         String wfsServerURL = model.getPreferences().getWfsServerURL();
                         WFSGetFeatureParameter param = new WFSGetFeatureParameter(wfsServerURL);
 
                         param.setTypeName(new String[]{distLayer});
-                        param.setPropertyName(new String[]{selectedAttribute});
+                        param.setPropertyName(new String[]{distAttribute});
                         param.setBbox(getMapViewUI().getBoundingBox());
                         param.setSrs(getMapViewUI().getSRS());
 
                         Vector treeNode = model.getFeatureWFS(param);
-                        getFeatureInBBoxUI().init(treeNode, selectedAttribute);
+                        getFeatureInBBoxUI().init(treeNode, distAttribute);
                         display.setCurrent(getFeatureInBBoxUI());
+
+                        break;
+                    }
+                    case EventIds.EVENT_ID_HCM_FINDSTREET_VIEW: {
+                        String distLayer = getString(UIConstants.HCM_DISTRICT);
+                        String distAttribute = getString(UIConstants.HCM_DISTRICT_NAME);
+                        Float hcmMinx = Float.parse(getString(UIConstants.HCM_BBOX_MINX), 10);
+                        Float hcmMiny = Float.parse(getString(UIConstants.HCM_BBOX_MINY), 10);
+                        Float hcmMaxx = Float.parse(getString(UIConstants.HCM_BBOX_MAXX), 10);
+                        Float hcmMaxy = Float.parse(getString(UIConstants.HCM_BBOX_MAXY), 10);
+
+                        String wfsServerURL = model.getPreferences().getWfsServerURL();
+                        WFSGetFeatureParameter param = new WFSGetFeatureParameter(wfsServerURL);
+
+                        param.setTypeName(new String[]{distLayer});
+                        param.setPropertyName(new String[]{distAttribute});
+                        param.setBbox(new Float[]{hcmMinx, hcmMiny, hcmMaxx, hcmMaxy});
+                        param.setSrs(getMapViewUI().getSRS());
+
+                        Vector treeNode = model.getFeatureWFS(param);
+                        getFindStreetUI().init(treeNode, distAttribute);
+                        display.setCurrent(getFindStreetUI());
+
+                        break;
+                    }
+                    case EventIds.EVENT_ID_HCM_FINDSTREET: {
+                        String streetLayer = getString(UIConstants.HCM_STREET);
+                        String streetAttribute = getString(UIConstants.HCM_STREET_NAME);
+                        String geometry = getString(UIConstants.HCM_GEOMETRY_NAME);
+
+                        String stNameParam = getFindStreetUI().getStreetName();
+                        FeatureInformation distParam = getFindStreetUI().getDistrict();
+
+                        String wfsServerURL = model.getPreferences().getWfsServerURL();
+                        WFSGetFeatureParameter param = new WFSGetFeatureParameter(wfsServerURL);
+
+                        param.setTypeName(new String[]{streetLayer});
+                        param.setPropertyName(new String[]{streetAttribute});
+                        //param.setBbox(distParam.getBbox());
+                        param.setSrs(getMapViewUI().getSRS());
+
+                        // -------- Filter by Filter Encoding --------
+                        //String nameFilter = FilterEncoding.like(streetAttribute, stNameParam);
+                        //String bboxFilter = FilterEncoding.bbox(geometry, distParam.getBbox(), getMapViewUI().getSRS());
+                        //String andFilter = FilterEncoding.and(new String[]{nameFilter, bboxFilter});
+                        //param.setFilter(FilterEncoding.createFilter(andFilter));
+
+                        // -------- Filter by CQL Filter --------
+                        String nameFilter = CQLFilter.like(streetAttribute, stNameParam);
+                        String bboxFilter = CQLFilter.bbox(geometry, distParam.getBbox());
+                        String andFilter = CQLFilter.and(new String[]{nameFilter, bboxFilter});
+                        param.setCqlFilter(andFilter);
+
+                        Vector treeNode = model.getFeatureWFS(param);
+                        getFindStreetResultUI().init(treeNode, streetAttribute);
+                        display.setCurrent(getFindStreetResultUI());
+
+                        break;
+                    }
+                    case EventIds.EVENT_ID_HCM_VIEWSTREET_ONMAP: {
+                        FeatureInformation feature = getFindStreetResultUI().getSelectedFeature();
+                        // Set bounding box of feature to view
+                        getMapViewUI().setBoundingBox(feature.getBbox());
+
+                        // Update new map
+                        Image img = updateMapWMS(getMapViewUI(), getLayerListUI().getSelectedLayerList());
+
+                        if (img == null) {
+                            showErrorAlert(
+                                    getString(UIConstants.GET_MAP_WMS_ERROR),
+                                    getMainMenuUI());
+                        } else {
+                            getMapViewUI().init(img);
+                            display.setCurrent(getMapViewUI());
+                        }
+
+                        break;
                     }
                     // ---------- Tai Nguyen - End ----------------
                 } // for switch - case
@@ -1329,6 +1414,20 @@ public class UIController {
         return featureInBBoxUI;
     }
 
+    public FindStreetUI getFindStreetUI() {
+        if (null == findStreetUI) {
+            findStreetUI = new FindStreetUI(this);
+        }
+        return findStreetUI;
+    }
+
+    public FindStreetResultUI getFindStreetResultUI() {
+        if (null == findStreetResultUI) {
+            findStreetResultUI = new FindStreetResultUI(this);
+        }
+        return findStreetResultUI;
+    }
+
     public void chooseLayerRequest() {
         try {
             getChooseLayerUI().init(getSelectedLayerList());
@@ -1353,6 +1452,10 @@ public class UIController {
         display.setCurrent(getChooseAttributeUI());
     }
 
+    public void backFindStreet() {
+        display.setCurrent(getFindStreetUI());
+    }
+
     public LayerInformation getSelectedLayer() {
         return getChooseLayerUI().getSelectedLayer();
     }
@@ -1374,6 +1477,21 @@ public class UIController {
     public void hcmGetDistrictInBBox() {
         runWithProgress(new EventDispatcher(EventIds.EVENT_ID_HCM_GETDISTRICT_INBBOX,
                 getMapViewUI()), getString(UIConstants.PROCESSING), true);
+    }
+
+    public void findStreetView() {
+        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_HCM_FINDSTREET_VIEW,
+                getMapViewUI()), getString(UIConstants.PROCESSING), true);
+    }
+
+    public void findStreetRequest() {
+        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_HCM_FINDSTREET,
+                getMapViewUI()), getString(UIConstants.PROCESSING), true);
+    }
+
+    public void viewStreetOnMap() {
+        runWithProgress(new EventDispatcher(EventIds.EVENT_ID_HCM_VIEWSTREET_ONMAP,
+                getFindStreetResultUI()), getString(UIConstants.PROCESSING), true);
     }
     // ---------- Tai Nguyen - End ----------------
 }

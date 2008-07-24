@@ -148,7 +148,7 @@ public class WFSFeatureParser extends MinML {
                 coorPos++;
             } else if (thisText.length() > 0) {
                 String content = thisText.toString().trim().replace(' ', ',');
-                String[] coors = split(content, ",");
+                String[] coors = StringUtil.split(content, ",");
                 Float[] bbox = new Float[]{
                     Float.parse(coors[0], 10),
                     Float.parse(coors[1], 10),
@@ -159,7 +159,7 @@ public class WFSFeatureParser extends MinML {
                 ((InnerTreeNode) currPath.lastElement()).getFeatureInformation().setBbox(bbox);
             }
         } else {
-            String[] elemName = split(name, ":");
+            String[] elemName = StringUtil.split(name, ":");
             String attName = null;
             if (elemName.length == 2) {
                 attName = elemName[1];
@@ -201,30 +201,5 @@ public class WFSFeatureParser extends MinML {
 
     public void setTypeName(Vector typeName) {
         this.typeName = typeName;
-    }
-
-    public String[] split(String content, String character) {
-        Vector textList = new Vector();
-        String tmp = content;
-        int pos = tmp.indexOf(character);
-
-        while (pos != -1) {
-            textList.addElement(tmp.substring(0, pos));
-            tmp = tmp.substring(pos + 1);
-            pos = tmp.indexOf(character);
-        }
-
-        textList.addElement(tmp);
-
-        if (textList.size() == 0) {
-            return null;
-        }
-
-        String[] result = new String[textList.size()];
-        for (int i = 0; i < textList.size(); i++) {
-            result[i] = (String) textList.elementAt(i);
-        }
-
-        return result;
     }
 }
