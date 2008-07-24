@@ -17,6 +17,9 @@ public class WFSGetFeatureParameter extends WFSParameter {
     protected String[] propertyName;
     protected Float[] bbox;
     protected String srs = "EPSG:4326";
+    protected String filter;
+    protected String cqlFilter;
+    protected int maxFeatures = 40;
 
     public WFSGetFeatureParameter() {
     }
@@ -65,13 +68,29 @@ public class WFSGetFeatureParameter extends WFSParameter {
         this.typeName = typeName;
     }
 
+    public String getFilter() {
+        return filter;
+    }
+
+    public void setFilter(String filter) {
+        this.filter = filter;
+    }
+
+    public String getCqlFilter() {
+        return cqlFilter;
+    }
+
+    public void setCqlFilter(String cqlFilter) {
+        this.cqlFilter = cqlFilter;
+    }
+
     public String toString() {
         String superStr = super.toString();
         if (null == superStr || "".equals(superStr)) {
             return null;
         }
 
-        if (null == typeName || null == propertyName || null == bbox) {
+        if (null == typeName || null == propertyName) {
             return null;
         }
 
@@ -85,17 +104,30 @@ public class WFSGetFeatureParameter extends WFSParameter {
             properties.append(",").append(propertyName[i]);
         }
 
-        StringBuffer coors = new StringBuffer(bbox[0].toString());
-        for (int i = 1; i < bbox.length; i++) {
-            coors.append(",").append(bbox[i].toString());
-        }
-
         StringBuffer result = new StringBuffer(superStr);
         result.append("&request=").append(request);
         result.append("&typeName=").append(types.toString());
         result.append("&propertyName=").append(properties.toString());
-        result.append("&BBOX=").append(coors.toString());
+
+        if (null != bbox) {
+            StringBuffer coors = new StringBuffer(bbox[0].toString());
+            for (int i = 1; i < bbox.length; i++) {
+                coors.append(",").append(bbox[i].toString());
+            }
+            result.append("&BBOX=").append(coors.toString());
+        }
+
         result.append("&SRS=").append(srs);
+
+        if (null != filter && !"".equals(filter)) {
+            result.append("&FILTER=").append(filter);
+        }
+
+        if (null != cqlFilter && !"".equals(cqlFilter)) {
+            result.append("&CQL_FILTER=").append(cqlFilter);
+        }
+
+        result.append("&maxFeatures=").append(maxFeatures);
 
         return result.toString();
     }

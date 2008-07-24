@@ -174,18 +174,29 @@ public final class UIConstants {
     // ---------- Tai Nguyen - Start --------------
     public static final int HCM_MAP = 103;
     public static final int HCM_WMSURL = 104;
-    public static final int HCM_QUAN = 105;
-    public static final int HCM_DGT = 106;
-    public static final int CONF_WFS_SERVER_URL = 107;
-    public static final int WFS_SERVER_TITLE = 108;
-    public static final int GET_FEATURES_CMD = 109;
-    public static final int CHOOSE_LAYER = 110;
-    public static final int CHOOSE_LAYER_TICKER = 111;
-    public static final int CHOOSE_ATTRIBUTE = 112;
-    public static final int CHOOSE_ATTRIBUTE_TICKER = 113;
-    public static final int SEARCH_RESULT = 114;
-    public static final int HCM_QUAN_NAME = 115;
-    public static final int GET_DISTRICTS_CMD = 116;
+    public static final int CONF_WFS_SERVER_URL = 105;
+    public static final int HCM_DISTRICT = 106;
+    public static final int HCM_STREET = 107;
+    public static final int HCM_TYPICAL_WORK = 108;
+    public static final int WFS_SERVER_TITLE = 109;
+    public static final int GET_FEATURES_CMD = 110;
+    public static final int CHOOSE_LAYER = 111;
+    public static final int CHOOSE_LAYER_TICKER = 112;
+    public static final int CHOOSE_ATTRIBUTE = 113;
+    public static final int CHOOSE_ATTRIBUTE_TICKER = 114;
+    public static final int SEARCH_RESULT = 115;
+    public static final int HCM_DISTRICT_NAME = 116;
+    public static final int GET_DISTRICTS_CMD = 117;
+    public static final int FIND_STREET_CMD = 118;
+    public static final int FIND_STREET_TITLE = 119;
+    public static final int STREET_NAME_FIELD = 120;
+    public static final int STREET_DISTRICT_GROUP = 121;
+    public static final int HCM_BBOX_MINX = 122;
+    public static final int HCM_BBOX_MINY = 123;
+    public static final int HCM_BBOX_MAXX = 124;
+    public static final int HCM_BBOX_MAXY = 125;
+    public static final int HCM_STREET_NAME = 126;
+    public static final int HCM_GEOMETRY_NAME = 127;
     // ---------- Tai Nguyen - End ----------------
 
     private UIConstants() {

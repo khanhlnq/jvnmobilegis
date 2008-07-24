@@ -54,7 +54,7 @@ import org.javavietnam.gis.shared.midp.model.TreeNode;
  * @author anntv
  *
  */
-public class FeatureInBBoxUI extends List implements CommandListener {
+public class FindStreetResultUI extends List implements CommandListener {
 
     private final UIController uiController;
     private final Command backCommand;
@@ -62,7 +62,7 @@ public class FeatureInBBoxUI extends List implements CommandListener {
     private Vector featureList;
     private String selectedAttribute;
 
-    public FeatureInBBoxUI(UIController uiController) {
+    public FindStreetResultUI(UIController uiController) {
         super(uiController.getString(UIConstants.CHOOSE_ATTRIBUTE), Choice.IMPLICIT);
 
         this.uiController = uiController;
@@ -102,13 +102,9 @@ public class FeatureInBBoxUI extends List implements CommandListener {
 
     public void commandAction(Command command, Displayable displayable) {
         if (command == backCommand) {
-            if (uiController.isHcmMap()) {
-                uiController.viewMapRequested();
-            } else {
-                uiController.backChooseAttribute();
-            }
+            uiController.backFindStreet();
         } else if (command == viewOnMapCommand) {
-            uiController.viewMapByBBox();
+            uiController.viewStreetOnMap();
         }
     }
 
