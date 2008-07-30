@@ -64,7 +64,7 @@ public class LBSMainForm extends Form implements CommandListener {
     private Form gpsForm;
     private Command cmdSearch;
     private Command cmdShowMeOnMap;
-    private Command cmdStop;
+    // private Command cmdStop;
     private Command cmdSelect;
     private ChoiceGroup choiceGps;
     private StringItem gpsState;
@@ -74,10 +74,10 @@ public class LBSMainForm extends Form implements CommandListener {
     private StringItem time;
     private StringItem satellite;
 
-    private static final int STATE_IDLE = 0;
+    // private static final int STATE_IDLE = 0;
     private static final int STATE_SEARCH = 1;
     private static final int STATE_READING = 2;
-    private int state = STATE_IDLE;
+    private int state = 0;
 
     private GPSThread thread;
     private final UIController uiController;
@@ -92,7 +92,9 @@ public class LBSMainForm extends Form implements CommandListener {
         setCommandListener(this);
         cmdSearchGps = new Command("Search", Command.ITEM, 1);
         cmdShowMeOnMap = new Command("Show me on map!", Command.ITEM, 2);
-        cmdBack = new Command("Back", Command.BACK, 3);
+        // cmdStop = new Command("Stop", Command.STOP, 3);
+        cmdBack = new Command("Back", Command.BACK, 4);
+        addCommand(cmdShowMeOnMap);
         addCommand(cmdSearchGps);
         addCommand(cmdBack);
 
@@ -112,50 +114,58 @@ public class LBSMainForm extends Form implements CommandListener {
     }
 
     public void commandAction(Command cmd, Displayable display) {
-        if (display == this) {
-            if (cmd == cmdSearchGps) {
-                removeCommand(cmdStop);
-                removeCommand(cmdShowMeOnMap);
-                display(initGPSForm());
-                doAction(STATE_SEARCH);
-            } else if (cmd == cmdShowMeOnMap) {
-                thread.active = false;
-                if (gpsState.getText().trim().equals("Connected")) {
-                    uiController.getMapViewUI().updateMyNMEALocation(
-                            latitude.getText(), longitude.getText());
-                } else {
-                    display(new Alert("Error",
-                            "You're not connected to a GPS device!", null,
-                            AlertType.ERROR), this);
+        try {
+            if (display == this) {
+                if (cmd == cmdSearchGps) {
+                    // removeCommand(cmdStop);
+                    // removeCommand(cmdShowMeOnMap);
+                    display(initGPSForm());
+                    doAction(STATE_SEARCH);
+                } else if (cmd == cmdShowMeOnMap) {
+                    thread.active = false;
+                    thread = null;
+                    if (gpsState.getText().trim().equals("Connected")) {
+                        uiController.getMapViewUI().updateMyNMEALocation(
+                                latitude.getText(), longitude.getText());
+                    } else {
+                        display(new Alert("Error",
+                                "You're not connected to a GPS device!", null,
+                                AlertType.ERROR), this);
+                    }
+                    // } else if (cmd == cmdStop) {
+                    // thread.active = false;
+                    // thread = null;
+                    // removeCommand(cmdStop);
+                } else if (cmd == cmdBack) {
+                    uiController.viewMapRequested();
                 }
-            } else if (cmd == cmdStop) {
-                thread.active = false;
-                removeCommand(cmdStop);
-                addCommand(cmdShowMeOnMap);
-            } else if (cmd == cmdBack) {
-                uiController.viewMapRequested();
-            }
-        } else if (display == gpsForm) {
-            if (cmd == cmdSearch) {
-                doAction(STATE_SEARCH);
-            }
-            if (cmd == cmdSelect) {
-                int option = choiceGps.getSelectedIndex();
-                // any device selected?
-                if (option != -1) {
-                    addCommand(cmdStop);
-                    // set gps reader to selected device
-                    GpsBt.instance().setDevice(
-                            BTManager.instance().getServiceURL(option),
-                            BTManager.instance().getDeviceName(option));
-                    doAction(STATE_READING);
-                    // start reading value;
-                    GpsBt.instance().start();
+            } else if (display == gpsForm) {
+                if (cmd == cmdSearch) {
+                    doAction(STATE_SEARCH);
+                }
+                if (cmd == cmdSelect) {
+                    int option = choiceGps.getSelectedIndex();
+                    // any device selected?
+                    if (option != -1) {
+                        System.gc();
+                        // addCommand(cmdStop);
+                        // set gps reader to selected device
+                        GpsBt.instance().setDevice(
+                                BTManager.instance().getServiceURL(option),
+                                BTManager.instance().getDeviceName(option));
+                        doAction(STATE_READING);
+                        // start reading value;
+                        GpsBt.instance().start();
+                        display(this);
+                    }
+                } else if (cmd == cmdBack) {
                     display(this);
                 }
-            } else if (cmd == cmdBack) {
-                display(this);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            display(new Alert("Error", e.getMessage(), null, AlertType.ERROR),
+                    uiController.getMapViewUI());
         }
     }
 
@@ -203,24 +213,18 @@ public class LBSMainForm extends Form implements CommandListener {
 
     class GPSThread extends Thread {
         private boolean active = false;
+
         private LBSMainForm mainForm;
 
-        public GPSThread(LBSMainForm mainForm) {
+        public GPSThread(LBSMainForm lbsMainForm) {
             super();
-            this.mainForm = mainForm;
+            this.mainForm = lbsMainForm;
         }
 
         public void run() {
             active = true;
             while (active) {
                 switch (state) {
-                case (STATE_IDLE):
-                    try {
-                        Thread.sleep(10000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    break;
                 case (STATE_SEARCH):
                     choiceGps.deleteAll();
                     gpsForm.setTicker(new Ticker("Searching devices..."));
@@ -232,9 +236,11 @@ public class LBSMainForm extends Form implements CommandListener {
                     }
                     gpsForm.setTicker(null);
                     if (size == 0) {
-                        display(new Alert("No devices found"));
+                        display(new Alert("No devices", "No devices found",
+                                null, AlertType.INFO), mainForm);
                     }
-                    doAction(STATE_IDLE);
+
+                    active = true;
                     break;
                 case (STATE_READING):
                     GpsBt gpsBt = GpsBt.instance();
@@ -248,6 +254,14 @@ public class LBSMainForm extends Form implements CommandListener {
                                 + location.eastHemi);
                         time.setText(location.utc);
                         satellite.setText(location.nSat + "");
+
+                        try {
+                            Thread.sleep(7000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                            display(new Alert("Error", e.getMessage(), null,
+                                    AlertType.ERROR), mainForm);
+                        }
                     } else {
                         gpsState.setText("Disconnected");
                     }
