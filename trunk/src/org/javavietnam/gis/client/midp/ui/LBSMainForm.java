@@ -114,6 +114,7 @@ public class LBSMainForm extends Form implements CommandListener {
     }
 
     public void commandAction(Command cmd, Displayable display) {
+        thread.active = false;
         try {
             if (display == this) {
                 if (cmd == cmdSearchGps) {
@@ -122,7 +123,7 @@ public class LBSMainForm extends Form implements CommandListener {
                     display(initGPSForm());
                     doAction(STATE_SEARCH);
                 } else if (cmd == cmdShowMeOnMap) {
-                    thread.active = false;
+                    // thread.active = false;
                     thread = null;
                     if (gpsState.getText().trim().equals("Connected")) {
                         uiController.getMapViewUI().updateMyNMEALocation(
@@ -138,6 +139,7 @@ public class LBSMainForm extends Form implements CommandListener {
                     // removeCommand(cmdStop);
                 } else if (cmd == cmdBack) {
                     uiController.viewMapRequested();
+                    // thread.active = false;
                 }
             } else if (display == gpsForm) {
                 if (cmd == cmdSearch) {
@@ -240,7 +242,7 @@ public class LBSMainForm extends Form implements CommandListener {
                                 null, AlertType.INFO), mainForm);
                     }
 
-                    active = true;
+                    active = false;
                     break;
                 case (STATE_READING):
                     GpsBt gpsBt = GpsBt.instance();
@@ -261,9 +263,11 @@ public class LBSMainForm extends Form implements CommandListener {
                             e.printStackTrace();
                             display(new Alert("Error", e.getMessage(), null,
                                     AlertType.ERROR), mainForm);
+                            active = false;
                         }
                     } else {
                         gpsState.setText("Disconnected");
+                        active = false;
                     }
                     break;
                 }
