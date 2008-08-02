@@ -114,8 +114,10 @@ public class LBSMainForm extends Form implements CommandListener {
     }
 
     public void commandAction(Command cmd, Displayable display) {
-        thread.active = false;
         try {
+            if (thread != null) {
+                thread.active = false;
+            }
             if (display == this) {
                 if (cmd == cmdSearchGps) {
                     // removeCommand(cmdStop);
@@ -124,7 +126,7 @@ public class LBSMainForm extends Form implements CommandListener {
                     doAction(STATE_SEARCH);
                 } else if (cmd == cmdShowMeOnMap) {
                     // thread.active = false;
-                    thread = null;
+                    // thread = null;
                     if (gpsState.getText().trim().equals("Connected")) {
                         uiController.getMapViewUI().updateMyNMEALocation(
                                 latitude.getText(), longitude.getText());
@@ -209,6 +211,7 @@ public class LBSMainForm extends Form implements CommandListener {
         if (thread == null || !thread.isAlive()) {
             thread = null;
             thread = new GPSThread(this);
+            thread.active = true;
             thread.start();
         }
     }
@@ -224,7 +227,6 @@ public class LBSMainForm extends Form implements CommandListener {
         }
 
         public void run() {
-            active = true;
             while (active) {
                 switch (state) {
                 case (STATE_SEARCH):
