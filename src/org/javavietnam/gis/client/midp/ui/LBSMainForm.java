@@ -157,10 +157,11 @@ public class LBSMainForm extends Form implements CommandListener {
                         GpsBt.instance().setDevice(
                                 BTManager.instance().getServiceURL(option),
                                 BTManager.instance().getDeviceName(option));
-                        doAction(STATE_READING);
                         // start reading value;
                         GpsBt.instance().start();
                         display(this);
+
+                        doAction(STATE_READING);
                     }
                 } else if (cmd == cmdBack) {
                     display(this);
