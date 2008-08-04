@@ -151,7 +151,7 @@ public class LBSMainForm extends Form implements CommandListener {
                     int option = choiceGps.getSelectedIndex();
                     // any device selected?
                     if (option != -1) {
-                        System.gc();
+                        // System.gc();
                         // addCommand(cmdStop);
                         // set gps reader to selected device
                         GpsBt.instance().setDevice(
