@@ -59,6 +59,9 @@ import org.javavietnam.gis.client.midp.util.Location;
  */
 public class LBSMainForm extends Form implements CommandListener {
 
+    private String latitude;
+    private String longitude;
+
     private Command cmdBack;
     private Command cmdSearchGps;
     private Form gpsForm;
@@ -69,8 +72,8 @@ public class LBSMainForm extends Form implements CommandListener {
     private ChoiceGroup choiceGps;
     private StringItem gpsState;
     private StringItem quality;
-    private StringItem latitude;
-    private StringItem longitude;
+    private StringItem latitudeText;
+    private StringItem longitudeText;
     private StringItem time;
     private StringItem satellite;
 
@@ -100,15 +103,15 @@ public class LBSMainForm extends Form implements CommandListener {
 
         gpsState = new StringItem("Status", "No Gps Found");
         quality = new StringItem("Quality", "No Gps Found");
-        latitude = new StringItem("Latitude", "No Gps Found");
-        longitude = new StringItem("Longitude", "No Gps Found");
+        latitudeText = new StringItem("Latitude", "No Gps Found");
+        longitudeText = new StringItem("Longitude", "No Gps Found");
         time = new StringItem("Time", "NA");
         satellite = new StringItem("Satellite", "No Gps Found");
 
         append(gpsState);
         append(quality);
-        append(latitude);
-        append(longitude);
+        append(latitudeText);
+        append(longitudeText);
         append(time);
         append(satellite);
     }
@@ -129,7 +132,7 @@ public class LBSMainForm extends Form implements CommandListener {
                     // thread = null;
                     if (gpsState.getText().trim().equals("Connected")) {
                         uiController.getMapViewUI().updateMyNMEALocation(
-                                latitude.getText(), longitude.getText());
+                                latitude, longitude);
                     } else {
                         display(new Alert("Error",
                                 "You're not connected to a GPS device!", null,
@@ -253,10 +256,12 @@ public class LBSMainForm extends Form implements CommandListener {
                         gpsState.setText("Connected");
                         Location location = gpsBt.getLocation();
                         quality.setText(location.quality + "");
-                        latitude
-                                .setText(location.latitude + location.northHemi);
-                        longitude.setText(location.longitude
-                                + location.eastHemi);
+
+                        latitude = location.latitude;
+                        longitude = location.longitude;
+
+                        latitudeText.setText(latitude + location.northHemi);
+                        longitudeText.setText(longitude + location.eastHemi);
                         time.setText(location.utc);
                         satellite.setText(location.nSat + "");
 
