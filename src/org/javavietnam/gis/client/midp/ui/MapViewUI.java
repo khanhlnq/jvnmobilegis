@@ -481,8 +481,8 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         zoomToScale(UIConstants.BEST_SCALE);
 
         // Set location to new lat/lon
-        myLocation[0] = nmeaToDecimal(Float.parse(latitude, 10));
-        myLocation[1] = nmeaToDecimal(Float.parse(longitude, 10));
+        myLocation[1] = nmeaToDecimal(Float.parse(latitude, 10));
+        myLocation[0] = nmeaToDecimal(Float.parse(longitude, 10));
         // Re-center to my location
         reCenter(myLocation);
 
@@ -754,11 +754,19 @@ public class MapViewUI extends GameCanvas implements CommandListener,
 
             // Draw my location
             if (isLocated && isInside(myLocation, boundingBox)) {
-                g.setColor(0x00FF00);
+                g.setColor(0xFF0000);
+                // g.setStrokeStyle(Graphics.DOTTED);
                 int[] myLocationPoint = transformFromReal(myLocation);
                 g.drawArc(myLocationPoint[0] - cursorSize, myLocationPoint[1]
                         - cursorSize, cursorSize * 2, cursorSize * 2, 0, 360);
+                g.drawArc(myLocationPoint[0] - cursorSize + 2,
+                        myLocationPoint[1] - cursorSize + 2,
+                        cursorSize * 2 - 1, cursorSize * 2 - 1, 0, 360);
+                g.drawArc(myLocationPoint[0] - cursorSize - 2,
+                        myLocationPoint[1] - cursorSize - 2,
+                        cursorSize * 2 + 1, cursorSize * 2 + 1, 0, 360);
                 g.setColor(oldColor);
+                // g.setStrokeStyle(Graphics.SOLID);
             }
 
             g.setColor(0x0000FF);

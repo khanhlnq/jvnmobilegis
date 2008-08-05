@@ -251,10 +251,8 @@ public class UIController {
                         + " \n" + getString(UIConstants.COPYRIGHT),
                 icons[UIConstants.ICON_IDX_SPLASH], null);
         alert.setTimeout(UIConstants.SPLASH_TIMEOUT);
-        // TODO for testing only
-        display.setCurrent(alert, getLBSMainForm());
 
-        // display.setCurrent(alert, getMainMenuUI());
+        display.setCurrent(alert, getMainMenuUI());
         // display.setCurrent(getMainMenuUI());
     }
 

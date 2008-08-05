@@ -172,8 +172,8 @@ public class LBSMainForm extends Form implements CommandListener {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            display(new Alert("Error", e.getMessage(), null, AlertType.ERROR),
-                    uiController.getMapViewUI());
+            display(new Alert("Error", e.toString() + ": " + e.getMessage(),
+                    null, AlertType.ERROR), uiController.getMapViewUI());
         }
     }
 
