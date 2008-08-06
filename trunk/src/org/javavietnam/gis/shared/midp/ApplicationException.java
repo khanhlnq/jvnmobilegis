@@ -147,7 +147,7 @@ public class ApplicationException extends Exception {
         }
 
         if (exception != null) {
-            return exception.getMessage();
+            return exception.toString() + " - " + exception.getMessage();
         }
 
         return super.getMessage();
