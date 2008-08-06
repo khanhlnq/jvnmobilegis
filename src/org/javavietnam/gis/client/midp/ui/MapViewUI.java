@@ -759,12 +759,12 @@ public class MapViewUI extends GameCanvas implements CommandListener,
                 int[] myLocationPoint = transformFromReal(myLocation);
                 g.drawArc(myLocationPoint[0] - cursorSize, myLocationPoint[1]
                         - cursorSize, cursorSize * 2, cursorSize * 2, 0, 360);
-                g.drawArc(myLocationPoint[0] - cursorSize + 2,
-                        myLocationPoint[1] - cursorSize + 2,
-                        cursorSize * 2 - 1, cursorSize * 2 - 1, 0, 360);
-                g.drawArc(myLocationPoint[0] - cursorSize - 2,
-                        myLocationPoint[1] - cursorSize - 2,
-                        cursorSize * 2 + 1, cursorSize * 2 + 1, 0, 360);
+                g.drawArc(myLocationPoint[0] - cursorSize, myLocationPoint[1]
+                        - cursorSize, cursorSize * 2 - 1, cursorSize * 2 - 1,
+                        0, 360);
+                g.drawArc(myLocationPoint[0] - cursorSize, myLocationPoint[1]
+                        - cursorSize, cursorSize * 2 + 1, cursorSize * 2 + 1,
+                        0, 360);
                 g.setColor(oldColor);
                 // g.setStrokeStyle(Graphics.SOLID);
             }
