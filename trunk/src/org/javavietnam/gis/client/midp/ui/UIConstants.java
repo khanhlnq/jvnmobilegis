@@ -170,6 +170,22 @@ public final class UIConstants {
     public static final int CREATE = 100;
     public static final int SAVE_AS = 101;
     public static final int FILE_NAME = 102;
+    public static final int SHOW_ME_ON_MAP = 103;
+    public static final int STATUS = 104;
+    public static final int QUALITY = 105;
+    public static final int LATITUDE = 106;
+    public static final int LONGITUE = 107;
+    public static final int TIME = 108;
+    public static final int NA = 109;
+    public static final int SATELLITE = 110;
+    public static final int CONNECTED = 111;
+    public static final int DISCONNECTED = 112;
+    public static final int SEARCHING_DEVICES = 113;
+    public static final int NO_GPS = 114;
+    public static final int GPS_SEARCH = 115;
+    public static final int SELECT = 116;
+    public static final int GPS = 117;
+    public static final int INFO = 118;
 
     private UIConstants() {
     }

@@ -133,6 +133,8 @@ public class UIController {
         public static final byte EVENT_ID_SAVETOFILE = 11;
         public static final byte EVENT_ID_SHOWDIR = 12;
         public static final byte EVENT_ID_CHECKEXISTING = 13;
+        public static final byte EVENT_ID_GPSSEARCH = 14;
+        public static final byte EVENT_ID_GPSREADING = 15;
     }
 
     private static final String[] iconPaths = { "/icons/JVNMobileGIS_icon.png",
@@ -163,7 +165,7 @@ public class UIController {
     private MapServerUI mapServerUI;
     private MapViewUI mapViewUI;
     // private FindPathUI findPathUI;
-    private LBSMainForm lbsMainForm;
+    private LBSMainUI lbsMainUI;
     private SearchFeatureUI searchFeatureUI;
     private SearchFeatureResultUI searchFeatureResultUI;
     private LayerSelectUI layerSelectUI;
@@ -301,11 +303,11 @@ public class UIController {
         return mapViewUI;
     }
 
-    private LBSMainForm getLBSMainForm() {
-        if (lbsMainForm == null) {
-            lbsMainForm = new LBSMainForm(this);
+    private LBSMainUI getLBSMainForm() {
+        if (lbsMainUI == null) {
+            lbsMainUI = new LBSMainUI(this);
         }
-        return lbsMainForm;
+        return lbsMainUI;
     }
 
     public SearchFeatureUI getSearchFeatureUI() {
@@ -1003,6 +1005,10 @@ public class UIController {
                                 getString(UIConstants.NO_UPDATE_AVAILABE),
                                 getMainMenuUI());
                     }
+
+                    break;
+                }
+                case EventIds.EVENT_ID_GPSSEARCH: {
 
                     break;
                 }

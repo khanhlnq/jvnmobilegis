@@ -107,6 +107,7 @@ public final class MessageCodes {
     public static final int ERROR_WRONG_PNG_FORMAT = 13;
     public static final int ERROR_CAN_NOT_SAVE_MAP_TO_DIR = 14;
     public static final int MISSING_NAME_INPUT = 15;
+    public static final int NO_DEVICES = 16;
 
     // private ErrorMessageCodes() {
     // }
