@@ -142,12 +142,12 @@ public class ApplicationException extends Exception {
     }
 
     public String getMessage() {
-        if (bundle != null && -1 != code) {
-            return bundle.getString(code);
-        }
-
         if (exception != null) {
             return exception.toString() + " - " + exception.getMessage();
+        }
+
+        if (bundle != null && -1 != code) {
+            return bundle.getString(code);
         }
 
         return super.getMessage();
