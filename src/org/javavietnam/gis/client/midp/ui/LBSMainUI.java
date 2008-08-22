@@ -84,6 +84,11 @@ public class LBSMainUI extends Form implements CommandListener {
     private GPSThread thread;
     private final UIController uiController;
 
+    // TODO: Extract gpsForm to a separate UI
+    // TODO: Move threads to EventDispatcher
+    // TODO: Use UIController to switch and display Forms
+    // TODO: Handling Alert and Errors using UIController
+
     /**
      * @param title
      */
