@@ -7,9 +7,6 @@ import org.javavietnam.gis.client.midp.util.GpsBt;
 
 public class GpsUI extends Form implements CommandListener {
 
-	public static final int STATE_SEARCH = 1;
-	public static final int STATE_READING = 2;
-
 	private UIController uiController;
 	private ChoiceGroup choiceGps;
 	private Command cmdSearch;
