@@ -810,7 +810,7 @@ public class UIController {
 	}
 
 	public void gpsReadingRequested() {
-		runWithoutProgress(new EventDispatcher(EventIds.EVENT_ID_GPSSEARCHING,
+		runWithoutProgress(new EventDispatcher(EventIds.EVENT_ID_GPSREADING,
 				getGpsUI()));
 	}
 
