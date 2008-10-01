@@ -39,7 +39,11 @@
 
 package org.javavietnam.gis.client.midp.ui;
 
-import javax.microedition.lcdui.*;
+import javax.microedition.lcdui.Command;
+import javax.microedition.lcdui.CommandListener;
+import javax.microedition.lcdui.Displayable;
+import javax.microedition.lcdui.Form;
+import javax.microedition.lcdui.StringItem;
 
 import org.javavietnam.gis.client.midp.util.GpsBt;
 import org.javavietnam.gis.client.midp.util.Location;
@@ -50,99 +54,118 @@ import org.javavietnam.gis.client.midp.util.Location;
  */
 public class LBSMainUI extends Form implements CommandListener {
 
-	private String latitude;
-	private String longitude;
-	private Command cmdBack;
-	private Command cmdSearchGps;
-	private Command cmdShowMeOnMap;
-	private StringItem gpsState;
-	private StringItem quality;
-	private StringItem latitudeText;
-	private StringItem longitudeText;
-	private StringItem time;
-	private StringItem satellite;
+    private String latitude;
+    private String longitude;
+    private Command cmdBack;
+    private Command cmdSearchGps;
+    private Command cmdShowMeOnMap;
+    private StringItem gpsState;
+    private StringItem quality;
+    private StringItem latitudeText;
+    private StringItem longitudeText;
+    private StringItem time;
+    private StringItem satellite;
 
-	private final UIController uiController;
+    private boolean active = false;
 
-	// TODO: Extract gpsForm to a separate UI
-	// TODO: Move threads to EventDispatcher
-	// TODO: Use UIController to switch and display Forms
-	// TODO: Handling Alert and Errors using UIController
+    private final UIController uiController;
 
-	/**
-	 * @param title
-	 */
-	public LBSMainUI(UIController uiController) {
-		super("Gps Info");
-		this.uiController = uiController;
+    // TODO: Extract gpsForm to a separate UI
+    // TODO: Move threads to EventDispatcher
+    // TODO: Use UIController to switch and display Forms
+    // TODO: Handling Alert and Errors using UIController
 
-		setCommandListener(this);
-		cmdSearchGps = new Command(uiController.getString(UIConstants.SEARCH),
-				Command.ITEM, 1);
-		cmdShowMeOnMap = new Command(uiController
-				.getString(UIConstants.SHOW_ME_ON_MAP), Command.ITEM, 2);
-		cmdBack = new Command(uiController.getString(UIConstants.BACK),
-				Command.BACK, 4);
-		addCommand(cmdShowMeOnMap);
-		addCommand(cmdSearchGps);
-		addCommand(cmdBack);
+    /**
+     * @param title
+     */
+    public LBSMainUI(UIController uiController) {
+        super("Gps Info");
+        this.uiController = uiController;
 
-		gpsState = new StringItem(uiController.getString(UIConstants.STATUS),
-				uiController.getString(UIConstants.NO_GPS));
-		quality = new StringItem(uiController.getString(UIConstants.QUALITY),
-				uiController.getString(UIConstants.NO_GPS));
-		latitudeText = new StringItem(uiController
-				.getString(UIConstants.LATITUDE), uiController
-				.getString(UIConstants.NO_GPS));
-		longitudeText = new StringItem(uiController
-				.getString(UIConstants.LONGITUE), uiController
-				.getString(UIConstants.NO_GPS));
-		time = new StringItem(uiController.getString(UIConstants.TIME), "NA");
-		satellite = new StringItem(uiController
-				.getString(UIConstants.SATELLITE), uiController
-				.getString(UIConstants.NO_GPS));
+        setCommandListener(this);
+        cmdSearchGps = new Command(uiController.getString(UIConstants.SEARCH),
+                Command.ITEM, 1);
+        cmdShowMeOnMap = new Command(uiController
+                .getString(UIConstants.SHOW_ME_ON_MAP), Command.ITEM, 2);
+        cmdBack = new Command(uiController.getString(UIConstants.BACK),
+                Command.BACK, 4);
+        addCommand(cmdShowMeOnMap);
+        addCommand(cmdSearchGps);
+        addCommand(cmdBack);
 
-		append(gpsState);
-		append(quality);
-		append(latitudeText);
-		append(longitudeText);
-		append(time);
-		append(satellite);
-	}
+        gpsState = new StringItem(uiController.getString(UIConstants.STATUS),
+                uiController.getString(UIConstants.NO_GPS));
+        quality = new StringItem(uiController.getString(UIConstants.QUALITY),
+                uiController.getString(UIConstants.NO_GPS));
+        latitudeText = new StringItem(uiController
+                .getString(UIConstants.LATITUDE), uiController
+                .getString(UIConstants.NO_GPS));
+        longitudeText = new StringItem(uiController
+                .getString(UIConstants.LONGITUE), uiController
+                .getString(UIConstants.NO_GPS));
+        time = new StringItem(uiController.getString(UIConstants.TIME), "NA");
+        satellite = new StringItem(uiController
+                .getString(UIConstants.SATELLITE), uiController
+                .getString(UIConstants.NO_GPS));
 
-	public void updateLocation(GpsBt gpsBt) {
-		gpsState.setText(uiController.getString(UIConstants.CONNECTED));
-		Location location = gpsBt.getLocation();
-		quality.setText(location.quality + "");
+        append(gpsState);
+        append(quality);
+        append(latitudeText);
+        append(longitudeText);
+        append(time);
+        append(satellite);
+    }
 
-		latitude = location.latitude;
-		longitude = location.longitude;
+    public void updateLocation(GpsBt gpsBt) {
+        gpsState.setText(uiController.getString(UIConstants.CONNECTED));
+        Location location = gpsBt.getLocation();
+        quality.setText(location.quality + "");
 
-		latitudeText.setText(latitude + location.northHemi);
-		longitudeText.setText(longitude + location.eastHemi);
-		time.setText(location.utc);
-		satellite.setText(location.nSat + "");
-	}
+        latitude = location.latitude;
+        longitude = location.longitude;
 
-	public void disconnectedAlert() {
-		gpsState.setText(uiController.getString(UIConstants.DISCONNECTED));
-	}
+        latitudeText.setText(latitude + location.northHemi);
+        longitudeText.setText(longitude + location.eastHemi);
+        time.setText(location.utc);
+        satellite.setText(location.nSat + "");
+    }
 
-	public void commandAction(Command cmd, Displayable display) {
-		if (cmd == cmdSearchGps) {
-			uiController.gpsUIRequested();
-			uiController.gpsSearchingRequested();
-		} else if (cmd == cmdShowMeOnMap) {
-			if (gpsState.getText().trim().equals(
-					uiController.getString(UIConstants.CONNECTED))) {
-				uiController.getMapViewUI().updateMyNMEALocation(latitude,
-						longitude);
-			} else {
-				uiController.showErrorAlert(uiController
-						.getString(UIConstants.NO_GPS), this);
-			}
-		} else if (cmd == cmdBack) {
-			uiController.viewMapRequested();
-		}
-	}
+    public void disconnectedAlert() {
+        gpsState.setText(uiController.getString(UIConstants.DISCONNECTED));
+    }
+
+    public void commandAction(Command cmd, Displayable display) {
+        setActive(false);
+        if (cmd == cmdSearchGps) {
+            uiController.gpsUIRequested();
+            uiController.gpsSearchingRequested();
+        } else if (cmd == cmdShowMeOnMap) {
+            if (gpsState.getText().trim().equals(
+                    uiController.getString(UIConstants.CONNECTED))) {
+                uiController.viewMapRequested();
+                uiController.getMapViewUI().updateMyNMEALocation(latitude,
+                        longitude);
+            } else {
+                uiController.showErrorAlert(uiController
+                        .getString(UIConstants.NO_GPS), this);
+            }
+        } else if (cmd == cmdBack) {
+            uiController.viewMapRequested();
+        }
+    }
+
+    /**
+     * @param active
+     *            the active to set
+     */
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    /**
+     * @return the active
+     */
+    public boolean isActive() {
+        return active;
+    }
 }
