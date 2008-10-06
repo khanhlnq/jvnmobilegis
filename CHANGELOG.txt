@@ -1,3 +1,16 @@
+v1.0.3:
+- Basic location-based feature with Bluetooth GPS device
+- Save map to image file
+- Layers sorting
+- GZIP transfering (if applicable)
+- Dutch language
+- Visual Tango icons for better apperance
+- Display total transfered data in About screen
+- Simple in-memory caching based on URL
+- Antenna build file
+- New logo (not final yet)
+- Other enhancements and bug fixes
+
 v1.0.3 RC1:
 - Layers sorting support
 - Support GZIP transfering (if web server supports)
