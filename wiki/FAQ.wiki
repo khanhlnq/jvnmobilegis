@@ -20,6 +20,9 @@ Yes, you can use Live Demo (more instruction at [http://code.google.com/p/jvnmob
  * Over the air installation: You can enter this URL http://jvnmobilegis.googlecode.com/svn/JVNMobileGIS.jad to your phone browser (I know it's long, will deploy it to a different server if possible)
  * Via PC installation: Connect your phone to your computer through cable, bluetooth, IR or Wifi. Copy the JVNMobileGIS.jar file to your phone, open it and install.
 
+===Where is the JVNMobileGIS.jar file?===
+You can get it directly at http://jvnmobilegis.googlecode.com/svn/JVNMobileGIS.jar
+
 ===How to uninstall?=== 
 It depends on your phone. Please refer to phone's User Guide document
 
