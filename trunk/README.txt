@@ -6,7 +6,6 @@ It supports getting map from any OGC WMS 1.0.0 compliant server.
 
 Software requirements:
 (1) For computer:
-- To run mobileGIS.exe: no software is needed. Just execute mobileGIS.exe
 - To run JAR/JAD package: 
   a. Sun Java Wireless toolkit v2.0 or above 
   b. or any SDK from mobile phone manufacturers.
@@ -16,8 +15,8 @@ Software requirements:
   c. Go to this URL in your mobile phone browser http://code.google.com/p/jvnmobilegis/svn/trunk/bin/JVNMobileGIS.jad
   d. or install directly JVNMobileGIS.jar from your computer to mobile phone
   
-User Guide:
-We have one but it is in Vietnamese (sorry). I will try my best to make an English userguide. I'm not good in English though :)
+Detail guide:
+http://jvnmobilegis.googlecode.com/svn/docs/JVNMobileGIS%20User%20Guide.pdf
 
 Contact information:
 Khanh Le Ngoc Quoc

@@ -17,6 +17,8 @@ You can also build/emulate this project without IDE, all you need are:
 To make a small size application, I recommend using Proguard to obfuscate the deployed package.
 
 Happy developing!!!
+
+Detail guide: http://jvnmobilegis.googlecode.com/svn/docs/JVNMobileGIS%20Developer%20Guide.pdf
   
 Contact information:
 Khanh Le Ngoc Quoc
