@@ -300,7 +300,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
             throws ModelException, ApplicationException {
         HttpConnection connection = null;
 
-        String results = new String("");
+        String results;
 
         String webGISURL = searchParam.getWebGISURL();
         StringBuffer url = new StringBuffer(webGISURL);
@@ -354,7 +354,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         System.gc();
         updateProgress();
 
-        String results = new String("");
+        String results;
 
         String wmsUrl = requestParam.getGetMapURL();
         StringBuffer url = new StringBuffer(wmsUrl);
@@ -429,7 +429,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
             ApplicationException {
         HttpConnection connection = null;
 
-        String results = new String("");
+        String results;
 
         try {
             connection = openGETConnection(updateURL);
@@ -501,7 +501,7 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
         System.gc();
         updateProgress();
 
-        String results = new String("");
+        String results;
 
         if (internalCache.containsKey(serviceURL)) {
             System.out.println("Pull data from cache \n" + serviceURL);
@@ -760,9 +760,9 @@ public class HTTPCommunicationHandler extends RemoteModelRequestHandler {
             Float f = new Float(totalData);
             f = Float.round(f.Div(1024), 2);
 
-            return f.toString() + " KB";
+            return String.valueOf(f) + " KB";
         }
 
-        return new Integer(totalData).toString() + " B";
+        return String.valueOf(totalData) + " B";
     }
 }
