@@ -1,4 +1,4 @@
-v1.0.3:
+v1.0.4:
 - Basic location-based feature with Bluetooth GPS device
 - Save map to image file
 - Layers sorting
