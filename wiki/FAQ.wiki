@@ -20,12 +20,6 @@ Yes, you can use Live Demo (more instruction at [http://code.google.com/p/jvnmob
  * Over the air installation: You can enter this URL http://jvnmobilegis.googlecode.com/svn/JVNMobileGIS.jad to your phone browser (I know it's long, will deploy it to a different server if possible)
  * Via PC installation: Connect your phone to your computer through cable, bluetooth, IR or Wifi. Copy the JVNMobileGIS.jar file to your phone, open it and install.
 
-===What the executable package is for?===
-It's for demo on Windows PC purpose only. Users can run it without any installation in case of he/she doesn't have mobile device or he/she wants to test before install.
-
-===I see "no trusted certificate store given" error when getCapabilities from HTTPS. I'm using executable package===
-The executable emulator has problem with HTTPS, SSL. You can try another normal HTTP server or try in real device.
-
 ===How to uninstall?=== 
 It depends on your phone. Please refer to phone's User Guide document
 
