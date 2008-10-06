@@ -9,6 +9,7 @@ v1.0.3:
 - Simple in-memory caching based on URL
 - Antenna build file
 - New logo (not final yet)
+- No more executable version (security concern)
 - Other enhancements and bug fixes
 
 v1.0.3 RC1:
