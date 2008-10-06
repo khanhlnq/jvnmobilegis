@@ -256,9 +256,7 @@ public class UIController {
                 icons[UIConstants.ICON_IDX_SPLASH], null);
         alert.setTimeout(UIConstants.SPLASH_TIMEOUT);
 
-        // TODO: For testing only
-        // display.setCurrent(alert, getMainMenuUI());
-        display.setCurrent(getLBSMainForm());
+        display.setCurrent(alert, getMainMenuUI());
     }
 
     public void destroy() {

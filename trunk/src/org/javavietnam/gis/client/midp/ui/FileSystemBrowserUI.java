@@ -44,7 +44,12 @@ import java.util.Enumeration;
 import javax.microedition.io.Connector;
 import javax.microedition.io.file.FileConnection;
 import javax.microedition.io.file.FileSystemRegistry;
-import javax.microedition.lcdui.*;
+import javax.microedition.lcdui.Choice;
+import javax.microedition.lcdui.Command;
+import javax.microedition.lcdui.CommandListener;
+import javax.microedition.lcdui.Displayable;
+import javax.microedition.lcdui.Image;
+import javax.microedition.lcdui.List;
 
 import org.javavietnam.gis.client.midp.model.MessageCodes;
 import org.javavietnam.gis.shared.midp.ApplicationException;
@@ -77,7 +82,7 @@ public class FileSystemBrowserUI extends List implements CommandListener {
     private Command back;
 
     public FileSystemBrowserUI(UIController uiController) {
-        super(uiController.getString(UIConstants.FILE_SYSTEM), List.IMPLICIT);
+        super(uiController.getString(UIConstants.FILE_SYSTEM), Choice.IMPLICIT);
         this.uiController = uiController;
         dirIcon = this.uiController.getImage(UIConstants.ICON_DIR);
         fileIcon = this.uiController.getImage(UIConstants.ICON_FILE);

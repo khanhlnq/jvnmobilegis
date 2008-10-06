@@ -70,11 +70,6 @@ public class LBSMainUI extends Form implements CommandListener {
 
     private final UIController uiController;
 
-    // TODO: Extract gpsForm to a separate UI
-    // TODO: Move threads to EventDispatcher
-    // TODO: Use UIController to switch and display Forms
-    // TODO: Handling Alert and Errors using UIController
-
     /**
      * @param title
      */
@@ -141,7 +136,8 @@ public class LBSMainUI extends Form implements CommandListener {
             uiController.gpsSearchingRequested();
         } else if (cmd == cmdShowMeOnMap) {
             if (gpsState.getText().trim().equals(
-                    uiController.getString(UIConstants.CONNECTED))) {
+                    uiController.getString(UIConstants.CONNECTED))
+                    && latitudeText.getText().trim().indexOf("null") < 0) {
                 uiController.viewMapRequested();
                 uiController.getMapViewUI().updateMyNMEALocation(latitude,
                         longitude);

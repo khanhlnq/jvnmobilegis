@@ -186,6 +186,7 @@ public final class UIConstants {
     public static final int SELECT = 116;
     public static final int GPS = 117;
     public static final int INFO = 118;
+    public static final int WHERE_AM_I = 119;
 
     private UIConstants() {
     }

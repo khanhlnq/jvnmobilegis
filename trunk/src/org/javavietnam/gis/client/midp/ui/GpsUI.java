@@ -1,5 +1,6 @@
 package org.javavietnam.gis.client.midp.ui;
 
+import javax.microedition.lcdui.Choice;
 import javax.microedition.lcdui.ChoiceGroup;
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.CommandListener;
@@ -22,7 +23,7 @@ public class GpsUI extends Form implements CommandListener {
         this.uiController = uiController;
 
         choiceGps = new ChoiceGroup(uiController.getString(UIConstants.GPS)
-                + ":", ChoiceGroup.EXCLUSIVE);
+                + ":", Choice.EXCLUSIVE);
         append(choiceGps);
 
         cmdSearch = new Command(uiController.getString(UIConstants.SEARCH),

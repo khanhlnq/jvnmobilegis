@@ -202,7 +202,8 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         // findPathCommand = new
         // Command(uiController.getString(UIConstants.FIND_PATH_CMD),
         // Command.SCREEN, 5);
-        whereAmICommand = new Command("Where am I?", Command.SCREEN, 6);
+        whereAmICommand = new Command(uiController
+                .getString(UIConstants.WHERE_AM_I), Command.SCREEN, 6);
         getFeatureInfoCommand = new Command(uiController
                 .getString(UIConstants.GET_FEATURE_INFO), Command.SCREEN, 7);
         searchFeatureCommand = new Command(uiController
@@ -362,7 +363,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         // int pw;
         // // pw = getHeight() * getBoxWidth() / getBoxHeight();
         // pw =
-        //(int)(((getBoxWidth().Mul(getHeight())).Div(getBoxHeight())).toLong())
+        // (int)(((getBoxWidth().Mul(getHeight())).Div(getBoxHeight())).toLong())
         // ;
         // if (pw > getWidth()) {
         // return getWidth();
@@ -375,7 +376,7 @@ public class MapViewUI extends GameCanvas implements CommandListener,
         // int ph;
         // // ph = getWidth() * getBoxHeight() / getBoxWidth();
         // ph =
-        //(int)(((getBoxHeight().Mul(getWidth())).Div(getBoxWidth())).toLong());
+        // (int)(((getBoxHeight().Mul(getWidth())).Div(getBoxWidth())).toLong());
         // if (ph > getHeight()) {
         // return getHeight();
         // }
@@ -755,18 +756,12 @@ public class MapViewUI extends GameCanvas implements CommandListener,
             // Draw my location
             if (isLocated && isInside(myLocation, boundingBox)) {
                 g.setColor(0xFF0000);
-                // g.setStrokeStyle(Graphics.DOTTED);
+                g.setStrokeStyle(Graphics.DOTTED);
                 int[] myLocationPoint = transformFromReal(myLocation);
-                g.drawArc(myLocationPoint[0] - cursorSize, myLocationPoint[1]
+                g.fillArc(myLocationPoint[0] - cursorSize, myLocationPoint[1]
                         - cursorSize, cursorSize * 2, cursorSize * 2, 0, 360);
-                g.drawArc(myLocationPoint[0] - cursorSize, myLocationPoint[1]
-                        - cursorSize, cursorSize * 2 - 1, cursorSize * 2 - 1,
-                        0, 360);
-                g.drawArc(myLocationPoint[0] - cursorSize, myLocationPoint[1]
-                        - cursorSize, cursorSize * 2 + 1, cursorSize * 2 + 1,
-                        0, 360);
                 g.setColor(oldColor);
-                // g.setStrokeStyle(Graphics.SOLID);
+                g.setStrokeStyle(Graphics.SOLID);
             }
 
             g.setColor(0x0000FF);
