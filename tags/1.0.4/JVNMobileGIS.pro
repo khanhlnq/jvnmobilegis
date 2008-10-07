@@ -1,0 +1,4 @@
+-libraryjars /opt/WTK25/lib/wma20.jar:/opt/WTK25/lib/jsr082.jar:/opt/WTK25/lib/midpapi20.jar:/opt/WTK25/lib/wma11.jar:/opt/WTK25/lib/cldcapi10.jar
+-injars /opt/WTK25/apps/JVNMobileGIS/bin/JVNMobileGIS.jar
+-outjar /tmp/JVNMobileGIS.jar
+-keep public class * extends javax.microedition.midlet.MIDlet 
