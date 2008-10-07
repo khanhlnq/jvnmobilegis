@@ -2,7 +2,7 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
@@ -12,16 +12,24 @@
    height="129.53123"
    id="svg2"
    sodipodi:version="0.32"
-   inkscape:version="0.45.1"
+   inkscape:version="0.46"
    sodipodi:docbase="D:\Projects\_remote\jvnmobilegis\trunk\docs\images"
    sodipodi:docname="logo_02.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    version="1.0"
-   inkscape:export-filename="D:\Projects\_remote\jvnmobilegis\trunk\docs\images\logo_02.png"
-   inkscape:export-xdpi="16.675514"
-   inkscape:export-ydpi="16.675514">
+   inkscape:export-filename="D:\Projects\_remote\jvnmobilegis\docs\images\logo_02.png"
+   inkscape:export-xdpi="89.66024"
+   inkscape:export-ydpi="89.66024">
   <defs
-     id="defs4" />
+     id="defs4">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 64.765617 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="129.53123 : 64.765617 : 1"
+       inkscape:persp3d-origin="64.765617 : 43.177078 : 1"
+       id="perspective9" />
+  </defs>
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -32,17 +40,17 @@
      objecttolerance="10"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.5631342"
-     inkscape:cx="64.765616"
-     inkscape:cy="60.771544"
+     inkscape:zoom="2.5195164"
+     inkscape:cx="154.54021"
+     inkscape:cy="71.997616"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      showguides="false"
-     inkscape:window-width="1024"
-     inkscape:window-height="686"
-     inkscape:window-x="-4"
-     inkscape:window-y="-4" />
+     inkscape:window-width="1130"
+     inkscape:window-height="688"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -60,19 +68,34 @@
      id="layer1"
      style="display:inline"
      transform="translate(-180.00017,-222.83078)">
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.79105717"
+       id="rect3207"
+       width="128.73994"
+       height="128.73994"
+       x="180.2926"
+       y="223.32965"
+       inkscape:export-xdpi="90.314545"
+       inkscape:export-ydpi="90.314545" />
     <path
        sodipodi:type="arc"
-       style="opacity:1;fill:#fe8637;fill-opacity:1;stroke:#aad400;stroke-width:19.99978638;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#ff2a2a;stroke-width:19.99978638000000000;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="path6157"
        sodipodi:cx="242.68761"
        sodipodi:cy="285.64117"
        sodipodi:rx="30.067492"
        sodipodi:ry="30.067492"
        d="M 272.7551 285.64117 A 30.067492 30.067492 0 1 1  212.62012,285.64117 A 30.067492 30.067492 0 1 1  272.7551 285.64117 z"
-       transform="matrix(1.6164173,0,0,1.6164173,-147.51866,-174.11894)" />
+       transform="matrix(1.6164173,0,0,1.6164173,-147.51866,-174.11894)"
+       inkscape:export-filename="D:\Projects\_remote\jvnmobilegis\docs\images\rect3207.png"
+       inkscape:export-xdpi="90.314545"
+       inkscape:export-ydpi="90.314545" />
     <path
-       style="fill:#fe8637;fill-opacity:1;fill-rule:evenodd;stroke:#fe8637;stroke-width:15.90799713;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="M 243.97273,352.39616 L 243.97274,318.19418"
-       id="path19794" />
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:30.99022865;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 243.97271,352.39616 L 243.97276,315.41586"
+       id="path19794"
+       inkscape:export-filename="D:\Projects\_remote\jvnmobilegis\docs\images\rect3207.png"
+       inkscape:export-xdpi="90.314545"
+       inkscape:export-ydpi="90.314545" />
   </g>
 </svg>
