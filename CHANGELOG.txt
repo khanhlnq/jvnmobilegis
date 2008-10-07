@@ -8,7 +8,7 @@ v1.0.4:
 - Display total transfered data in About screen
 - Simple in-memory caching based on URL
 - Antenna build file
-- New logo (not final yet)
+- New logo (from Bright IconSet http://www.iconeden.com/icon/bright-free-stock-iconset.html)
 - No more executable version (security concern)
 - Other enhancements and bug fixes
 

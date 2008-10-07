@@ -105,6 +105,7 @@ public class FileSystemCreatorUI extends Form implements CommandListener {
         this.itemExisting = itemExisting;
     }
 
-    private void callKeyPressed(int keyCode) {
-    }
+    /*
+     * private void callKeyPressed(int keyCode) { }
+     */
 }
