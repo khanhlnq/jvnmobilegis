@@ -4,5 +4,6 @@
 	<classpathentry kind="src" path="res"/>
 	<classpathentry exported="true" kind="con" path="J2MELIB"/>
 	<classpathentry exported="true" kind="lib" path="lib/tinylinegzip.jar"/>
+	<classpathentry kind="lib" path="lib/J2meMap_lib_cldc10.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
