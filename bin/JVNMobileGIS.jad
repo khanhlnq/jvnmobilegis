@@ -10,3 +10,4 @@ MIDlet-Name: JVNMobileGIS
 MIDlet-Vendor: JVNGIS
 MIDlet-Permissions: javax.microedition.io.Connector.http, javax.microedition.io.Connector.https, javax.microedition.io.Connector.file.write
 MicroEdition-Profile: MIDP-2.0
+Nokia-MIDlet-Category: Application
